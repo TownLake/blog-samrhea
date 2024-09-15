@@ -1,48 +1,55 @@
 {
-  "title": "Blog by John Doe",
-  "url": "https://lumen.alxshelepenok.com",
-  "subtitle": "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
-  "copyright": "© All rights reserved.",
-  "googleAnalyticsId": "UA-73379983-2",
+  "title": "Sam Rhea",
+  "url": "https://blog.samrhea.com",
+  "subtitle": "Austinite in Lisbon.",
+  "copyright": "",
+  "googleAnalyticsId": "123",
   "disqusShortname": "",
   "postsLimit": 4,
   "pathPrefix": "/",
   "menu": [
     {
-      "label": "Articles",
+      "label": "posts",
       "path": "/"
     },
     {
-      "label": "About me",
+      "label": "about",
       "path": "/pages/about"
     },
     {
-      "label": "Contact me",
-      "path": "/pages/contacts"
+      "label": "reading",
+      "path": "https://blog.samrhea.com/category/reading"
+    },
+    {
+      "label": "the hits",
+      "path": "https://blog.samrhea.com/tag/hits"
+    },
+    {
+      "label": "at work",
+      "path": "/pages/at-cloudflare"
     }
   ],
   "author": {
-    "name": "John Doe",
+    "name": "Sam Rhea",
     "photo": "/photo.jpg",
-    "bio": "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
+    "bio": "Austinite in Lisbon. VP & CoS, Emerging Tech at Cloudflare.",
     "contacts": {
       "rss": "",
       "email": "",
-      "github": "alxshelepenok/gatsby-starter-lumen",
-      "facebook": "#",
-      "telegram": "#",
-      "twitter": "#",
-      "linkedin": "#",
-      "instagram": "#",
-      "mastodon": "#",
+      "github": "TownLake",
+      "facebook": "",
+      "telegram": "",
+      "twitter": "LakeAustinBlvd",
+      "linkedin": "samrhea",
+      "instagram": "",
+      "mastodon": "",
       "line": "",
       "weibo": "",
       "gitlab": "",
       "medium": "",
       "youtube": "",
       "codepen": "",
-      "soundcloud": "",
-      "bluesky": ""
+      "soundcloud": ""
     }
   }
 }
