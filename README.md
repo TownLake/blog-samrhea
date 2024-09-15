@@ -4,6 +4,8 @@ This repository contains the content and configuration for [my personal blog](ht
 
 ## 🏗️ Cloudflare Pages
 
+This blog runs on [Cloudflare Pages](https://pages.cloudflare.com/).
+
 ## 💡 Gatsby Lumen Theme
 
 The site uses the [Lumen Gatsby starter theme](https://www.gatsbyjs.com/starters/alxshelepenok/gatsby-starter-lumen), maintained by [this team](https://github.com/alxshelepenok/gatsby-starter-lumen#contributors).
