@@ -9,16 +9,24 @@
   "pathPrefix": "/",
   "menu": [
     {
-      "label": "Articles",
+      "label": "posts",
       "path": "/"
     },
     {
-      "label": "About me",
+      "label": "about",
       "path": "/pages/about"
     },
     {
-      "label": "Contact me",
-      "path": "/pages/contacts"
+      "label": "reading",
+      "path": "https://blog.samrhea.com/category/reading"
+    },
+    {
+      "label": "the hits",
+      "path": "https://blog.samrhea.com/tag/hits"
+    },
+    {
+      "label": "at work",
+      "path": "/pages/at-work"
     }
   ],
   "author": {
