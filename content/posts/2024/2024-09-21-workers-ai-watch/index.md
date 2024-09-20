@@ -51,15 +51,15 @@ I already have Cloudflare Workers AI configured in my account. What I also want,
 
 First, I'll navigate to the `Workers AI` section of the Cloudflare dashboard - specifically the `AI Gateway` page. Once there, I can create a new AI Gateway which will receive requests to the inference model behind it, log the requests and responses, and apply other optional features like caching and rate limiting.
 
-![New AI Gateway](./media/create-ai-gateway.PNG)
+![New AI Gateway](./media/create-ai-gateway.png)
 
 Since the model I plan to use is running on Cloudflare Workers AI, the setup in the next step is even easier. I can click the `API` button and the dashboard will share an API endpoint that I can use.
 
-![AI Gateway Endpoint](./media/create-ai-gateway-endpoint.PNG)
+![AI Gateway Endpoint](./media/create-ai-gateway-endpoint.png)
 
 At the end of the path in that endpoint is a sample model. I'll edit it to use the specific Workers AI model in the next step. Before I do that, though, I need to create an API token that will allow me to call a model behind this API Gateway. I can do that from inside of the Workers AI section of the dashboard (example below) or from the API Token section as well.
 
-![AI Gateway API Token](./media/create-token.PNG)
+![AI Gateway API Token](./media/create-token.png)
 
 ## Set Up the iOS Shortcut
 
