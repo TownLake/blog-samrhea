@@ -1,5 +1,5 @@
 ---
-title: "🤖⌚"
+title: "🤖⌚ Cloudflare Workers AI on the Apple Watch"
 date: "2024-09-21"
 template: "post"
 draft: false
