@@ -8,10 +8,11 @@ category: "texas"
 tags:
   - "texas"
   - "portugal"
-  - hits
+  - "hits"
 description: "Who makes the cut?"
 socialImage: "./media/invite-chart-no-additions.png"
 ---
+
 Nearly seven years ago I married Rachel. Our wedding was so delightful that I sometimes wonder what magic charm I stumbled upon. We held the ceremony at Good Shepherd Episcopal in Tarrytown. Rachel walked down the aisle in a Carolina Herrera gown as 240 of our friends and family turned to see her. I stood at the altar trying to remember to keep my knees slightly bent so I didn’t pass out.
 
 ![Wedding Aisle](./media/wedding-aisle.png)
