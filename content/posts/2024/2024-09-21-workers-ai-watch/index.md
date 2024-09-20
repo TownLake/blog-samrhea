@@ -51,15 +51,15 @@ I already have Cloudflare Workers AI configured in my account. What I also want,
 
 First, I'll navigate to the `Workers AI` section of the Cloudflare dashboard - specifically the `AI Gateway` page. Once there, I can create a new AI Gateway which will receive requests to the inference model behind it, log the requests and responses, and apply other optional features like caching and rate limiting.
 
-![New AI Gateway](./media/create-ai-gateway.png)
+![New AI Gateway](./media/create-ai-gateway.PNG)
 
 Since the model I plan to use is running on Cloudflare Workers AI, the setup in the next step is even easier. I can click the `API` button and the dashboard will share an API endpoint that I can use.
 
-![AI Gateway Endpoint](./media/create-ai-gateway-endpoint.png)
+![AI Gateway Endpoint](./media/create-ai-gateway-endpoint.PNG)
 
 At the end of the path in that endpoint is a sample model. I'll edit it to use the specific Workers AI model in the next step. Before I do that, though, I need to create an API token that will allow me to call a model behind this API Gateway. I can do that from inside of the Workers AI section of the dashboard (example below) or from the API Token section as well.
 
-![AI Gateway API Token](./media/create-token.png)
+![AI Gateway API Token](./media/create-token.PNG)
 
 ## Set Up the iOS Shortcut
 
@@ -71,35 +71,35 @@ I need to set the method to `POST` and add a couple of important details to the 
 
 Next, the Workers AI API expects to receive the prompt in a message called, well, `prompt`. What I need to do is define that as a Key here and then long-press the Text field to use the output from the input gathering action above.
 
-![Shortcut Part One](./media/shortcut-part-one.png)
+![Shortcut Part One](./media/shortcut-part-one.PNG)
 
 If I try to run this, however, the response is going to come back as structured JSON like the example below. I need some way to strip it of that framing.
 
-![Response JSON](./media/response-json.png)
+![Response JSON](./media/response-json.PNG)
 
 To do that, I'll use the `Get Dictionary Value` action that will parse the response for just the value contained in the `result`. However, inside of the `result` is the `response` so I need to repeat that step.
 
 > Important note: I made a mistake here. In the `Show` action that concludes the shortcut, I am showing the output of the first `Get Dictionary Value`. I just need to edit that, but I was too lazy this round to go back and grab a new screenshot.
 
-![Shortcut Part One](./media/dictionary-value.png)
+![Shortcut Part One](./media/dictionary-value.PNG)
 
 ## Run the Shortcut on Apple Watch
 
 Now I can go ahead and configure this Shortcut to appear on my Apple Watch by long-pressing the tile and going into the `Details` view.
 
-![Add to Watch](./media/add-to-watch.png)
+![Add to Watch](./media/add-to-watch.PNG)
 
 Once configured, I can open the `Shortcuts` app on my watch (or call it with a spoken input or set it up as a quick click option in a watch face).
 
-![Shortcut on Watch](./media/shortcut-on-watch.png)
+![Shortcut on Watch](./media/shortcut-on-watch.PNG)
 
 I can test it out with a simple question about Lisbon.
 
-![Talk to Shortcut](./media/talk-to-shortcut.png)
+![Talk to Shortcut](./media/talk-to-shortcut.PNG)
 
 And it will respond with a description that I can read or listen to if I had my headphones in! (Again, I need to fix that second `Get Dictionary Value` to remove the `response` bit).
 
-![Shortcut Response](./media/shortcut-response.png)
+![Shortcut Response](./media/shortcut-response.PNG)
 
 ## What's next?
 
