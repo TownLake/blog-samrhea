@@ -55,7 +55,7 @@ First, I'll navigate to the `Workers AI` section of the Cloudflare dashboard - s
 
 Workers AI Gateway can act as a gateway between your users and any number of places where you run AI inference beyond just Cloudflare. Since the model I plan to use is running on Cloudflare Workers AI, though, the setup in the next step is even easier. I can click the `API` button and the dashboard will share an API endpoint that I can use for my gateway.
 
-![AI Gateway Endpoint](./media/create-ai-gateway-endpoint.png)
+![AI Gateway Endpoint](./media/ai-gateway-endpoint.png)
 
 At the end of the path in that endpoint is the details of one available model for example purposes. I'll edit this path to use the specific Workers AI model in the next step. Before I do that, though, I need to create an API token that will allow me to call a model behind this API Gateway. I can do that from inside of the Workers AI section of the dashboard (example below) or from the API Token section as well.
 
