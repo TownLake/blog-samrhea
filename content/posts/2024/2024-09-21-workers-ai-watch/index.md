@@ -14,18 +14,18 @@ description: "AI on the Apple Watch before Apple AI."
 socialImage: ""
 ---
 
-It has been nearly a year since I published a [walkthrough](https://blog.samrhea.com/category/walkthrough/) of any sort. The purpose of this blog has given way to unhinged anecdotes about [Portugal](https://blog.samrhea.com/category/portugal/) and rowdy [Texas](https://blog.samrhea.com/category/portugal/) stories.
+It has been nearly a year since I published a [walkthrough](https://blog.samrhea.com/category/walkthrough/) of any sort. The original purpose of this blog has given way to unhinged anecdotes about [Portugal](https://blog.samrhea.com/category/portugal/) and [Texas](https://blog.samrhea.com/category/portugal/).
 
-Today I return to my roots! Apple released iOS 18 earlier this week but it was missing the biggest feature, their generative Artificial Intelligence (AI) platform called Apple Intelligence (also, cheekily, styled as _AI_). A*AI is scheduled for a beta launch later this year.
+Today I return to my roots! Apple released iOS 18 earlier this week but it was missing the biggest feature: their generative Artificial Intelligence (AI) platform called Apple Intelligence (also, cheekily, styled as _AI_). _A*AI_ is scheduled for a beta launch later this year.
 
-As someone who [frequently wears](https://blog.samrhea.com/posts/2024/apple-mechanical-watch/) an Apple Watch, I'm excited about the new capability but also impatient. I figured I could use Cloudflare Workers AI, Meta's Llama Large Language Model (LLM), and iOS Shortcuts to string together a tool of my own for the time being.
+As someone who [frequently wears](https://blog.samrhea.com/posts/2024/apple-mechanical-watch/) an Apple Watch, I'm excited about the Apple Intelligence but also impatient. I figured I could combine Cloudflare Workers AI, Meta's latest Large Language Model (LLM), and an iOS Shortcuts to build my own tool for the time being.
 
 ---
 
 **🎯 I have a few goals for this project:**
 
-* Use a leading LLM on my Apple Watch.
-* Run that model in an environment that I control, specifically Cloudflare Workers AI.
+* Use a leading LLM from my Apple Watch.
+* Run that LLM in an environment that I control where I can modify system prompts and other details.
 * Log the requests and responses in an AI gateway for future analytics.
 
 ---
@@ -39,47 +39,45 @@ As someone who [frequently wears](https://blog.samrhea.com/posts/2024/apple-mech
 
 ---
 
-> **👔 I work there.** I [work](https://www.linkedin.com/in/samrhea/) at Cloudflare. Some of my posts on this blog that discuss Cloudflare [focus on building](https://blog.samrhea.com/tag/workers/) things with Cloudflare Workers. I'm a Workers customer and [pay](https://twitter.com/LakeAustinBlvd/status/1200380340382191617) my invoice to use it.
+> **👔 I work there.** I [work](https://www.linkedin.com/in/samrhea/) at Cloudflare. Some of my posts on this blog that discuss Cloudflare [focus on building](https://blog.samrhea.com/tag/workers/) things with Cloudflare Workers. That said, I am a real Workers customer and [pay](https://twitter.com/LakeAustinBlvd/status/1200380340382191617) my invoice to use it.
 
 ## Set Up Cloudflare Workers AI
 
-Cloudflare's network provides a developer platform where builders can run compute workloads and rely on storage options. As part of that infrastructure, customers can now run AI inference. Those inference cases can be part of a larger application or just used for one-off workflows. You can see an example of a full-blown application I built last week that includes Workers AI feature, my Lisbon recommendation tool [here](https://lisbon-ai.samrhea.com/).
+Cloudflare's network provides a developer platform where builders can run compute workloads and store data. As part of that infrastructure, customers can also run AI inference. AI inference just refers to cases when you take an AI model and provide it with new information, like a question about Lisbon, and the model running on some piece of hardware infers a response. In this case, the model might have been built and trained elsewhere but is now running on Cloudflare hardware. You can use this type of inference in Cloudflare Workers AI to run one-off workflows or build real applications, like [this Lisbon recommendation tool](https://lisbon-ai.samrhea.com/) I put together last week.
 
-Cloudflare [supports a range](https://developers.cloudflare.com/workers-ai/models/) of the most popular generative AI models, including the latest/greatest from Meta, [Llama-3.1](https://developers.cloudflare.com/workers-ai/models/llama-3.1-8b-instruct). Meta provides the model, Cloudflare provides the infrastructure and tooling around it. This allows me to run a leading LLM for my own personal queries in an account where I control the configuration and data. I could use other models but I'll stick with Llama for this experiment.
+Cloudflare [supports a range](https://developers.cloudflare.com/workers-ai/models/) of the most popular generative AI models, including the latest/greatest from Meta, [Llama-3.1](https://developers.cloudflare.com/workers-ai/models/llama-3.1-8b-instruct). Meta trains the model and, in this deployment, Cloudflare provides the infrastructure and tooling around it. This allows me to run a leading LLM for my own personal queries in an account where I control the configuration and data. I could use other models but I'll stick with Llama for this experiment.
 
-I already have Cloudflare Workers AI configured in my account. What I also want, though, are the logs. I would like to retain the requests/responses out of curiosity - maybe I can go back and run a model on those historical queries or just take a look at how frequently I use the tool. [Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/) provides exactly this option. I'll start there.
+I have already [turned on Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/) in my account. What I also want, though, are the logs from this experiment. I would like to retain the requests/responses out of curiosity - maybe I can go back and run a model on those historical queries. Or I can at least just take a look at how frequently I use the tool. [Cloudflare Workers AI Gateway](https://developers.cloudflare.com/ai-gateway/) provides exactly this featureset, so I'll start there.
 
 First, I'll navigate to the `Workers AI` section of the Cloudflare dashboard - specifically the `AI Gateway` page. Once there, I can create a new AI Gateway which will receive requests to the inference model behind it, log the requests and responses, and apply other optional features like caching and rate limiting.
 
 ![New AI Gateway](./media/create-ai-gateway.png)
 
-Since the model I plan to use is running on Cloudflare Workers AI, the setup in the next step is even easier. I can click the `API` button and the dashboard will share an API endpoint that I can use.
+Workers AI Gateway can act as a gateway between your users and any number of places where you run AI inference beyond just Cloudflare. Since the model I plan to use is running on Cloudflare Workers AI, though, the setup in the next step is even easier. I can click the `API` button and the dashboard will share an API endpoint that I can use for my gateway.
 
 ![AI Gateway Endpoint](./media/create-ai-gateway-endpoint.png)
 
-At the end of the path in that endpoint is a sample model. I'll edit it to use the specific Workers AI model in the next step. Before I do that, though, I need to create an API token that will allow me to call a model behind this API Gateway. I can do that from inside of the Workers AI section of the dashboard (example below) or from the API Token section as well.
+At the end of the path in that endpoint is the details of one available model for example purposes. I'll edit this path to use the specific Workers AI model in the next step. Before I do that, though, I need to create an API token that will allow me to call a model behind this API Gateway. I can do that from inside of the Workers AI section of the dashboard (example below) or from the API Token section as well.
 
 ![AI Gateway API Token](./media/create-token.png)
 
 ## Set Up the iOS Shortcut
 
-Alright, now I have an AI Gateway configured in Cloudflare, a model that I want to use available in Cloudflare Workers AI, and an API token that can access both. Up next, I need a way for my iPhone and Watch to send requests to that endpoint and receive responses. To do that, I am going to use the iOS Shortcuts app.
+Alright, now I have an AI Gateway configured in Cloudflare, a model that I want to use available in Cloudflare Workers AI, and an API token that can access both. That was fast. Up next, I need a way for my iPhone and Watch to send requests to that endpoint and receive responses. To do that, I am going to use the iOS Shortcuts app.
 
-I'll start by grabbing a simple input action that will ask for text input. Next, I will add a `Get contents of` action that uses the URL from my AI Gateway with the specific model I want in the path.
+I'll start by grabbing a simple input action that will prompt for my question. Next, I will add a `Get contents of` action that uses the URL from my AI Gateway with the specific model I want in the path. This just tells the iOS Shortcut where to send the question and how to send it based on the details in the fields below. Like I mentioned earlier, since I want to use Llama 3.1 I will append that to the end of the AI Gateway path.
 
-I need to set the method to `POST` and add a couple of important details to the actual request. First, I need to set my Authorization token (do not worry, I have since rotated the one that you can see the first few characters from here).
+I need to set the method to `POST` and add a couple of important details to the actual request. First, I need to provide my Authorization token (do not worry, I have since rotated the one that you can see the first few characters from here). I do not want to leave an open LLM API that anyone can use - this is just for me - and providing this token allows my Shortcut to authenticate and send the query.
 
-Next, the Workers AI API expects to receive the prompt in a message called, well, `prompt`. What I need to do is define that as a Key here and then long-press the Text field to use the output from the input gathering action above.
+Next, the Workers AI API expects to receive the prompt in a message called, well, `prompt`. What I need to do is define that as a Key here. I can then long-press the `Text` field to tell the Shortcut that the text I want sent as the `prompt` is the text that the input action above captured from me as a user.
 
 ![Shortcut Part One](./media/shortcut-part-one.PNG)
 
-If I try to run this, however, the response is going to come back as structured JSON like the example below. I need some way to strip it of that framing.
+If I try to run this, however, the response is going to come back as structured JSON like the example below, which is annoying. I want a way to strip it of that framing.
 
 ![Response JSON](./media/response-json.PNG)
 
 To do that, I'll use the `Get Dictionary Value` action that will parse the response for just the value contained in the `result`. However, inside of the `result` is the `response` so I need to repeat that step.
-
-> Important note: I made a mistake here. In the `Show` action that concludes the shortcut, I am showing the output of the first `Get Dictionary Value`. I just need to edit that, but I was too lazy this round to go back and grab a new screenshot.
 
 ![Shortcut Part One](./media/dictionary-value.PNG)
 
@@ -97,14 +95,16 @@ I can test it out with a simple question about Lisbon.
 
 ![Talk to Shortcut](./media/talk-to-shortcut.PNG)
 
-And it will respond with a description that I can read or listen to if I had my headphones in! (Again, I need to fix that second `Get Dictionary Value` to remove the `response` bit).
+And it will respond with a description that I can read or listen to if I had my headphones in!
 
 ![Shortcut Response](./media/shortcut-response.PNG)
 
 ## What's next?
 
-This is a far cry from what Apple Intelligence aims to be. It's still useful, though, in the same way that the ChatGPT app from OpenAI can be for one-off queries.
+This is, admittedly, just one piece of what Apple Intelligence aims to be. It's still useful, though, in the same way that the ChatGPT app from OpenAI is useful.
 
-The real value from Apple Intelligence will be its ability to read from all of the data already on your device and to interact with the actions your device can take. That should be fantastic. Until then, this Shortcut covers one of the use cases that Apple Intelligence does intend to solve - more generic questions.
+The real value from Apple Intelligence will be its ability to read from all of the data already on your device. "Hey Siri, when does my mom's flight land and when should I leave for the airport to pick her up?" In theory, Apple Intelligence will be able to look through my inbox for the tickets she forwarded me and use my current location to answer that question. That should be fantastic.
 
-That said, you can imagine a few different use cases where you would want to expand on this concept even after Apple Intelligence lands. You extend this beyond just the basic LLM to also pull in data or materials from your organization and then team members in the field can use a shortcut to query it. You have specific system prompts that you want to apply when asking an AI to rewrite something - [prompts more specific](https://blog.samrhea.com/posts/2024/tone-rewriter/) than what Apple Intelligence will provide. It's going to take a village.
+I'll still want to ask about random information, though. Like, "Hey Cloudflare, what would be the ideal way for a Roman legion to defend Sintra given its proximity to the coast and the mountainous terrain?" _This is a real thing I have asked._ This Shortcut covers that use case long before Apple Intelligence can.
+
+You can also imagine a few different use cases where you would want to expand on this concept after Apple Intelligence lands. You could configure this beyond just the basic LLM to also pull in data or materials from your organization. Then team members in the field can use a shortcut to ask questions about your corporate wiki. You could have specific system prompts that you want to apply when asking an AI to rewrite something - [prompts more specific](https://blog.samrhea.com/posts/2024/tone-rewriter/) than what Apple Intelligence will provide. It's going to take a village of agents to get to this future. And now I am one step closer to needing my phone even less.
