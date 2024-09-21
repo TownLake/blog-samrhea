@@ -99,6 +99,10 @@ And it will respond with a description that I can read or listen to if I had my 
 
 ![Shortcut Response](./media/shortcut-response.PNG)
 
+And even better - I can log into the Cloudflare dashboard to use Workers AI Gateway to see that request/response event that just happened.
+
+![AI Gateway](./media/ai-gateway-logs.png)
+
 ## What's next?
 
 This is, admittedly, just one piece of what Apple Intelligence aims to be. It's still useful, though, in the same way that the ChatGPT app from OpenAI is useful.
