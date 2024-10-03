@@ -4,7 +4,7 @@ template: "page"
 socialImage: "../../photo.jpg"
 ---
 
-Hi there. My name is Sam. I’m probably busy right now using a spreadsheet for a hobby project that doesn’t need one. Or [walking a dog](https://blog.samrhea.com/posts/2022/a-serra-and-new-friends) we named after the second-worst highway in Austin, Mopac.
+Hi there. My name is Sam. I’m probably busy right now using a spreadsheet for a hobby project that doesn’t need one. Or [walking a dog](https://blog.samrhea.com/posts/2022/a-serra-and-new-friends) we named after the second-worst highway in Austin.
 
 ## Blog
 
@@ -18,11 +18,11 @@ I'm an Austinite, but I left my hometown in 2019 to help open Cloudflare's offic
 
 I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now.
 
-I previously spent six years launching, building, and leading the [Zero Trust](https://www.cloudflare.com/products/zero-trust/) [product line](https://blog.cloudflare.com/cloudflare-one-one-year-later/) at Cloudflare as the VP of Product. You can read more about that journey [here](https://blog.samrhea.com/pages/at-cloudflare).
+I previously spent six years launching, building, and leading the [Zero Trust](https://www.cloudflare.com/products/zero-trust/) [product line](https://blog.cloudflare.com/cloudflare-one-one-year-later/) at Cloudflare as the group's VP of Product. You can read more about that journey [here](https://blog.samrhea.com/pages/at-cloudflare).
 
-I also [launched our Registrar](https://blog.cloudflare.com/using-cloudflare-registrar/) years ago and miss the bizarre dance of domain registration. I'm sorry -- I do not know when we will support the `.horse` TLD.
+I also [launched our Registrar](https://blog.cloudflare.com/using-cloudflare-registrar/) years ago. I miss the bizarre dance of domain registration. I'm sorry -- I do not know when we will support the `.horse` TLD.
 
-Before Cloudflare I spent several years as a Product Manager in the Austin office of ESW Capital. I helped acquire and improve software companies of all sizes through our DevFactory arm. Prior to my time with the ESW Capital group I worked for a medical technology investment firm doing a little bit of everything as we built, bought, and invested in healthcare technology businesses.
+Before Cloudflare I spent several years as a Product Manager in the Austin office of ESW Capital. I helped acquire and improve software companies of all sizes through our DevFactory arm. Prior to my time with ESW Capital I worked for a medical technology investment firm doing a little bit of everything as we built, bought, and invested in healthcare technology businesses.
 
 ## School
 
