@@ -8,7 +8,7 @@ category: "habits"
 tags:
   - "productivity"
   - "habits"
-description: "<>>."
+description: "Travel is back! And bad."
 socialImage:
 ---
 
