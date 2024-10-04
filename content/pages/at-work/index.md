@@ -52,10 +52,14 @@ As much as we love to build at Cloudflare, sometimes we need to bring in experts
 
 The team only shipped faster. We became the [only new vendor in the Gartner Magic Quadrant](https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant/).
 
-## 2024 - VP, Strategic Advisor & Chief of Staff - Emerging Technology and Incubation
+## 2024 - VP, Strategic Advisor & CoS - Emerging Technology and Incubation
+
+### Returning to ETI
 
 More enterprises adopted Cloudflare Zero Trust - and they loved it - Gartner named us a [Customers' Choice](https://www.gartner.com/reviews/market/zero-trust-network-access/vendor/cloudflare/product/cloudflare-access) vendor based on that feedback and we kept moving up the [Magic Quadrant](https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant-2024).
 
 I also realized "hey, I think my team can do this - and do this really well - without me." The team I had assembled could thrive on their own and it probably made more sense to tackle new problems at Cloudflare. I volunteered to handover leadership of Cloudflare Zero Trust to my direct reports and I jumped back into our Emerging Technology and Incubation division in June.
+
+### AI Content Controls
 
 Most recently, I [launched](https://blog.cloudflare.com/cloudflare-ai-audit-control-ai-content-crawlers/) our new AI Audit tool to help publishers of great content control and find value from the publication of that content in a world of AI bots.
