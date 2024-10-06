@@ -1,6 +1,6 @@
 ---
 title: "💘 Building Plan-a-Date on Cloudflare"
-date: "2023-10-06"
+date: "2024-10-06"
 template: "post"
 draft: false
 slug: "/posts/2024/plan-a-date"
