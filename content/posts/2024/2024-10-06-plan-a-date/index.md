@@ -1,5 +1,5 @@
 ---
-title: "💘 Building Plan-a-Date on Cloudflare"
+title: "💘🤖 Building Plan-a-Date on Cloudflare"
 date: "2024-10-06"
 template: "post"
 draft: false
