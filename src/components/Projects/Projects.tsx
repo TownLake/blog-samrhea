@@ -11,7 +11,7 @@ interface Project {
 }
 
 const projects: Project[] = [
-  { title: "Project 1", image: "/images/lisbon-ai.png", link: "https://project1.com" },
+  { title: "Lisbon AI", image: "/images/lisbon-ai.png", link: "https://lisbon-ai.samrhea.com/" },
   { title: "Project 2", image: "/project2.jpg", link: "https://project2.com" },
   // Add more projects as needed
 ];
