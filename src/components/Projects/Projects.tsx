@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-// Import styles
 import * as styles from './Projects.module.scss';
 
 interface Project {
@@ -12,8 +11,7 @@ interface Project {
 
 const projects: Project[] = [
   { title: "Lisbon AI", image: "/images/lisbon-ai.png", link: "https://lisbon-ai.samrhea.com/" },
-  { title: "Project 2", image: "/project2.jpg", link: "https://project2.com" },
-  // Add more projects as needed
+  { title: "Plan-a-Date", image: "/images/plan-a-date.png", link: "https://plan-a-date.com/" },
 ];
 
 const Projects: React.FC = () => {

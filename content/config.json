@@ -25,6 +25,10 @@
       "path": "https://blog.samrhea.com/tag/hits"
     },
     {
+      "label": "projects",
+      "path": "/pages/projects"
+    },
+    {
       "label": "at work",
       "path": "/pages/at-work"
     }
