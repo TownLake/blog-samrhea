@@ -1,13 +1,14 @@
 import React from "react";
-
 import { graphql } from "gatsby";
-
 import { Layout } from "@/components/Layout";
 import { Meta } from "@/components/Meta";
 import { Page } from "@/components/Page";
 import { Sidebar } from "@/components/Sidebar";
 import { useSiteMetadata } from "@/hooks";
 import { Node } from "@/types";
+
+// Import the Projects component
+import Projects from "@/components/Projects";
 
 interface Props {
   data: {
@@ -25,6 +26,7 @@ const PageTemplate: React.FC<Props> = ({ data }: Props) => {
       <Sidebar />
       <Page title={title}>
         <div dangerouslySetInnerHTML={{ __html: body }} />
+        {title === "projects" && <Projects />}
       </Page>
     </Layout>
   );
@@ -48,8 +50,7 @@ export const query = graphql`
 `;
 
 export const Head: React.FC<Props> = ({ data }) => {
-  const { title, subtitle, url } = useSiteMetadata();
-
+  const { title: siteTitle, subtitle, url } = useSiteMetadata();
   const {
     frontmatter: {
       title: pageTitle,
@@ -62,7 +63,7 @@ export const Head: React.FC<Props> = ({ data }) => {
 
   return (
     <Meta
-      title={`${pageTitle} - ${title}`}
+      title={`${pageTitle} - ${siteTitle}`}
       description={description}
       image={image}
     />
