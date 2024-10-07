@@ -25,7 +25,7 @@ const PageTemplate: React.FC<Props> = ({ data }: Props) => {
       <Sidebar />
       <Page title={title}>
         <div dangerouslySetInnerHTML={{ __html: body }} />
-        {title === "Projects" && <Projects />}
+        {title === "projects" && <Projects />}
       </Page>
     </Layout>
   );
