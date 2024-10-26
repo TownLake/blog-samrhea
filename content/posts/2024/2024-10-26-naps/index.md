@@ -7,8 +7,7 @@ slug: "/posts/2024/nap-writing"
 category: "parenting"
 tags:
   - "parenting"
-description: "Or how I learned to love a 90-minute alarm."
-socialImage: ""
+description: "Or how I learned to love a 90-minute alarm"
 ---
 
 A good way to ship more weekend projects is to become a parent. Specifically the parent of a child between 6 and 18 months. [Trust](https://github.com/TownLake/blog-samrhea/commits/main/) me.
