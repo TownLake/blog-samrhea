@@ -12,6 +12,7 @@ interface Project {
 const projects: Project[] = [
   { title: "Lisbon AI", image: "/images/lisbon-ai.png", link: "https://lisbon-ai.samrhea.com/" },
   { title: "Plan-a-Date", image: "/images/plan-a-date.png", link: "https://plan-a-date.com/" },
+  { title: "Plan-a-Date", image: "/images/lis-delays.png", link: "https://lis-delays.townlake.io/" },
 ];
 
 const Projects: React.FC = () => {
