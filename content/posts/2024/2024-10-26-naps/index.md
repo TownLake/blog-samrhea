@@ -10,11 +10,11 @@ tags:
 description: "Or how I learned to love a 90-minute alarm"
 ---
 
-A good way to ship more weekend projects is to become a parent. Specifically the parent of a child between 6 and 18 months. [Trust](https://github.com/TownLake/blog-samrhea/commits/main/) me.
+A good way to ship more weekend projects is to become a parent. Specifically the parent of a child between 6 and 18 months.
 
 This does not make sense at first glance. Parents are busy, but children do (hopefully) take a nap or two during the day. And their ~~margin~~ nap is your opportunity. A child’s weekend snooze gives you the ideal window of time to sit in front of a keyboard and build as fast as you can.
 
-The ~6 month mark is important, though, because before that age the naps are too short and too unpredictable. My [social media consumption skyrocketed](https://blog.samrhea.com/posts/2024/naps-and-junk-food/) when my kid was younger because I did not have the time to make progress on anything. My son’s naps averaged about 25 minutes in those days. I could only scroll on my phone and eat intellectual junk food.
+The ~6 month mark is important, though, because before that age the naps are too short and too unpredictable. My [social media consumption skyrocketed](https://blog.samrhea.com/posts/2024/naps-and-junk-food/) when my kid was younger because I did not have the time to make progress on anything. My son’s naps averaged about 35 minutes in those days. I could only scroll on my phone and eat intellectual junk food.
 
 All of that has changed since the kid started napping for more than 35 minutes at a time. We consistently get him down for two 90-minute naps; one in the morning and one in the afternoon. The result is more personal production than I’ve managed in years. I put my thoughts on paper more. I ship more weekend projects. I get more done. I decided to combine all three of those qualities and write down why I think this is true despite being counterintuitive.
 
