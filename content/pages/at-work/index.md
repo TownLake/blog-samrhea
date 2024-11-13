@@ -4,15 +4,15 @@ template: "page"
 socialImage: "../../photo.jpg"
 ---
 
-I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now. I get to help solve a fun range of problems as the VP, Strategic Advisor & Chief of Staff.
+I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now. I help solve a fun range of problems as  VP, Strategic Advisor & Chief of Staff.
 
-That title is a mouthful. It mostly just means that I have a license to ship. I spend my time finding oddly shaped problems and shipping technology to solve them.
+That title is a mouthful. It mostly just means that I have a license to ship. I spend my time finding oddly shaped problems and building technology to solve them.
 
 I previously spent six years launching, building, and leading the [Zero Trust](https://www.cloudflare.com/products/zero-trust/) [product line](https://blog.cloudflare.com/cloudflare-one-one-year-later/) at Cloudflare as the VP of Product.
 
 I [shipped](https://blog.cloudflare.com/cloudflare-access-now-teams-of-any-size-can-turn-off-their-vpn/) the first prototype in that group into GA as a Product Manager in 2018. A few years later we became the [only new vendor in the Gartner Magic Quadrant](https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant/) and then made the biggest leap the [year following](https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant-2024). From the [US Federal Government](https://blog.cloudflare.com/helping-keep-governments-safe-and-secure/) to [Fortune 500 companies](https://cloudflare.tv/shows/connect/keynote-how-roche-is-adopting-zero-trust-principles/0ZbDrlvM) to start-ups on our [free plan](https://www.cloudflare.com/plans/zero-trust-services/), tens of thousands of teams trust us to keep their organizations safe.
 
-In June of 2024 I decided to hand the keys to the team I had assembled. They could do it better than me and I could find new problems. The Cloudflare SASE business is now run by the brilliant product leaders that joined me on that journey. Meanwhile, I've been sent back to the lab to help figure out what's next.
+In June of 2024 I decided to hand the keys to Cloudflare One to the team I had assembled. They could do it better than me and I could find new problems. The Cloudflare SASE business is now run by the brilliant product leaders that joined me on that journey. Meanwhile, I've been sent back to the lab to help figure out what's next.
 
 > Also, [I killed Railgun](https://blog.cloudflare.com/deprecating-railgun). It was me. I'm sorry.
 
