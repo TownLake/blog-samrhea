@@ -10,10 +10,10 @@ interface Project {
 }
 
 const projects: Project[] = [
-  { title: "LIS Delays", image: "/images/ai-watch.png", link: "https://lis-delays.townlake.io/" },
+  { title: "LIS Delays", image: "/images/lis-delays.png", link: "https://lis-delays.townlake.io/" },
   { title: "Plan-a-Date", image: "/images/plan-a-date.png", link: "https://plan-a-date.com/" },
   { title: "Lisbon AI", image: "/images/lisbon-ai.png", link: "https://lisbon-ai.samrhea.com/" },
-  { title: "AI Watch UI", image: "/images/lis-delays.png", link: "https://github.com/TownLake/watch-app-ai-ux" },
+  { title: "AI Watch UI", image: "/images/ai-watch.png", link: "https://github.com/TownLake/watch-app-ai-ux" },
 ];
 
 const Projects: React.FC = () => {
