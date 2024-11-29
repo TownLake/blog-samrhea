@@ -18,7 +18,7 @@ I do need to do a better job of consuming local Portuguese news. That news can b
 
 |Daily|Weekly|Monthly|Books|
 |---|---|---|---|
-|NYT Headlines <br> Hacker News Front Page|The Economist (Print) <br> The Ringer <br> [Spyglass](https://spyglass.org)|||[Running List](https://blog.samrhea.com/category/reading)|
+|NYT Headlines <br> Hacker News Front Page|The Economist (Print) <br> The Ringer <br> [Spyglass](https://spyglass.org)||[List](https://blog.samrhea.com/category/reading)|
 
 ## Listening
 
@@ -26,15 +26,15 @@ I use Apple's Podcast app and organize playlists that make it easy to [listen on
 
 |Daily News|Long Form|Technology|Culture|
 |---|---|---|---|
-|* NPR's Up First <br> * WSJ's The Journal <br> * The Washington Post's Post Reports <br> * The Economist's World in Brief | * Plain English with Derek Thompson <br> * The Daily <br> * Pod Save America <br> * Six Trophies | * Sharp Tech | * The Ringer-Verse <br> * The Ringer's Prestige TV Podcast|
+|* NPR's Up First <br> * WSJ's The Journal <br> * The Washington Post's Post Reports <br> * The Economist's World in Brief | * Plain English with Derek Thompson <br> * The Daily <br> * Pod Save America <br> * Six Trophies | * Sharp Tech ||
 
 ## Hardware
 
 |Category|Product|Post or Notes|
 |---|---|---|
-|Phone|Apple iPhone 15 Pro|[Trying](https://blog.samrhea.com/posts/2024/phone-hour) not to use it|
-|Watch|Apple Watch Ultra 2|[Sometimes](https://blog.samrhea.com/posts/2024/apple-mechanical-watch) I wear a mechanical watch|
-|Headphones|Apple AirPods|These are perfect and make me excited about the future of agent AI|
+|Phone|Apple iPhone 16 Pro|[Trying](https://blog.samrhea.com/posts/2024/phone-hour) not to use it|
+|Watch|Apple Watch Series 10|[Sometimes](https://blog.samrhea.com/posts/2024/apple-mechanical-watch) I wear a mechanical watch|
+|Headphones|Apple AirPods|These are perfect and make me excited about the future of AI|
 |Computer|M Series MacBook|This is where real work happens|
 |Tablets|None|I just cannot find a good use for an iPad|
 |Ereader|Kindle Paperwhite|I love it - also a [begrudging necessity](https://blog.samrhea.com/posts/2023/kindle) in Portugal for an English reader|
@@ -57,8 +57,8 @@ iOS makes this simpler than you'd think. Just swipe to the view that lists all o
 |Music|Apple Music||
 |Audiobooks|Audible||
 |Digital Books|Kindle||
-|Photos|Apple Photos|I want a better back up plan|
-|Files|Apple Files|I should probably clean this up|
+|Photos|Apple Photos|Backed up with a Synology NAS|
+|Files|Apple Files||
 
 ### The Add Ons
 
@@ -70,14 +70,22 @@ This excludes all of the "daily life" apps that I use (banking, the alarm compan
 |Locations|Apple Air Tags|I think I own 20|
 |Health|Apple Health <br> Withings <br> My Fitness Pal|Just to measure [these metrics](https://blog.samrhea.com/posts/2024/nebuchadnezzar), though most of what I care about is captured in annual physicals|
 
+#### Health
+
+I'm a big believer that most health data, at the granular level these tools make available, is useless. Get enough sleep, watch what you eat, be active, and try not to indulge too much with sugar or booze. If you've got those covered you're already going to be in a pretty good spot. That said, I do care about a few details:
+
+* VO2 Max - my general indicator of how aggressive I'm being with my activity level. I have a tendency to fall into a workout routine rut and this keeps me honest.
+* Weight * Body Fat Percentage
+* Resting Heart Rate
+
 ## Workspace
 
 Give me a laptop and a desk. That's it. As much as I have experimented over the years with sophisticated setups (webcams, monitors, keyboards, _mise en place_), none of it matters. All that matters to me is that I am interested in what I am doing. If that is true, you could drop me into Newark Terminal C next to a group of college students on one side and families with young kids on another, during an afternoon storm that delays everything, and I'll do the best work of my life as long as I have a MacBook and an idea that excites me.
 
-My gracious wife knows this. I do not know what this says about the way my brain operates (or doesn't operate), but once I get my hands on a keyboard and get locked into what I am doing it becomes nearly impossible to rip me away.
+I do not know what this says about the way my brain operates (or doesn't operate), but once I get my hands on a keyboard and get locked into what I am doing it becomes nearly impossible to rip me away.
 
 ## Things I don't have
 
-* Facebook - I did love it once upon a time. I am definitely married to my wife thanks to it. At some point in 2017 or 2018 I decided it was a bit too much and deleted it. I don't miss it.
+* Facebook - I did love it once upon a time. I am definitely married to my wife thanks to it. At some point in 2017 or 2018 I decided it was a bit too much and deleted it. I don't miss it. Sometimes I wonder if I could do this with Instagram, but living so far from so many people I love is tough when Instagram Stories are kind of the perfect vehicle to use to stay in touch casually.
 * TikTok
 * I really don't rely on any sort of home automation. None of my lights are smart. This is a shift from a decade ago when I wanted to buy the smart version of just about everything. It's too much hassle.
