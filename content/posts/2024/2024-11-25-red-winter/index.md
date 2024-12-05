@@ -8,7 +8,7 @@ category: "reading"
 tags:
   - "reading"
   - "books"
-description: "Jack Ryan Book 22 - origin stories!."
+description: "Jack Ryan Book 22 - origin stories!"
 socialImage:
 book: "Red Winter"
 Author: "Marc Cameron"
