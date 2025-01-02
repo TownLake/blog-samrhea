@@ -2,8 +2,8 @@
 @import "../variables";
 
 :root,
-:after,
-:before {
+*:after,
+*:before {
   --color-white: #{$color-white};
   --color-primary: #{$color-blue};
   --color-secondary: #{$color-orange};
