@@ -149,10 +149,6 @@ table {
     margin: 0;
     padding:0;
 
-  &:nth-child(2n) {
-    background-color: var(--table-n-row-background);
-  }
-
   th,
   td {
     padding: 6px 13px;
