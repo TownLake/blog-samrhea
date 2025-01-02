@@ -149,9 +149,11 @@ table {
     margin: 0;
     padding:0;
 
-  &:nth-child(2n) {
-    background-color: var(--table-n-row-background);
-  }
+    background-color: var(--table-base-background);
+    
+    &:nth-child(2n) {
+      background-color: var(--table-alternate-background);
+    }
 
   th,
   td {
