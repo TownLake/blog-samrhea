@@ -4,9 +4,9 @@ date: "2023-12-31"
 template: "post"
 draft: false
 slug: "/posts/2023/reading-list"
-category: "reading"
+category: "reading-list"
 tags:
-  - "reading"
+  - "reading-list"
   - "books"
 description: "Picking books back up."
 socialImage:
