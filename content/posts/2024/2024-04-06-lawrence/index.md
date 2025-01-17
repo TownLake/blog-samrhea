@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Monuments in the sand."
-socialImage:
+socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
 book: "Lawrence in Arabia"
 Author: "Scott Anderson"
 Year Published: "2013"

@@ -8,7 +8,7 @@ category: "technology"
 tags:
   - "technology"
 description: "Losing the battle to justify a _nice_ watch."
-socialImage: ""
+socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
 ---
 
 ![Watch Banner](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/8be62872-e8ac-4979-bc00-a4a984c07000/public)

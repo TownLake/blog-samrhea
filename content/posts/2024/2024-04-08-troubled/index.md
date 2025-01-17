@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Holy God the first 65%."
-socialImage:
+socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
 book: "Troubled"
 Author: "Rob Henderson"
 Year Published: "2024"

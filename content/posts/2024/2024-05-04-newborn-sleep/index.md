@@ -8,7 +8,7 @@ category: "parenting"
 tags:
   - "parenting"
 description: "Don't waste your own sleep."
-socialImage: ""
+socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
 ---
 
 I am the father to a 12-week old boy. I wanted to run a short analysis on his sleep and how that impacts my sleep. I failed and I am going back to bed as soon as I finish jotting down what I did not accomplish.

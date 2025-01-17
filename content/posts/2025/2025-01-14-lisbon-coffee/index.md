@@ -9,7 +9,7 @@ tags:
   - "portugal"
   - "hits"
 description: "Or my son's recent property crime spree."
-socialImage: ""
+socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
 ---
 
 We live in one of those walkable neighborhoods that American Twitter dreams about. A community where you have multiple French cheese mongers within a ten minute walk. And your choice of mom-and-pop Italian restaurants. The kind of place where local grandmothers take the time to be sweet to the kids they see walking on the sidewalks. Even the redhead kids like mine.
