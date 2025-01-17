@@ -1,6 +1,6 @@
 ---
 title: "projects"
 template: "page"
-socialImage: "../../photo.jpg"
+socialImage: ""
 hidden: true
 ---
