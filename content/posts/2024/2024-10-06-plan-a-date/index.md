@@ -51,13 +51,13 @@ Want to jump straight to the code? Repo open [here](https://github.com/TownLake/
 
 [Plan-a-date.com](https://plan-a-date.com/) builds date night itineraries based on the merged, blinded, preferences of two partners. The first partner adds their choices and then receives a unique URL to share with the second partner. When the second partner inputs their preferences, an AI considers both sets of ideas and creates a joint itinerary. It is a compromise machine.
 
-![Plan a Date][https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/5254b234-b6f9-4de3-f378-ac8845bccb00/public]
+![Plan a Date](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/5254b234-b6f9-4de3-f378-ac8845bccb00/public)
 
 The tool (based on the system prompt send to the AI) also takes into account some important things like if one partner says “No Thanks” about physical intimacy then it will never recommend any physical activity.
 
 ## How does this work?
 
-![Plan a Date Architecture][https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/1e175634-6761-4c10-b2f8-b299205ef800/public]
+![Plan a Date Architecture](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/1e175634-6761-4c10-b2f8-b299205ef800/public)
 
 1. Partner 1 selects their preferences. Once they hit Submit, the Pages app sends those to a Cloudflare Worker.  
 2. The Worker does two things at this point. First, the Worker creates a unique identifier for this particular date and sends it back to the app. Second, the Worker sends that identifier and the submitted preferences to Workers KV for storage.  
@@ -80,17 +80,17 @@ The front-end consists of a single page Next.js application. The form handles co
 
 Cloudflare Pages integrates directly with the [GitHub repository](https://github.com/TownLake/DateNight) where the code lives. I can configure the build template, in this case Next.js, and Pages will build and deploy my application any time I make a change. I could set up a staging pipeline in Pages, as well, and protect it behind a simple authentication layer but this is not exactly a mission critical application and I don't mind breaking it.
 
-![Pages][https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/191f25af-22ab-4cc8-5c7a-f78d0ce56700/public]
+![Pages](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/191f25af-22ab-4cc8-5c7a-f78d0ce56700/public)
 
 Behind the Pages application is a single [Cloudflare Worker](https://workers.cloudflare.com/) that has multiple jobs. The UI only ever interacts with this Worker which, in turn, communicates with the storage layer (Workers KV) and the AI LLM (Llama running on AI Gateway). The Worker handles finding your partner’s preferences if already submitted and then matching them up with yours. The Worker also generates the unique ID.
 
-![KV Pairs][https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/d79d3bd3-9c04-45b5-aa59-b1e6f5ca0700/public]
+![KV Pairs](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/d79d3bd3-9c04-45b5-aa59-b1e6f5ca0700/public)
 
 Unlike [other recent Workers AI projects](https://lisbon-ai.samrhea.com/), we need a storage layer since this is not a single user inputting their preferences and getting a response. We need those preferences to sit somewhere until the user’s partner adds theirs. Workers KV (short for Key Value) provides an ideal set up for this. I can bind my Worker to a KV namespace that I create so that the Worker knows to access it.
 
 Finally, Cloudflare Workers AI. Specifically [Cloudflare AI Gateway](https://developers.cloudflare.com/ai-gateway/) \+ Workers AI. Cloudflare Workers AI is an inference platform where you can run AI models (like Meta’s popular Llama) on Cloudflare hardware. That makes it [very fast](https://blog.cloudflare.com/workers-ai-bigger-better-faster), especially for applications running entirely on Cloudflare like this one. My Worker can send the prompts and get the response very, very quickly.
 
-![AI Gateway][https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/a0c38655-ae73-49ae-451c-fd90cccffa00/public]
+![AI Gateway](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/a0c38655-ae73-49ae-451c-fd90cccffa00/public)
 
 I layered on Cloudflare AI Gateway, as well. AI Gateway logs requests/responses, gives me a feedback mechanism for them, and adds additional features like rate limiting and caching.
 
