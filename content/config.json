@@ -8,28 +8,28 @@
   "feedLimit": 4,
   "menu": [
     {
-      "label": "posts",
-      "path": "/"
+      "title": "posts",
+      "url": "/"
     },
     {
-      "label": "about",
-      "path": "/pages/about"
+      "title": "about",
+      "url": "/pages/about"
     },
     {
-      "label": "reading",
-      "path": "https://blog.samrhea.com/category/reading"
+      "title": "reading",
+      "url": "https://blog.samrhea.com/category/reading"
     },
     {
-      "label": "the hits",
-      "path": "https://blog.samrhea.com/tag/hits"
+      "title": "the hits",
+      "url": "https://blog.samrhea.com/tag/hits"
     },
     {
-      "label": "projects",
-      "path": "/pages/projects"
+      "title": "projects",
+      "url": "/pages/projects"
     },
     {
-      "label": "at work",
-      "path": "/pages/at-work"
+      "title": "at work",
+      "url": "/pages/at-work"
     }
   ],
   "author": {
