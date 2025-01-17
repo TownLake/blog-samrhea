@@ -1,7 +1,7 @@
 ---
 title: "inputs and tools"
 template: "page"
-
+socialImage: "../../photo.jpg"
 ---
 
 I have a tendency to write down all of the tools that I use and the media that I consume. The frequency of this activity probably correlates to when I am feeling more stressed. I find it cathartic to take an inventory. Sometimes I do this on pieces of paper, sometimes in spreadsheets, and other times in a series of wordy blog posts. I decided to summarize it on this page going forward.
