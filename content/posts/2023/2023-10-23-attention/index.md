@@ -8,7 +8,6 @@ category: "Productivity"
 tags:
   - "Productivity"
 description: "I am trying."
-socialImage:
 ---
 
 My professional goal [at work](https://blog.samrhea.com/pages/at-cloudflare) is to ship software that solves customer problems. My personal goal is to avoid internal meetings. I believe the two are related.

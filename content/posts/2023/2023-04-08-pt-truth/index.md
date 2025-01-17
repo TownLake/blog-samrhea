@@ -8,7 +8,6 @@ category: "Portugal"
 tags:
   - "Portugal"
 description: "Briefly becoming the main attraction in the Alentejan village of Arcos."
-socialImage:
 ---
 
 I lie about my Portuguese proficiency depending on my audience. Whenever I visit the United States, I demure. Friends or family or strangers will ask me “how is your Portuguese?” and I will feign incompetence. I sheepishly tell them that my grasp of the language is terrible. I do this because I want to shock them when they visit. I do this because the only thing better than sex is surprising someone else with your ability to speak a foreign language.

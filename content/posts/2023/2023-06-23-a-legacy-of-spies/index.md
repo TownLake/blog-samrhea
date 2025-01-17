@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "The prequel and the sequel to my first spy novel."
-socialImage:
 book: "A Legacy of Spies"
 Author: "John le Carré"
 Year Published: "2017"

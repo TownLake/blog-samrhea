@@ -9,7 +9,6 @@ tags:
   - "reading-list"
   - "books"
 description: "Picking books back up."
-socialImage:
 ---
 
 I jot down a few notes about everything that I read and post them in [this series](https://blog.samrhea.com/category/reading). This post sums up what I read in 2023.

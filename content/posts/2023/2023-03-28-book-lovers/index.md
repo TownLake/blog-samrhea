@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "A return to falling in love in book stores."
-socialImage:
 book: Book Lovers
 Author: Emily Henry
 Year Published: 2022

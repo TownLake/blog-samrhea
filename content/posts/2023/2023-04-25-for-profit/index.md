@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "Goods as advertised."
-socialImage:
 book: "For Profit"
 Author: "William Magnuson"
 Year Published: "2022"

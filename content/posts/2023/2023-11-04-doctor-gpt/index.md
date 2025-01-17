@@ -9,7 +9,6 @@ tags:
   - "walkthrough"
   - "AI"
 description: "So, should I skip my annual check up?"
-socialImage:
 ---
 
 You aren't supposed to do this. My wife does not want me to do this and insists that I still visit my doctor. My wife's father is a physician and has opinions about this (see below). ChatGPT repeatedly warned me not to do this. This blog walks through how I did it.

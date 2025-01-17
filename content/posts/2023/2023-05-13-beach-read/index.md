@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "A slower burn, oddly heavier, rom com book."
-socialImage:
 book: "Beach Read"
 Author: "Emily Henry"
 Year Published: "2017"

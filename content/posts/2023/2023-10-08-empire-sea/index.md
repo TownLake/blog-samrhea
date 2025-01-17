@@ -10,7 +10,6 @@ tags:
   - "books"
   - "audiobooks"
 description: "I'm in my books-about-boats phase."
-socialImage:
 book: "Empires of the Sea"
 Author: "Roger Crowley"
 Year Published: "2008"

@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 11 - nukes, again."
-socialImage:
 book: "Locked On"
 Author: "Tom Clancy and Mark Greaney"
 Year Published: "2011"

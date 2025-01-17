@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "I'm worried that we forgot how wild that ride was."
-socialImage:
 book: "Peril"
 Author: "Bob Woodward and Robert Costa"
 Year Published: "2021"

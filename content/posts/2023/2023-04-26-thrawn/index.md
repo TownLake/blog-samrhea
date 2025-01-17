@@ -10,7 +10,6 @@ tags:
   - "books"
   - "audiobooks"
 description: "He's back in the canon!"
-socialImage:
 book: "Thrawn"
 Author: "Timothy Zahn"
 Year Published: "2017"

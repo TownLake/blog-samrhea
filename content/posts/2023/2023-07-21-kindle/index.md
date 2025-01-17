@@ -8,7 +8,6 @@ category: "Portugal"
 tags:
   - "Portugal"
 description: "Or how I gave in and bought a Kindle."
-socialImage: ""
 ---
 
 I love [reading](https://blog.samrhea.com/category/reading), though if you visited my home you would not believe me. The bookshelves are threadbare. Most of them are occupied by family photos or the output of the Christmas tradition where my wife buys me one Lego set and a cheese box from the French fromaggerie in Campo de Ourique and I spend Christmas day sitting down and building something and eating cheese for six hours.

@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 12 - cybersecurity is real security."
-socialImage:
 book: "Tom Clancy Threat Vector"
 Author: "Tom Clancy and Mark Greaney"
 Year Published: "2012"

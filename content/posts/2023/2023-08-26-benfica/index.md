@@ -9,7 +9,6 @@ tags:
   - "Portugal"
   - "hits"
 description: "Nearly getting thrown out of Benfica."
-socialImage:
 ---
 
 I measure our Portuguese assimilation by counting the number of invitations we receive. This summer’s docket included a bachelorette party, two weddings, and a handful of birthday parties. We’ll always stick out a bit, at least I will, but we seem to be welcome in some cherished moments.

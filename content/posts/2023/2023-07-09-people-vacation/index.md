@@ -10,7 +10,6 @@ tags:
   - "books"
   - "audiobooks"
 description: "Time jump romcom!"
-socialImage:
 book: "People We Meet on Vacation"
 Author: "Emily Henry"
 Year Published: "2021"

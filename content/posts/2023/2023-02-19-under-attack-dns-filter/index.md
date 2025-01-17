@@ -9,7 +9,6 @@ tags:
   - "Zero Trust"
   - "Cloudflare"
 description: "Rapidly deploy a positive security DNS filtering model in an emergency"
-socialImage:
 ---
 
 I went to see *Ant-Man and the Wasp: Quantumania* this weekend. I have seen every Marvel Cinematic Universe (MCU) movie in theaters for the last nearly 15 years, excluding *Black Widow* which arrived on Disney Plus during the pandemic. I sat alone (my significant other was on a weekend trip with friends in London to see a West End show). I ate a whole package of Haribo Favorites. I was so happy.

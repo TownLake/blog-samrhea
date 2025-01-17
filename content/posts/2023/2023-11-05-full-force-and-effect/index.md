@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 14 - more Adam Yao!"
-socialImage:
 book: "Full Force and Effect"
 Author: "Mark Greaney"
 Year Published: "2014"

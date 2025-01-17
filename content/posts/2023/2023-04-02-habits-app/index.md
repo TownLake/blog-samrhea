@@ -9,7 +9,6 @@ tags:
   - "productivity"
   - "habits"
 description: "Travel is the habit killer."
-socialImage: "./media/water.png"
 ---
 
 I am [consistent](https://blog.samrhea.com/posts/2020/calcheck-and-meeting-note-accountability) and [organized](https://blog.samrhea.com/posts/2019/euro-office-time) - not always good things. I can sometimes back myself into a rigid corner or miss opportunities to be spontaneous. Those issues aside, once I decide I want to keep doing something, I am pretty good at doing it.

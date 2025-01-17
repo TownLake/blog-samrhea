@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "Revisiting objectives and key results."
-socialImage:
 book: "Measure What Matters"
 Author: "John Doerr"
 Year Published: "2017"

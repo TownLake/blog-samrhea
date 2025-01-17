@@ -9,7 +9,6 @@ tags:
   - "Portugal"
   - "hits"
 description: "More people speak PT than you think."
-socialImage:
 ---
 
 When my wife and I travel inside of Europe, tour guides and waiters are polite and ask us where we are from. I tend to blurt out “Portugal” - I think I do this to feel special. Despite the overwhelming American-ness about me, I desperately do not want to come across as an American. At least, not when I’m in a place that tourists visit. When we’re in our locals-only neighborhood in Lisbon, I feel no shame walking my dogs with a backwards Yeti baseball cap, athleisure shorts, a three-day beard, and some loafers.

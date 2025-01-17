@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 15 - mildly prophetic in a concerning way."
-socialImage:
 book: "Commander in Chief"
 Author: "Mark Greaney"
 Year Published: "2015"

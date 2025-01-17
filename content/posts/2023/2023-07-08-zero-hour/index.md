@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "The Tom Clancy Literary Universe."
-socialImage:
 book: "Zero Hour"
 Author: "Don Bentley"
 Year Published: "2022"

@@ -9,7 +9,6 @@ tags:
   - "productivity"
   - "habits"
 description: "Time left to turn this around in 2024."
-socialImage:
 ---
 
 ## Quick Context

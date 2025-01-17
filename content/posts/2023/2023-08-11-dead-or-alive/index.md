@@ -9,7 +9,6 @@ tags:
   - "reading"
   - "books"
 description: "More Clancy, more cool missions."
-socialImage:
 book: "Dead or Alive"
 Author: "Tom Clancy and Grant Blackwood"
 Year Published: "2011"
