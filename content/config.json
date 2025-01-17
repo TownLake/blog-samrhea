@@ -1,38 +1,60 @@
 {
-  "title": "Blog by John Doe",
-  "url": "https://lumen.alxshelepenok.com",
-  "description": "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
-  "copyright": "© All rights reserved.",
-  "googleAnalyticsId": "UA-73379983-2",
+  "title": "Sam Rhea",
+  "url": "https://blog.samrhea.com",
+  "subtitle": "Austinite in Lisbon.",
+  "copyright": "",
+  "googleAnalyticsId": "123",
+  "disqusShortname": "",
+  "postsLimit": 4,
   "pathPrefix": "/",
-  "feedLimit": 4,
   "menu": [
     {
-      "title": "Articles",
-      "url": "/"
+      "label": "posts",
+      "path": "/"
     },
     {
-      "title": "About me",
-      "url": "/pages/about"
+      "label": "about",
+      "path": "/pages/about"
     },
     {
-      "title": "Contact me",
-      "url": "/pages/contacts"
+      "label": "reading",
+      "path": "https://blog.samrhea.com/category/reading"
+    },
+    {
+      "label": "the hits",
+      "path": "https://blog.samrhea.com/tag/hits"
+    },
+    {
+      "label": "projects",
+      "path": "/pages/projects"
+    },
+    {
+      "label": "at work",
+      "path": "/pages/at-work"
     }
   ],
   "author": {
-    "title": "John Doe",
-    "photo": "/logo.png",
-    "description": "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
-    "contacts": [
-      {
-        "name": "github",
-        "contact": "alxshelepenok"
-      },
-      {
-        "name": "linkedin",
-        "contact": "alxshelepenok"
-      }
-    ]
+    "name": "Sam Rhea",
+    "photo": "/photo.jpg",
+    "bio": "🤠 in 🇵🇹. Emerging Tech at Cloudflare.",
+    "contacts": {
+      "rss": "",
+      "email": "",
+      "github": "TownLake",
+      "facebook": "#",
+      "telegram": "#",
+      "twitter": "LakeAustinBlvd",
+      "linkedin": "samrhea",
+      "instagram": "#",
+      "mastodon": "#",
+      "line": "",
+      "weibo": "",
+      "gitlab": "",
+      "medium": "",
+      "youtube": "",
+      "codepen": "",
+      "soundcloud": "",
+      "bluesky": ""
+    }
   }
 }
