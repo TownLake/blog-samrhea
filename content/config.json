@@ -1,12 +1,11 @@
 {
   "title": "Sam Rhea",
   "url": "https://blog.samrhea.com",
-  "subtitle": "Austinite in Lisbon.",
+  "description": "Austinite in Lisbon.",
   "copyright": "",
   "googleAnalyticsId": "123",
-  "disqusShortname": "",
-  "postsLimit": 4,
   "pathPrefix": "/",
+  "feedLimit": 4,
   "menu": [
     {
       "label": "posts",
@@ -34,27 +33,22 @@
     }
   ],
   "author": {
-    "name": "Sam Rhea",
+    "title": "Sam Rhea",
     "photo": "/photo.jpg",
-    "bio": "🤠 in 🇵🇹. Emerging Tech at Cloudflare.",
-    "contacts": {
-      "rss": "",
-      "email": "",
-      "github": "TownLake",
-      "facebook": "#",
-      "telegram": "#",
-      "twitter": "LakeAustinBlvd",
-      "linkedin": "samrhea",
-      "instagram": "#",
-      "mastodon": "#",
-      "line": "",
-      "weibo": "",
-      "gitlab": "",
-      "medium": "",
-      "youtube": "",
-      "codepen": "",
-      "soundcloud": "",
-      "bluesky": ""
-    }
+    "description": "🤠 in 🇵🇹. Emerging Tech at Cloudflare.",
+    "contacts": [
+      {
+        "name": "github",
+        "contact": "TownLake"
+      },
+      {
+        "name": "linkedin",
+        "contact": "samrhea"
+      },
+      {
+        "name": "twitter",
+        "contact": "LakeAustinBlvd"
+      }      
+    ]
   }
 }
