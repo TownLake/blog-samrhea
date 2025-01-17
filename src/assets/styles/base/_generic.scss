@@ -133,6 +133,43 @@ blockquote {
   text-align: center;
 }
 
+table {
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border-spacing:0;
+
+  tr {
+    border-top: 1px solid #d1d7dd;
+    margin: 0;
+    padding:0;
+
+  &:nth-child(2n) {
+    background-color: var(--table-n-row-background);
+  }
+
+  th,
+  td {
+    padding: 6px 13px;
+    border: 1px solid #d1d7dd;
+    text-align: left;
+    margin: 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+    
+th {
+  font-weight: bold;
+  text-align: center;
+    }
+  }
+}
+
 figure {
   display: block;
   height: auto;
