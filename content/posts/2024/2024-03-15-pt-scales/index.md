@@ -8,7 +8,7 @@ category: "portugal"
 tags:
   - "portugal"
 description: "Your own map to Portuguese standards."
-socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
+socialImage: ""
 ---
 
 Language is not the only thing you will need to translate if you spend time in Portugal. After nearly five years in country, I have come to love this place and to understand that you need certain math equations on hand. I have written down the formulas so that you can study them before you show up one hour early at a dinner or make misguided plans around the renovation of a kitchen window like I did.

@@ -11,7 +11,7 @@ tags:
   - "Cloudflare"
   - "AI"
 description: "AI on the Apple Watch before Apple AI."
-socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
+socialImage: ""
 ---
 
 It has been nearly a year since I published a [walkthrough](https://blog.samrhea.com/category/walkthrough/) of any sort. The original purpose of this blog has given way to unhinged anecdotes about [Portugal](https://blog.samrhea.com/category/portugal/) and [Texas](https://blog.samrhea.com/category/portugal/).

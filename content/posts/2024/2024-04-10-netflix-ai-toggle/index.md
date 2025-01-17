@@ -8,7 +8,7 @@ category: "technology"
 tags:
   - "technology"
 description: "What are they going to name the setting?."
-socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
+socialImage: ""
 ---
 
 [Irtefa](https://twitter.com/_irtefa) and I text each other nearly every day. Mostly memes we saw on the Internet. I have no idea how we have time for this either. We are both dads to small children. He runs a successful start up. I am responsible for making sure [this](https://blog.samrhea.com/pages/at-cloudflare/) goes well. Yet we giggle.

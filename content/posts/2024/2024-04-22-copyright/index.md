@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "A real slog with some fun anecdotes sprinkled in."
-socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
+socialImage: ""
 book: "Who Owns This Sentence?: A History of Copyrights and Wrongs"
 Author: "David Bellos and Alexandre Montagu"
 Year Published: "2024"

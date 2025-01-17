@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Less aliens, more dilemmas."
-socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
+socialImage: ""
 book: "The Ghost Brigades"
 Author: "John Scalzi"
 Year Published: "2007"

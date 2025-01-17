@@ -11,7 +11,7 @@ tags:
   - "Cloudflare"
   - "AI"
 description: "Even less romantic than the app"
-socialImage: "./media/plan-a-date.png"
+socialImage: ""
 ---
 
 A couple of weeks ago I [built](https://blog.samrhea.com/posts/2024/plan-a-date/) the Internet’s least romantic date planning service. [Plan-a-date](https://plan-a-date.com/) takes input from two users, compares their preferences, and then uses Cloudflare Workers AI to create a custom date night plan.

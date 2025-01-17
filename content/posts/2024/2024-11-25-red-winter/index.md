@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Jack Ryan Book 22 - origin stories!"
-socialImage: "https://blog.samrhea.com/static/97e3e0f1138267aab1a41a27307af5fb/18ee2/photo.avif"
+socialImage: ""
 book: "Red Winter"
 Author: "Marc Cameron"
 Year Published: "2022"

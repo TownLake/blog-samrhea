@@ -10,7 +10,7 @@ tags:
   - "productivity"
   - "AI"
 description: "Building an AI Portuguese tutor"
-socialImage: "https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/ca3dd470-c10d-465f-086a-ee7e08844f00/public"
+socialImage: ""
 ---
 
 I moved to Portugal site unseen in August of 2019. I spent the first six months of my time here just trying to immigrate. My family and I figured out which grocery store we prefer, where we wanted to rent an apartment, where to board our dogs. I moved here to help open Cloudflare's Lisbon office and so I also kept my day job. My wife was due to start graduate school at the beginning of 2020 and so she spent her first few months here learning Portuguese. She became very good at it.

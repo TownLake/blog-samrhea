@@ -9,7 +9,7 @@ tags:
   - "texas"
   - "hits"
 description: "A cultural primer for the traveling European."
-socialImage: "https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/15c89d52-c07b-4e7a-8b69-b405b69e2000/public"
+socialImage: ""
 ---
 
 ![Texas Visit](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/15c89d52-c07b-4e7a-8b69-b405b69e2000/public)

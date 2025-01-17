@@ -10,7 +10,7 @@ tags:
   - "portugal"
   - "hits"
 description: "Who makes the cut?"
-socialImage: "https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/9062e45b-7213-424e-c1a8-488040f99e00/public"
+socialImage: ""
 ---
 
 Nearly seven years ago I married Rachel. Our wedding was so delightful that I sometimes wonder what magic charm I stumbled upon. We held the ceremony at Good Shepherd Episcopal in Tarrytown. Rachel walked down the aisle in a Carolina Herrera gown as 240 of our friends and family turned to see her. I stood at the altar trying to remember to keep my knees slightly bent so I didn’t pass out.
