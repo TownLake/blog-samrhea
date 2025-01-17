@@ -8,7 +8,7 @@ category: "portugal"
 tags:
   - "portugal"
 description: "Or how I met someone in my building."
-socialImage: ""
+socialImage:
 ---
 
 The Cloudflare office in Lisbon sits on the top floor of a building near the Tejo River. A large accounting firm occupies the bottom five floors. And apparently they need it. They have so many accountants. Just so many. Like quadruple what you’re thinking.

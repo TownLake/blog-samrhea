@@ -8,7 +8,7 @@ category: "parenting"
 tags:
   - "parenting"
 description: "Some ideas for your next chat."
-socialImage: ""
+socialImage:
 ---
 
 I am a new parent and I regret how I interacted with every other new parent before I joined their ranks. It’s not that I said offensive or hurtful things; I just said inane or useless things. Something profound just happened in this person’s life and I could have had a real conversation with them if I had only known what to ask.

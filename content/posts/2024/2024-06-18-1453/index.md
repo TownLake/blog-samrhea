@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "This event is probably as important as the hype suggests."
-socialImage: ""
+socialImage:
 book: "1453: The Holy War for Constantinople and the Clash of Islam and the West"
 Author: "Roger Crowley"
 Year Published: "2016"

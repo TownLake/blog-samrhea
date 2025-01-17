@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Neurosurgeons are not neurologists."
-socialImage: ""
+socialImage:
 book: "Gray Matters: A Biography of Brain Surgery"
 Author: "Theodore H. Schwartz"
 Year Published: "2024"

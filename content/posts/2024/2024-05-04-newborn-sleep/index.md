@@ -8,7 +8,7 @@ category: "parenting"
 tags:
   - "parenting"
 description: "Don't waste your own sleep."
-socialImage: ""
+socialImage:
 ---
 
 I am the father to a 12-week old boy. I wanted to run a short analysis on his sleep and how that impacts my sleep. I failed and I am going back to bed as soon as I finish jotting down what I did not accomplish.

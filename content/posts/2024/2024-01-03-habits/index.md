@@ -9,7 +9,7 @@ tags:
   - "productivity"
   - "habits"
 description: "Entering 2024 stronger."
-socialImage: ""
+socialImage:
 ---
 
 ## Quick Context

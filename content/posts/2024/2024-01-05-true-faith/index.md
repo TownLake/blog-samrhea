@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 16 - back in the USA."
-socialImage: ""
+socialImage:
 book: "True Faith and Allegiance"
 Author: "Mark Greaney"
 Year Published: "2016"

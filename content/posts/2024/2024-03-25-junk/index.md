@@ -8,7 +8,7 @@ category: "parenting"
 tags:
   - "parenting"
 description: "Pushing the attention span boundaries."
-socialImage: ""
+socialImage:
 ---
 
 I’m a new dad. My wife and our son are both doing well and I am grateful for that. We like this gremlin a lot and are excited to raise a Portuguese Texan who code switches based on the way someone pronounces football.

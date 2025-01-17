@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "More starships, more troopers."
-socialImage: ""
+socialImage:
 book: "Old Man's War"
 Author: "John Scalzi"
 Year Published: "2005"

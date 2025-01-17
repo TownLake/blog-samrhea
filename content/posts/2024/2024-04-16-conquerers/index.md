@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "We really underestimate how bold this was."
-socialImage: ""
+socialImage:
 book: "Conquerors: How Portugal Forged the First Global Empire"
 Author: "Roger Crowley"
 Year Published: "2015"

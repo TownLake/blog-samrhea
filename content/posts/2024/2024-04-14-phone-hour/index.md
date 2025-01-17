@@ -9,7 +9,7 @@ tags:
   - "technology"
   - "time"
 description: "Okay, let's try an audacious goal."
-socialImage: ""
+socialImage:
 ---
 
 ![Watch Banner](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/79637e0b-0cb0-4e21-4784-401ed37a0f00/public)

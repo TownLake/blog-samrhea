@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 19 - okay fine..."
-socialImage: ""
+socialImage:
 book: "Code of Honor"
 Author: "Marc Cameron"
 Year Published: "2019"
