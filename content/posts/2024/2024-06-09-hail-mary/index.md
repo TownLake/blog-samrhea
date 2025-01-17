@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "I could not stop reading it."
-socialImage:
+
 book: "Project Hail Mary"
 Author: "Andy Weir"
 Year Published: "2021"

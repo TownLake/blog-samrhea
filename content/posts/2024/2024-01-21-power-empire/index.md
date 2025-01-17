@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 17 - garbage."
-socialImage:
+
 book: "Power and Empire"
 Author: "Marc Cameron"
 Year Published: "2017"

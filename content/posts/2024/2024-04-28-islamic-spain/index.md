@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "We don't appreciate how grand this was."
-socialImage:
+
 book: "A History of Islamic Spain"
 Author: "W. Montgomery Watt and Pierre Cachia"
 Year Published: "2017"

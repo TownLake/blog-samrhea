@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Jack Ryan Book 23 - not to be confused with Chain of Command"
-socialImage:
+
 book: "Command and Control"
 Author: "Marc Cameron"
 Year Published: "2022"

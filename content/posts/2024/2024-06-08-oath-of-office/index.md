@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 18 - I'm back..."
-socialImage:
+
 book: "Oath of Office"
 Author: "Marc Cameron"
 Year Published: "2018"

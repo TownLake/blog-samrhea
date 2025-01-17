@@ -8,7 +8,7 @@ category: "portugal"
 tags:
   - "portugal"
 description: "Hail Mary."
-socialImage:
+
 ---
 
 We would like our son to attend a daycare in Lisbon. My wife works. I work. Our son, an infant, does not work and needs to go somewhere during the day. We also think daycare provides socialization that is important for an only child like ours.

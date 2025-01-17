@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "A real slog with some fun anecdotes sprinkled in."
-socialImage:
+
 book: "Who Owns This Sentence?: A History of Copyrights and Wrongs"
 Author: "David Bellos and Alexandre Montagu"
 Year Published: "2024"

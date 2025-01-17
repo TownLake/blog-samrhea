@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Jack Ryan Book 24 - so we're just redoing Red October now?"
-socialImage:
+
 book: "Red Winter"
 Author: "Marc Cameron"
 Year Published: "2024"

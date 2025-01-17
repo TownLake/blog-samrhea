@@ -9,7 +9,7 @@ tags:
   - "productivity"
   - "habits"
 description: "Travel is back! And bad."
-socialImage:
+
 ---
 
 ## Quick Context

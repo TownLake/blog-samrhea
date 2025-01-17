@@ -9,7 +9,7 @@ tags:
   - "reading-list"
   - "books"
 description: "Another year of Clancy."
-socialImage:
+
 ---
 
 I [keep a log](https://blog.samrhea.com/category/reading/) of the books I read or listen to as part of this blog. I previously did a manual audit of my annual reading list, but this year I am going to let OpenAI handle it for me. This is kind of a perfect use case for AI. I have a large block of semi-structured data. I want some analysis. And I think that analysis is better done externally since I am biased.

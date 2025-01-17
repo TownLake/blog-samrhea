@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "John Ryan Book 21 - less campus, more Texas."
-socialImage:
+
 book: "Chain of Command"
 Author: "Marc Cameron"
 Year Published: "2021"

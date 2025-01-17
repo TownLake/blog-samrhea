@@ -9,7 +9,7 @@ tags:
   - "productivity"
   - "habits"
 description: "Change is possible."
-socialImage:
+
 ---
 
 ## Quick Context

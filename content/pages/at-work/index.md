@@ -1,7 +1,7 @@
 ---
 title: "at work"
 template: "page"
-socialImage:
+
 ---
 
 I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now. I help solve a fun range of problems as  VP, Strategic Advisor & Chief of Staff.

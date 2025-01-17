@@ -11,7 +11,7 @@ tags:
   - "Cloudflare"
   - "AI"
 description: "The least romantic way to plan a date"
-socialImage:
+
 ---
 
 >First, let me just say, "I get it." This is the least romantic way to plan anything, much less date night. This is more an experiment to demonstrate how easy it is to ship something now and the nearest problem I had was a Saturday without any concrete date night plans.

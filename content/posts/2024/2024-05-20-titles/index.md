@@ -8,7 +8,7 @@ category: "work"
 tags:
   - "work"
 description: "Just find people you like and do hard things with them."
-socialImage:
+
 ---
 
 **⚠️ WARNING**

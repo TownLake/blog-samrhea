@@ -9,7 +9,7 @@ tags:
   - "productivity"
   - "habits"
 description: "Writing and writing."
-socialImage:
+
 ---
 
 ## Quick Context

@@ -8,7 +8,7 @@ category: "technology"
 tags:
   - "technology"
 description: "iOS 18 features before iOS 18."
-socialImage:
+
 ---
 
 iOS 18 [plans to introduce](https://www.apple.com/ios/ios-18-preview/) Apple Intelligence (AI\*), a suite of Large Language Model (LLM) services baked into the operating system. One of those capabilities will be the ability to rewrite text for you. Highlight what you just typed, select a tone, and the AI will replace it with a new version.

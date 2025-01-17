@@ -8,7 +8,7 @@ category: "portugal"
 tags:
   - "portugal"
 description: "Our own gravity well of debauchery."
-socialImage:
+
 ---
 
 Every year, thousands of (British|German|French|Benelux) Stag Parties and Hen Do’s invade the cheaper (Southern) half of Europe. These interlopers aren’t quite as destructive as Jean-Andoche Junot or Frederick II, but they do leave a wake of vape smoke and vomit in historic neighborhoods. We have surrendered some of our greatest cities to roving groups of English lads wearing shorts led by guys named Liam or Noah.

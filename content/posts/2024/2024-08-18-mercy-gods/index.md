@@ -9,7 +9,7 @@ tags:
   - "reading"
   - "books"
 description: "Whew, bleak, but I'm intrigued."
-socialImage:
+
 book: "The Mercy of Gods"
 Author: "James S.A. Corey"
 Year Published: "2024"

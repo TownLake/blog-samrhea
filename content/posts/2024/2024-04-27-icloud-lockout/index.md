@@ -8,7 +8,7 @@ category: "technology"
 tags:
   - "technology"
 description: "The impact of losing your iCloud account."
-socialImage:
+
 ---
 
 ![iCloud Vault](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/f7bfa1f2-e8d1-4cfe-f050-2475fc5a8200/public)

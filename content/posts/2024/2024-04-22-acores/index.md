@@ -8,7 +8,7 @@ category: "portugal"
 tags:
   - "portugal"
 description: "An autonomous citizen of Portugal's autonomous region."
-socialImage:
+
 ---
 
 Our son was born a Portuguese citizen. My wife and I had been permanent residents in Portugal for over a year when he arrived and so he qualified.
