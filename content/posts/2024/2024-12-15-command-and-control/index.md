@@ -1,5 +1,5 @@
 ---
-title: "🇵🇦🚢 Red Winter by Marc Cameron"
+title: "🇵🇦🚢 Command and Control by Marc Cameron"
 date: "2024-12-15"
 template: "post"
 draft: false
