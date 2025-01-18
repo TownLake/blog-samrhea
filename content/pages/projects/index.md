@@ -17,4 +17,8 @@ hidden: true
     <img src="https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/8fa0e9d6-a053-46ca-530a-bc20a7bc9000/public" alt="Project 3" style="border-radius: 12px; width: 100px; height: 100px; object-fit: cover;">
     <div style="margin-top: 8px; color: inherit; font-weight: bold;">AI Watch</div>
   </a>
+    <a href="https://lisbon-ai.samrhea.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+    <img src="https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/d9091d4a-9009-4726-d0db-e3436e4ba500/public" alt="Project 3" style="border-radius: 12px; width: 100px; height: 100px; object-fit: cover;">
+    <div style="margin-top: 8px; color: inherit; font-weight: bold;">Lisbon AI</div>
+  </a>
 </div>
