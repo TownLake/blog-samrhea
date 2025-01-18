@@ -1,5 +1,5 @@
 ---
 title: "projects"
-template: "page"
+template: "projects"
 hidden: true
 ---
