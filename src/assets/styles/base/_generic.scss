@@ -19,12 +19,7 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-h2,
-h1,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: variables.$typography-font-family;
   font-weight: 600;
 }
@@ -116,7 +111,7 @@ ul {
   list-style: square;
   @include mixins.margin-bottom(1);
 
-  & li {
+  li {
     margin-bottom: 10px;
     padding: 0 5px;
   }
@@ -133,42 +128,42 @@ blockquote {
   text-align: center;
 }
 
+/* -------------- TABLE STYLES (GitHub-Like) -------------- */
 table {
-  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid var(--color-border);
   border-collapse: collapse;
-  border-spacing:0;
+  margin-bottom: 20px;
 
-  tr {
-    border-top: 1px solid #d1d7dd;
-    margin: 0;
-    padding:0;
+  thead {
+    background-color: var(--color-table-header-bg);
 
-  &:nth-child(2n) {
-    background-color: var(--table-n-row-background);
+    th {
+      padding: 6px 13px;
+      border: 1px solid var(--color-border);
+      text-align: left; /* GitHub style typically left-aligns headers */
+      font-weight: bold;
+    }
   }
 
-  th,
-  td {
-    padding: 6px 13px;
-    border: 1px solid #d1d7dd;
-    text-align: left;
-    margin: 0;
+  tbody {
+    tr {
+      border-top: 1px solid var(--color-border);
 
-  &:first-child {
-    margin-top: 0;
-  }
+      &:nth-child(even) {
+        background-color: var(--color-table-zebra-bg);
+      }
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-    
-th {
-  font-weight: bold;
-  text-align: center;
+      td {
+        border: 1px solid var(--color-border);
+        padding: 6px 13px;
+        text-align: left;
+        margin: 0;
+      }
     }
   }
 }
+/* -------------- END TABLE STYLES -------------- */
 
 figure {
   display: block;

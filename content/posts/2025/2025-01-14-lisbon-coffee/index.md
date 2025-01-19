@@ -26,19 +26,19 @@ The dude wants to go. And that energy is channeled into exactly three things rig
 
 The coffee shop we visit is one of those third-wave modern coffee shops. Not the old school Portuguese bakeries that sell you an espresso that you drink while standing at the counter. This one has oat milk and an iPad for ordering. And a tip jar.
 
-We walked in and I began to order at the counter while I held my gremlin child after parking the stroller outside. The place is railcar thin and will not accommodate a stroller. While I was busy selecting the oat milk option, my son managed to get his thieving paws on the glass tip jar.
-
-He is not strong enough to lift the jar, but he is exactly strong enough to drag it off the counter and throw it on the ground. The glass jar crashed into the tile floor and exploded into a thousand pieces, sending Euro coins and shards of glass everywhere. My kid smiled.
-
-I stood there, a squirmy toddler in my arms, embarrassed by the calamity. I couldn’t set him down on the floor in the middle of the shards of glass. I also needed to help clean up. So I figured I could strap him into his stroller outside the shop, keep an eye on him, and collect coins. He could make faces at people walking past. Again, relatively kid-safe neighborhood.
-
-I started to place him into the stroller while apologizing profusely until the French offered their help. In addition to American expats and Russian digital nomads, the coffee shop is a favorite of local French parents. The French lycée and the French-American international school are both within a short walk of the cafe. A group of four to five moms (and exactly one dad) gather there almost every morning. They are regular enough that they have their own table outside.
+The place is also pretty international. In addition to American expats and Russian digital nomads, the coffee shop is a favorite of local French parents. The French lycée and the French-American international school are both within a short walk of the cafe. A group of four to five moms (and exactly one dad) gather there almost every morning. They are regular enough that they have their own table outside.
 
 They are always dressed as chic as you imagine but give off a vibe that they do not really care. One of them smokes cigarettes and makes it look cool as hell. The women are all attractive. None of them wear athleisure.
 
 This is different from the everything about me. I always wear athleisure (and a ball cap from Cheval Blanc St. Tropez, a favorite hotel that happens to be French, but I think this hurts my cause more than it helps). My child is usually just wearing the pajamas he had on when he woke up. I care a lot.
 
-Despite the cultural gulf, when they saw what happened and my attempts to find a place where the world would be safe from my kid, their apparent leader reached her arms out to take my son. As if it was no big deal. She just motioned to me to hand him over.
+A few weeks ago I walked past the French ladies and into the shop where I began to order at the counter while I held my gremlin child after parking the stroller outside. The place is railcar thin and will not accommodate a stroller. While I was busy selecting the oat milk option, my son managed to get his thieving paws on the glass tip jar.
+
+He is not strong enough to lift the jar, but he is exactly strong enough to drag it off the counter and throw it on the ground. The glass jar crashed into the tile floor and exploded into a thousand pieces, sending Euro coins and shards of glass everywhere. My kid smiled.
+
+I stood there, a squirmy toddler in my arms, embarrassed by the calamity. I couldn’t set him down on the floor in the middle of the shards of glass. I also needed to help clean up. So I figured I could strap him into his stroller outside the shop, keep an eye on him, and collect coins. He could make faces at people walking past. Again, relatively kid-safe neighborhood.
+
+I started to place him into the stroller while apologizing profusely to the barista until the French moms  offered their help. Despite the cultural gulf, when they saw what happened and my attempts to find a place where the world would be safe from my kid, their apparent leader reached her arms out to take my son. As if it was no big deal. She just motioned to me to hand him over.
 
 She told me they would entertain him while I helped clean. I asked if she was sure and she insisted. So I thanked them and pawned my baby off to this group of strangers.
 

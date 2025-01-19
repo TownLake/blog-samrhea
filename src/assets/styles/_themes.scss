@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 @use "variables";
 @use "functions";
 
@@ -9,6 +8,10 @@
   @each $key, $value in variables.$light-color-palette {
     --color-#{$key}: #{functions.hslToList($value)};
   }
+
+  /* Add these lines for GitHub-style table header & zebra rows in light mode */
+  --color-table-header-bg: #f6f8fa; 
+  --color-table-zebra-bg: #f6f8fa;
 }
 
 .dark {
@@ -17,4 +20,8 @@
   @each $key, $value in variables.$dark-color-palette {
     --color-#{$key}: #{functions.hslToList($value)};
   }
+
+  /* Same for dark mode, but with darker shades */
+  --color-table-header-bg: #30363d;
+  --color-table-zebra-bg: #161b22;
 }
