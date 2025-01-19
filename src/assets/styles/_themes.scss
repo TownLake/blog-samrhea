@@ -9,9 +9,11 @@
     --color-#{$key}: #{functions.hslToList($value)};
   }
 
-  /* Add these lines for GitHub-style table header & zebra rows in light mode */
-  --color-table-header-bg: #f6f8fa; 
-  --color-table-zebra-bg: #f6f8fa;
+  /* ---- Table colors for LIGHT MODE ---- */
+  --color-table-border: #d2dbe1;         /* lines in light mode */
+  --color-table-header-bg: #eaedf0;      /* header row color */
+  --color-table-row-odd: #ffffff;        /* first row color */
+  --color-table-row-even: #f6f8fa;       /* second row color */
 }
 
 .dark {
@@ -21,7 +23,9 @@
     --color-#{$key}: #{functions.hslToList($value)};
   }
 
-  /* Same for dark mode, but with darker shades */
-  --color-table-header-bg: #30363d;
-  --color-table-zebra-bg: #161b22;
+  /* ---- Table colors for DARK MODE ---- */
+  --color-table-border: #373d46;         /* lines in dark mode */
+  --color-table-header-bg: #21262d;      /* header row color */
+  --color-table-row-odd: #0d1117;        /* first row color */
+  --color-table-row-even: #151b23;       /* second row color */
 }
