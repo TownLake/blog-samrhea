@@ -73,6 +73,8 @@ I [keep a log](https://blog.samrhea.com/category/reading/) of the books I read o
 
 ---
 
+<div class="table-wrapper">
+
 ## 3. List of 2024 Reads
 
 | #  | Title & Author                                                                        | Fiction / Non-Fiction | Format               | Start Date        | Finish Date       | Pages / Length         | Primary Places Read / Listened     |
@@ -94,6 +96,8 @@ I [keep a log](https://blog.samrhea.com/category/reading/) of the books I read o
 | 15 | **Red Winter** <br> Marc Cameron (Clancy #22)                                          | Fiction (Thriller)    | Kindle               | 2024-10-04        | 2024-11-25        | 430 pages               | Lisbon, Sintra, Berlin, Brussels     |
 
 ---
+
+</div>
 
 ## 4. Observations & Highlights
 
