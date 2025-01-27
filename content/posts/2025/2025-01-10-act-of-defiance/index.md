@@ -52,7 +52,7 @@ But there’s always a price to be paid. When the final moments tick away, will 
 |Category|Value|
 |---|---|
 |**Date Started**|December 16, 2024|
-|**Date Finished**|January 9, 2024|
+|**Date Finished**|January 9, 2025|
 |**Places Read**|Lisbon, Portugal & Utah, USA|
 
 ## Notes - No Spoilers
