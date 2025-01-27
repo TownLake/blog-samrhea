@@ -60,3 +60,5 @@ A neurosurgeon as well as a professor of neurosurgery at Weill Cornell Medicine,
 ## Notes - No Spoilers
 
 * Neurosurgeons really, really do not want you to confuse them with neurologists, psychiatrists, or any other type of surgeon. I started to giggle at the frequency with which the author would make it very clear that some of the "bad guys" of brain surgery development were not, in fact, neurosurgeons.
+* Fun to learn about how much of the field descends from a few pioneers.
+* Humans are either weirdly resilient and can take a serious beating and be fine or they can trip in the shower just once and be dead immediately. That is terrifying.
