@@ -67,3 +67,40 @@
     }
   }
 }
+
+.featuredCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featuredCard {
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  background: white;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.featuredCardTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.featuredCardDescription {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
