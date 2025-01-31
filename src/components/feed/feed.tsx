@@ -5,12 +5,12 @@ import * as styles from "./feed.module.scss";
 
 const FEATURED_CARDS = [
   {
-    title: "2025 Reading",
+    title: "2️⃣0️⃣2️⃣5️⃣ List",
     description: "Fatherhood year one",
     link: "https://blog.samrhea.com/posts/2024/reading-list/"
   },
   {
-    title: "Featured Book 2",
+    title: "2️⃣0️⃣2️⃣4️⃣ List",
     description: "Revenge of the Kindle",
     link: "https://blog.samrhea.com/posts/2023/reading-list/"
   }
