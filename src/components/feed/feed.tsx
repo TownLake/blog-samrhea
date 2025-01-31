@@ -3,7 +3,6 @@ import { Link } from "gatsby";
 import { type Edge } from "@/types/edge";
 import * as styles from "./feed.module.scss";
 
-// Define your three featured cards
 const FEATURED_CARDS = [
   {
     title: "Featured Book 1",
@@ -28,7 +27,7 @@ type FeedProps = {
 };
 
 const Feed: FC<FeedProps> = ({ edges, category }) => {
-  const isReadingCategory = category === 'Reading';
+  const isReadingCategory = category === 'reading';
 
   return (
     <div className={styles.feed}>
