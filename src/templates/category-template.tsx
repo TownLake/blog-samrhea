@@ -1,5 +1,4 @@
 import React, { type FC } from "react";
-
 import { graphql } from "gatsby";
 
 import { Feed } from "@/components/feed";
@@ -24,12 +23,18 @@ const CategoryTemplate: FC<CategoryTemplateProps> = ({ data, pageContext }) => {
   const { prevPagePath, nextPagePath, hasPrevPage, hasNextPage } = pagination;
 
   const { edges } = data.allMarkdownRemark;
+  const { title: siteTitle, description: siteDescription } = useSiteMetadata();
 
   return (
     <Layout>
       <Sidebar />
       <Page title={group}>
-        <Feed edges={edges} />
+        {/*
+          Pass the category in so Feed can check if `category === 'reading'`.
+          If your category is strictly lowercase "reading" in frontmatter,
+          this will match exactly.
+        */}
+        <Feed edges={edges} category={group} />
         <Pagination
           prevPagePath={prevPagePath}
           nextPagePath={nextPagePath}
@@ -76,7 +81,6 @@ export const query = graphql`
 
 export const Head: FC<CategoryTemplateProps> = ({ pageContext }) => {
   const { title, description } = useSiteMetadata();
-
   const {
     group,
     pagination: { currentPage: page },
