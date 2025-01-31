@@ -5,19 +5,14 @@ import * as styles from "./feed.module.scss";
 
 const FEATURED_CARDS = [
   {
-    title: "Featured Book 1",
-    description: "Short description of featured book 1",
-    link: "https://example.com/book1"
+    title: "2025 Reading",
+    description: "Fatherhood year one",
+    link: "https://blog.samrhea.com/posts/2024/reading-list/"
   },
   {
     title: "Featured Book 2",
-    description: "Short description of featured book 2",
-    link: "https://example.com/book2"
-  },
-  {
-    title: "Featured Book 3",
-    description: "Short description of featured book 3",
-    link: "https://example.com/book3"
+    description: "Revenge of the Kindle",
+    link: "https://blog.samrhea.com/posts/2023/reading-list/"
   }
 ];
 

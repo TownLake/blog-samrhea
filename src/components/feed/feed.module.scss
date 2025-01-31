@@ -73,34 +73,35 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 }
 
 .featuredCard {
-  padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 4px;
+  padding: 1.25rem;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: 8px; // More rounded corners
+  background: hsl(var(--color-background));
   text-decoration: none;
-  transition: transform 0.2s ease;
-  background: white;
-  
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
   }
 }
 
 .featuredCardTitle {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  color: #333;
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+  color: hsl(var(--color-foreground));
 }
 
 .featuredCardDescription {
   margin: 0;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 1rem;
+  color: hsl(var(--color-muted-foreground));
 }
