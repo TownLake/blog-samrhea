@@ -21,8 +21,7 @@ import requests
 #   "text": "The text to embed"
 # }
 #
-# For a batch request, you could also send an array (maxItems 100), but here we
-# assume one string per call.
+# For batch requests, an array is supported but here we assume one text per call.
 # -----------------------------------------------------------------------------
 
 def get_embedding(text, account_id):
@@ -36,7 +35,7 @@ def get_embedding(text, account_id):
         response = requests.post(url, json=payload)
         response.raise_for_status()
         data = response.json()
-        # Expecting a response similar to: { "embedding": [ ... ] }
+        # Expect a response like: { "embedding": [ ... ] }
         embedding = data.get("embedding")
         if embedding is None:
             print("Error: No 'embedding' field found in AI API response.", file=sys.stderr)
@@ -58,9 +57,9 @@ def generate_document_id(file_path):
 
 def extract_title(content, file_path):
     """
-    Extracts the title from the post content. This example assumes the first
-    Markdown header (a line starting with '#') is the title. If not found,
-    falls back to the file name.
+    Extracts the title from the post content.
+    Assumes the first Markdown header (a line starting with '#') is the title.
+    If not found, falls back to the file name.
     """
     for line in content.splitlines():
         if line.startswith("#"):
@@ -81,7 +80,7 @@ def get_changed_posts():
             check=True
         )
         files = result.stdout.splitlines()
-        # Adjust the path and file extension as needed (e.g., Markdown files)
+        # Only include files in 'posts/' ending with '.md'
         changed_posts = [f for f in files if f.startswith("posts/") and f.endswith(".md")]
         return changed_posts
     except subprocess.CalledProcessError as e:
@@ -110,14 +109,13 @@ def process_file(file_path, account_id):
     # Log the generated embedding
     print(f"Embedding for {file_path}: {embedding}")
 
-    # Extract metadata (for example, a title from the Markdown header)
+    # Extract metadata (e.g., title) from the content
     title = extract_title(content, file_path)
     
     # Generate a document ID (using the file path)
     doc_id = generate_document_id(file_path)
 
-    # Assemble the document payload.
-    # This is the structure that Vectorize expects.
+    # Assemble the document payload as required by Vectorize.
     document = {
         "id": doc_id,
         "embedding": embedding,
@@ -133,7 +131,7 @@ def process_file(file_path, account_id):
 # Function to push documents to Cloudflare Vectorize in NDJSON format
 # -----------------------------------------------------------------------------
 
-def push_to_vectorize_batch(documents, account_id, email, api_key):
+def push_to_vectorize_batch(documents, account_id, token):
     """
     Pushes a batch of documents to Cloudflare Vectorize.
     The documents are sent as NDJSON (newline-delimited JSON) to the insert API.
@@ -142,7 +140,6 @@ def push_to_vectorize_batch(documents, account_id, email, api_key):
         print("No documents to push.")
         return
 
-    # Construct the Vectorize insert URL.
     index_name = "blog-posts"
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert"
 
@@ -151,8 +148,7 @@ def push_to_vectorize_batch(documents, account_id, email, api_key):
 
     headers = {
         "Content-Type": "application/x-ndjson",
-        "X-Auth-Email": email,
-        "X-Auth-Key": api_key
+        "Authorization": f"Bearer {token}"
     }
     try:
         response = requests.post(url, headers=headers, data=ndjson_payload)
@@ -180,10 +176,9 @@ def main():
 
     # Get required environment variables.
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
-    email = os.getenv("CLOUDFLARE_EMAIL")
-    api_key = os.getenv("CLOUDFLARE_API_KEY")
-    if not all([account_id, email, api_key]):
-        print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_EMAIL, and CLOUDFLARE_API_KEY must be set in the environment.", file=sys.stderr)
+    token = os.getenv("CLOUDFLARE_VECTORIZE_TOKEN")
+    if not account_id or not token:
+        print("Error: CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_VECTORIZE_TOKEN must be set in the environment.", file=sys.stderr)
         sys.exit(1)
 
     # Determine which posts to process.
@@ -203,7 +198,7 @@ def main():
             documents.append(doc)
 
     # Push the batch of documents to Vectorize.
-    push_to_vectorize_batch(documents, account_id, email, api_key)
+    push_to_vectorize_batch(documents, account_id, token)
 
 if __name__ == "__main__":
     main()
