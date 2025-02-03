@@ -16,8 +16,9 @@ import requests
 #
 # curl https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/@cf/baai/bge-base-en-v1.5 \
 #   -H 'Authorization: Bearer {AI_TOKEN}' \
-#   -d '{ "prompt": "Where did the phrase Hello World come from" }'
+#   -d '{ "text": "Where did the phrase Hello World come from" }'
 #
+# Note: The JSON schema requires a "text" property.
 # -----------------------------------------------------------------------------
 
 def get_embedding(text, account_id, ai_token):
@@ -26,7 +27,7 @@ def get_embedding(text, account_id, ai_token):
     using the model @cf/baai/bge-base-en-v1.5.
     """
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/baai/bge-base-en-v1.5"
-    payload = {"prompt": text}
+    payload = {"text": text}  # Changed from "prompt" to "text" per the schema
     headers = {
         "Authorization": f"Bearer {ai_token}",
         "Content-Type": "application/json"
@@ -48,19 +49,32 @@ def get_embedding(text, account_id, ai_token):
             print("Response content:", response.text, file=sys.stderr)
         sys.exit(1)
 
+# -----------------------------------------------------------------------------
+# Functions for processing blog post files
+# -----------------------------------------------------------------------------
+
 def generate_document_id(file_path):
-    """Generates a unique document ID from the file path using an MD5 hash."""
+    """
+    Generates a unique document ID from the file path using an MD5 hash.
+    """
     return hashlib.md5(file_path.encode("utf-8")).hexdigest()
 
 def extract_title(content, file_path):
-    """Extracts the title from the post content by using the first Markdown header."""
+    """
+    Extracts the title from the post content.
+    Assumes the first Markdown header (a line starting with '#') is the title.
+    If not found, falls back to the file name.
+    """
     for line in content.splitlines():
         if line.startswith("#"):
             return line.lstrip("#").strip()
     return os.path.basename(file_path)
 
 def get_changed_posts():
-    """Uses git to determine which files under the 'posts/' directory have changed."""
+    """
+    Uses git to determine which files under the 'posts/' directory have changed.
+    Adjust the git diff command as needed.
+    """
     try:
         result = subprocess.run(
             ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
@@ -70,6 +84,7 @@ def get_changed_posts():
             check=True
         )
         files = result.stdout.splitlines()
+        # Only include files in 'posts/' ending with '.md'
         changed_posts = [f for f in files if f.startswith("posts/") and f.endswith(".md")]
         return changed_posts
     except subprocess.CalledProcessError as e:
@@ -77,7 +92,13 @@ def get_changed_posts():
         sys.exit(1)
 
 def process_file(file_path, account_id, ai_token):
-    """Processes a single blog post file and returns a document dictionary with an embedding."""
+    """
+    Processes a single blog post file:
+      - Reads its content.
+      - Generates an embedding using Cloudflare Workers AI.
+      - Logs the embedding.
+      - Returns a document dictionary with metadata.
+    """
     print(f"Processing file: {file_path}")
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -88,9 +109,17 @@ def process_file(file_path, account_id, ai_token):
 
     print("Generating embedding...")
     embedding = get_embedding(content, account_id, ai_token)
+    
+    # Log the generated embedding
     print(f"Embedding for {file_path}: {embedding}")
+
+    # Extract metadata (e.g., title) from the content
     title = extract_title(content, file_path)
+    
+    # Generate a document ID (using the file path)
     doc_id = generate_document_id(file_path)
+
+    # Assemble the document payload as required by Vectorize.
     document = {
         "id": doc_id,
         "embedding": embedding,
@@ -102,15 +131,25 @@ def process_file(file_path, account_id, ai_token):
     }
     return document
 
+# -----------------------------------------------------------------------------
+# Function to push documents to Cloudflare Vectorize in NDJSON format
+# -----------------------------------------------------------------------------
+
 def push_to_vectorize_batch(documents, account_id, vectorize_token):
-    """Pushes a batch of documents to Cloudflare Vectorize using NDJSON."""
+    """
+    Pushes a batch of documents to Cloudflare Vectorize.
+    The documents are sent as NDJSON (newline-delimited JSON) to the insert API.
+    """
     if not documents:
         print("No documents to push.")
         return
 
     index_name = "blog-posts"
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert"
+
+    # Build NDJSON payload: one JSON object per line.
     ndjson_payload = "\n".join(json.dumps(doc) for doc in documents) + "\n"
+
     headers = {
         "Content-Type": "application/x-ndjson",
         "Authorization": f"Bearer {vectorize_token}"
@@ -124,13 +163,22 @@ def push_to_vectorize_batch(documents, account_id, vectorize_token):
         print(f"Error pushing documents to Cloudflare Vectorize: {e}", file=sys.stderr)
         sys.exit(1)
 
+# -----------------------------------------------------------------------------
+# Main entry point
+# -----------------------------------------------------------------------------
+
 def main():
     parser = argparse.ArgumentParser(
         description="Update blog post embeddings using Cloudflare Workers AI and push to Vectorize"
     )
-    parser.add_argument("--post", help="Path to a specific blog post file", required=False)
+    parser.add_argument(
+        "--post",
+        help="Path to a specific blog post file (e.g., posts/my-post.md)",
+        required=False
+    )
     args = parser.parse_args()
 
+    # Get required environment variables.
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
     ai_token = os.getenv("CLOUDFLARE_AI_TOKEN")
     vectorize_token = os.getenv("CLOUDFLARE_VECTORIZE_TOKEN")
@@ -138,6 +186,7 @@ def main():
         print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN, and CLOUDFLARE_VECTORIZE_TOKEN must be set in the environment.", file=sys.stderr)
         sys.exit(1)
 
+    # Determine which posts to process.
     if args.post:
         posts_to_process = [args.post]
     else:
@@ -152,6 +201,8 @@ def main():
         doc = process_file(post_file, account_id, ai_token)
         if doc:
             documents.append(doc)
+
+    # Push the batch of documents to Vectorize.
     push_to_vectorize_batch(documents, account_id, vectorize_token)
 
 if __name__ == "__main__":
