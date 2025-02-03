@@ -31,7 +31,7 @@ def get_embedding(text, account_id, ai_token):
     }
     try:
         response = requests.post(url, json=payload, headers=headers)
-        # Logging response details for debugging:
+        # Log the complete response for debugging
         print("Embedding API response status:", response.status_code)
         print("Embedding API response headers:", response.headers)
         print("Embedding API response text:", response.text)
@@ -119,11 +119,11 @@ def push_to_vectorize_batch(documents, account_id, vectorize_token):
 
     index_name = "blog-posts"
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert"
-    # Build NDJSON payload: one JSON object per line.
-    # (Note: Some APIs may not require a trailing newline; here we omit it.)
-    ndjson_payload = "\n".join(json.dumps(doc) for doc in documents)
+    
+    # Build NDJSON payload: one JSON object per line, with a trailing newline.
+    ndjson_payload = "\n".join(json.dumps(doc) for doc in documents) + "\n"
     print("NDJSON payload to be sent:")
-    print(ndjson_payload)
+    print(repr(ndjson_payload))  # Using repr() to show special characters clearly
     
     headers = {
         "Content-Type": "application/x-ndjson",
