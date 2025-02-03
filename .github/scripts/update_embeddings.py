@@ -18,7 +18,7 @@ import requests
 #   -H 'Authorization: Bearer {AI_TOKEN}' \
 #   -d '{ "text": "Where did the phrase Hello World come from" }'
 #
-# Note: The JSON schema requires a "text" property.
+# Note: The API requires a JSON payload with a "text" property.
 # -----------------------------------------------------------------------------
 
 def get_embedding(text, account_id, ai_token):
@@ -27,7 +27,7 @@ def get_embedding(text, account_id, ai_token):
     using the model @cf/baai/bge-base-en-v1.5.
     """
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/baai/bge-base-en-v1.5"
-    payload = {"text": text}  # Using "text" per the required schema.
+    payload = {"text": text}  # Note: Using "text" as required by the API schema.
     headers = {
         "Authorization": f"Bearer {ai_token}",
         "Content-Type": "application/json"
@@ -36,7 +36,7 @@ def get_embedding(text, account_id, ai_token):
         response = requests.post(url, json=payload, headers=headers)
         response.raise_for_status()
         data = response.json()
-        # Depending on the API response, the embedding might be under "embedding" or "result".
+        # The embedding may be returned under "embedding" or "result".
         embedding = data.get("embedding") or data.get("result")
         if embedding is None:
             print("Error: No embedding found in AI API response.", file=sys.stderr)
@@ -108,7 +108,7 @@ def process_file(file_path, account_id, ai_token):
     print("Generating embedding...")
     embedding = get_embedding(content, account_id, ai_token)
     
-    # If the embedding is a dictionary with "data", extract the flat list.
+    # If the embedding is returned in a wrapped format (with "data"), extract the vector.
     if isinstance(embedding, dict) and "data" in embedding:
         # Expecting a structure like: {"shape": [1, 768], "data": [[...]]}
         if isinstance(embedding["data"], list) and len(embedding["data"]) > 0:
@@ -117,13 +117,13 @@ def process_file(file_path, account_id, ai_token):
             print("Error: Unexpected embedding data structure.", file=sys.stderr)
             sys.exit(1)
     
-    # Log the generated embedding
+    # Log the generated embedding.
     print(f"Embedding for {file_path}: {embedding}")
 
-    # Extract metadata (e.g., title) from the content
+    # Extract metadata (e.g., title) from the content.
     title = extract_title(content, file_path)
     
-    # Generate a document ID (using the file path)
+    # Generate a document ID (using the file path).
     doc_id = generate_document_id(file_path)
 
     # Assemble the document payload as required by Vectorize.
@@ -133,12 +133,12 @@ def process_file(file_path, account_id, ai_token):
         "metadata": {
             "title": title,
             "file_path": file_path,
-            "last_modified": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+            "last_modified": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         }
     }
     return document
 
-def push_to_vectorize_batch(documents, account_id, vectorize_token):
+def push_to_vectorize_batch(documents, account_id, cf_email, cf_api_key):
     """
     Pushes a batch of documents to Cloudflare Vectorize.
     The documents are sent as NDJSON (newline-delimited JSON) to the insert API.
@@ -155,7 +155,8 @@ def push_to_vectorize_batch(documents, account_id, vectorize_token):
 
     headers = {
         "Content-Type": "application/x-ndjson",
-        "Authorization": f"Bearer {vectorize_token}"
+        "X-Auth-Email": cf_email,
+        "X-Auth-Key": cf_api_key
     }
     try:
         response = requests.post(url, headers=headers, data=ndjson_payload)
@@ -180,9 +181,10 @@ def main():
     # Get required environment variables.
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
     ai_token = os.getenv("CLOUDFLARE_AI_TOKEN")
-    vectorize_token = os.getenv("CLOUDFLARE_VECTORIZE_TOKEN")
-    if not account_id or not ai_token or not vectorize_token:
-        print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN, and CLOUDFLARE_VECTORIZE_TOKEN must be set in the environment.", file=sys.stderr)
+    cf_email = os.getenv("CLOUDFLARE_EMAIL")
+    cf_api_key = os.getenv("CLOUDFLARE_API_KEY")
+    if not account_id or not ai_token or not cf_email or not cf_api_key:
+        print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN, CLOUDFLARE_EMAIL, and CLOUDFLARE_API_KEY must be set in the environment.", file=sys.stderr)
         sys.exit(1)
 
     # Determine which posts to process.
@@ -202,7 +204,7 @@ def main():
             documents.append(doc)
 
     # Push the batch of documents to Vectorize.
-    push_to_vectorize_batch(documents, account_id, vectorize_token)
+    push_to_vectorize_batch(documents, account_id, cf_email, cf_api_key)
 
 if __name__ == "__main__":
     main()
