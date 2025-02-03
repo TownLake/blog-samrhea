@@ -6,6 +6,7 @@ import os
 import subprocess
 import sys
 from datetime import datetime
+import urllib.parse
 
 import requests
 
@@ -21,7 +22,8 @@ import requests
 #   "text": "The text to embed"
 # }
 #
-# For batch requests, an array is supported but here we assume one text per call.
+# For batch requests, an array is supported (up to 100 items), but here we
+# assume one text per call.
 # -----------------------------------------------------------------------------
 
 def get_embedding(text, account_id):
@@ -29,20 +31,29 @@ def get_embedding(text, account_id):
     Calls Cloudflare Workers AI to generate an embedding for the provided text
     using the model @cf/baai/bge-base-en-v1.5.
     """
-    url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/workers/ai/models/@cf/baai/bge-base-en-v1.5/invoke"
+    # URL-encode the model name so that the "@" is properly encoded.
+    model_name = "@cf/baai/bge-base-en-v1.5"
+    # Keep the slash ("/") characters unencoded.
+    encoded_model_name = urllib.parse.quote(model_name, safe='/')
+    url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/workers/ai/models/{encoded_model_name}/invoke"
+    
     payload = {"text": text}
     try:
         response = requests.post(url, json=payload)
         response.raise_for_status()
         data = response.json()
-        # Expect a response like: { "embedding": [ ... ] }
+        # Expecting a response like: { "embedding": [ ... ] }
         embedding = data.get("embedding")
         if embedding is None:
             print("Error: No 'embedding' field found in AI API response.", file=sys.stderr)
+            print("Response content:", response.text, file=sys.stderr)
             sys.exit(1)
         return embedding
     except Exception as e:
         print(f"Error calling Cloudflare Workers AI embedding API: {e}", file=sys.stderr)
+        # If available, print response content for debugging.
+        if 'response' in locals():
+            print("Response content:", response.text, file=sys.stderr)
         sys.exit(1)
 
 # -----------------------------------------------------------------------------
