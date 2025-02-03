@@ -5,7 +5,7 @@ import json
 import os
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 
 import requests
 
@@ -27,7 +27,7 @@ def get_embedding(text, account_id, ai_token):
     using the model @cf/baai/bge-base-en-v1.5.
     """
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/baai/bge-base-en-v1.5"
-    payload = {"text": text}  # Changed from "prompt" to "text" per the schema
+    payload = {"text": text}  # Using "text" per the required schema.
     headers = {
         "Authorization": f"Bearer {ai_token}",
         "Content-Type": "application/json"
@@ -54,9 +54,7 @@ def get_embedding(text, account_id, ai_token):
 # -----------------------------------------------------------------------------
 
 def generate_document_id(file_path):
-    """
-    Generates a unique document ID from the file path using an MD5 hash.
-    """
+    """Generates a unique document ID from the file path using an MD5 hash."""
     return hashlib.md5(file_path.encode("utf-8")).hexdigest()
 
 def extract_title(content, file_path):
@@ -110,6 +108,15 @@ def process_file(file_path, account_id, ai_token):
     print("Generating embedding...")
     embedding = get_embedding(content, account_id, ai_token)
     
+    # If the embedding is a dictionary with "data", extract the flat list.
+    if isinstance(embedding, dict) and "data" in embedding:
+        # Expecting a structure like: {"shape": [1, 768], "data": [[...]]}
+        if isinstance(embedding["data"], list) and len(embedding["data"]) > 0:
+            embedding = embedding["data"][0]
+        else:
+            print("Error: Unexpected embedding data structure.", file=sys.stderr)
+            sys.exit(1)
+    
     # Log the generated embedding
     print(f"Embedding for {file_path}: {embedding}")
 
@@ -126,14 +133,10 @@ def process_file(file_path, account_id, ai_token):
         "metadata": {
             "title": title,
             "file_path": file_path,
-            "last_modified": datetime.utcnow().isoformat() + "Z"
+            "last_modified": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
         }
     }
     return document
-
-# -----------------------------------------------------------------------------
-# Function to push documents to Cloudflare Vectorize in NDJSON format
-# -----------------------------------------------------------------------------
 
 def push_to_vectorize_batch(documents, account_id, vectorize_token):
     """
@@ -162,10 +165,6 @@ def push_to_vectorize_batch(documents, account_id, vectorize_token):
     except Exception as e:
         print(f"Error pushing documents to Cloudflare Vectorize: {e}", file=sys.stderr)
         sys.exit(1)
-
-# -----------------------------------------------------------------------------
-# Main entry point
-# -----------------------------------------------------------------------------
 
 def main():
     parser = argparse.ArgumentParser(
