@@ -1,4 +1,4 @@
-name: Vectorize Blog Post
+name: Update Blog Post Embeddings
 
 on:
   push:
@@ -6,30 +6,33 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      post_path:
-        description: 'Path to the blog post markdown file'
-        required: true
-        type: string
+      post:
+        description: 'Path to a specific blog post file (e.g., posts/my-post.md)'
+        required: false
+        default: ''
 
 jobs:
-  vectorize:
+  update-embeddings:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_VECTORIZE_TOKEN: ${{ secrets.CLOUDFLARE_VECTORIZE_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          fetch-depth: 2
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          
+          python-version: '3.x'
+
       - name: Install Dependencies
-        run: npm install node-fetch gray-matter
-        
-      - name: Process and Vectorize
-        env:
-          CLOUDFLARE_VECTORIZE_TOKEN: ${{ secrets.CLOUDFLARE_VECTORIZE_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          POST_PATH: ${{ inputs.post_path }}
-        run: node .github/scripts/vectorize.js
+        run: pip install requests
+
+      - name: Update Embeddings
+        run: |
+          # If a specific post was provided via workflow_dispatch input, pass it as an argument.
+          if [ -n "${{ github.event.inputs.post }}" ]; then
+            python scripts/update_embeddings.py --post "${{ github.event.inputs.post }}"
+          else
+            python scripts/update_embeddings.py
+          fi
