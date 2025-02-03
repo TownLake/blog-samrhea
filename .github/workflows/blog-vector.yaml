@@ -15,7 +15,9 @@ jobs:
   update-embeddings:
     runs-on: ubuntu-latest
     env:
-      CLOUDFLARE_VECTORIZE_TOKEN: ${{ secrets.CLOUDFLARE_VECTORIZE_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+      CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -30,9 +32,8 @@ jobs:
 
       - name: Update Embeddings
         run: |
-          # If a specific post was provided via workflow_dispatch input, pass it as an argument.
           if [ -n "${{ github.event.inputs.post }}" ]; then
-            python scripts/update_embeddings.py --post "${{ github.event.inputs.post }}"
+            python .github/scripts/update_embeddings.py --post "${{ github.event.inputs.post }}"
           else
-            python scripts/update_embeddings.py
+            python .github/scripts/update_embeddings.py
           fi
