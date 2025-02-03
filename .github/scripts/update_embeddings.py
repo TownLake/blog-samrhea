@@ -8,20 +8,39 @@ import sys
 from datetime import datetime, timezone
 
 import requests
+import yaml
+
+# -----------------------------------------------------------------------------
+# YAML Front Matter Parsing
+# -----------------------------------------------------------------------------
+def parse_front_matter(content):
+    """
+    If the file begins with YAML front matter (delimited by '---'),
+    this function parses it and returns a tuple of (front_matter_dict, remaining_content).
+    If no front matter is found, returns ({}, content).
+    """
+    if content.startswith('---'):
+        lines = content.splitlines()
+        fm_lines = []
+        # Start after the first '---'
+        i = 1
+        while i < len(lines) and lines[i].strip() != '---':
+            fm_lines.append(lines[i])
+            i += 1
+        # Skip the closing '---'
+        rest = "\n".join(lines[i+1:]) if i < len(lines) else ""
+        try:
+            fm = yaml.safe_load("\n".join(fm_lines))
+        except Exception as e:
+            print("Error parsing YAML front matter:", e, file=sys.stderr)
+            fm = {}
+        return fm if isinstance(fm, dict) else {}, rest
+    else:
+        return {}, content
 
 # -----------------------------------------------------------------------------
 # Cloudflare Workers AI Embedding API Settings
 # -----------------------------------------------------------------------------
-# This endpoint expects a JSON payload with a "text" property.
-# It uses CLOUDFLARE_AI_TOKEN as a Bearer token.
-#
-# Example:
-#   curl https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/@cf/baai/bge-base-en-v1.5 \
-#     -H 'Authorization: Bearer {CLOUDFLARE_AI_TOKEN}' \
-#     -H 'Content-Type: application/json' \
-#     -d '{ "text": "Your input text here" }'
-# -----------------------------------------------------------------------------
-
 def get_embedding(text, account_id, ai_token):
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/baai/bge-base-en-v1.5"
     payload = {"text": text}
@@ -50,13 +69,15 @@ def get_embedding(text, account_id, ai_token):
 # -----------------------------------------------------------------------------
 # Functions for Processing Blog Post Files
 # -----------------------------------------------------------------------------
-
 def generate_document_id(file_path):
     """Generates a unique document ID from the file path using an MD5 hash."""
     return hashlib.md5(file_path.encode("utf-8")).hexdigest()
 
 def extract_title(content, file_path):
-    """Extracts the title from the content (first Markdown header) or uses the file name."""
+    """
+    Fallback: Extracts the title from the content (first Markdown header)
+    or uses the file name if no header is found.
+    """
     for line in content.splitlines():
         if line.startswith("#"):
             return line.lstrip("#").strip()
@@ -87,10 +108,13 @@ def process_file(file_path, account_id, ai_token):
         print("Error reading", file_path, ":", e, file=sys.stderr)
         return None
 
+    # Parse YAML front matter if present
+    front_matter, main_content = parse_front_matter(content)
+
     print("Generating embedding...")
-    embedding = get_embedding(content, account_id, ai_token)
+    embedding = get_embedding(main_content, account_id, ai_token)
     
-    # If the embedding is returned in a wrapped format (with "data"), extract the vector.
+    # If the embedding is wrapped (with "data"), extract the vector.
     if isinstance(embedding, dict) and "data" in embedding:
         if isinstance(embedding["data"], list) and len(embedding["data"]) > 0:
             embedding = embedding["data"][0]
@@ -99,16 +123,28 @@ def process_file(file_path, account_id, ai_token):
             sys.exit(1)
     
     print("Embedding for", file_path, ":", embedding)
-    title = extract_title(content, file_path)
+    # Use the front matter title if available, else fall back to extracting from content.
+    title = front_matter.get("title") if "title" in front_matter else extract_title(main_content, file_path)
+    # Use the front matter date if available, otherwise use the current date.
+    date_field = front_matter.get("date") if "date" in front_matter else datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    
     doc_id = generate_document_id(file_path)
+    
+    # Build metadata. You can include additional fields from the front matter if available.
+    metadata = {
+        "title": title,
+        "date": date_field,
+        "file_path": file_path,
+    }
+    # Optionally include other metadata fields if present.
+    for key in ["template", "draft", "slug", "category", "tags", "description"]:
+        if key in front_matter:
+            metadata[key] = front_matter[key]
+
     document = {
         "id": doc_id,
-        "embedding": embedding,
-        "metadata": {
-            "title": title,
-            "file_path": file_path,
-            "last_modified": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-        }
+        "values": embedding,
+        "metadata": metadata
     }
     return document
 
@@ -117,13 +153,13 @@ def push_to_vectorize_batch(documents, account_id, vectorize_token):
         print("No documents to push.")
         return
 
-    index_name = "blog-posts"
+    index_name = "blog-posts"  # Adjust if needed.
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert"
     
     # Build NDJSON payload: one JSON object per line, with a trailing newline.
     ndjson_payload = "\n".join(json.dumps(doc) for doc in documents) + "\n"
     print("NDJSON payload to be sent:")
-    print(repr(ndjson_payload))  # Using repr() to show special characters clearly
+    print(repr(ndjson_payload))
     
     headers = {
         "Content-Type": "application/x-ndjson",
