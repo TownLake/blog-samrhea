@@ -1,0 +1,33 @@
+name: Vectorize Blog Post
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      post_path:
+        description: 'Path to the blog post markdown file'
+        required: true
+        type: string
+
+jobs:
+  vectorize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Dependencies
+        run: npm install @cloudflare/workers-ai front-matter node-fetch gray-matter
+        
+      - name: Process and Vectorize
+        env:
+          CLOUDFLARE_VECTORIZE_TOKEN: ${{ secrets.CLOUDFLARE_VECTORIZE_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          POST_PATH: ${{ inputs.post_path }}
+        run: node .github/scripts/vectorize.js
