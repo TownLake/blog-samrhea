@@ -182,9 +182,9 @@ def main():
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
     ai_token = os.getenv("CLOUDFLARE_AI_TOKEN")
     cf_email = os.getenv("CLOUDFLARE_EMAIL")
-    cf_api_key = os.getenv("CLOUDFLARE_API_KEY")
+    cf_api_key = os.getenv("CLOUDFLARE_VECTORIZE_TOKEN")
     if not account_id or not ai_token or not cf_email or not cf_api_key:
-        print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN, CLOUDFLARE_EMAIL, and CLOUDFLARE_API_KEY must be set in the environment.", file=sys.stderr)
+        print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_VECTORIZE_TOKEN, CLOUDFLARE_EMAIL, and CLOUDFLARE_API_KEY must be set in the environment.", file=sys.stderr)
         sys.exit(1)
 
     # Determine which posts to process.
