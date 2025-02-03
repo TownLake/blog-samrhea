@@ -13,9 +13,9 @@ import requests
 # Cloudflare Workers AI Embedding API Settings
 # -----------------------------------------------------------------------------
 # This endpoint expects a JSON payload with a "text" property.
-# It uses the CLOUDFLARE_AI_TOKEN as a Bearer token.
+# It uses CLOUDFLARE_AI_TOKEN as a Bearer token.
 #
-# Example (using curl):
+# Example:
 #   curl https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/@cf/baai/bge-base-en-v1.5 \
 #     -H 'Authorization: Bearer {CLOUDFLARE_AI_TOKEN}' \
 #     -H 'Content-Type: application/json' \
@@ -31,7 +31,7 @@ def get_embedding(text, account_id, ai_token):
     }
     try:
         response = requests.post(url, json=payload, headers=headers)
-        # Logging for debugging the embedding API response:
+        # Logging response details for debugging:
         print("Embedding API response status:", response.status_code)
         print("Embedding API response headers:", response.headers)
         print("Embedding API response text:", response.text)
@@ -90,7 +90,7 @@ def process_file(file_path, account_id, ai_token):
     print("Generating embedding...")
     embedding = get_embedding(content, account_id, ai_token)
     
-    # If the embedding comes in a wrapped format (with "data"), extract the vector.
+    # If the embedding is returned in a wrapped format (with "data"), extract the vector.
     if isinstance(embedding, dict) and "data" in embedding:
         if isinstance(embedding["data"], list) and len(embedding["data"]) > 0:
             embedding = embedding["data"][0]
@@ -119,7 +119,12 @@ def push_to_vectorize_batch(documents, account_id, vectorize_token):
 
     index_name = "blog-posts"
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert"
-    ndjson_payload = "\n".join(json.dumps(doc) for doc in documents) + "\n"
+    # Build NDJSON payload: one JSON object per line.
+    # (Note: Some APIs may not require a trailing newline; here we omit it.)
+    ndjson_payload = "\n".join(json.dumps(doc) for doc in documents)
+    print("NDJSON payload to be sent:")
+    print(ndjson_payload)
+    
     headers = {
         "Content-Type": "application/x-ndjson",
         "Authorization": f"Bearer {vectorize_token}"
