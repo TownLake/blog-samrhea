@@ -8,39 +8,41 @@ import sys
 from datetime import datetime, timezone
 
 import requests
-import yaml
+import re
 
-# -----------------------------------------------------------------------------
-# YAML Front Matter Parsing
-# -----------------------------------------------------------------------------
-def parse_front_matter(content):
+def parse_front_matter_simple(content):
     """
-    If the file begins with YAML front matter (delimited by '---'),
-    this function parses it and returns a tuple of (front_matter_dict, remaining_content).
-    If no front matter is found, returns ({}, content).
+    A simple front matter parser that assumes the file starts with '---'
+    and ends with the next '---'. It returns a tuple (front_matter_dict, remaining_content).
     """
     if content.startswith('---'):
-        lines = content.splitlines()
-        fm_lines = []
-        # Start after the first '---'
-        i = 1
-        while i < len(lines) and lines[i].strip() != '---':
-            fm_lines.append(lines[i])
-            i += 1
-        # Skip the closing '---'
-        rest = "\n".join(lines[i+1:]) if i < len(lines) else ""
-        try:
-            fm = yaml.safe_load("\n".join(fm_lines))
-        except Exception as e:
-            print("Error parsing YAML front matter:", e, file=sys.stderr)
-            fm = {}
-        return fm if isinstance(fm, dict) else {}, rest
-    else:
-        return {}, content
+        # Split into three parts: before, front matter, and the rest.
+        parts = content.split('---', 2)
+        if len(parts) >= 3:
+            fm_str = parts[1]
+            main_content = parts[2]
+            front_matter = {}
+            for line in fm_str.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                # Very simple handling: split on the first ':'.
+                if ':' in line:
+                    key, value = line.split(':', 1)
+                    key = key.strip()
+                    value = value.strip()
+                    # Remove surrounding quotes if any.
+                    if (value.startswith('"') and value.endswith('"')) or (value.startswith("'") and value.endswith("'")):
+                        value = value[1:-1]
+                    # Convert boolean strings to booleans.
+                    if value.lower() == 'true':
+                        value = True
+                    elif value.lower() == 'false':
+                        value = False
+                    front_matter[key] = value
+            return front_matter, main_content
+    return {}, content
 
-# -----------------------------------------------------------------------------
-# Cloudflare Workers AI Embedding API Settings
-# -----------------------------------------------------------------------------
 def get_embedding(text, account_id, ai_token):
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/baai/bge-base-en-v1.5"
     payload = {"text": text}
@@ -50,13 +52,12 @@ def get_embedding(text, account_id, ai_token):
     }
     try:
         response = requests.post(url, json=payload, headers=headers)
-        # Log the complete response for debugging
         print("Embedding API response status:", response.status_code)
         print("Embedding API response headers:", response.headers)
         print("Embedding API response text:", response.text)
         response.raise_for_status()
         data = response.json()
-        # The embedding may be returned under "embedding" or "result"
+        # The embedding might be under "embedding" or "result"
         embedding = data.get("embedding") or data.get("result")
         if embedding is None:
             print("Error: No embedding found in AI API response.", file=sys.stderr)
@@ -66,16 +67,13 @@ def get_embedding(text, account_id, ai_token):
         print("Error calling Cloudflare Workers AI embedding API:", e, file=sys.stderr)
         sys.exit(1)
 
-# -----------------------------------------------------------------------------
-# Functions for Processing Blog Post Files
-# -----------------------------------------------------------------------------
 def generate_document_id(file_path):
     """Generates a unique document ID from the file path using an MD5 hash."""
     return hashlib.md5(file_path.encode("utf-8")).hexdigest()
 
 def extract_title(content, file_path):
     """
-    Fallback: Extracts the title from the content (first Markdown header)
+    Fallback: Extracts the title from the first Markdown header in content,
     or uses the file name if no header is found.
     """
     for line in content.splitlines():
@@ -108,13 +106,13 @@ def process_file(file_path, account_id, ai_token):
         print("Error reading", file_path, ":", e, file=sys.stderr)
         return None
 
-    # Parse YAML front matter if present
-    front_matter, main_content = parse_front_matter(content)
-
+    # Parse the simple front matter if present.
+    front_matter, main_content = parse_front_matter_simple(content)
+    
     print("Generating embedding...")
     embedding = get_embedding(main_content, account_id, ai_token)
     
-    # If the embedding is wrapped (with "data"), extract the vector.
+    # If the embedding comes in a wrapped format (with "data"), extract it.
     if isinstance(embedding, dict) and "data" in embedding:
         if isinstance(embedding["data"], list) and len(embedding["data"]) > 0:
             embedding = embedding["data"][0]
@@ -123,24 +121,23 @@ def process_file(file_path, account_id, ai_token):
             sys.exit(1)
     
     print("Embedding for", file_path, ":", embedding)
-    # Use the front matter title if available, else fall back to extracting from content.
-    title = front_matter.get("title") if "title" in front_matter else extract_title(main_content, file_path)
-    # Use the front matter date if available, otherwise use the current date.
-    date_field = front_matter.get("date") if "date" in front_matter else datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    # Use the front matter title if available, else fall back to extraction.
+    title = front_matter.get("title", extract_title(main_content, file_path))
+    # Use the front matter date if available; otherwise, use the current date.
+    date_field = front_matter.get("date", datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"))
     
     doc_id = generate_document_id(file_path)
     
-    # Build metadata. You can include additional fields from the front matter if available.
+    # Build metadata. Feel free to add any additional fields from the front matter.
     metadata = {
         "title": title,
         "date": date_field,
         "file_path": file_path,
     }
-    # Optionally include other metadata fields if present.
     for key in ["template", "draft", "slug", "category", "tags", "description"]:
         if key in front_matter:
             metadata[key] = front_matter[key]
-
+    
     document = {
         "id": doc_id,
         "values": embedding,
@@ -153,10 +150,10 @@ def push_to_vectorize_batch(documents, account_id, vectorize_token):
         print("No documents to push.")
         return
 
-    index_name = "blog-posts"  # Adjust if needed.
+    index_name = "blog-posts"  # Adjust this if needed.
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert"
     
-    # Build NDJSON payload: one JSON object per line, with a trailing newline.
+    # Build an NDJSON payload (one JSON object per line).
     ndjson_payload = "\n".join(json.dumps(doc) for doc in documents) + "\n"
     print("NDJSON payload to be sent:")
     print(repr(ndjson_payload))
