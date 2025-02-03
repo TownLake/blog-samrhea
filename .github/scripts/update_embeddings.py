@@ -21,16 +21,19 @@ import requests
 # The payload uses the key "prompt" and the endpoint is /ai/run/@cf/baai/bge-base-en-v1.5.
 # -----------------------------------------------------------------------------
 
-def get_embedding(text, account_id):
+def get_embedding(text, account_id, ai_token):
     """
     Calls Cloudflare Workers AI to generate an embedding for the provided text
     using the model @cf/baai/bge-base-en-v1.5.
     """
-    # Use the new API endpoint:
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/baai/bge-base-en-v1.5"
     payload = {"prompt": text}
+    headers = {
+        "Authorization": f"Bearer {ai_token}",
+        "Content-Type": "application/json"
+    }
     try:
-        response = requests.post(url, json=payload)
+        response = requests.post(url, json=payload, headers=headers)
         response.raise_for_status()
         data = response.json()
         # Depending on the API response, the embedding might be under "embedding" or "result".
@@ -88,7 +91,7 @@ def get_changed_posts():
         print(f"Error getting changed files: {e.stderr}", file=sys.stderr)
         sys.exit(1)
 
-def process_file(file_path, account_id):
+def process_file(file_path, account_id, ai_token):
     """
     Processes a single blog post file:
       - Reads its content.
@@ -105,7 +108,7 @@ def process_file(file_path, account_id):
         return None
 
     print("Generating embedding...")
-    embedding = get_embedding(content, account_id)
+    embedding = get_embedding(content, account_id, ai_token)
     
     # Log the generated embedding
     print(f"Embedding for {file_path}: {embedding}")
@@ -132,7 +135,7 @@ def process_file(file_path, account_id):
 # Function to push documents to Cloudflare Vectorize in NDJSON format
 # -----------------------------------------------------------------------------
 
-def push_to_vectorize_batch(documents, account_id, token):
+def push_to_vectorize_batch(documents, account_id, vectorize_token):
     """
     Pushes a batch of documents to Cloudflare Vectorize.
     The documents are sent as NDJSON (newline-delimited JSON) to the insert API.
@@ -149,7 +152,7 @@ def push_to_vectorize_batch(documents, account_id, token):
 
     headers = {
         "Content-Type": "application/x-ndjson",
-        "Authorization": f"Bearer {token}"
+        "Authorization": f"Bearer {vectorize_token}"
     }
     try:
         response = requests.post(url, headers=headers, data=ndjson_payload)
@@ -177,9 +180,10 @@ def main():
 
     # Get required environment variables.
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
-    token = os.getenv("CLOUDFLARE_VECTORIZE_TOKEN")
-    if not account_id or not token:
-        print("Error: CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_VECTORIZE_TOKEN must be set in the environment.", file=sys.stderr)
+    ai_token = os.getenv("CLOUDFLARE_AI_TOKEN")
+    vectorize_token = os.getenv("CLOUDFLARE_VECTORIZE_TOKEN")
+    if not account_id or not ai_token or not vectorize_token:
+        print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN, and CLOUDFLARE_VECTORIZE_TOKEN must be set in the environment.", file=sys.stderr)
         sys.exit(1)
 
     # Determine which posts to process.
@@ -194,12 +198,12 @@ def main():
     print(f"Found {len(posts_to_process)} post(s) to process: {posts_to_process}")
     documents = []
     for post_file in posts_to_process:
-        doc = process_file(post_file, account_id)
+        doc = process_file(post_file, account_id, ai_token)
         if doc:
             documents.append(doc)
 
     # Push the batch of documents to Vectorize.
-    push_to_vectorize_batch(documents, account_id, token)
+    push_to_vectorize_batch(documents, account_id, vectorize_token)
 
 if __name__ == "__main__":
     main()
