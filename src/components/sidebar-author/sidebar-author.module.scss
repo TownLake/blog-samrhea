@@ -1,59 +1,81 @@
-// src/components/sidebar-author/sidebar-author.module.scss
-
-@use "src/assets/styles/mixins";
-@use "src/assets/styles/variables";
-
-$photo-size: 75px;
-
-.sidebar-author {
-  .photo {
-    border: 1px solid hsl(var(--color-muted));
-    background-clip: padding-box;
-    display: inline-block;
-    border-radius: 50%;
-    height: $photo-size;
-    width: $photo-size;
-    @include mixins.margin-bottom(0);
-
-    img {
-      border-radius: 50%;
-    }
-  }
-
-  .title {
-    font-size: variables.$typography-base-font-size * 1.125;
-    font-weight: 600;
-    margin: 0;
-    @include mixins.line-height(1.125);
-
-    .link {
-      color: hsl(var(--color-foreground));
-
-      &:hover,
-      &:focus {
-        color: hsl(var(--color-foreground));
-      }
-    }
-  }
-
-  .description {
-    color: hsl(var(--color-muted-foreground));
-    @include mixins.line-height(1);
-    @include mixins.margin-bottom(1);
-  }
-
-  .titleContainer {
-    /* Display title and toggles in a single row */
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Title on the left, toggles on the right */
-    @include mixins.margin(0.5, 0, 0.5, 0);
-
-    .toggles {
-      /* Ensure toggles appear side by side */
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-  }
-}
+/* --------------------------------------------
+ * FILE: src/components/sidebar-author/sidebar-author.module.scss
+ * --------------------------------------------
+ */
+ @use "src/assets/styles/mixins";
+ @use "src/assets/styles/variables";
+ 
+ $photo-size: 75px;
+ 
+ .sidebar-author {
+   .photo {
+     border: 1px solid hsl(var(--color-muted));
+     background-clip: padding-box;
+     display: inline-block;
+     border-radius: 50%;
+     height: $photo-size;
+     width: $photo-size;
+     @include mixins.margin-bottom(0);
+ 
+     img {
+       border-radius: 50%;
+     }
+   }
+ 
+   .title {
+     font-size: variables.$typography-base-font-size * 1.125;
+     font-weight: 600;
+     margin: 0;
+     @include mixins.line-height(1.125);
+ 
+     .link {
+       color: hsl(var(--color-foreground));
+ 
+       &:hover,
+       &:focus {
+         color: hsl(var(--color-foreground));
+       }
+     }
+   }
+ 
+   .description {
+     color: hsl(var(--color-muted-foreground));
+     @include mixins.line-height(1);
+     @include mixins.margin-bottom(1);
+   }
+ 
+   .titleContainer {
+     /*
+      * Make the titleContainer a column, so if the toggles
+      * or the search input expand vertically, they appear
+      * on a new line (pushing content below).
+      */
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     @include mixins.margin(0.5, 0, 0.5, 0);
+ 
+     .topRow {
+       /* 
+        * This row holds the author name (left)
+        * and toggles (right) side-by-side.
+        */
+       width: 100%;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+     }
+ 
+     .toggles {
+       /*
+        * The toggles themselves remain a row
+        * so the theme switcher + search icon
+        * appear side-by-side.
+        */
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+     }
+   }
+ }
+ 
