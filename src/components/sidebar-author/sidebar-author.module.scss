@@ -1,3 +1,5 @@
+// src/components/sidebar-author/sidebar-author.module.scss
+
 @use "src/assets/styles/mixins";
 @use "src/assets/styles/variables";
 
@@ -41,9 +43,17 @@ $photo-size: 75px;
   }
 
   .titleContainer {
-    align-items: center;
+    /* Display title and toggles in a single row */
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: space-between; /* Title on the left, toggles on the right */
     @include mixins.margin(0.5, 0, 0.5, 0);
+
+    .toggles {
+      /* Ensure toggles appear side by side */
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
   }
 }

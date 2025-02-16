@@ -1,3 +1,5 @@
+// src/components/theme-switcher/theme-switcher.tsx
+
 import React, { type FC, useEffect, useState } from "react";
 
 import cn from "classnames";

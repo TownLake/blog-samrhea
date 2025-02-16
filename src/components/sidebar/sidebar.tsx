@@ -1,3 +1,4 @@
+// src/components/sidebar/sidebar.tsx
 import React, { type FC } from "react";
 
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
@@ -6,6 +7,8 @@ import { SidebarMenu } from "@/components/sidebar-menu";
 import { SidebarAuthor } from "@/components/sidebar-author";
 import { SidebarContacts } from "@/components/sidebar-contacts";
 import { SidebarCopyright } from "@/components/sidebar-copyright";
+import { ThemeSwitcher } from "@/components/theme-switcher";
+import { SearchToggle } from "@/components/search-toggle";
 
 import * as styles from "./sidebar.module.scss";
 
@@ -22,6 +25,10 @@ const Sidebar: FC<SidebarProps> = ({ isHome }) => {
         <SidebarAuthor author={author} isHome={isHome} />
         <SidebarMenu menu={menu} />
         <SidebarContacts contacts={author.contacts} />
+        <div className={styles.toggleContainer}>
+          <ThemeSwitcher />
+          <SearchToggle />
+        </div>
         <SidebarCopyright copyright={copyright} />
       </div>
     </div>

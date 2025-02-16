@@ -1,0 +1,33 @@
+// src/components/search-toggle/search-toggle.module.scss
+@use "src/assets/styles/mixins";
+@use "src/assets/styles/variables";
+
+.searchToggle {
+  --search-toggle-color: hsl(var(--color-foreground));
+
+  .button {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+
+    svg {
+      stroke: var(--search-toggle-color);
+      pointer-events: none;
+      transition: stroke 400ms;
+    }
+
+    &:hover {
+      --search-toggle-color: hsl(var(--color-primary));
+    }
+  }
+
+  &.active {
+    .button {
+      --search-toggle-color: hsl(var(--color-primary));
+    }
+  }
+}

@@ -1,8 +1,11 @@
+// src/components/sidebar-author/sidebar-author.tsx
+
 import React, { type FC } from "react";
 import { Link } from "gatsby";
 
 import { Image } from "@/components/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { SearchToggle } from "@/components/search-toggle";
 
 import * as styles from "./sidebar-author.module.scss";
 
@@ -35,7 +38,10 @@ const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => (
           </Link>
         </h2>
       )}
-      <ThemeSwitcher />
+      <div className={styles.toggles}>
+        <ThemeSwitcher />
+        <SearchToggle />
+      </div>
     </div>
     <p className={styles.description}>{author.description}</p>
   </div>
