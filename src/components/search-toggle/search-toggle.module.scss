@@ -2,64 +2,24 @@
  * FILE: src/components/search-toggle/search-toggle.module.scss
  * --------------------------------------------
  */
- @use "src/assets/styles/mixins";
- @use "src/assets/styles/variables";
- 
- .searchToggle {
-   /*
-    * We want the button and (optionally) the input
-    * to stack vertically, so the input is below the button.
-    */
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
- 
-   --search-toggle-color: hsl(var(--color-foreground));
- 
-   .button {
-     align-items: center;
-     background: transparent;
-     border: 0;
-     outline: 0;
-     display: flex;
-     cursor: pointer;
-     justify-content: center;
- 
-     svg {
-       stroke: var(--search-toggle-color);
-       pointer-events: none;
-       transition: stroke 400ms;
-     }
- 
-     &:hover {
-       --search-toggle-color: hsl(var(--color-primary));
-     }
-   }
- 
-   &.active {
-     .button {
-       --search-toggle-color: hsl(var(--color-primary));
-     }
-   }
- 
-   .searchInput {
-     /*
-      * Appears below the button in a vertical stack
-      * (because .searchToggle is flex-direction: column).
-      */
-     margin-top: 0.5rem;
-     padding: 0.5rem;
-     font-size: 1rem;
-     border: 1px solid hsl(var(--color-muted));
-     border-radius: 4px;
-     background: hsl(var(--color-background));
-     color: hsl(var(--color-foreground));
-     outline: none;
-     transition: border-color 200ms;
- 
-     &:focus {
-       border-color: hsl(var(--color-primary));
-     }
-   }
- }
- 
+ .searchToggleButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  svg {
+    /* Default color for the search icon */
+    stroke: hsl(var(--color-foreground));
+    transition: stroke 400ms;
+  }
+
+  &:hover svg {
+    stroke: hsl(var(--color-primary));
+  }
+
+  &.active svg {
+    /* If search is active, color the icon */
+    stroke: hsl(var(--color-primary));
+  }
+}
