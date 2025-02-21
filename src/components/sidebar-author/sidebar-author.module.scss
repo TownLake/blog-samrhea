@@ -16,21 +16,15 @@
      border-radius: 50%;
      height: $photo-size;
      width: $photo-size;
-     @include mixins.margin-bottom(0); // Remove bottom margin here
+     @include mixins.margin-bottom(0);
    }
  
-   /* The main container for the title and toggles */
    .titleContainer {
-     /*
-      * We use flex-direction: column so we can
-      * stack .topRow above the .searchRow.
-      */
      display: flex;
      flex-direction: column;
      align-items: flex-start;
-     @include mixins.margin(0.5, 0, 0, 0); // Reduce overall margin, especially bottom
+     @include mixins.margin(0.5, 0, 0, 0);
  
-     /* This row is always a single horizontal line: name on left, toggles on right */
      .topRow {
        width: 100%;
        display: flex;
@@ -38,25 +32,19 @@
        justify-content: space-between;
      }
  
-     /* The toggles (theme switcher & search) side by side on the right */
      .toggles {
        display: flex;
        align-items: center;
        gap: 0.5rem;
      }
  
-     /*
-      * The search row is rendered below .topRow if search is active.
-      * This naturally pushes content (like .description) downward.
-      */
      .searchRow {
-       margin-top: 0.25rem; // Control space between input and results
+       margin-top: 0.25rem;
        width: 100%;
-       position: relative; // Add this for close button positioning (removed, but kept for potential future use)
+       // Removed position: relative; (no longer needed)
      }
    }
  
-   /* The author title (name) */
    .title {
      font-size: variables.$typography-base-font-size * 1.125;
      font-weight: 600;
@@ -73,28 +61,33 @@
      }
    }
  
-   /* Make input round */
+   // New wrapper styles
+   .searchInputAndResults {
+     border-radius: 1rem; // Match input radius
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // Add shadow here
+     overflow: hidden; // Important to clip results to rounded corners
+   }
+ 
    .searchInput {
      width: 100%;
      padding: 0.5rem;
      font-size: 1rem;
      border: 1px solid hsl(var(--color-muted));
-     border-radius: 1rem;
+     border-radius: 1rem; // Keep rounded corners
      background: hsl(var(--color-background));
      color: hsl(var(--color-foreground));
      outline: none;
      transition: border-color 200ms;
+     box-shadow: none; // Remove individual shadow
  
      &:focus {
        border-color: hsl(var(--color-primary));
      }
    }
  
-   /* Author description text */
    .description {
      color: hsl(var(--color-muted-foreground));
      @include mixins.line-height(1);
-     @include mixins.margin-bottom(0);  // Remove bottom margin
+     @include mixins.margin-bottom(0);
    }
  }
- //removed close button styles

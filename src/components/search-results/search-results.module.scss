@@ -7,8 +7,9 @@
  
  .searchResults {
    width: 100%;
-   border-radius: 8px;
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+   // REMOVE THESE:
+   // border-radius: 8px;
+   // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
    background: hsl(var(--color-background));
  
    ul {
@@ -26,16 +27,16 @@
    &:last-child {
      border-bottom: none;
    }
-     &:hover{
-           background: hsl(var(--color-secondary));
  
-     }
+   &:hover {
+     background: hsl(var(--color-secondary));
+   }
  }
  
  .resultLink {
    text-decoration: none;
    color: hsl(var(--color-foreground));
-   display: block; // Ensure vertical stacking
+   display: block;
  
    &:hover {
      .resultTitle {
@@ -43,7 +44,6 @@
      }
    }
  }
- 
  
  .resultTitle {
    font-size: variables.$typography-base-font-size * 0.9;

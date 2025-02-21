@@ -9,7 +9,7 @@ import { Image } from "@/components/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SearchToggle } from "@/components/search-toggle";
 import { useSearch } from "@/hooks/use-search";
-import { SearchResults } from "../search-results/search-results"; // Corrected import
+import { SearchResults } from "../search-results/search-results";
 
 import * as styles from "./sidebar-author.module.scss";
 
@@ -77,6 +77,7 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
     if (!isSearchActive) {
       setSearchQuery("");
       setSearchResults([]);
+       setAreSearchResultsShowing(false); // Also hide results when search is deactivated
     }
   }, [isSearchActive]);
 
@@ -85,7 +86,6 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
       setAreSearchResultsShowing(false);
     }
   }, [searchQuery]);
-
 
   return (
     <div className={styles.sidebarAuthor}>
@@ -120,15 +120,18 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
 
         {isSearchActive && (
           <div className={styles.searchRow}>
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Search..."
-              className={styles.searchInput}
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-            {areSearchResultsShowing && <SearchResults results={searchResults} />}
+            {/* Wrap the input and results */}
+            <div className={styles.searchInputAndResults}>
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Search..."
+                className={styles.searchInput}
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+              {areSearchResultsShowing && <SearchResults results={searchResults} />}
+            </div>
           </div>
         )}
 
