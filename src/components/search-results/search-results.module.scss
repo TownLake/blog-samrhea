@@ -1,0 +1,53 @@
+/* --------------------------------------------
+ * FILE: src/components/search-results/search-results.module.scss
+ * --------------------------------------------
+ */
+ @use "src/assets/styles/mixins";
+ @use "src/assets/styles/variables";
+ 
+ .searchResults {
+   //margin-top: 0.5rem; // Add some spacing from the input
+   width: 100%;
+
+   ul{
+    list-style: none;
+    padding: 0;
+   }
+ }
+ 
+ .resultItem {
+   margin-bottom: 0.5rem;
+   border-bottom: 1px solid hsl(var(--color-muted));
+   padding-bottom: 0.5rem;
+ 
+   &:last-child {
+     border-bottom: none;
+     padding-bottom: 0;
+   }
+ }
+ 
+ .resultLink {
+   text-decoration: none;
+   color: hsl(var(--color-foreground));
+   display: block; // Make the entire area clickable
+ 
+   &:hover {
+     .resultTitle {
+       color: hsl(var(--color-primary));
+     }
+   }
+ }
+ 
+ .resultTitle {
+   font-size: variables.$typography-base-font-size * 1;
+   font-weight: 600;
+   margin: 0 0 0.25rem 0;
+   @include mixins.line-height(1.2);
+ }
+ 
+ .resultExcerpt {
+   font-size: variables.$typography-base-font-size * 0.9;
+   color: hsl(var(--color-muted-foreground));
+   margin: 0;
+   @include mixins.line-height(1.2);
+ }
