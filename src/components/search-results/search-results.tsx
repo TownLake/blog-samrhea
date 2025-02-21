@@ -8,8 +8,8 @@ import { Link } from "gatsby";
 
 type SearchResult = {
   title: string;
-  slug: string;  // Assuming you have a slug for linking
-  excerpt: string; // Short description
+  slug: string;
+  excerpt: string;
 };
 
 type SearchResultsProps = {
@@ -27,8 +27,8 @@ export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
         {results.map((result, index) => (
           <li key={index} className={styles.resultItem}>
             <Link to={result.slug} className={styles.resultLink}>
-              <h3 className={styles.resultTitle}>{result.title}</h3>
-              <p className={styles.resultExcerpt}>{result.excerpt}</p>
+                <h3 className={styles.resultTitle}>{result.title}</h3>
+                <p className={styles.resultExcerpt}>{result.excerpt}</p>
             </Link>
           </li>
         ))}

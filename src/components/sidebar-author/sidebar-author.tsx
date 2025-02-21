@@ -2,14 +2,14 @@
  * FILE: src/components/sidebar-author/sidebar-author.tsx
  * --------------------------------------------
  */
-import React, { type FC, useEffect, useRef, useState } from "react"; // Add useState
+import React, { type FC, useEffect, useRef, useState } from "react";
 import { Link } from "gatsby";
 
 import { Image } from "@/components/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SearchToggle } from "@/components/search-toggle";
 import { useSearch } from "@/hooks/use-search";
-import { SearchResults } from "../search-results/search-results"; // ABSOLUTELY CORRECT THIS TIME
+import { SearchResults } from "../search-results/search-results"; // Corrected import
 
 import * as styles from "./sidebar-author.module.scss";
 
@@ -24,9 +24,9 @@ type SidebarAuthorProps = {
 
 export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
   const [isSearchActive, toggleSearch] = useSearch();
-  const [searchQuery, setSearchQuery] = useState(""); // Store the search query
-  const [searchResults, setSearchResults] = useState<any[]>([]); // Store search results
-  const [areSearchResultsShowing, setAreSearchResultsShowing] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [areSearchResultsShowing, setAreSearchResultsShowing] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,16 +36,14 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
     }
   }, [isSearchActive]);
 
-  // Dummy search function (replace with actual search logic)
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setAreSearchResultsShowing(true)
+    setAreSearchResultsShowing(true);
 
-    // Simulate a search delay and return dummy results
     setTimeout(() => {
       if (query.trim() === "") {
-          setSearchResults([]);
-          return;
+        setSearchResults([]);
+        return;
       }
 
       const dummyResults = [
@@ -71,26 +69,24 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
         },
       ];
 
-      // Limit the results to the top 4.
       setSearchResults(dummyResults.slice(0, 4));
-    }, 300); // Simulate a 300ms delay
+    }, 300);
   };
-    useEffect(() => {
+
+  useEffect(() => {
     if (!isSearchActive) {
-      setSearchQuery(""); // Clear query
-      setSearchResults([]); // Clear results
+      setSearchQuery("");
+      setSearchResults([]);
     }
   }, [isSearchActive]);
 
-    useEffect(()=>{
-      if (searchQuery.length === 0){
-        setAreSearchResultsShowing(false)
-      }
-    }, [searchQuery])
-
-    const clearSearch = () => {
-      setSearchQuery("");
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      setAreSearchResultsShowing(false);
     }
+  }, [searchQuery]);
+
+
   return (
     <div className={styles.sidebarAuthor}>
       <Link to="/">
@@ -130,24 +126,9 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
               placeholder="Search..."
               className={styles.searchInput}
               value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)} // Call handleSearch on change
+              onChange={(e) => handleSearch(e.target.value)}
             />
-            {/* Close Button */}
-            {searchQuery && (
-                <button onClick={clearSearch} className={styles.closeButton}>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            )}
-              {areSearchResultsShowing && <SearchResults results={searchResults} />}
+            {areSearchResultsShowing && <SearchResults results={searchResults} />}
           </div>
         )}
 

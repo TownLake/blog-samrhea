@@ -52,7 +52,7 @@
      .searchRow {
        margin-top: 0.25rem; // Control space between input and results
        width: 100%;
-       position: relative; // Add this for close button positioning
+       position: relative; // Add this for close button positioning (removed, but kept for potential future use)
      }
    }
  
@@ -73,22 +73,23 @@
      }
    }
  
- /* Make input round */
-     .searchInput {
-         width: 100%;
-         padding: 0.5rem;
-         font-size: 1rem;
-         border: 1px solid hsl(var(--color-muted));
-         border-radius: 1rem;
-         background: hsl(var(--color-background));
-         color: hsl(var(--color-foreground));
-         outline: none;
-         transition: border-color 200ms;
+   /* Make input round */
+   .searchInput {
+     width: 100%;
+     padding: 0.5rem;
+     font-size: 1rem;
+     border: 1px solid hsl(var(--color-muted));
+     border-radius: 1rem;
+     background: hsl(var(--color-background));
+     color: hsl(var(--color-foreground));
+     outline: none;
+     transition: border-color 200ms;
  
-         &:focus {
-         border-color: hsl(var(--color-primary));
-         }
+     &:focus {
+       border-color: hsl(var(--color-primary));
      }
+   }
+ 
    /* Author description text */
    .description {
      color: hsl(var(--color-muted-foreground));
@@ -96,24 +97,4 @@
      @include mixins.margin-bottom(0);  // Remove bottom margin
    }
  }
- .closeButton {
-   position: absolute;
-   top: 50%;        // Center vertically
-   right: 0.5rem;    // Small space from the right edge
-   transform: translateY(-50%); // Correct vertical centering
-   background: none;
-   border: none;
-   cursor: pointer;
-   padding: 0; // Remove default padding
- 
-   svg {
-     width: 16px;  // Smaller icon
-     height: 16px; // Smaller icon
-     stroke: hsl(var(--color-muted-foreground)); // Lighter color
-       transition: stroke 200ms;
- 
-   }
-     &:hover svg{
-         stroke: hsl(var(--color-foreground));
-     }
- }
+ //removed close button styles

@@ -7,9 +7,9 @@
  
  .searchResults {
    width: 100%;
-   border-radius: 8px; // Add rounded corners to the container
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // Add a subtle shadow
-   background: hsl(var(--color-background)); // Ensure background color
+   border-radius: 8px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+   background: hsl(var(--color-background));
  
    ul {
      list-style: none;
@@ -19,9 +19,9 @@
  }
  
  .resultItem {
-   margin-bottom: 0;       // Remove bottom margin
+   margin-bottom: 0;
    border-bottom: 1px solid hsl(var(--color-muted));
-   padding: 0.75rem 1rem; // Increased padding, especially vertical
+   padding: 0.75rem 1rem;
  
    &:last-child {
      border-bottom: none;
@@ -35,9 +35,7 @@
  .resultLink {
    text-decoration: none;
    color: hsl(var(--color-foreground));
-   display: flex; // Use flexbox for icon and text alignment
-   align-items: flex-start; // Align items to the top
-   gap: 0.5rem; // Space between icon and text
+   display: block; // Ensure vertical stacking
  
    &:hover {
      .resultTitle {
@@ -45,20 +43,12 @@
      }
    }
  }
- //add the icon
- .resultIcon{
-     margin-top: 5px; // Adjust as needed for vertical alignment
-     svg{
-         width: 16px;
-         height: 16px;
-         stroke: hsl(var(--color-muted-foreground));
-     }
- }
+ 
  
  .resultTitle {
-   font-size: variables.$typography-base-font-size * 0.9; // Smaller font size
-   font-weight: 600;        // Slightly bolder title
-   margin: 0 0 0.25rem 0; // Reduced margin, more space below
+   font-size: variables.$typography-base-font-size * 0.9;
+   font-weight: 600;
+   margin: 0 0 0.25rem 0;
    @include mixins.line-height(1.1);
  }
  
@@ -66,5 +56,5 @@
    font-size: variables.$typography-base-font-size * 0.8;
    color: hsl(var(--color-muted-foreground));
    margin: 0;
-   @include mixins.line-height(1.2); // Slightly increased line height
+   @include mixins.line-height(1.2);
  }
