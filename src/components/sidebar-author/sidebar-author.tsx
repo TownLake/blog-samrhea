@@ -9,7 +9,7 @@ import { Image } from "@/components/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SearchToggle } from "@/components/search-toggle";
 import { useSearch } from "@/hooks/use-search";
-import { SearchResults } from "@/components/search-results"; // Import SearchResults
+import { SearchResults } from "../search-results"; // Correct - relative path
 
 import * as styles from "./sidebar-author.module.scss";
 
