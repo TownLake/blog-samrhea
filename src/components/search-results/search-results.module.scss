@@ -1,96 +1,60 @@
 /* --------------------------------------------
- * FILE: src/components/sidebar-author/sidebar-author.module.scss
+ * FILE: src/components/search-results/search-results.module.scss
  * --------------------------------------------
  */
  @use "src/assets/styles/mixins";
  @use "src/assets/styles/variables";
  
- $photo-size: 75px;
+ .searchResults {
+   width: 100%;
+   // REMOVE THESE:
+   // border-radius: 8px;
+   // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+   background: hsl(var(--color-background));
  
- .sidebar-author {
-   /* Author photo styling */
-   .photo {
-     border: 1px solid hsl(var(--color-muted));
-     background-clip: padding-box;
-     display: inline-block;
-     border-radius: 50%;
-     height: $photo-size;
-     width: $photo-size;
-     @include mixins.margin-bottom(0);
-   }
- 
-   .titleContainer {
-     display: flex;
-     flex-direction: column;
-     align-items: flex-start;
-     @include mixins.margin(0.5, 0, 0, 0);
- 
-     .topRow {
-       width: 100%;
-       display: flex;
-       align-items: center;
-       justify-content: space-between;
-     }
- 
-     .toggles {
-       display: flex;
-       align-items: center;
-       gap: 0.5rem;
-     }
- 
-     .searchRow {
-       margin-top: 0.25rem;
-       width: 100%;
-     }
-   }
- 
-   .title {
-     font-size: variables.$typography-base-font-size * 1.125;
-     font-weight: 600;
+   ul {
+     list-style: none;
+     padding: 0;
      margin: 0;
-     @include mixins.line-height(1.125);
+   }
+ }
  
-     .link {
-       color: hsl(var(--color-foreground));
+ .resultItem {
+   margin-bottom: 0;
+   border-bottom: 1px solid hsl(var(--color-muted));
+   padding: 0.75rem 1rem;
  
-       &:hover,
-       &:focus {
-         color: hsl(var(--color-foreground));
-       }
+   &:last-child {
+     border-bottom: none;
+   }
+ 
+   &:hover {
+     background: hsl(var(--color-secondary));
+   }
+ }
+ 
+ .resultLink {
+   text-decoration: none;
+   color: hsl(var(--color-foreground));
+   display: block;
+ 
+   &:hover {
+     .resultTitle {
+       color: hsl(var(--color-primary));
      }
    }
+ }
  
-   .searchInputAndResults {
-     border-radius: 1rem;
-     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-     overflow: hidden;
-     display: flex; // Add flexbox to the wrapper
-     flex-direction: column; // Stack input and results vertically
-   }
+ .resultTitle {
+   font-size: variables.$typography-base-font-size * 0.9;
+   font-weight: 600;
+   margin: 0 0 0.25rem 0;
+   @include mixins.line-height(1.1);
+ }
  
-   .searchInput {
-     width: 100%;
-     padding: 0.5rem;
-     font-size: 1rem;
-      //Remove border, and set to none
-     border: none;
-     border-radius: 1rem;  // Keep for initial rounded corners
-     background: hsl(var(--color-background));
-     color: hsl(var(--color-foreground));
-     outline: none;
-     transition: box-shadow 200ms; // Use box-shadow for the focus effect
-     box-shadow: none; // Remove any default box-shadow
- 
-     &:focus {
-       // Remove border color, no longer needed
-       // border-color: hsl(var(--color-primary)); 
-       box-shadow: 0 0 0 2px hsl(var(--color-primary)); // Inset shadow for focus
-     }
-   }
- 
-   .description {
-     color: hsl(var(--color-muted-foreground));
-     @include mixins.line-height(1);
-     @include mixins.margin-bottom(0);
-   }
+ .resultExcerpt {
+   font-size: variables.$typography-base-font-size * 0.8;
+   color: hsl(var(--color-muted-foreground));
+   margin: 0;
+   @include mixins.line-height(1.2);
  }
