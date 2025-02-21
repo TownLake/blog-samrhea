@@ -1,107 +1,122 @@
-@use "src/assets/styles/mixins";
-@use "src/assets/styles/variables";
+/* --------------------------------------------
+ * FILE: src/components/feed/feed.module.scss
+ * --------------------------------------------
+ */
 
-.feed {
-  .item {
-    @include mixins.margin-bottom(1.25);
-
-    &:last-child {
-      @include mixins.margin-bottom(0.5);
-    }
-
-    .title {
-      font-size: variables.$typography-base-font-size * 1.6875;
-      @include mixins.line-height(1.5);
-      @include mixins.margin-top(0);
-      @include mixins.margin-bottom(0.5);
-
-      .link {
-        color: hsl(var(--color-foreground));
-
-        &:hover,
-        &:focus {
-          border-bottom: 1px solid hsl(var(--color-foreground));
-          color: hsl(var(--color-foreground));
-        }
-      }
-    }
-
-    .description {
-      color: hsl(var(--color-muted-foreground));
-      font-size: variables.$typography-base-font-size;
-      @include mixins.line-height(1);
-      @include mixins.margin-bottom(0.75);
-    }
-
-    .meta {
-      .time {
-        color: hsl(var(--color-foreground));
-        font-size: variables.$typography-small-font-size;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-
-      .divider {
-        @include mixins.margin(0, 0.5);
-      }
-
-      .category {
-        .link {
-          font-weight: 600;
-          text-transform: uppercase;
-          color: hsl(var(--color-primary));
-          font-size: variables.$typography-small-font-size;
-        }
-      }
-    }
-
-    .more {
-      color: hsl(var(--color-foreground));
-      font-size: variables.$typography-base-font-size;
-
-      &:hover,
-      &:focus {
-        border-bottom: 1px solid hsl(var(--color-primary));
-        color: hsl(var(--color-primary));
-      }
-    }
-  }
-}
-
-.featuredCards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.featuredCard {
-  padding: 1.25rem;
-  border: 1px solid hsl(var(--color-border));
-  border-radius: 8px; // More rounded corners
-  background: hsl(var(--color-background));
-  text-decoration: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.featuredCardTitle {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.2rem;
-  color: hsl(var(--color-foreground));
-}
-
-.featuredCardDescription {
-  margin: 0;
-  font-size: 1rem;
-  color: hsl(var(--color-muted-foreground));
-}
+ @use "src/assets/styles/mixins";
+ @use "src/assets/styles/variables";
+ 
+ .feed {
+   grid-column: span 12; // Full width on mobile
+ 
+   .item {
+     @include mixins.margin-bottom(1.25);
+ 
+     &:last-child {
+       @include mixins.margin-bottom(0.5);
+     }
+ 
+     .title {
+       font-size: variables.$typography-base-font-size * 1.6875;
+       @include mixins.line-height(1.5);
+       @include mixins.margin-top(0);
+       @include mixins.margin-bottom(0.5);
+ 
+       .link {
+         color: hsl(var(--color-foreground));
+ 
+         &:hover,
+         &:focus {
+           border-bottom: 1px solid hsl(var(--color-foreground));
+           color: hsl(var(--color-foreground));
+         }
+       }
+     }
+ 
+     .description {
+       color: hsl(var(--color-muted-foreground));
+       font-size: variables.$typography-base-font-size;
+       @include mixins.line-height(1);
+       @include mixins.margin-bottom(0.75);
+     }
+ 
+     .meta {
+       .time {
+         color: hsl(var(--color-foreground));
+         font-size: variables.$typography-small-font-size;
+         font-weight: 600;
+         text-transform: uppercase;
+       }
+ 
+       .divider {
+         @include mixins.margin(0, 0.5);
+       }
+ 
+       .category {
+         .link {
+           font-weight: 600;
+           text-transform: uppercase;
+           color: hsl(var(--color-primary));
+           font-size: variables.$typography-small-font-size;
+         }
+       }
+     }
+ 
+     .more {
+       color: hsl(var(--color-foreground));
+       font-size: variables.$typography-base-font-size;
+ 
+       &:hover,
+       &:focus {
+         border-bottom: 1px solid hsl(var(--color-primary));
+         color: hsl(var(--color-primary));
+       }
+     }
+   }
+ 
+   @include mixins.breakpoint-sm {
+     grid-column: span 5; // 5 columns on small screens and up
+   }
+ 
+   @include mixins.breakpoint-lg {
+     grid-column: span 4; // 4 columns on large screens and up
+   }
+ }
+ 
+ .featuredCards {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1rem;
+   margin-bottom: 2rem;
+ 
+   @media (max-width: 768px) {
+     grid-template-columns: 1fr;
+   }
+ }
+ 
+ .featuredCard {
+   padding: 1.25rem;
+   border: 1px solid hsl(var(--color-border));
+   border-radius: 8px; // More rounded corners
+   background: hsl(var(--color-background));
+   text-decoration: none;
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+   transition: transform 0.2s ease, box-shadow 0.2s ease;
+ 
+   &:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+   }
+ }
+ 
+ .featuredCardTitle {
+   margin: 0 0 0.75rem 0;
+   font-size: 1.2rem;
+   color: hsl(var(--color-foreground));
+ }
+ 
+ .featuredCardDescription {
+   margin: 0;
+   font-size: 1rem;
+   color: hsl(var(--color-muted-foreground));
+ }
