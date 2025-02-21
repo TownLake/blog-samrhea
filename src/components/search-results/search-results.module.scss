@@ -6,32 +6,38 @@
  @use "src/assets/styles/variables";
  
  .searchResults {
-   //margin-top: 0.5rem; // Add some spacing from the input  <-- REMOVE THIS
    width: 100%;
+   border-radius: 8px; // Add rounded corners to the container
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // Add a subtle shadow
+   background: hsl(var(--color-background)); // Ensure background color
  
    ul {
      list-style: none;
      padding: 0;
-     margin: 0; // Remove default margin
+     margin: 0;
    }
  }
  
  .resultItem {
-   margin-bottom: 0.25rem;  // Reduced bottom margin
+   margin-bottom: 0;       // Remove bottom margin
    border-bottom: 1px solid hsl(var(--color-muted));
-   padding-bottom: 0.25rem;  // Reduced padding
+   padding: 0.75rem 1rem; // Increased padding, especially vertical
  
    &:last-child {
      border-bottom: none;
-     padding-bottom: 0;
-     margin-bottom: 0; // Remove margin from last item
    }
+     &:hover{
+           background: hsl(var(--color-secondary));
+ 
+     }
  }
  
  .resultLink {
    text-decoration: none;
    color: hsl(var(--color-foreground));
-   display: block; // Make the entire area clickable
+   display: flex; // Use flexbox for icon and text alignment
+   align-items: flex-start; // Align items to the top
+   gap: 0.5rem; // Space between icon and text
  
    &:hover {
      .resultTitle {
@@ -39,17 +45,26 @@
      }
    }
  }
+ //add the icon
+ .resultIcon{
+     margin-top: 5px; // Adjust as needed for vertical alignment
+     svg{
+         width: 16px;
+         height: 16px;
+         stroke: hsl(var(--color-muted-foreground));
+     }
+ }
  
  .resultTitle {
    font-size: variables.$typography-base-font-size * 0.9; // Smaller font size
-   font-weight: 600;
-   margin: 0 0 0.1rem 0; // Reduced margin
-   @include mixins.line-height(1.1); // Tighter line height
+   font-weight: 600;        // Slightly bolder title
+   margin: 0 0 0.25rem 0; // Reduced margin, more space below
+   @include mixins.line-height(1.1);
  }
  
  .resultExcerpt {
-   font-size: variables.$typography-base-font-size * 0.8; // Even smaller font size
+   font-size: variables.$typography-base-font-size * 0.8;
    color: hsl(var(--color-muted-foreground));
    margin: 0;
-   @include mixins.line-height(1.0); // Tighter line height
+   @include mixins.line-height(1.2); // Slightly increased line height
  }

@@ -9,7 +9,7 @@ import { Image } from "@/components/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SearchToggle } from "@/components/search-toggle";
 import { useSearch } from "@/hooks/use-search";
-import { SearchResults } from "../search-results/search-results"; // Corrected relative path
+import { SearchResults } from "../search-results"; // Import SearchResults
 
 import * as styles from "./sidebar-author.module.scss";
 
@@ -87,6 +87,10 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
         setAreSearchResultsShowing(false)
       }
     }, [searchQuery])
+
+    const clearSearch = () => {
+      setSearchQuery("");
+    }
   return (
     <div className={styles.sidebarAuthor}>
       <Link to="/">
@@ -128,6 +132,21 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)} // Call handleSearch on change
             />
+            {/* Close Button */}
+            {searchQuery && (
+                <button onClick={clearSearch} className={styles.closeButton}>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            )}
               {areSearchResultsShowing && <SearchResults results={searchResults} />}
           </div>
         )}
