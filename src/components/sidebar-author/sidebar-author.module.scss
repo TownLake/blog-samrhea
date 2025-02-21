@@ -41,7 +41,6 @@
      .searchRow {
        margin-top: 0.25rem;
        width: 100%;
-       // Removed position: relative; (no longer needed)
      }
    }
  
@@ -61,27 +60,31 @@
      }
    }
  
-   // New wrapper styles
    .searchInputAndResults {
-     border-radius: 1rem; // Match input radius
-     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // Add shadow here
-     overflow: hidden; // Important to clip results to rounded corners
+     border-radius: 1rem;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+     overflow: hidden;
+     display: flex; // Add flexbox to the wrapper
+     flex-direction: column; // Stack input and results vertically
    }
  
    .searchInput {
      width: 100%;
      padding: 0.5rem;
      font-size: 1rem;
-     border: 1px solid hsl(var(--color-muted));
-     border-radius: 1rem; // Keep rounded corners
+      //Remove border, and set to none
+     border: none;
+     border-radius: 1rem;  // Keep for initial rounded corners
      background: hsl(var(--color-background));
      color: hsl(var(--color-foreground));
      outline: none;
-     transition: border-color 200ms;
-     box-shadow: none; // Remove individual shadow
+     transition: box-shadow 200ms; // Use box-shadow for the focus effect
+     box-shadow: none; // Remove any default box-shadow
  
      &:focus {
-       border-color: hsl(var(--color-primary));
+       // Remove border color, no longer needed
+       // border-color: hsl(var(--color-primary)); 
+       box-shadow: 0 0 0 2px hsl(var(--color-primary)); // Inset shadow for focus
      }
    }
  
