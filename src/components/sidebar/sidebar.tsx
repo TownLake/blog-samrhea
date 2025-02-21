@@ -1,3 +1,4 @@
+// src/components/sidebar/sidebar.tsx
 import React, { type FC } from "react";
 
 import { useSiteMetadata } from "@/hooks/use-site-metadata";

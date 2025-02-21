@@ -1,49 +1,103 @@
-@use "src/assets/styles/mixins";
-@use "src/assets/styles/variables";
-
-$photo-size: 75px;
-
-.sidebar-author {
-  .photo {
-    border: 1px solid hsl(var(--color-muted));
-    background-clip: padding-box;
-    display: inline-block;
-    border-radius: 50%;
-    height: $photo-size;
-    width: $photo-size;
-    @include mixins.margin-bottom(0);
-
-    img {
-      border-radius: 50%;
-    }
-  }
-
-  .title {
-    font-size: variables.$typography-base-font-size * 1.125;
-    font-weight: 600;
-    margin: 0;
-    @include mixins.line-height(1.125);
-
-    .link {
-      color: hsl(var(--color-foreground));
-
-      &:hover,
-      &:focus {
-        color: hsl(var(--color-foreground));
-      }
-    }
-  }
-
-  .description {
-    color: hsl(var(--color-muted-foreground));
-    @include mixins.line-height(1);
-    @include mixins.margin-bottom(1);
-  }
-
-  .titleContainer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    @include mixins.margin(0.5, 0, 0.5, 0);
-  }
-}
+/* --------------------------------------------
+ * FILE: src/components/sidebar-author/sidebar-author.module.scss
+ * --------------------------------------------
+ */
+ @use "src/assets/styles/mixins";
+ @use "src/assets/styles/variables";
+ 
+ $photo-size: 75px;
+ 
+ .sidebar-author {
+   /* Author photo styling */
+   .photo {
+     border: 1px solid hsl(var(--color-muted));
+     background-clip: padding-box;
+     display: inline-block;
+     border-radius: 50%;
+     height: $photo-size;
+     width: $photo-size;
+     @include mixins.margin-bottom(0);
+ 
+     img {
+       border-radius: 50%;
+     }
+   }
+ 
+   /* The main container for the title and toggles */
+   .titleContainer {
+     /*
+      * We use flex-direction: column so we can
+      * stack .topRow above the .searchRow.
+      */
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     @include mixins.margin(0.5, 0, 0.5, 0);
+ 
+     /* This row is always a single horizontal line: name on left, toggles on right */
+     .topRow {
+       width: 100%;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+     }
+ 
+     /* The toggles (theme switcher & search) side by side on the right */
+     .toggles {
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+     }
+ 
+     /* 
+      * The search row is rendered below .topRow if search is active.
+      * This naturally pushes content (like .description) downward.
+      */
+     .searchRow {
+       margin-top: 0.5rem;
+       width: 100%;
+     }
+   }
+ 
+   /* The author title (name) */
+   .title {
+     font-size: variables.$typography-base-font-size * 1.125;
+     font-weight: 600;
+     margin: 0;
+     @include mixins.line-height(1.125);
+ 
+     .link {
+       color: hsl(var(--color-foreground));
+ 
+       &:hover,
+       &:focus {
+         color: hsl(var(--color-foreground));
+       }
+     }
+   }
+ 
+   /* The search input styles (rendered below the row) */
+   .searchInput {
+     width: 100%;
+     padding: 0.5rem;
+     font-size: 1rem;
+     border: 1px solid hsl(var(--color-muted));
+     border-radius: 4px;
+     background: hsl(var(--color-background));
+     color: hsl(var(--color-foreground));
+     outline: none;
+     transition: border-color 200ms;
+ 
+     &:focus {
+       border-color: hsl(var(--color-primary));
+     }
+   }
+ 
+   /* Author description text */
+   .description {
+     color: hsl(var(--color-muted-foreground));
+     @include mixins.line-height(1);
+     @include mixins.margin-bottom(1);
+   }
+ }
+ 

@@ -1,0 +1,34 @@
+@use "src/assets/styles/mixins";
+@use "src/assets/styles/variables";
+
+.searchToggleButton {
+  /* Use inline-flex so the icon is centered vertically */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;          /* Avoid extra spacing around inline-flex items */
+  vertical-align: middle;  /* Keeps it aligned with adjacent inline elements */
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  svg {
+    /* Force the SVG to fill exactly 24×24 without extra padding */
+    display: block;            /* Removes default inline spacing */
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;    /* Or 'top', 'bottom' - but typically 'middle' works best */
+    stroke: hsl(var(--color-foreground));
+    transition: stroke 400ms;
+  }
+
+  &:hover svg {
+    stroke: hsl(var(--color-primary));
+  }
+
+  &.active svg {
+    stroke: hsl(var(--color-primary));
+  }
+}

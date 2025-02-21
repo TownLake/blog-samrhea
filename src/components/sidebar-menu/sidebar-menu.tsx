@@ -1,3 +1,5 @@
+// src/components/sidebar-menu/sidebar-menu.tsx
+
 import React, { type FC } from "react";
 
 import { Link } from "gatsby";
