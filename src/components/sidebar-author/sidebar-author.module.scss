@@ -16,11 +16,7 @@
      border-radius: 50%;
      height: $photo-size;
      width: $photo-size;
-     @include mixins.margin-bottom(0);
- 
-     img {
-       border-radius: 50%;
-     }
+     @include mixins.margin-bottom(0); // Remove bottom margin here
    }
  
    /* The main container for the title and toggles */
@@ -32,7 +28,7 @@
      display: flex;
      flex-direction: column;
      align-items: flex-start;
-     @include mixins.margin(0.5, 0, 0.5, 0);
+     @include mixins.margin(0.5, 0, 0, 0); // Reduce overall margin, especially bottom
  
      /* This row is always a single horizontal line: name on left, toggles on right */
      .topRow {
@@ -49,12 +45,12 @@
        gap: 0.5rem;
      }
  
-     /* 
+     /*
       * The search row is rendered below .topRow if search is active.
       * This naturally pushes content (like .description) downward.
       */
      .searchRow {
-       margin-top: 0.5rem;
+       margin-top: 0.25rem; // Control space between input and results
        width: 100%;
      }
    }
@@ -97,7 +93,6 @@
    .description {
      color: hsl(var(--color-muted-foreground));
      @include mixins.line-height(1);
-     @include mixins.margin-bottom(1);
+     @include mixins.margin-bottom(0);  // Remove bottom margin
    }
  }
- 

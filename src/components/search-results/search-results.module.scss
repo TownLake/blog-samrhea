@@ -6,23 +6,25 @@
  @use "src/assets/styles/variables";
  
  .searchResults {
-   //margin-top: 0.5rem; // Add some spacing from the input
+   //margin-top: 0.5rem; // Add some spacing from the input  <-- REMOVE THIS
    width: 100%;
-
-   ul{
-    list-style: none;
-    padding: 0;
+ 
+   ul {
+     list-style: none;
+     padding: 0;
+     margin: 0; // Remove default margin
    }
  }
  
  .resultItem {
-   margin-bottom: 0.5rem;
+   margin-bottom: 0.25rem;  // Reduced bottom margin
    border-bottom: 1px solid hsl(var(--color-muted));
-   padding-bottom: 0.5rem;
+   padding-bottom: 0.25rem;  // Reduced padding
  
    &:last-child {
      border-bottom: none;
      padding-bottom: 0;
+     margin-bottom: 0; // Remove margin from last item
    }
  }
  
@@ -39,15 +41,15 @@
  }
  
  .resultTitle {
-   font-size: variables.$typography-base-font-size * 1;
+   font-size: variables.$typography-base-font-size * 0.9; // Smaller font size
    font-weight: 600;
-   margin: 0 0 0.25rem 0;
-   @include mixins.line-height(1.2);
+   margin: 0 0 0.1rem 0; // Reduced margin
+   @include mixins.line-height(1.1); // Tighter line height
  }
  
  .resultExcerpt {
-   font-size: variables.$typography-base-font-size * 0.9;
+   font-size: variables.$typography-base-font-size * 0.8; // Even smaller font size
    color: hsl(var(--color-muted-foreground));
    margin: 0;
-   @include mixins.line-height(1.2);
+   @include mixins.line-height(1.0); // Tighter line height
  }
