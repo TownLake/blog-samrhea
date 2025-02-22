@@ -14,10 +14,7 @@ type SearchResultsProps = {
 };
 
 export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
-  if (!results.length) {
-    return <div className={styles.searchResults}>No results found.</div>;
-  }
-
+  // Removed the if (!results.length) check.
   return (
     <div className={styles.searchResults}>
       <ul>
