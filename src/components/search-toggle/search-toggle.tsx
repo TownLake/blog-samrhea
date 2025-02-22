@@ -1,7 +1,4 @@
-/* --------------------------------------------
- * FILE: src/components/search-toggle/search-toggle.tsx
- * --------------------------------------------
- */
+/* src/components/search-toggle/search-toggle.tsx */
 import React, { FC } from "react";
 import cn from "classnames";
 import * as styles from "./search-toggle.module.scss";
