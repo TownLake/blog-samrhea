@@ -1,98 +1,87 @@
-/* --------------------------------------------
- * FILE: src/components/sidebar-author/sidebar-author.module.scss
- * --------------------------------------------
- */
- @use "src/assets/styles/mixins";
- @use "src/assets/styles/variables";
- 
- $photo-size: 75px;
- 
- .sidebar-author {
-   /* Author photo styling */
-   .photo {
-     border: 1px solid hsl(var(--color-muted));
-     background-clip: padding-box;
-     display: inline-block;
-     border-radius: 50%;
-     height: $photo-size;
-     width: $photo-size;
-     @include mixins.margin-bottom(0);
-   }
- 
-   .titleContainer {
-     display: flex;
-     flex-direction: column;
-     align-items: flex-start;
-     @include mixins.margin(0.5, 0, 0, 0);
- 
-     .topRow {
-       width: 100%;
-       display: flex;
-       align-items: center;
-       justify-content: space-between;
-     }
- 
-     .toggles {
-       display: flex;
-       align-items: center;
-       gap: 0.5rem;
-     }
- 
-     .searchRow {
-       margin-top: 0.25rem;
-       width: 100%;
-     }
-   }
- 
-   .title {
-     font-size: variables.$typography-base-font-size * 1.125;
-     font-weight: 600;
-     margin: 0;
-     @include mixins.line-height(1.125);
- 
-     .link {
-       color: hsl(var(--color-foreground));
- 
-       &:hover,
-       &:focus {
-         color: hsl(var(--color-foreground));
-       }
-     }
-   }
- 
-   .searchInputAndResults {
-     border-radius: 1rem;
-     // Remove box-shadow, use border instead:
-     // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-     border: 1px solid hsl(var(--color-border)); // Add a border
-     overflow: hidden;
-     display: flex;
-     flex-direction: column;
-   }
- 
-   .searchInput {
-     width: 100%;
-     padding: 0.5rem;
-     font-size: 1rem;
-     border: none; // Still no individual border
-     border-radius: 1rem;
-     background: hsl(var(--color-background));
-     color: hsl(var(--color-foreground));
-     outline: none; // We'll use outline for focus
-     transition: outline-color 200ms, outline-offset 200ms, outline-width 200ms; // Animate the outline
-      // Remove box-shadow
-     // box-shadow: none;
- 
-     &:focus {
-       // Use outline for the focus effect
-       outline: 2px solid hsl(var(--color-primary));
-       outline-offset: 0px; // No offset
-     }
-   }
- 
-   .description {
-     color: hsl(var(--color-muted-foreground));
-     @include mixins.line-height(1);
-     @include mixins.margin-bottom(0);
-   }
- }
+/* src/components/sidebar-author/sidebar-author.module.scss */
+@use "src/assets/styles/mixins";
+@use "src/assets/styles/variables";
+
+$photo-size: 75px;
+
+.sidebarAuthor {
+  .photo {
+    border: 1px solid hsl(var(--color-muted));
+    background-clip: padding-box;
+    display: inline-block;
+    border-radius: 50%;
+    height: $photo-size;
+    width: $photo-size;
+    @include mixins.margin-bottom(0);
+  }
+
+  .titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @include mixins.margin(0.5, 0, 0, 0);
+
+    .topRow {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toggles {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .searchRow {
+      margin-top: 0.25rem;
+      width: 100%;
+    }
+  }
+
+  .title {
+    font-size: variables.$typography-base-font-size * 1.125;
+    font-weight: 600;
+    margin: 0;
+    @include mixins.line-height(1.125);
+
+    .link {
+      color: hsl(var(--color-foreground));
+
+      &:hover,
+      &:focus {
+        color: hsl(var(--color-foreground));
+      }
+    }
+  }
+
+  .searchInputAndResults {
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--color-border));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .searchInput {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 1rem;
+    background: hsl(var(--color-background));
+    color: hsl(var(--color-foreground));
+    transition: box-shadow 0.2s ease; /* Optional: Smooth transition */
+
+    &:focus {
+      box-shadow: 0 0 0 2px hsl(var(--color-primary));
+    }
+  }
+
+  .description {
+    color: hsl(var(--color-muted-foreground));
+    @include mixins.line-height(1);
+    @include mixins.margin-bottom(0);
+  }
+}

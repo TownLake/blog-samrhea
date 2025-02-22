@@ -1,7 +1,4 @@
-/* --------------------------------------------
- * FILE: src/components/sidebar-author/sidebar-author.tsx
- * --------------------------------------------
- */
+/* src/components/sidebar-author/sidebar-author.tsx */
 import React, { type FC, useEffect, useRef, useState } from "react";
 import { Link } from "gatsby";
 
@@ -18,7 +15,7 @@ type SidebarAuthorProps = {
     title: string;
     photo: string;
     description: string;
-  };
+  },
   isHome?: boolean;
 };
 
