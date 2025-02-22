@@ -74,7 +74,7 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
     if (!isSearchActive) {
       setSearchQuery("");
       setSearchResults([]);
-       setAreSearchResultsShowing(false); // Also hide results when search is deactivated
+       setAreSearchResultsShowing(false);
     }
   }, [isSearchActive]);
 
@@ -117,7 +117,6 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
 
         {isSearchActive && (
           <div className={styles.searchRow}>
-            {/* Wrap the input and results */}
             <div className={styles.searchInputAndResults}>
               <input
                 ref={inputRef}

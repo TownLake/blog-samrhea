@@ -1,60 +1,60 @@
-/* --------------------------------------------
- * FILE: src/components/search-results/search-results.module.scss
- * --------------------------------------------
- */
- @use "src/assets/styles/mixins";
- @use "src/assets/styles/variables";
- 
- .searchResults {
-   width: 100%;
-   // REMOVE THESE:
-   // border-radius: 8px;
-   // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-   background: hsl(var(--color-background));
- 
-   ul {
-     list-style: none;
-     padding: 0;
-     margin: 0;
-   }
- }
- 
- .resultItem {
-   margin-bottom: 0;
-   border-bottom: 1px solid hsl(var(--color-muted));
-   padding: 0.75rem 1rem;
- 
-   &:last-child {
-     border-bottom: none;
-   }
- 
-   &:hover {
-     background: hsl(var(--color-secondary));
-   }
- }
- 
- .resultLink {
-   text-decoration: none;
-   color: hsl(var(--color-foreground));
-   display: block;
- 
-   &:hover {
-     .resultTitle {
-       color: hsl(var(--color-primary));
-     }
-   }
- }
- 
- .resultTitle {
-   font-size: variables.$typography-base-font-size * 0.9;
-   font-weight: 600;
-   margin: 0 0 0.25rem 0;
-   @include mixins.line-height(1.1);
- }
- 
- .resultExcerpt {
-   font-size: variables.$typography-base-font-size * 0.8;
-   color: hsl(var(--color-muted-foreground));
-   margin: 0;
-   @include mixins.line-height(1.2);
- }
+/* src/components/search-results/search-results.module.scss */
+@use "src/assets/styles/mixins";
+@use "src/assets/styles/variables";
+
+.searchResults {
+  width: 100%;
+  background: hsl(var(--color-background));
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.resultItem {
+  margin-bottom: 0;
+  border-bottom: 1px solid hsl(var(--color-muted));
+  padding: 0.5rem 1rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: hsl(var(--color-secondary));
+  }
+}
+
+.resultLink {
+  text-decoration: none;
+  color: hsl(var(--color-foreground));
+  display: block;
+
+  &:hover {
+    .resultTitle {
+      color: hsl(var(--color-primary));
+    }
+  }
+}
+
+.resultTitle {
+  font-size: variables.$typography-base-font-size * 0.9;
+  font-weight: 600;
+  margin: 0 0 0.1rem 0;
+  @include mixins.line-height(1.1);
+}
+
+.resultExcerpt {
+  font-size: variables.$typography-base-font-size * 0.75;
+  color: hsl(var(--color-muted-foreground));
+  margin: 0;
+  @include mixins.line-height(1.1);
+  max-height: 2.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

@@ -72,11 +72,6 @@ $photo-size: 75px;
     border-radius: 1rem;
     background: hsl(var(--color-background));
     color: hsl(var(--color-foreground));
-    transition: box-shadow 0.2s ease; /* Optional: Smooth transition */
-
-    &:focus {
-      box-shadow: 0 0 0 2px hsl(var(--color-primary));
-    }
   }
 
   .description {
