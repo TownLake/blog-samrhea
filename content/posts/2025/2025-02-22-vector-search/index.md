@@ -10,7 +10,7 @@ tags:
   - "Workers"
   - "Cloudflare"
   - "AI"
-description: "Adding AI-powered vector DB search to the blog"
+description: "Adding AI-powered vector DB search to the blog."
 ---
 
 This blog is now home to dozens of posts (and dozens of readers)! I sometimes want to quickly find an old post, or let them find an old post, without having to open the GitHub repository and use the search function there.
