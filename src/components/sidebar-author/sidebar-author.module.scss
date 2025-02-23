@@ -80,4 +80,11 @@ $photo-size: 75px;
     @include mixins.line-height(1);
     @include mixins.margin-bottom(0);
   }
+
+  .loadingIndicator {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: hsl(var(--color-muted-foreground));
+}
+
 }

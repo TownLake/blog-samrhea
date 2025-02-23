@@ -1,10 +1,11 @@
-/* src/components/search-results/search-results.module.scss */
+// src/components/search-results/search-results.module.scss
 @use "src/assets/styles/mixins";
 @use "src/assets/styles/variables";
 
 .searchResults {
   width: 100%;
   background: hsl(var(--color-background));
+  border-top: 1px solid hsl(var(--color-muted)); // Add this line
 
   ul {
     list-style: none;
@@ -15,7 +16,7 @@
 
 .resultItem {
   margin-bottom: 0;
-  border-bottom: 1px solid hsl(var(--color-muted));
+  border-bottom: 1px solid hsl(var(--color-muted)); // Keep this for separating results
   padding: 0.5rem 1rem;
 
   &:last-child {
@@ -51,7 +52,7 @@
   color: hsl(var(--color-muted-foreground));
   margin: 0;
   @include mixins.line-height(1.1);
-  max-height: 2.2em;
+  max-height: 2.2em; // Or adjust as needed
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

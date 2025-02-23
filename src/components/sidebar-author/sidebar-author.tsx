@@ -1,11 +1,11 @@
-/* src/components/sidebar-author/sidebar-author.tsx */
+// src/components/sidebar-author/sidebar-author.tsx
 import React, { type FC, useEffect, useRef, useState } from "react";
 import { Link } from "gatsby";
 
 import { Image } from "@/components/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SearchToggle } from "@/components/search-toggle";
-import { useSearch } from "@/hooks/use-search";
+import { useSearch } from "@/hooks/use-search"; // Keep if you have custom hook logic
 import { SearchResults } from "../search-results/search-results";
 
 import * as styles from "./sidebar-author.module.scss";
@@ -15,15 +15,22 @@ type SidebarAuthorProps = {
     title: string;
     photo: string;
     description: string;
-  },
+  };
   isHome?: boolean;
 };
 
+type SearchResult = {
+  title: string;
+  slug: string;
+  score: string;
+};
+
 export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
-  const [isSearchActive, toggleSearch] = useSearch();
+  const [isSearchActive, toggleSearch] = useSearch(); // Keep if useSearch handles local state.
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [areSearchResultsShowing, setAreSearchResultsShowing] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,56 +40,48 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
     }
   }, [isSearchActive]);
 
-  const handleSearch = (query: string) => {
+  const handleSearch = async (query: string) => {
     setSearchQuery(query);
-    setAreSearchResultsShowing(true);
 
-    setTimeout(() => {
-      if (query.trim() === "") {
-        setSearchResults([]);
-        return;
+    if (query.trim() === "") {
+      setSearchResults([]);
+      setAreSearchResultsShowing(false);
+      return;
+    }
+
+    setAreSearchResultsShowing(true);
+    setLoading(true); // Set loading to true when starting the search
+
+    try {
+      const response = await fetch("/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Search failed: ${response.statusText}`);
       }
 
-      const dummyResults = [
-        {
-          title: "Dummy Result 1",
-          slug: "/dummy-1",
-          excerpt: "This is a short excerpt for the first dummy result.",
-        },
-        {
-          title: "Dummy Result 2",
-          slug: "/dummy-2",
-          excerpt: "Another excerpt for the second dummy result.",
-        },
-        {
-          title: "Dummy Result 3",
-          slug: "/dummy-3",
-          excerpt: "Yet another short excerpt for a dummy result.",
-        },
-        {
-          title: "Very very long title result number four",
-          slug: "/dummy-4",
-          excerpt: "Yet another short excerpt for a dummy result.",
-        },
-      ];
-
-      setSearchResults(dummyResults.slice(0, 4));
-    }, 300);
+      const data: SearchResult[] = await response.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Error during search:", error);
+      setSearchResults([]); // Clear results on error
+    } finally {
+      setLoading(false); // Set loading to false after search (success or failure)
+    }
   };
 
   useEffect(() => {
     if (!isSearchActive) {
       setSearchQuery("");
       setSearchResults([]);
-       setAreSearchResultsShowing(false);
-    }
-  }, [isSearchActive]);
-
-  useEffect(() => {
-    if (searchQuery.length === 0) {
       setAreSearchResultsShowing(false);
     }
-  }, [searchQuery]);
+  }, [isSearchActive]);
 
   return (
     <div className={styles.sidebarAuthor}>
@@ -126,7 +125,13 @@ export const SidebarAuthor: FC<SidebarAuthorProps> = ({ author, isHome }) => {
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
               />
-              {areSearchResultsShowing && <SearchResults results={searchResults} />}
+              {loading && (
+                <div className={styles.loadingIndicator}>Loading...</div>
+              )}
+              {/* Show loading indicator */}
+              {areSearchResultsShowing && (
+                <SearchResults results={searchResults} />
+              )}
             </div>
           </div>
         )}
