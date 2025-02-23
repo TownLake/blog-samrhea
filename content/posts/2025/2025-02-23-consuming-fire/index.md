@@ -1,5 +1,5 @@
 ---
-title: "🚣🍂 The Consuming Fire by John Scalzi"
+title: "🚀🔥 The Consuming Fire by John Scalzi"
 date: "2025-02-23"
 template: "post"
 draft: false
