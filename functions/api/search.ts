@@ -21,23 +21,32 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       return error(400, 'Invalid input: query must be a non-empty string');
     }
 
-    // Generate embedding using Workers AI
-    const embeddingResponse = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-      text: query,
+    // Generate embedding using Workers AI with BGE-M3 model
+    const embeddingResponse = await env.AI.run('@cf/baai/bge-m3', {
+      contexts: [{ text: query }]
     });
 
-    if (!embeddingResponse?.data?.[0]) {
+    // Check if we received a valid response from the AI model
+    if (!embeddingResponse?.result?.response) {
       return error(500, 'Failed to generate embedding');
     }
 
-    const queryVector = embeddingResponse.data[0];
+    // Extract the query vector from the response
+    // BGE-M3 returns the embedding in result.response
+    const queryVector = embeddingResponse.result.response;
 
-    // Query Vectorize DB
+    // Ensure we have a valid vector
+    if (!Array.isArray(queryVector) || !queryVector.length) {
+      return error(500, 'Invalid embedding response format');
+    }
+
+    // Query Vectorize DB with the embedding
     const vectorizeResponse = await env.VECTORIZE.query(queryVector, {
       topK: 5,
       returnMetadata: 'all',
     });
 
+    // If no matches found, return an empty array
     if (!vectorizeResponse?.matches) {
       return json([]);
     }
