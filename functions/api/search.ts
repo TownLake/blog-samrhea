@@ -22,22 +22,65 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     }
 
     // Generate embedding using Workers AI with BGE-M3 model
-    const embeddingResponse = await env.AI.run('@cf/baai/bge-m3', {
-      contexts: [{ text: query }]
-    });
+    try {
+      console.log('Generating embedding for query:', query);
+      
+      const embeddingResponse = await env.AI.run('@cf/baai/bge-m3', {
+        contexts: [{ text: query }]
+      });
+      
+      console.log('Embedding response structure:', JSON.stringify({
+        hasResult: !!embeddingResponse?.result,
+        resultKeys: embeddingResponse?.result ? Object.keys(embeddingResponse.result) : 'none',
+        responseType: embeddingResponse?.result?.response ? typeof embeddingResponse.result.response : 'none',
+        isArray: embeddingResponse?.result?.response ? Array.isArray(embeddingResponse.result.response) : false
+      }));
 
-    // Check if we received a valid response from the AI model
-    if (!embeddingResponse?.result?.response) {
-      return error(500, 'Failed to generate embedding');
+      // Check if we received a valid response from the AI model
+      if (!embeddingResponse?.result?.response) {
+        console.error('Invalid embedding response:', JSON.stringify(embeddingResponse));
+        return error(500, 'Failed to generate embedding: Invalid response structure');
+      }
+    } catch (embeddingError) {
+      console.error('Error generating embedding:', embeddingError);
+      return error(500, `Failed to generate embedding: ${embeddingError.message || 'Unknown error'}`);
     }
 
     // Extract the query vector from the response
     // BGE-M3 returns the embedding in result.response
-    const queryVector = embeddingResponse.result.response;
+    const responseData = embeddingResponse.result.response;
+    console.log('Response data type:', typeof responseData);
+    console.log('Is array:', Array.isArray(responseData));
+    
+    let queryVector;
+    
+    // Handle different potential response formats
+    if (Array.isArray(responseData)) {
+      if (responseData.length === 0) {
+        return error(500, 'Empty embedding array returned');
+      }
+      
+      if (responseData.length === 1 && Array.isArray(responseData[0])) {
+        // Format: [[ ... vector ... ]]
+        queryVector = responseData[0];
+        console.log('Extracted nested vector with length:', queryVector.length);
+      } else if (typeof responseData[0] === 'number') {
+        // Format: [ ... vector ... ]
+        queryVector = responseData;
+        console.log('Using direct vector with length:', queryVector.length);
+      } else {
+        // Unknown format - log it for debugging
+        console.error('Unexpected embedding format:', JSON.stringify(responseData.slice(0, 5)));
+        return error(500, 'Unsupported embedding response format');
+      }
+    } else {
+      console.error('Embedding response is not an array:', typeof responseData);
+      return error(500, 'Invalid embedding format: not an array');
+    }
 
-    // Ensure we have a valid vector
-    if (!Array.isArray(queryVector) || !queryVector.length) {
-      return error(500, 'Invalid embedding response format');
+    // Final validation of the vector
+    if (!queryVector || !Array.isArray(queryVector) || !queryVector.length) {
+      return error(500, 'Failed to extract a valid embedding vector');
     }
 
     // Query Vectorize DB with the embedding
