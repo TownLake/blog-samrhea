@@ -330,7 +330,7 @@ def main():
     parser.add_argument("--vectorize-token", help="Cloudflare Vectorize API token", default=os.getenv("CLOUDFLARE_VECTORIZE_TOKEN"))
     parser.add_argument("--index-name", help="Vectorize index name", default="blog-posts")
     parser.add_argument("--namespace-id", help="Cloudflare KV namespace ID", default=os.getenv("CLOUDFLARE_KV_NAMESPACE_ID"))
-    parser.add_argument("--skip-kv", action="store_true", help="Skip updating KV metadata")
+    parser.add_argument("--kv-token", help="Cloudflare KV API token", default=os.getenv("CLOUDFLARE_KV_TOKEN"))
     
     args = parser.parse_args()
     
@@ -339,9 +339,13 @@ def main():
         print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN, and CLOUDFLARE_VECTORIZE_TOKEN must be set")
         sys.exit(1)
         
-    if not args.skip_kv and not args.namespace_id:
-        print("Warning: CLOUDFLARE_KV_NAMESPACE_ID not set, skipping KV metadata update")
-        args.skip_kv = True
+    if not args.namespace_id:
+        print("Error: CLOUDFLARE_KV_NAMESPACE_ID must be set")
+        sys.exit(1)
+        
+    if not args.kv_token:
+        print("Error: CLOUDFLARE_KV_TOKEN must be set")
+        sys.exit(1)
     
     # Determine which files to process
     if args.post:
@@ -377,15 +381,17 @@ def main():
         args.index_name
     )
     
-    # Update KV metadata if not skipped
-    if not args.skip_kv and metadata_list:
+    # Always update KV metadata
+    if metadata_list:
         print("Updating KV metadata...")
         update_kv_metadata(
             metadata_list,
             args.account_id,
             args.namespace_id,
-            args.vectorize_token  # Using the same token for both operations
+            args.kv_token  # Using the separate KV token
         )
+    else:
+        print("No metadata available to update KV")
     
     if success:
         print("\nProcessing complete!")
