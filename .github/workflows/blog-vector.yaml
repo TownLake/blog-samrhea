@@ -31,7 +31,8 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests PyYAML
+          pip install requests
+          pip install PyYAML
       
       - name: Verify Required Secrets
         run: |
@@ -68,6 +69,9 @@ jobs:
 
       - name: Update Embeddings and KV
         run: |
+          # Install required packages directly in this step to ensure they're available
+          pip install PyYAML requests
+          
           # Add execute permission to the script
           chmod +x .github/scripts/update_embeddings.py
           
