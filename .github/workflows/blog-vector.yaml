@@ -1,14 +1,10 @@
 name: Update Blog Post Embeddings
-
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       post:
-        description: 'Path to a specific blog post file (e.g., posts/my-post.md)'
-        required: false
+        description: 'Path to a specific blog post file (e.g., content/posts/2025/post-name/index.md)'
+        required: true
         default: ''
 
 jobs:
@@ -18,28 +14,70 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_AI_TOKEN: ${{ secrets.CLOUDFLARE_AI_TOKEN }}
       CLOUDFLARE_VECTORIZE_TOKEN: ${{ secrets.CLOUDFLARE_VECTORIZE_TOKEN }}
+      CLOUDFLARE_KV_NAMESPACE_ID: ${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}
+      CLOUDFLARE_KV_TOKEN: ${{ secrets.CLOUDFLARE_KV_TOKEN }}
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
+        with:
+          fetch-depth: 2  # We need at least 2 commits to compare changes
+      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-
-      - name: Debug Environment
-        run: |
-          echo "CLOUDFLARE_ACCOUNT_ID: $CLOUDFLARE_ACCOUNT_ID"
-          echo "CLOUDFLARE_AI_TOKEN: $CLOUDFLARE_AI_TOKEN"
-          echo "CLOUDFLARE_VECTORIZE_TOKEN: $CLOUDFLARE_VECTORIZE_TOKEN"
-
+      
       - name: Install Dependencies
-        run: pip install requests
-
-      - name: Update Embeddings
         run: |
-          if [ -n "${{ github.event.inputs.post }}" ]; then
-            python .github/scripts/update_embeddings.py --post "${{ github.event.inputs.post }}"
-          else
-            python .github/scripts/update_embeddings.py
+          python -m pip install --upgrade pip
+          pip install requests pyyaml
+      
+      - name: Verify Required Secrets
+        run: |
+          missing_secrets=false
+          
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "Error: CLOUDFLARE_ACCOUNT_ID is not set"
+            missing_secrets=true
           fi
+          
+          if [ -z "$CLOUDFLARE_AI_TOKEN" ]; then
+            echo "Error: CLOUDFLARE_AI_TOKEN is not set"
+            missing_secrets=true
+          fi
+          
+          if [ -z "$CLOUDFLARE_VECTORIZE_TOKEN" ]; then
+            echo "Error: CLOUDFLARE_VECTORIZE_TOKEN is not set"
+            missing_secrets=true
+          fi
+          
+          if [ -z "$CLOUDFLARE_KV_NAMESPACE_ID" ]; then
+            echo "Error: CLOUDFLARE_KV_NAMESPACE_ID is not set"
+            missing_secrets=true
+          fi
+          
+          if [ -z "$CLOUDFLARE_KV_TOKEN" ]; then
+            echo "Error: CLOUDFLARE_KV_TOKEN is not set"
+            missing_secrets=true
+          fi
+          
+          if [ "$missing_secrets" = true ]; then
+            exit 1
+          fi
+
+      - name: Update Embeddings and KV
+        run: |
+          # Add execute permission to the script
+          chmod +x .github/scripts/update_embeddings.py
+          
+          # Run with the post path from input
+          echo "Processing post: ${{ github.event.inputs.post }}"
+          python .github/scripts/update_embeddings.py --post "${{ github.event.inputs.post }}"
+        env:
+          PYTHONUNBUFFERED: 1  # Ensure Python output is not buffered
+      
+      - name: Report Status
+        if: always()
+        run: |
+          echo "Embedding update job completed with status ${{ job.status }}"
