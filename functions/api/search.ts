@@ -22,7 +22,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     }
 
     // Generate embedding using Workers AI
-    const embeddingResponse = await env.AI.run('@cf/baai/bge-m3', {
+    const embeddingResponse = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
       text: query,
     });
 
