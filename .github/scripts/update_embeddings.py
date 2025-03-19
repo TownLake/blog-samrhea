@@ -58,6 +58,19 @@ def extract_title(content, file_path):
     return os.path.basename(file_path)
 
 
+def slugify(text):
+    """
+    Convert text to a slug suitable for filenames and URLs.
+    """
+    # Lowercase the text
+    text = text.lower()
+    # Remove any character that is not alphanumeric, space, or hyphen
+    text = re.sub(r'[^\w\s-]', '', text)
+    # Replace spaces and repeated hyphens with a single hyphen
+    text = re.sub(r'[-\s]+', '-', text)
+    return text.strip('-')
+
+
 def get_embedding(text, account_id, api_token):
     """
     Get embedding using Cloudflare Workers AI BGE model.
@@ -184,6 +197,10 @@ def update_kv_metadata(metadata_list, account_id, namespace_id, api_token):
     Upload the metadata list to Cloudflare KV namespace.
     Returns True if successful, False otherwise.
     """
+    if not namespace_id:
+        print("No KV namespace ID provided, skipping KV update")
+        return False
+        
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/all_posts_metadata"
     
     headers = {
@@ -249,7 +266,7 @@ def generate_document_id(file_path):
     return hashlib.md5(file_path.encode("utf-8")).hexdigest()
 
 
-def process_files(files, account_id, ai_token, index_name):
+def process_files(files, account_id, ai_token, vectorize_token, index_name, namespace_id=None, skip_kv=False):
     """
     Process a list of markdown files, embedding them and preparing for Vectorize.
     Returns processed documents and metadata for KV.
@@ -269,13 +286,22 @@ def process_files(files, account_id, ai_token, index_name):
             
             # If missing required metadata, try to extract from content
             if not front_matter or "title" not in front_matter:
-                front_matter["title"] = extract_title(content, file_path)
+                title = extract_title(content, file_path)
+                if not front_matter:
+                    front_matter = {}
+                front_matter["title"] = title
                 
             # Make sure we have a slug
             if "slug" not in front_matter:
-                # Generate slug from filepath
-                slug_path = os.path.dirname(file_path).split("/")[-1]
-                front_matter["slug"] = slug_path
+                # Generate slug from title or filepath
+                if "title" in front_matter:
+                    slug = slugify(front_matter["title"])
+                else:
+                    # Generate slug from filepath
+                    slug_path = os.path.dirname(file_path).split("/")[-1]
+                    slug = slugify(slug_path)
+                    
+                front_matter["slug"] = slug
             
             # Get embedding for the content
             embedding = get_embedding(content, account_id, ai_token)
@@ -318,6 +344,30 @@ def process_files(files, account_id, ai_token, index_name):
         except Exception as e:
             print(f"Error processing {file_path}: {e}")
     
+    # Store in Vectorize first
+    if documents:
+        success = store_in_vectorize(
+            documents, 
+            account_id, 
+            vectorize_token,
+            index_name
+        )
+        
+        if not success:
+            print("Failed to store documents in Vectorize")
+    else:
+        print("No documents to store in Vectorize")
+    
+    # Update KV metadata if not skipped
+    if not skip_kv and metadata_list:
+        print("Updating KV metadata...")
+        update_kv_metadata(
+            metadata_list,
+            account_id,
+            namespace_id,
+            vectorize_token  # Using the same token for both operations
+        )
+    
     return documents, metadata_list
 
 
@@ -328,9 +378,9 @@ def main():
     parser.add_argument("--account-id", help="Cloudflare Account ID", default=os.getenv("CLOUDFLARE_ACCOUNT_ID"))
     parser.add_argument("--ai-token", help="Cloudflare AI API token", default=os.getenv("CLOUDFLARE_AI_TOKEN"))
     parser.add_argument("--vectorize-token", help="Cloudflare Vectorize API token", default=os.getenv("CLOUDFLARE_VECTORIZE_TOKEN"))
-    parser.add_argument("--index-name", help="Vectorize index name", default="blog-posts")
+    parser.add_argument("--index-name", help="Vectorize index name", default=os.getenv("VECTORIZE_INDEX_NAME", "blog-posts"))
     parser.add_argument("--namespace-id", help="Cloudflare KV namespace ID", default=os.getenv("CLOUDFLARE_KV_NAMESPACE_ID"))
-    parser.add_argument("--kv-token", help="Cloudflare KV API token", default=os.getenv("CLOUDFLARE_KV_TOKEN"))
+    parser.add_argument("--skip-kv", action="store_true", help="Skip updating KV metadata")
     
     args = parser.parse_args()
     
@@ -339,13 +389,9 @@ def main():
         print("Error: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN, and CLOUDFLARE_VECTORIZE_TOKEN must be set")
         sys.exit(1)
         
-    if not args.namespace_id:
-        print("Error: CLOUDFLARE_KV_NAMESPACE_ID must be set")
-        sys.exit(1)
-        
-    if not args.kv_token:
-        print("Error: CLOUDFLARE_KV_TOKEN must be set")
-        sys.exit(1)
+    if not args.skip_kv and not args.namespace_id:
+        print("Warning: CLOUDFLARE_KV_NAMESPACE_ID not set, skipping KV metadata update")
+        args.skip_kv = True
     
     # Determine which files to process
     if args.post:
@@ -366,38 +412,17 @@ def main():
         files_to_process, 
         args.account_id, 
         args.ai_token,
-        args.index_name
-    )
-    
-    if not documents:
-        print("No documents were processed successfully. Exiting.")
-        sys.exit(1)
-    
-    # Store in Vectorize
-    success = store_in_vectorize(
-        documents, 
-        args.account_id, 
         args.vectorize_token,
-        args.index_name
+        args.index_name,
+        args.namespace_id,
+        args.skip_kv
     )
     
-    # Always update KV metadata
-    if metadata_list:
-        print("Updating KV metadata...")
-        update_kv_metadata(
-            metadata_list,
-            args.account_id,
-            args.namespace_id,
-            args.kv_token  # Using the separate KV token
-        )
-    else:
-        print("No metadata available to update KV")
-    
-    if success:
+    if documents:
         print("\nProcessing complete!")
-        print(f"Successfully processed: {len(documents)}")
+        print(f"Successfully processed: {len(documents)} documents")
     else:
-        print("\nProcessing failed!")
+        print("\nProcessing failed! No documents were successfully processed.")
         sys.exit(1)
 
 
