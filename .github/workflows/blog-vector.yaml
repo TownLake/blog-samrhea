@@ -1,11 +1,18 @@
 name: Update Blog Post Embeddings
+
 on:
+  # Run when manually triggered from the GitHub Actions tab
   workflow_dispatch:
     inputs:
       post:
-        description: 'Path to a specific blog post file (e.g., content/posts/2025/post-name/index.md)'
-        required: true
+        description: 'Path to a specific blog post file (e.g., content/posts/my-post.md)'
+        required: false
         default: ''
+      skip_kv:
+        description: 'Skip updating KV metadata'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   update-embeddings:
@@ -15,73 +22,40 @@ jobs:
       CLOUDFLARE_AI_TOKEN: ${{ secrets.CLOUDFLARE_AI_TOKEN }}
       CLOUDFLARE_VECTORIZE_TOKEN: ${{ secrets.CLOUDFLARE_VECTORIZE_TOKEN }}
       CLOUDFLARE_KV_NAMESPACE_ID: ${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}
-      CLOUDFLARE_KV_TOKEN: ${{ secrets.CLOUDFLARE_KV_TOKEN }}
+      VECTORIZE_INDEX_NAME: ${{ vars.VECTORIZE_INDEX_NAME || 'blog-posts' }}
+      PATH_PATTERN: ${{ vars.PATH_PATTERN || 'content/posts' }}
     
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # We need at least 2 commits to compare changes
+          # Checkout with history to detect changed files
+          fetch-depth: 2
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.10'
       
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
-          pip install PyYAML
+          pip install pyyaml requests
       
-      - name: Verify Required Secrets
+      - name: Process Blog Posts
         run: |
-          missing_secrets=false
+          mkdir -p .github/scripts
+          cp $GITHUB_WORKSPACE/.github/scripts/blog_processor.py .github/scripts/blog_processor.py
           
-          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "Error: CLOUDFLARE_ACCOUNT_ID is not set"
-            missing_secrets=true
+          SKIP_KV_ARG=""
+          if [ "${{ github.event.inputs.skip_kv }}" == "true" ]; then
+            SKIP_KV_ARG="--skip-kv"
           fi
           
-          if [ -z "$CLOUDFLARE_AI_TOKEN" ]; then
-            echo "Error: CLOUDFLARE_AI_TOKEN is not set"
-            missing_secrets=true
+          if [ -n "${{ github.event.inputs.post }}" ]; then
+            python .github/scripts/blog_processor.py --post "${{ github.event.inputs.post }}" $SKIP_KV_ARG
+          else
+            python .github/scripts/blog_processor.py --path-pattern "$PATH_PATTERN" $SKIP_KV_ARG
           fi
-          
-          if [ -z "$CLOUDFLARE_VECTORIZE_TOKEN" ]; then
-            echo "Error: CLOUDFLARE_VECTORIZE_TOKEN is not set"
-            missing_secrets=true
-          fi
-          
-          if [ -z "$CLOUDFLARE_KV_NAMESPACE_ID" ]; then
-            echo "Error: CLOUDFLARE_KV_NAMESPACE_ID is not set"
-            missing_secrets=true
-          fi
-          
-          if [ -z "$CLOUDFLARE_KV_TOKEN" ]; then
-            echo "Error: CLOUDFLARE_KV_TOKEN is not set"
-            missing_secrets=true
-          fi
-          
-          if [ "$missing_secrets" = true ]; then
-            exit 1
-          fi
-
-      - name: Update Embeddings and KV
-        run: |
-          # Install required packages directly in this step to ensure they're available
-          pip install PyYAML requests
-          
-          # Add execute permission to the script
-          chmod +x .github/scripts/update_embeddings.py
-          
-          # Run with the post path from input
-          echo "Processing post: ${{ github.event.inputs.post }}"
-          python .github/scripts/update_embeddings.py --post "${{ github.event.inputs.post }}"
         env:
-          PYTHONUNBUFFERED: 1  # Ensure Python output is not buffered
-      
-      - name: Report Status
-        if: always()
-        run: |
-          echo "Embedding update job completed with status ${{ job.status }}"
+          PYTHONUNBUFFERED: 1
