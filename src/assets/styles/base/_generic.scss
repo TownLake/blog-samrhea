@@ -91,7 +91,7 @@ hr {
   width: 100px;
 }
 
-/* Base link styles for ALL links */
+/* Default link styles */
 a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
@@ -103,8 +103,10 @@ a {
   }
 }
 
-/* Content area link styling */
-.Page div[dangerouslySetInnerHTML] a {
+/* Content area links - using exact selectors from the compiled CSS */
+.page-module--body--91ea2 a,
+.page-module--inner--bbb89 div a,
+.post-content-module--body--3be78 a {
   color: hsl(var(--color-primary));
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -115,6 +117,19 @@ a {
   &:active {
     opacity: 0.8;
   }
+}
+
+/* Special case for links in headers or navigational elements */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
+.sidebar-menu-module--list--11f39 a,
+.sidebar-author-module--title--a6921 a,
+.sidebar-contacts-module--list--cbda4 a,
+.sidebar-menu-module--link--b41cc,
+.pagination-module--previousLink--35663,
+.pagination-module--nextLink--9a2d7,
+.feed-module--title--6ed13 a {
+  color: hsl(var(--color-foreground));
+  text-decoration: none;
 }
 
 b,
