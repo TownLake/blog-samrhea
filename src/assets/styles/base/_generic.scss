@@ -91,7 +91,7 @@ hr {
   width: 100px;
 }
 
-/* Default link styles - no styling */
+/* Default link styles */
 a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
@@ -103,13 +103,14 @@ a {
   }
 }
 
-/* Only apply blue styling to paragraph links and list item links in content areas */
-.page-module--body--91ea2 p a,
-.page-module--body--91ea2 li a,
+/* Content links - use standard blue for links */
+article a,
+.page-module--body--91ea2 a,
 .Page p a,
 .Page li a,
-div[dangerouslySetInnerHTML] p a,
-div[dangerouslySetInnerHTML] li a {
+.main-content p a,
+.main-content li a,
+div[dangerouslySetInnerHTML] a {
   color: #0366d6; /* Standard GitHub-style blue */
   text-decoration: underline;
 
@@ -118,6 +119,23 @@ div[dangerouslySetInnerHTML] li a {
   &:active {
     color: #0366d6;
     opacity: 0.8;
+  }
+}
+
+/* Explicitly remove styling from navigation elements */
+nav a, 
+.sidebar-menu-module--link--b41cc,
+.sidebar-menu-module--item--67667 a,
+.sidebar-author-module--link--45332,
+.sidebar-contacts-module--link--8ba2a,
+.pagination-module--previousLink--35663,
+.pagination-module--nextLink--9a2d7,
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: hsl(var(--color-foreground));
+  text-decoration: none;
+  
+  &:hover {
+    color: hsl(var(--color-primary));
   }
 }
 
