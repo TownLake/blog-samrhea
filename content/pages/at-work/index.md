@@ -6,7 +6,7 @@ socialImage: "../../photo.jpg"
 
 I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now. I help solve a fun range of problems as  VP, Strategic Advisor & Chief of Staff.
 
-That title is a mouthful. It mostly just means that I have a license to ship. I spend my time finding oddly shaped problems and building technology to solve them.
+That title is a mouthful. It mostly just means I spend my time finding oddly shaped problems and building technology to solve them.
 
 I previously spent six years launching, building, and leading the [Zero Trust](https://www.cloudflare.com/products/zero-trust/) [product line](https://blog.cloudflare.com/cloudflare-one-one-year-later/) at Cloudflare as the VP of Product.
 
@@ -18,7 +18,7 @@ In June of 2024 I decided to hand the keys to Cloudflare One to the team I had a
 
 ## 2018 - Product Manager of Access and Registrar
 
-I joined Cloudflare as a Product Manager in our Research & Development wing, what we now call Emerging Technology and Incubation. I [launched](https://blog.cloudflare.com/cloudflare-access-now-teams-of-any-size-can-turn-off-their-vpn/) Cloudflare Access to help teams turn off their legacy VPN. Even more fun, I [launched](https://blog.cloudflare.com/using-cloudflare-registrar/) Cloudflare Registrar to provide at-cost domain registration to anyone on Earth.
+I joined Cloudflare as a Product Manager in our new technologies wing, what we now call Emerging Technology and Incubation. I [launched](https://blog.cloudflare.com/cloudflare-access-now-teams-of-any-size-can-turn-off-their-vpn/) Cloudflare Access to help teams turn off their legacy VPN. Even more fun, I [launched](https://blog.cloudflare.com/using-cloudflare-registrar/) Cloudflare Registrar to provide at-cost domain registration to anyone on Earth.
 
 ## 2019 - Product Manager of Access, Registrar, and Tunnel
 
