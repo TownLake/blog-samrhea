@@ -91,6 +91,7 @@ hr {
   width: 100px;
 }
 
+/* Default link style for ALL links */
 a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
@@ -100,6 +101,41 @@ a {
   &:active {
     color: hsl(var(--color-primary));
   }
+}
+
+/* Specific links in main content */
+p a {
+  color: hsl(var(--color-primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease-in-out;
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 0.8;
+  }
+
+  &:visited {
+    color: hsl(var(--color-primary));
+    opacity: 0.9;
+  }
+}
+
+/* Special case for links in headers/titles/navigation */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
+.posts a, .about a, .reading a, .the-hits a, .projects a, .at-work a,
+.social-links a, .navigation a, .sidebar a,
+header a, nav a, .sidebar a, footer a {
+  text-decoration: none;
+  color: hsl(var(--color-foreground));
+}
+
+/* Links in lists within content */
+li a {
+  color: hsl(var(--color-primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 b,
