@@ -6,7 +6,7 @@ hidden: true
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; justify-items: center; text-align: center;">
   <a href="https://health.samrhea.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-    <img src="https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/47dde782-3c81-49d5-c50c-cd4e0cb49d00/public" alt="Project 1" style="border-radius: 12px; width: 100px; height: 100px; object-fit: cover;">
+    <img src="https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/aae59209-1f37-463f-4b9c-dade4d295800/public" alt="Project 1" style="border-radius: 12px; width: 100px; height: 100px; object-fit: cover;">
     <div style="margin-top: 8px; color: inherit; font-weight: bold;">Sam Health</div>
   </a>
   <a href="https://lis-delays.townlake.io" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
