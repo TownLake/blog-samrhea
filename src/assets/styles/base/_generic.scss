@@ -91,7 +91,7 @@ hr {
   width: 100px;
 }
 
-/* Default link style for ALL links */
+/* Base link styles for ALL links */
 a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
@@ -103,8 +103,8 @@ a {
   }
 }
 
-/* Content links - very specific targeting for paragraphs in content areas ONLY */
-.Page__inner div[dangerouslySetInnerHTML] p a {
+/* Content area link styling */
+.Page div[dangerouslySetInnerHTML] a {
   color: hsl(var(--color-primary));
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -114,11 +114,6 @@ a {
   &:focus,
   &:active {
     opacity: 0.8;
-  }
-
-  &:visited {
-    color: hsl(var(--color-primary));
-    opacity: 0.9;
   }
 }
 
