@@ -103,33 +103,40 @@ a {
   }
 }
 
-/* Content area links - using exact selectors from the compiled CSS */
+/* Content links - use standard blue for links */
+article a,
 .page-module--body--91ea2 a,
-.page-module--inner--bbb89 div a,
-.post-content-module--body--3be78 a {
-  color: hsl(var(--color-primary));
+.Page p a,
+.Page li a,
+.main-content p a,
+.main-content li a,
+div[dangerouslySetInnerHTML] a {
+  color: #0366d6; /* Standard GitHub-style blue */
   text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color 0.2s ease-in-out;
 
   &:hover,
   &:focus,
   &:active {
+    color: #0366d6;
     opacity: 0.8;
   }
 }
 
-/* Special case for links in headers or navigational elements */
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
-.sidebar-menu-module--list--11f39 a,
-.sidebar-author-module--title--a6921 a,
-.sidebar-contacts-module--list--cbda4 a,
+/* Explicitly remove styling from navigation elements */
+nav a, 
 .sidebar-menu-module--link--b41cc,
+.sidebar-menu-module--item--67667 a,
+.sidebar-author-module--link--45332,
+.sidebar-contacts-module--link--8ba2a,
 .pagination-module--previousLink--35663,
 .pagination-module--nextLink--9a2d7,
-.feed-module--title--6ed13 a {
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
+  
+  &:hover {
+    color: hsl(var(--color-primary));
+  }
 }
 
 b,
