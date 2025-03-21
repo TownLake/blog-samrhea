@@ -91,7 +91,14 @@ hr {
   width: 100px;
 }
 
-a {
+/* Navigation, header, footer links */
+.nav a, 
+.header a, 
+.sidebar a, 
+.footer a,
+.logo a,
+.menu a,
+.social-links a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
 
@@ -99,6 +106,30 @@ a {
   &:focus,
   &:active {
     color: hsl(var(--color-primary));
+  }
+}
+
+/* Content links - more specific styling for links in content areas */
+.Page a,
+article a,
+.post a,
+.post-content a,
+.markdown a,
+div[dangerouslySetInnerHTML] a {
+  color: hsl(var(--color-primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease-in-out;
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 0.8;
+  }
+
+  &:visited {
+    color: hsl(var(--color-primary));
+    opacity: 0.9;
   }
 }
 
