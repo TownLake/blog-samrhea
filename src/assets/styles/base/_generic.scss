@@ -91,6 +91,7 @@ hr {
   width: 100px;
 }
 
+/* Default link styles - no styling */
 a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
@@ -99,6 +100,24 @@ a {
   &:focus,
   &:active {
     color: hsl(var(--color-primary));
+  }
+}
+
+/* Only apply blue styling to paragraph links and list item links in content areas */
+.page-module--body--91ea2 p a,
+.page-module--body--91ea2 li a,
+.Page p a,
+.Page li a,
+div[dangerouslySetInnerHTML] p a,
+div[dangerouslySetInnerHTML] li a {
+  color: #0366d6; /* Standard GitHub-style blue */
+  text-decoration: underline;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #0366d6;
+    opacity: 0.8;
   }
 }
 
