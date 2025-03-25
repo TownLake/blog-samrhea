@@ -1,3 +1,5 @@
+// src/assets/styles/base/_generic.scss
+
 @use "../variables";
 @use "../mixins";
 
@@ -91,6 +93,7 @@ hr {
   width: 100px;
 }
 
+/* Default links (navigation/UI links) */
 a {
   color: hsl(var(--color-foreground));
   text-decoration: none;
@@ -99,6 +102,25 @@ a {
   &:focus,
   &:active {
     color: hsl(var(--color-primary));
+    border-bottom: 1px solid hsl(var(--color-primary));
+  }
+  
+  &.active {
+    border-bottom: 1px solid hsl(var(--color-foreground));
+    color: hsl(var(--color-foreground));
+  }
+}
+
+/* Content links (inside post and page content) */
+.post .content a,
+.page .body a {
+  color: hsl(210, 100%, 50%); /* Blue for content links */
+  
+  &:hover,
+  &:focus,
+  &:active {
+    color: hsl(var(--color-primary));
+    border-bottom: 1px solid hsl(var(--color-primary));
   }
 }
 
