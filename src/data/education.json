@@ -1,0 +1,50 @@
+[
+    {
+      "id": 5,
+      "name": "The University of Texas at Austin",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/University_of_Texas_at_Austin_seal.svg/1920px-University_of_Texas_at_Austin_seal.svg.png",
+      "period": "2009 - 2013",
+      "roles": [
+        {
+          "id": "e1",
+          "title": "BA with Highest Honors, Plan II",
+          "period": "Aug 2009 - May 2013",
+          "achievements": [
+            "4.0 GPA - All coursework"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "title": "Honors",
+          "items": [
+            { "text": "Dean's Distinguished Graduate", "link": "https://liberalarts.utexas.edu/scholarships-awards/dean-s-distinguished-graduates/" },
+            { "text": "Friar Society", "link": "https://thefriarsociety.org/" },
+            "Phi Beta Kappa"
+          ]
+        },
+        {
+          "title": "Positions",
+          "items": [
+            "Teaching Assistant to Bill Powers, President of UT Austin (Fall 2012)",
+            "Research Assistant to Lance Bertelsen, PhD (Spring and Fall 2010)"
+          ]
+        },
+        {
+          "title": "Awards",
+          "items": [
+            { "text": "Worthington Essay Contest Grand Prize (2011)", "link": "https://liberalarts.utexas.edu/plan2/current-students/worthington-essay/" }
+          ]
+        },
+        {
+          "title": "Scholarships",
+          "items": [
+            { "text": "Normandy Scholars Program", "link": "https://liberalarts.utexas.edu/history/normandy-scholar-program-on-wwii/" },
+            "Charles P. Shearn Endowed Scholarship (2012-2013)",
+            "Plan II Alumni Endowed Presidential Scholarship (2011-2012)",
+            "William Harold Whited Endowed Scholarship (2010-2011)"
+          ]
+        }
+      ]
+    }
+  ]
