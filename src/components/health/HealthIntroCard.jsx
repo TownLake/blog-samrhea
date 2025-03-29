@@ -1,3 +1,5 @@
+// src/components/health/HealthIntroCard.jsx
+
 import React from 'react';
 import Card from '../Card';
 import { BarChart2 } from 'lucide-react';
@@ -12,9 +14,7 @@ const HealthIntroCard = () => (
     </div>
     
     <p className="text-gray-700 dark:text-gray-300">
-      I publish my health data to track progress over time and maintain accountability. 
-      This dashboard represents key metrics from my wearables and fitness activities, 
-      showing both daily fluctuations and long-term trends.
+      I publish these to have a home page for myself. I think [a lot](https://blog.samrhea.com/post/2024-01-30-health-data) about this kind of data. And, if you're like me, you could use this [open-sourced dashboard](https://github.com/TownLake/core-health) I built, too.
     </p>
   </Card>
 );

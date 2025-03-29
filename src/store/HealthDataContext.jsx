@@ -1,3 +1,5 @@
+// src/store/HealthDataContext.jsx
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { fetchHealthData } from '../services/healthService';
 
@@ -34,7 +36,6 @@ export const HealthDataProvider = ({ children }) => {
           setOuraData(data.oura || []);
           setWithingsData(data.withings || []);
           setRunningData(data.running || []);
-          setAIResponse(data.insights || null);
         }
       } catch (err) {
         setError('Failed to load health data');
