@@ -6,7 +6,6 @@ export const POSTS_PER_PAGE = 12;
 
 // Filter options for main page
 export const FILTER_OPTIONS = [
-  { id: 'All', label: 'All', icon: '📑' },
   { id: 'Starred', label: 'Hits', icon: '⭐' },
   { id: 'Reading', label: 'Reading', icon: '📚' },
   { id: 'Portugal', label: 'Portugal', icon: '🇵🇹' },

@@ -1,5 +1,3 @@
-// src/components/health/MetricCard.jsx
-
 import React, { useState, memo, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, BarChart, Bar } from 'recharts';
 import { X, BarChart2, LineChart as LineChartIcon } from 'lucide-react';
@@ -63,42 +61,42 @@ const MonthlyTooltip = memo(({ active, payload, unit, dataKey }) => {
   return null;
 });
 
-// *** UPDATED SparklineTooltip ***
+// *** UPDATED SparklineTooltip *** (No changes needed here for the request)
 const SparklineTooltip = memo(({ active, payload, dataKey }) => {
-  if (active && payload && payload.length) {
-    const dataPoint = payload[0].payload; // Get the full data point object
-    const value = dataPoint.value;
-    const isFilled = dataPoint.isFilled;
-    const date = dataPoint.date; // Access the date property
-    const displayValue = dataKey === 'five_k_seconds' ?
-      formatSecondsToMMSS(value) :
-      value?.toFixed(1) ?? '--'; // Add optional chaining and nullish coalescing
+    if (active && payload && payload.length) {
+        const dataPoint = payload[0].payload; // Get the full data point object
+        const value = dataPoint.value;
+        const isFilled = dataPoint.isFilled;
+        const date = dataPoint.date; // Access the date property
+        const displayValue = dataKey === 'five_k_seconds' ?
+        formatSecondsToMMSS(value) :
+        value?.toFixed(1) ?? '--'; // Add optional chaining and nullish coalescing
 
-    // Format the date (example: Mar 29)
-    const formattedDate = date ? new Date(date).toLocaleDateString(undefined, {
-        month: 'short',
-        day: 'numeric'
-      }) : '';
+        // Format the date (example: Mar 29)
+        const formattedDate = date ? new Date(date).toLocaleDateString(undefined, {
+            month: 'short',
+            day: 'numeric'
+        }) : '';
 
-    return (
-      <div className="bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-sm border border-slate-200 dark:border-slate-700 text-center">
-         {/* Display the formatted date */}
-         <p className="text-gray-500 dark:text-gray-400 text-xs mb-0.5">
-           {formattedDate}
-         </p>
-        <p className="text-gray-900 dark:text-white text-sm font-medium">
-          {displayValue}
-          {isFilled && (
-            <span className="text-xs ml-1 text-gray-500">*</span>
-          )}
-        </p>
-      </div>
-    );
-  }
-  return null;
+        return (
+        <div className="bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-sm border border-slate-200 dark:border-slate-700 text-center">
+            {/* Display the formatted date */}
+            <p className="text-gray-500 dark:text-gray-400 text-xs mb-0.5">
+            {formattedDate}
+            </p>
+            <p className="text-gray-900 dark:text-white text-sm font-medium">
+            {displayValue}
+            {isFilled && (
+                <span className="text-xs ml-1 text-gray-500">*</span>
+            )}
+            </p>
+        </div>
+        );
+    }
+    return null;
 });
 
-// Separate daily chart component
+// Separate daily chart component (No changes needed here for the request)
 const DailyChart = memo(({ chartData, dataKey, unit, lineColor, minValue, maxValue, padding }) => (
   <ResponsiveContainer width="100%" height="100%">
     <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
@@ -189,7 +187,7 @@ const DailyChart = memo(({ chartData, dataKey, unit, lineColor, minValue, maxVal
   </ResponsiveContainer>
 ));
 
-// Separate monthly chart component
+// Separate monthly chart component (No changes needed here for the request)
 const MonthlyChart = memo(({ monthlyData, unit, minValue, maxValue, padding, dataKey }) => {
   // Use a neutral color for all monthly bars regardless of trend
   const neutralBarColor = "#4B5563"; // A neutral gray that works in both light/dark mode
@@ -239,7 +237,7 @@ const MonthlyChart = memo(({ monthlyData, unit, minValue, maxValue, padding, dat
 
 // Modal component for detailed chart view
 const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, icon: Icon, lineColor }) => {
-  // *** CHANGE: Set the initial state to 'monthly' ***
+  // *** CHANGE #1: Set the initial state to 'monthly' ***
   const [viewMode, setViewMode] = useState('monthly'); // <-- MODIFIED HERE
   const [isDarkMode] = useDarkMode();
 
@@ -263,11 +261,11 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
     if (!chartData || chartData.length === 0) {
       return { minValue: 0, maxValue: 100, padding: 10 };
     }
-    const values = chartData.map(d => d[dataKey]).filter(v => v !== null && v !== undefined); // Added check for null/undefined
-    if (values.length === 0) return { minValue: 0, maxValue: 100, padding: 10 }; // Handle case where all values are null/undefined
+    const values = chartData.map(d => d[dataKey]).filter(v => v !== null && v !== undefined);
+    if (values.length === 0) return { minValue: 0, maxValue: 100, padding: 10 };
     const min = Math.min(...values);
     const max = Math.max(...values);
-    const pad = (max - min) * 0.1 || 10; // Add fallback padding
+    const pad = (max - min) * 0.1 || 10;
     return { minValue: min, maxValue: max, padding: pad };
   }, [chartData, dataKey]);
 
@@ -276,11 +274,11 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
     if (!monthlyData || monthlyData.length === 0) {
       return { minValue: 0, maxValue: 100, padding: 10 };
     }
-    const values = monthlyData.map(d => d.average).filter(v => v !== null && v !== undefined); // Added check
-    if (values.length === 0) return { minValue: 0, maxValue: 100, padding: 10 }; // Handle case where all values are null/undefined
+    const values = monthlyData.map(d => d.average).filter(v => v !== null && v !== undefined);
+    if (values.length === 0) return { minValue: 0, maxValue: 100, padding: 10 };
     const min = Math.min(...values);
     const max = Math.max(...values);
-    const pad = (max - min) * 0.1 || 10; // Add fallback padding
+    const pad = (max - min) * 0.1 || 10;
     return { minValue: min, maxValue: max, padding: pad };
   }, [monthlyData]);
 
@@ -327,7 +325,7 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
               chartData={chartData}
               dataKey={dataKey}
               unit={unit}
-              lineColor={lineColor}
+              lineColor={lineColor} // Use the color passed from MetricCard
               minValue={dailyChartValues.minValue}
               maxValue={dailyChartValues.maxValue}
               padding={dailyChartValues.padding}
@@ -350,7 +348,7 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
   );
 });
 
-// Memoized MetricCard component to prevent unnecessary re-renders
+// Memoized MetricCard component
 const MetricCard = memo(({
   title,
   value,
@@ -359,7 +357,8 @@ const MetricCard = memo(({
   sparklineData,
   icon: Icon,
   trendColor = "text-blue-500",
-  lineColor = "#94a3b8", // Default sparkline color (slate-400)
+  // *** CHANGE #2: Add trendHexColor prop with a default ***
+  trendHexColor = "#a1a1aa", // Default neutral gray
   fullData,
   dataKey
 }) => {
@@ -372,34 +371,28 @@ const MetricCard = memo(({
   // Process sparkline data to include isFilled flag
   const processedSparklineData = useMemo(() => {
     if (!sparklineData) return [];
-
-    // Ensure we're looking at the correct indices in fullData (which is ordered DESC)
-    // sparklineData is ordered ASC (reversed from slice)
     const dataLength = fullData?.length ?? 0;
 
     return sparklineData.map((item, index) => {
-      // Sparkline shows last 14 days, chronologically.
-      // The corresponding fullData index is (dataLength - 1 - (sparklineData.length - 1 - index))
-      // which simplifies to (dataLength - sparklineData.length + index)
-      // However, since sparklineData is slice(0, 14).reverse(), the original index in fullData
-      // for sparklineData[index] is (13 - index).
       const originalIndexInFullData = 13 - index;
       const isFilled = fullData &&
-                       fullData[originalIndexInFullData] && // Check if index exists
+                       fullData[originalIndexInFullData] &&
                        fullData[originalIndexInFullData][`is_fill_value_${dataKey.split('_')[0]}`];
       return {
         ...item,
-        isFilled: !!isFilled // Ensure boolean
+        isFilled: !!isFilled
       };
     });
   }, [sparklineData, fullData, dataKey]);
+
+  // *** CHANGE #3: Use trendHexColor for the sparkline rendering ***
+  const sparklineColor = trendHexColor;
 
   return (
     <>
       <Card
         className="p-5 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
         onClick={() => setIsModalOpen(true)}
-        // Removed glossy prop assuming Card component handles it or it's not needed
       >
         <div className="flex items-center text-gray-500 dark:text-gray-400 mb-4">
           <Icon className="w-5 h-5 mr-2" />
@@ -422,39 +415,42 @@ const MetricCard = memo(({
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={processedSparklineData}>
                   <defs>
+                    {/* --- Use sparklineColor in gradient --- */}
                     <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={lineColor} stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor={lineColor} stopOpacity={0}/>
+                      <stop offset="5%" stopColor={sparklineColor} stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor={sparklineColor} stopOpacity={0}/>
                     </linearGradient>
                   </defs>
                   <Tooltip
-                    content={<SparklineTooltip dataKey={dataKey} />} // Use the updated tooltip
-                    cursor={{ stroke: lineColor, strokeWidth: 1 }}
+                    content={<SparklineTooltip dataKey={dataKey} />}
+                    // --- Use sparklineColor for tooltip cursor ---
+                    cursor={{ stroke: sparklineColor, strokeWidth: 1 }} 
                   />
                   <Area
                     type="monotone"
                     dataKey="value"
-                    stroke={lineColor}
+                    // --- Use sparklineColor for stroke and fill ---
+                    stroke={sparklineColor}
                     strokeWidth={2}
                     fillOpacity={1}
                     fill={`url(#${gradientId})`}
                     dot={(props) => {
-                      // Add a small dot just for filled values on the sparkline
                       if (props.payload.isFilled) {
                         return (
                           <circle
                             cx={props.cx}
                             cy={props.cy}
                             r={2}
-                            fill={lineColor}
+                            // --- Use sparklineColor for filled dot ---
+                            fill={sparklineColor}
                             fillOpacity={0.5}
                           />
                         );
                       }
-                      return null; // No dots for normal values
+                      return null;
                     }}
-                    isAnimationActive={false} // Disable animation for better performance
-                    connectNulls={false} // Don't connect over null gaps
+                    isAnimationActive={false}
+                    connectNulls={false}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -466,14 +462,15 @@ const MetricCard = memo(({
       {/* Conditionally render Modal */}
       {isModalOpen && (
         <DetailedChartModal
-          isOpen={isModalOpen} // Pass state explicitly
+          isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title={title}
           data={fullData}
           dataKey={dataKey}
           unit={unit}
           icon={Icon}
-          lineColor={lineColor} // Pass sparkline color to modal if needed for daily view
+          // --- Pass sparklineColor (derived from trendHexColor) to modal ---
+          lineColor={sparklineColor} 
         />
       )}
     </>
