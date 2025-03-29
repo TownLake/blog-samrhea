@@ -7,17 +7,15 @@ const TimelineRole = ({
   role,
   companyType,
   isLastRole = false,
-  renderAchievement // Keep the render function for complex achievements
+  renderAchievement
 }) => {
   const { darkMode } = useTheme();
-  const themeVariables = getThemeVariables(companyType, darkMode);
 
   const hasAchievements = role.achievements && role.achievements.length > 0;
   const firstAchievement = hasAchievements ? role.achievements[0] : null;
   const subsequentAchievements = hasAchievements ? role.achievements.slice(1) : [];
 
   return (
-    // Apply theme variables if needed (or rely on parent)
     <div className="relative">
       {/* Timeline dot */}
       <div
@@ -69,10 +67,17 @@ const TimelineRole = ({
         {subsequentAchievements.length > 0 && (
           <ul className="space-y-1 text-sm text-[var(--text-secondary)] transition-colors duration-200">
             {subsequentAchievements.map((achievement, index) => (
-              <li key={index} className="flex items-start text-wrap-pretty" style={{ letterSpacing: '-0.01em' }}>
-                <span className={`achievement-bullet ${
+              // *** FIX APPLIED HERE ***
+              <li
+                key={index}
+                className="flex items-baseline text-wrap-pretty" // Changed items-center to items-baseline
+                style={{ letterSpacing: '-0.01em' }}
+              >
+                {/* Using baseline alignment often looks better for single lines */}
+                <span className={`achievement-bullet mr-2 ${
                   darkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}>•</span>
+                {/* The text span */}
                 <span>{renderAchievement(achievement)}</span>
               </li>
             ))}
