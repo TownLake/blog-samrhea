@@ -1,3 +1,4 @@
+// src/Post.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -6,10 +7,15 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { getCategoryIcon, isStarred } from './utils/categoryIcons';
 import { formatDate } from './utils/formatters';
 import { fetchPost } from './services/postService';
-import { 
+import {
   DEFAULT_MESSAGES,
+  ERROR_MESSAGES, // Import ERROR_MESSAGES
   ROUTES
 } from './constants';
+// Import new components
+import LoadingIndicator from './components/LoadingIndicator';
+import StatusMessage from './components/StatusMessage';
+import { useSearch } from './hooks/useSearch'; // Import useSearch
 
 const Post = () => {
   const { slug } = useParams();
@@ -18,6 +24,7 @@ const Post = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [copySuccess, setCopySuccess] = useState('');
+  const [isSearchActive, toggleSearch] = useSearch(); // Add search hook state
 
   useEffect(() => {
     const loadPost = async () => {
@@ -28,17 +35,23 @@ const Post = () => {
         setPost(postData);
       } catch (err) {
         console.error('Error loading post:', err);
-        setError(err.message);
-        navigate(ROUTES.NOT_FOUND, { replace: true });
+        // Use specific error message if available, otherwise generic not found
+        if (err.message === ERROR_MESSAGES.POST_NOT_FOUND || err.message === ERROR_MESSAGES.POST_CONTENT_NOT_FOUND) {
+            setError(DEFAULT_MESSAGES.POST_NOT_FOUND_MESSAGE); // Set error for display
+            // Optional: Still navigate for truly not found posts, or just show message
+            // navigate(ROUTES.NOT_FOUND, { replace: true });
+        } else {
+            setError(ERROR_MESSAGES.CONTENT_LOAD_FAILED); // Generic load error
+        }
+
       } finally {
         setLoading(false);
       }
     };
-    
+
     loadPost();
   }, [slug, navigate]);
 
-  // Function to handle URL copying
   const copyToClipboard = () => {
     const currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl)
@@ -51,37 +64,41 @@ const Post = () => {
       });
   };
 
+  // Use LoadingIndicator
   if (loading) {
     return (
-      <Layout>
-        <div className="py-10 text-center text-gray-500 dark:text-gray-400">
-          <p>{DEFAULT_MESSAGES.LOADING_POST}</p>
-        </div>
+      // Pass toggleSearch to Layout
+      <Layout toggleSearch={toggleSearch}>
+        <LoadingIndicator message={DEFAULT_MESSAGES.LOADING_POST} />
       </Layout>
     );
   }
 
+  // Use StatusMessage for error state
   if (error || !post) {
     return (
-      <Layout>
+       // Pass toggleSearch to Layout
+      <Layout toggleSearch={toggleSearch}>
         <div className="py-10 text-center">
-          <h1 className="text-2xl font-bold mb-4">{DEFAULT_MESSAGES.POST_NOT_FOUND_TITLE}</h1>
-          <p className="text-gray-500 dark:text-gray-400 mb-8">
-            {DEFAULT_MESSAGES.POST_NOT_FOUND_MESSAGE}
-          </p>
-          <Link to={ROUTES.HOME} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+            {/* Use StatusMessage centered or within a container */}
+           <StatusMessage type="error" message={DEFAULT_MESSAGES.POST_NOT_FOUND_TITLE} details={error || DEFAULT_MESSAGES.POST_NOT_FOUND_MESSAGE} />
+           <Link to={ROUTES.HOME} className="mt-6 inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
             Return Home
-          </Link>
+           </Link>
         </div>
+         {/* Render Search overlay if active */}
+         {isSearchActive && <Search toggleSearch={toggleSearch} />}
       </Layout>
     );
   }
 
+  // --- Post Display Logic (remains mostly the same) ---
   const categoryIcon = getCategoryIcon(post.category);
   const starred = isStarred(post);
 
   return (
-    <Layout>
+    // Pass toggleSearch to Layout
+    <Layout toggleSearch={toggleSearch}>
       <article className="mb-12">
         <header className="mb-10 text-center">
           <h1 className="text-3xl font-bold mb-3">{post.title}</h1>
@@ -119,7 +136,7 @@ const Post = () => {
             ← Back to all posts
           </Link>
           <div className="flex space-x-4">
-            <button 
+            <button
               className="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 flex items-center transition-all"
               onClick={copyToClipboard}
               aria-label="Copy link to this post"
@@ -132,6 +149,8 @@ const Post = () => {
           </div>
         </div>
       </div>
+       {/* Render Search overlay if active */}
+       {isSearchActive && <Search toggleSearch={toggleSearch} />}
     </Layout>
   );
 };

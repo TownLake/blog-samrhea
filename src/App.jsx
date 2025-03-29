@@ -11,12 +11,16 @@ import { useSearch } from './hooks/useSearch';
 import { capitalizeFirstLetter } from './utils/formatters';
 import { clamp } from './utils/validation';
 import { fetchPosts, filterPosts } from './services/postService';
-import { 
-  POSTS_PER_PAGE, 
-  FILTER_OPTIONS, 
+import {
+  POSTS_PER_PAGE,
+  FILTER_OPTIONS,
   DEFAULT_MESSAGES,
+  ERROR_MESSAGES, // Import ERROR_MESSAGES
   ROUTES
 } from './constants';
+// Import new components
+import LoadingIndicator from './components/LoadingIndicator';
+import StatusMessage from './components/StatusMessage';
 
 const App = () => {
   const location = useLocation();
@@ -29,17 +33,14 @@ const App = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Use the custom search hook
   const [isSearchActive, toggleSearch] = useSearch();
 
-  // Set current page from URL
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const page = parseInt(searchParams.get('page')) || 1;
     setCurrentPage(page);
   }, [location.search]);
 
-  // Set filter from URL params
   useEffect(() => {
     if (filter) {
       const filterName = capitalizeFirstLetter(filter);
@@ -51,7 +52,6 @@ const App = () => {
     }
   }, [filter]);
 
-  // Fetch posts using the extracted service
   useEffect(() => {
     const loadPosts = async () => {
       try {
@@ -60,52 +60,53 @@ const App = () => {
         const data = await fetchPosts();
         setPosts(data);
       } catch (err) {
-        setError(err.message);
+        // Use specific error message from constants
+        setError(ERROR_MESSAGES.LOAD_POSTS_FAILED);
         console.error('Failed to load posts:', err);
       } finally {
         setLoading(false);
       }
     };
-    
+
     loadPosts();
   }, []);
 
-  // Filter posts based on current filter
   const filteredPosts = useMemo(() => {
     return filterPosts(posts, currentFilter);
   }, [posts, currentFilter]);
 
-  // Calculate total pages
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
-  // Handle filter change
-  const handleFilterClick = (filter) => {
-    if (filter === currentFilter) return;
+  const handleFilterClick = (filterId) => {
+    if (filterId === currentFilter) return;
     setCurrentPage(1);
-    if (filter === 'All') {
+    if (filterId === 'All') {
       navigate(ROUTES.HOME);
     } else {
-      navigate(ROUTES.FILTER(filter));
+      navigate(ROUTES.FILTER(filterId)); // Use filterId which matches constant
     }
   };
 
-  // Handle pagination
   const goToPage = (page) => {
     const validPage = clamp(page, 1, totalPages);
-    if (validPage === page) {
-      setCurrentPage(validPage);
-      const basePath = currentFilter === 'All' ? ROUTES.HOME : ROUTES.FILTER(currentFilter);
-      navigate(`${basePath}?page=${validPage}`);
-    }
+    // No need to check validPage === page, navigate will handle it
+    setCurrentPage(validPage);
+    const basePath = currentFilter === 'All' ? ROUTES.HOME : ROUTES.FILTER(currentFilter);
+    navigate(`${basePath}?page=${validPage}`);
+
   };
 
-  // Render error state
-  if (error) {
+  // Render error state using StatusMessage
+  if (error && !loading) { // Show error only if not loading anymore
     return (
       <Layout toggleSearch={toggleSearch}>
-        <div className="py-20 text-center text-gray-500 dark:text-gray-400">
-          <p>Error loading posts. Please try again later.</p>
-        </div>
+        <FilterBar
+          options={FILTER_OPTIONS}
+          currentOption={currentFilter}
+          onOptionClick={handleFilterClick}
+          useNavLink={false} // Ensure this remains false for App.jsx
+        />
+        <StatusMessage type="error" message={error} details="Please try refreshing the page."/>
       </Layout>
     );
   }
@@ -113,35 +114,33 @@ const App = () => {
   return (
     <>
       <Layout toggleSearch={toggleSearch}>
-        <FilterBar 
+        <FilterBar
           options={FILTER_OPTIONS}
           currentOption={currentFilter}
           onOptionClick={handleFilterClick}
-          useNavLink={false}
+          useNavLink={false} // Ensure this remains false for App.jsx
         />
 
         <ErrorBoundary>
+           {/* Use LoadingIndicator */}
           {loading ? (
-            <div className="py-20 text-center text-gray-500 dark:text-gray-400">
-              <p>{DEFAULT_MESSAGES.LOADING_POSTS}</p>
-            </div>
+            <LoadingIndicator message={DEFAULT_MESSAGES.LOADING_POSTS} />
           ) : filteredPosts.length === 0 ? (
-            <div className="py-20 text-center text-gray-500 dark:text-gray-400">
-              <p>{DEFAULT_MESSAGES.NO_POSTS_FOUND}</p>
-            </div>
+            // Use StatusMessage for empty state
+            <StatusMessage type="empty" message={DEFAULT_MESSAGES.NO_POSTS_FOUND} />
           ) : (
             <>
-              <PostList 
-                posts={filteredPosts} 
-                currentPage={currentPage} 
-                postsPerPage={POSTS_PER_PAGE} 
+              <PostList
+                posts={filteredPosts}
+                currentPage={currentPage}
+                postsPerPage={POSTS_PER_PAGE}
               />
-              
+
               {totalPages > 1 && (
-                <Pagination 
-                  currentPage={currentPage} 
-                  totalPages={totalPages} 
-                  goToPage={goToPage} 
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  goToPage={goToPage}
                 />
               )}
             </>

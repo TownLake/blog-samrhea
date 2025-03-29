@@ -1,15 +1,12 @@
+// src/components/PostList.jsx
 import React, { useMemo } from 'react';
 import PostItem from './PostItem';
 import { POSTS_PER_PAGE } from '../constants';
+import { getYearMonth } from '../utils/formatters'; // Import the utility function
 
 // A small helper to format a post date as "YYYY-MMM"
-function getYearMonth(dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  // Use { month: 'short' } to get “Jan”, “Feb”, “Mar”, etc.
-  const monthShort = date.toLocaleString('default', { month: 'short' });
-  return `${year}-${monthShort}`;
-}
+// --- Removed local getYearMonth function ---
+// function getYearMonth(dateString) { ... }
 
 const PostList = ({ posts, currentPage, postsPerPage = POSTS_PER_PAGE }) => {
   // Get the current page's posts
@@ -24,6 +21,7 @@ const PostList = ({ posts, currentPage, postsPerPage = POSTS_PER_PAGE }) => {
   return (
     <ul>
       {currentPosts.map((post) => {
+        // Use the imported utility function
         const thisYearMonth = getYearMonth(post.date);
         // Show the YYYY-MMM only if it's different from the previous post
         const showYearMonth = thisYearMonth !== lastYearMonth;
@@ -37,7 +35,6 @@ const PostList = ({ posts, currentPage, postsPerPage = POSTS_PER_PAGE }) => {
             key={post.id}
             post={post}
             // Pass down whether or not to show the year-month
-            // You could also pass down the exact label if you prefer
             showYearMonth={showYearMonth}
           />
         );

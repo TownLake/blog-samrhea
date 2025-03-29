@@ -1,5 +1,5 @@
 // src/About.jsx
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, useRef } from 'react'; // Added useRef
 import { Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import Markdown from './components/Markdown';
@@ -9,14 +9,17 @@ import FilterBar from './components/FilterBar';
 import { isEmpty } from './utils/validation';
 import Search from './components/Search';
 import { useSearch } from './hooks/useSearch';
-import { 
-  ABOUT_SECTIONS, 
-  API_ENDPOINTS, 
-  ERROR_MESSAGES, 
+import {
+  ABOUT_SECTIONS,
+  API_ENDPOINTS,
+  ERROR_MESSAGES,
   DEFAULT_MESSAGES,
   ROUTES,
   ANIMATION_TIMING
 } from './constants';
+// Import new components
+import LoadingIndicator from './components/LoadingIndicator';
+import StatusMessage from './components/StatusMessage';
 
 /**
  * About page component with navigation and content
@@ -24,29 +27,26 @@ import {
 const About = () => {
   const location = useLocation();
   const pathParts = location.pathname.split('/');
-  const currentSection = pathParts[2] || 'home';
+  const currentSection = pathParts.length > 2 ? pathParts[2] : 'home'; // Ensure default section if path is just /about
 
-  // Cache content for better transitions
   const [contentCache, setContentCache] = useState({});
-
-  // Custom search hook for toggling the search modal
   const [isSearchActive, toggleSearch] = useSearch();
 
-  // Prefetch adjacent content
+  // Prefetch adjacent content (remains the same)
   useEffect(() => {
     if (currentSection === 'work') return;
-    
+
     const prefetchAdjacentContent = async () => {
       const sectionIndex = ABOUT_SECTIONS.findIndex(s => s.id === currentSection);
       const adjacentSections = [];
-      
+
       if (sectionIndex > 0) {
         adjacentSections.push(ABOUT_SECTIONS[sectionIndex - 1].id);
       }
       if (sectionIndex < ABOUT_SECTIONS.length - 1) {
         adjacentSections.push(ABOUT_SECTIONS[sectionIndex + 1].id);
       }
-      
+
       for (const adjSection of adjacentSections) {
         if (adjSection === 'work') continue;
         if (!contentCache[adjSection]) {
@@ -65,115 +65,129 @@ const About = () => {
         }
       }
     };
-    
+
     prefetchAdjacentContent();
   }, [currentSection, contentCache]);
 
   return (
     <>
-      {/* Pass toggleSearch to Layout so that Navbar has the search button */}
       <Layout toggleSearch={toggleSearch}>
-        <FilterBar 
+        <FilterBar
           options={ABOUT_SECTIONS}
           currentOption={currentSection}
           useNavLink={true}
         />
-        
-        <Suspense fallback={<LoadingPlaceholder />}>
+
+         {/* Use LoadingIndicator for Suspense fallback */}
+        <Suspense fallback={<LoadingIndicator message={DEFAULT_MESSAGES.LOADING_CONTENT} />}>
           <Routes>
+            {/* Redirect /about to /about/home */}
             <Route path="/" element={<Navigate to={ROUTES.ABOUT_SECTION('home')} replace />} />
             <Route path=":section" element={<AboutSection contentCache={contentCache} setContentCache={setContentCache} />} />
-            <Route path="*" element={<div>{DEFAULT_MESSAGES.SECTION_NOT_FOUND}</div>} />
+             {/* Catch-all for invalid sections within /about */}
+            <Route path="*" element={<StatusMessage type="error" message={DEFAULT_MESSAGES.SECTION_NOT_FOUND} />} />
           </Routes>
         </Suspense>
       </Layout>
 
-      {/* Conditionally render the search overlay */}
       {isSearchActive && <Search toggleSearch={toggleSearch} />}
     </>
   );
 };
 
-// Loading placeholder for suspense fallback
-const LoadingPlaceholder = () => (
-  <div className="animate-pulse opacity-75">
-    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4 w-3/4"></div>
-    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
-    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4 w-5/6"></div>
-  </div>
-);
+// --- Removed LoadingPlaceholder component ---
+// const LoadingPlaceholder = () => ( ... );
 
 // About section component for displaying content
 const AboutSection = ({ contentCache, setContentCache }) => {
   const { section } = useParams();
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
-  const [loadingTimeout, setLoadingTimeout] = useState(false);
-  const prevSectionRef = React.useRef(section);
+  const [error, setError] = useState(null); // Add error state
+  // Removed loadingTimeout state
+  const prevSectionRef = useRef(section); // Use ref instead of state for previous section
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (loading) {
-        setLoadingTimeout(true);
-      }
-    }, ANIMATION_TIMING.LOADING_TIMEOUT);
-    
+     // Ensure section exists in our defined sections
+     if (!ABOUT_SECTIONS.some(s => s.id === section) && section !== 'work') {
+        setError(DEFAULT_MESSAGES.SECTION_NOT_FOUND);
+        setContent('');
+        setLoading(false);
+        return;
+     }
+
+    // Skip loading for 'work' section as it uses CareerTimeline component
+    if (section === 'work') {
+        setLoading(false);
+        setError(null);
+        setContent(''); // Clear any previous content
+        return;
+    }
+
+
     const loadContent = async () => {
       try {
         setLoading(true);
-        setLoadingTimeout(false);
-        
-        if (prevSectionRef.current !== section) {
-          prevSectionRef.current = section;
-        }
-        
+        setError(null); // Clear previous errors
+
+        // Check cache first
         if (!isEmpty(contentCache[section])) {
           setContent(contentCache[section]);
           setLoading(false);
-          clearTimeout(timer);
           return;
         }
-        
+
+        // Fetch content
         const response = await fetch(API_ENDPOINTS.ABOUT_CONTENT(section));
-        if (!response.ok) throw new Error(ERROR_MESSAGES.CONTENT_LOAD_FAILED);
+        if (!response.ok) {
+             // Handle specific not found errors from fetch if possible
+            if (response.status === 404) {
+                throw new Error(DEFAULT_MESSAGES.SECTION_NOT_FOUND);
+            } else {
+                throw new Error(ERROR_MESSAGES.CONTENT_LOAD_FAILED);
+            }
+        }
         const text = await response.text();
-        
+
         setContentCache(prev => ({
           ...prev,
           [section]: text
         }));
-        
+
         setContent(text);
-      } catch (error) {
-        console.error('Error loading content:', error);
-        setContent(ERROR_MESSAGES.DEFAULT_EMPTY_CONTENT);
+      } catch (err) {
+        console.error(`Error loading content for section ${section}:`, err);
+        setError(err.message || ERROR_MESSAGES.CONTENT_LOAD_FAILED);
+        setContent(''); // Clear content on error
       } finally {
         setLoading(false);
-        clearTimeout(timer);
       }
     };
-    
+
     loadContent();
-    
-    return () => clearTimeout(timer);
+
   }, [section, contentCache, setContentCache]);
 
+  // Render CareerTimeline directly for the 'work' section
   if (section === 'work') {
     return <CareerTimeline />;
   }
-  
+
   return (
     <ErrorBoundary>
       <div className="mb-12">
-        {loading && loadingTimeout ? (
-          <div className="animate-pulse opacity-75">
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4 w-3/4"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4 w-5/6"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4 w-1/2"></div>
-          </div>
-        ) : (
-          <Markdown content={content} />
+         {/* Use LoadingIndicator */}
+        {loading && <LoadingIndicator message={DEFAULT_MESSAGES.LOADING_CONTENT} />}
+
+         {/* Use StatusMessage for errors */}
+        {error && !loading && <StatusMessage type="error" message={error} />}
+
+        {/* Render Markdown content when not loading and no error */}
+        {!loading && !error && content && <Markdown content={content} />}
+
+        {/* Handle case where content might be empty but no error (e.g., empty file) */}
+        {!loading && !error && !content && section !== 'work' && (
+            <StatusMessage type="empty" message={ERROR_MESSAGES.DEFAULT_EMPTY_CONTENT} />
         )}
       </div>
     </ErrorBoundary>
