@@ -28,6 +28,7 @@ export const API_ENDPOINTS = {
   POSTS: '/posts.json',
   POST_CONTENT: (filename) => `/content/posts/${filename}`,
   ABOUT_CONTENT: (section) => `/content/about/${section}.md`,
+  SEARCH: '/api/search', // Added Search API endpoint
 };
 
 // Animation timings
@@ -42,6 +43,7 @@ export const ERROR_MESSAGES = {
   POST_NOT_FOUND: 'Post not found',
   POST_CONTENT_NOT_FOUND: 'Post content not found',
   CONTENT_LOAD_FAILED: 'Failed to load content',
+  SEARCH_FAILED_GENERIC: 'An error occurred during search.', // Added generic search error
   DEFAULT_EMPTY_CONTENT: 'Content not available.',
 };
 
@@ -49,7 +51,11 @@ export const ERROR_MESSAGES = {
 export const DEFAULT_MESSAGES = {
   LOADING_POSTS: 'Loading posts...',
   LOADING_POST: 'Loading post...',
+  LOADING_CONTENT: 'Loading content...', // Added generic loading
+  LOADING_SEARCH: 'Searching content...', // Added search loading
   NO_POSTS_FOUND: 'No posts found with the selected filter.',
+  NO_SEARCH_RESULTS: (query) => `No results found for "${query}"`, // Dynamic no results message
+  SEARCH_SHORT_QUERY: (length) => `Please enter at least ${length} characters.`, // Dynamic short query message
   POST_NOT_FOUND_TITLE: 'Post Not Found',
   POST_NOT_FOUND_MESSAGE: 'Sorry, the post you\'re looking for doesn\'t exist or has been moved.',
   SECTION_NOT_FOUND: 'Section not found',
@@ -78,7 +84,11 @@ export const STORAGE_KEYS = {
   CONTENT_CACHE: 'contentCache',
 };
 
-// Event names
-export const EVENTS = {
-  DARK_MODE_CHANGE: 'darkModeChange',
+// Event names (Removed DARK_MODE_CHANGE)
+// export const EVENTS = { ... }; // Can remove if empty
+
+// Search Configuration
+export const SEARCH_CONFIG = {
+    DEBOUNCE_DELAY: 300, // ms
+    MIN_QUERY_LENGTH: 2,
 };
