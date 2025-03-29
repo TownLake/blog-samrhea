@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
+    "itty-router": "^5.0.18",
     "itty-router-extras": "^0.4.6",
     "lucide-react": "^0.484.0",
     "marked": "^15.0.7",
