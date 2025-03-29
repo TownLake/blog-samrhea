@@ -21,11 +21,11 @@
           "period": "Oct 2022 - Jun 2024",
           "achievements": [
             "Led the Cloudflare Zero Trust product line.",
-            ["The team made the biggest leap in the ", { "text": "Gartner Magic Quadrant", "link": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant-2024" }, " the year after our debut."],
-            ["Acquired ", { "text": "Vectrix", "link": "https://blog.cloudflare.com/cloudflare-zero-trust-casb" }, " to integrate CASB capabilities for SaaS application security."],
+            ["We made the biggest leap in the ", { "text": "2024 Gartner® Magic Quadrant™ for Security Service Edge", "link": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant-2024" }, "."],
+            ["We became the only new vendor in the ", { "text": "2023 Gartner® Magic Quadrant™ for Security Service Edge", "link": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant/" }, "."],
             ["We kept customers safe while they ", { "text": "adopted AI tools", "link": "https://blog.cloudflare.com/zero-trust-ai-security/" }, "."],
             ["Cloudflare brought the Zero Trust products into our  ", { "text": "Galileo and Athenian projects", "link": "https://blog.cloudflare.com/cloudflare-zero-trust-for-galileo-and-athenian/" }, "."],
-            ["And I ", { "text": "killed Railgun", "link": "https://blog.cloudflare.com/deprecating-railgun/" }, "."]
+            ["Also, I ", { "text": "killed Railgun", "link": "https://blog.cloudflare.com/deprecating-railgun/" }, "."]
           ]
         },
         {
@@ -41,6 +41,7 @@
           "title": "Director of Product",
           "period": "Jul 2020 - Apr 2022",
           "achievements": [
+            ["Acquired ", { "text": "Vectrix", "link": "https://blog.cloudflare.com/cloudflare-zero-trust-casb" }, " to integrate CASB capabilities for SaaS application security."],
             "Led the Cloudflare Zero Trust product line.",
             ["Launched ", { "text": "Cloudflare One", "link": "https://blog.cloudflare.com/cloudflare-one/" }, ", our comprehensive Secure Access Service Edge (SASE) solution."],
             ["Launched our comprehensive ", { "text": "DLP", "link": "https://blog.cloudflare.com/data-loss-prevention/" }, " suite."],
