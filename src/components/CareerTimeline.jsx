@@ -1,16 +1,18 @@
+// src/components/CareerTimeline.jsx
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import useDarkMode, { DARK_MODE_CHANGE_EVENT } from '../hooks/useDarkMode';
+// Removed internal useDarkMode hook import
+import { useTheme } from '../context/ThemeContext'; // Import useTheme hook
 import CompanyCard from './CompanyCard';
 import TimelineRole from './TimelineRole';
 import { getTextStyles, getCompanyType, COMPANY_TYPES } from '../utils/themeConfig';
 
 /**
- * Career timeline component with improved state management
+ * Career timeline component with improved state management using ThemeContext
  */
 const CareerTimeline = () => {
-  // Use the custom dark mode hook
-  const [isDarkMode] = useDarkMode();
-  
+  // Use the custom theme context hook
+  const { darkMode } = useTheme(); // Renamed isDarkMode to darkMode for consistency
+
   // Define memoized rendering function to reduce re-renders
   const renderAchievement = useCallback((achievement) => {
     if (typeof achievement === 'string') {
@@ -21,12 +23,12 @@ const CareerTimeline = () => {
           return <React.Fragment key={index}>{part}</React.Fragment>;
         } else if (part && typeof part === 'object' && part.text && part.link) {
           return (
-            <a 
+            <a
               key={index}
-              href={part.link} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="custom-link"
+              href={part.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="custom-link" // Assuming .custom-link handles dark mode automatically now
             >
               {part.text}
             </a>
@@ -37,20 +39,21 @@ const CareerTimeline = () => {
     }
     return null;
   }, []);
-  
-  // Memoize text styles based on dark mode
-  const textStyles = useMemo(() => getTextStyles(isDarkMode), [isDarkMode]);
+
+  // Memoize text styles based on dark mode from context
+  const textStyles = useMemo(() => getTextStyles(darkMode), [darkMode]);
 
   // Section list component for education sections - memoized
   const SectionList = useCallback(({ sections, companyName = '' }) => {
     const getTitleClass = () => {
       const companyType = getCompanyType(companyName);
       if (companyType === COMPANY_TYPES.UTAUSTIN) {
-        return isDarkMode ? 'text-orange-200' : 'text-[#bf5700]';
+        // Use darkMode from context for conditional styling
+        return darkMode ? 'text-orange-200' : 'text-[#bf5700]';
       }
       return '';
     };
-      
+
     return (
       <div className="mt-6 pl-6">
         {sections.map((section, sectionIndex) => (
@@ -58,17 +61,18 @@ const CareerTimeline = () => {
             <h4 className={`font-semibold mb-2 ${getTitleClass()}`}>
               {section.title}
             </h4>
+            {/* Use textStyles derived from context's darkMode state */}
             <ul className={`space-y-1 text-sm ${textStyles.secondary}`}>
               {section.items.map((item, i) => (
                 <li key={i} className="flex items-start text-wrap-pretty" style={{ letterSpacing: '-0.01em' }}>
                   <span className="mr-2 mt-1 text-xs flex-shrink-0">•</span>
                   <span>
                     {typeof item === 'object' && item.link ? (
-                      <a 
-                        href={item.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="custom-link"
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="custom-link" // Assuming .custom-link handles dark mode automatically
                       >
                         {item.text}
                       </a>
@@ -81,12 +85,13 @@ const CareerTimeline = () => {
         ))}
       </div>
     );
-  }, [isDarkMode, textStyles]);
+    // Dependency array updated to use darkMode from context
+  }, [darkMode, textStyles]);
 
-  // Intro text from markdown file
+  // Intro text from markdown file (kept as is for example)
   const introText = "I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now. I spent the previous six years launching, building, and leading the Zero Trust product line at Cloudflare as the VP of Product. I shipped the first prototype in that group into GA as a Product Manager in 2018. A few years later we became the only new vendor in the Gartner Magic Quadrant. Before that I launched our Registrar.";
-  
-  // Career data with roles from the provided resume
+
+  // Career data with roles from the provided resume (kept as is)
   const companyData = [
     {
       id: 1,
@@ -202,8 +207,8 @@ const CareerTimeline = () => {
       ]
     }
   ];
-  
-  // Education data with UT Austin burnt orange color scheme
+
+  // Education data with UT Austin burnt orange color scheme (kept as is)
   const educationData = [
     {
       id: 5,
@@ -255,35 +260,36 @@ const CareerTimeline = () => {
       ]
     }
   ];
-  
+
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
       {/* Intro section */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold mb-4" style={{ letterSpacing: '-0.025em' }}>At Work</h1>
-        <p className={`text-lg ${textStyles.secondary}`} 
+        {/* Use textStyles derived from context's darkMode state */}
+        <p className={`text-lg ${textStyles.secondary}`}
            style={{ letterSpacing: '-0.01em', lineHeight: '1.75', textWrap: 'pretty' }}>
           {introText}
         </p>
       </div>
-      
+
       {/* Work experience */}
       <div className="space-y-6">
         {companyData.map((company, companyIndex) => (
-          <CompanyCard 
+          <CompanyCard
             key={company.id}
             company={company}
-            isDarkMode={isDarkMode}
+            // isDarkMode prop removed
             isLastCompany={companyIndex === companyData.length - 1}
           >
             {/* Roles within company */}
             <div className="mt-4 space-y-4 pl-2">
               {company.roles.map((role, roleIndex) => (
-                <TimelineRole 
+                <TimelineRole
                   key={role.id}
                   role={role}
                   companyType={getCompanyType(company.name)}
-                  isDarkMode={isDarkMode}
+                  // isDarkMode prop removed
                   isLastRole={roleIndex === company.roles.length - 1}
                   renderAchievement={renderAchievement}
                 />
@@ -291,33 +297,33 @@ const CareerTimeline = () => {
             </div>
           </CompanyCard>
         ))}
-        
+
         {/* Education section */}
         {educationData.map((education) => (
-          <CompanyCard 
+          <CompanyCard
             key={education.id}
             company={education}
-            isDarkMode={isDarkMode}
+            // isDarkMode prop removed
             isLastCompany={true}
           >
             {/* Education roles */}
             <div className="mt-4 space-y-4 pl-2">
               {education.roles.map((role, roleIndex) => (
-                <TimelineRole 
+                <TimelineRole
                   key={role.id}
                   role={role}
                   companyType={getCompanyType(education.name)}
-                  isDarkMode={isDarkMode}
+                  // isDarkMode prop removed
                   isLastRole={roleIndex === education.roles.length - 1}
                   renderAchievement={renderAchievement}
                 />
               ))}
             </div>
-            
+
             {/* Additional sections for education */}
             {education.sections && education.sections.length > 0 && (
-              <SectionList 
-                sections={education.sections} 
+              <SectionList
+                sections={education.sections}
                 companyName={education.name}
               />
             )}

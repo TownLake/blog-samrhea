@@ -1,11 +1,11 @@
 // src/hooks/useDarkMode.js
 import { useState, useEffect } from 'react';
-import { STORAGE_KEYS, EVENTS } from '../constants';
+import { STORAGE_KEYS } from '../constants'; // Removed EVENTS constant
 
-// Export the event name for consistency
-export const DARK_MODE_CHANGE_EVENT = EVENTS.DARK_MODE_CHANGE;
+// NOTE: Removed DARK_MODE_CHANGE_EVENT export
 
-export default function useDarkMode() {
+// Renamed hook to avoid naming conflict if imported in ThemeProvider.jsx
+export default function useDarkModeInternal() {
   // Get initial state: use stored preference if available; otherwise, use system setting.
   const getInitialDarkMode = () => {
     if (typeof window !== 'undefined') {
@@ -13,30 +13,36 @@ export default function useDarkMode() {
       if (storedPref) {
         return storedPref === 'dark';
       } else {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Check for window.matchMedia existence before calling matches
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       }
     }
-    return false;
+    return false; // Default to false if window is not available (SSR)
   };
 
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
   // Update the document and localStorage whenever darkMode changes.
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem(STORAGE_KEYS.DARK_MODE, 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem(STORAGE_KEYS.DARK_MODE, 'light');
+    if (typeof window !== 'undefined') {
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem(STORAGE_KEYS.DARK_MODE, 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem(STORAGE_KEYS.DARK_MODE, 'light');
+      }
+      // --- Removed CustomEvent dispatch ---
     }
-    
-    // Dispatch a custom event so other components can react to dark mode changes
-    window.dispatchEvent(new CustomEvent(DARK_MODE_CHANGE_EVENT, { detail: { darkMode } }));
   }, [darkMode]);
 
   // Listen to system theme changes.
   useEffect(() => {
+    // Ensure window and matchMedia are available
+    if (typeof window === 'undefined' || !window.matchMedia) {
+        return;
+    }
+
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     const systemPreferenceListener = (e) => {
@@ -50,28 +56,19 @@ export default function useDarkMode() {
     // Modern browsers support addEventListener on media queries.
     mediaQuery.addEventListener('change', systemPreferenceListener);
 
+    // Cleanup listener
     return () => {
       mediaQuery.removeEventListener('change', systemPreferenceListener);
     };
-  }, []);
+  }, []); // Empty dependency array ensures this runs once on mount
 
-  // Listen for dark mode changes from other components
-  useEffect(() => {
-    const handleDarkModeChange = (event) => {
-      setDarkMode(event.detail.darkMode);
-    };
-
-    window.addEventListener(DARK_MODE_CHANGE_EVENT, handleDarkModeChange);
-    
-    return () => {
-      window.removeEventListener(DARK_MODE_CHANGE_EVENT, handleDarkModeChange);
-    };
-  }, []);
+  // --- Removed listener for DARK_MODE_CHANGE_EVENT ---
 
   // Toggling dark mode updates the state (and saves the explicit preference).
   const toggleDarkMode = () => {
     setDarkMode(prev => !prev);
   };
 
+  // Return the state and the toggle function
   return [darkMode, toggleDarkMode];
 }

@@ -15,7 +15,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-    overflow-y: scroll;
+    overflow-y: scroll; /* Keep this to prevent shifts on page length change */
   }
 
   /* Add support for pretty text wrapping in all browsers */
@@ -42,6 +42,41 @@
     --border-color: #374151;
     --accent-color: #93c5fd;
   }
+
+  /* --- Consistent Scrollbar Styles --- */
+  /* Define base scrollbar dimensions and light mode colors */
+  ::-webkit-scrollbar {
+    width: 10px;  /* Or match your previous dark mode setting exactly */
+    height: 10px; /* For horizontal scrollbars if they appear */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f3f4f6; /* bg-gray-100 - Light track background */
+    /* You could also use bg-gray-50 or transparent */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #9ca3af; /* bg-gray-400 - Light thumb color */
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* bg-gray-500 - Light thumb hover color */
+  }
+
+  /* Override colors specifically for dark mode */
+  .dark::-webkit-scrollbar-track {
+    background: #1f2937; /* Dark track background */
+  }
+
+  .dark::-webkit-scrollbar-thumb {
+    background: #4b5563; /* Dark thumb color */
+  }
+
+  .dark::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* Dark thumb hover color */
+  }
+  /* --- End Consistent Scrollbar Styles --- */
 }
 
 /* Base link styles */
@@ -185,25 +220,6 @@ a, button, .card, .badge, .dot {
 
 .dark code {
   color: #e2e8f0;
-}
-
-/* Improved scrollbar for dark mode */
-.dark::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-.dark::-webkit-scrollbar-track {
-  background: #1f2937;
-}
-
-.dark::-webkit-scrollbar-thumb {
-  background: #4b5563;
-  border-radius: 5px;
-}
-
-.dark::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
 }
 
 /* Add CSS class for company-specific glossy cards in light mode */
