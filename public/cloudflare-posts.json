@@ -1,0 +1,461 @@
+[
+    {
+      "id": "cloudflare-ai-audit-control",
+      "title": "🟠⛅ Start auditing and controlling the AI models accessing your content",
+      "date": "2024-09-23",
+      "category": "cloudflare",
+      "description": "Cloudflare customers on any plan can now audit and control how AI models access the content on their site.",
+      "url": "https://blog.cloudflare.com/cloudflare-ai-audit-control-ai-content-crawlers/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "cloudflare-named-in-2024-gartner-magic-quadrant",
+      "title": "🟠⛅ Cloudflare named in 2024 Gartner® Magic Quadrant™ for Security Service Edge",
+      "date": "2024-04-18",
+      "category": "cloudflare",
+      "description": "Gartner has once again named Cloudflare to the Gartner® Magic Quadrant™ for Security Service Edge (SSE) report.",
+      "url": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant-2024/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "cloudflare-is-deprecating-railgun",
+      "title": "🟠⛅ Cloudflare is deprecating Railgun",
+      "date": "2023-06-01",
+      "category": "cloudflare",
+      "description": "Cloudflare will deprecate Railgun on January 2024.",
+      "url": "https://blog.cloudflare.com/deprecating-railgun/",
+      "external": true
+    },
+    {
+      "id": "complete-suite-of-zero-trust-security-tools",
+      "title": "🟠⛅ A complete suite of Zero Trust security tools to help get the most from AI",
+      "date": "2023-05-15",
+      "category": "cloudflare",
+      "description": "Secure your team’s usage of AI tools with Cloudflare One.",
+      "url": "https://blog.cloudflare.com/zero-trust-ai-security/",
+      "external": true
+    },
+    {
+      "id": "cloudflare-one-named-in-gartner-magic-quadrant",
+      "title": "🟠⛅ Cloudflare One named in Gartner® Magic Quadrant™ for Security Service Edge",
+      "date": "2023-04-13",
+      "category": "cloudflare",
+      "description": "Cloudflare Zero Trust was named to Gartner’s Magic Quadrant™ for Security Service Edge.",
+      "url": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "cloudflare-incident-2023-01-24",
+      "title": "🟠⛅ Cloudflare incident on January 24, 2023",
+      "date": "2023-01-25",
+      "category": "cloudflare",
+      "description": "Several Cloudflare services became unavailable for 121 minutes due to an error releasing code managing service tokens.",
+      "url": "https://blog.cloudflare.com/cloudflare-incident-on-january-24th-2023/",
+      "external": true
+    },
+    {
+      "id": "why-do-cios-choose-cloudflare-one",
+      "title": "🟠⛅ Why do CIOs choose Cloudflare One?",
+      "date": "2023-01-10",
+      "category": "cloudflare",
+      "description": "Over 10,000 organizations trust Cloudflare One to connect and secure their users, devices, applications, and data.",
+      "url": "https://blog.cloudflare.com/why-cios-select-cloudflare-one/",
+      "external": true
+    },
+    {
+      "id": "cloudflare-zero-trust-for-project-galileo",
+      "title": "🟠⛅ Cloudflare Zero Trust for Project Galileo and the Athenian Project",
+      "date": "2022-12-12",
+      "category": "cloudflare",
+      "description": "The Cloudflare One Zero Trust suite is now available at no cost for teams qualifying for Projects Galileo or Athenian.",
+      "url": "https://blog.cloudflare.com/cloudflare-zero-trust-for-galileo-and-athenian/",
+      "external": true
+    },
+    {
+      "id": "adding-a-casb-to-cloudflare-zero-trust",
+      "title": "🟠⛅ Adding a CASB to Cloudflare Zero Trust",
+      "date": "2022-02-10",
+      "category": "cloudflare",
+      "description": "Cloudflare announced the acquisition of Vectrix to address CASB needs in controlling and monitoring SaaS applications.",
+      "url": "https://blog.cloudflare.com/cloudflare-zero-trust-casb/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "secure-servers-connect-internet",
+      "title": "🟠⛅ Secure how your servers connect to the Internet today",
+      "date": "2021-12-10",
+      "category": "cloudflare",
+      "description": "Cloudflare updated its WAF to protect against a Log4J 0-day attack, defending servers from remote code execution.",
+      "url": "https://blog.cloudflare.com/secure-how-your-servers-connect-to-the-internet-today/",
+      "external": true
+    },
+    {
+      "id": "cloudflare-one-one-year-later",
+      "title": "🟠⛅ Cloudflare One: One Year Later",
+      "date": "2021-12-06",
+      "category": "cloudflare",
+      "description": "A check-in on Cloudflare One after one year of operation and its impact on modern enterprise networks.",
+      "url": "https://blog.cloudflare.com/cloudflare-one-one-year-later/",
+      "external": true
+    },
+    {
+      "id": "helping-keep-governments-safe-and-secure",
+      "title": "🟠⛅ Helping Keep Governments Safe and Secure",
+      "date": "2021-08-02",
+      "category": "cloudflare",
+      "description": "Cloudflare and Accenture Federal Services deliver a joint cybersecurity solution for government agencies.",
+      "url": "https://blog.cloudflare.com/helping-keep-governments-safe-and-secure/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "start-building-private-network",
+      "title": "🟠⛅ Start building your own private network on Cloudflare today",
+      "date": "2021-04-20",
+      "category": "cloudflare",
+      "description": "Teams can now build a private network on Cloudflare’s global infrastructure.",
+      "url": "https://blog.cloudflare.com/build-your-own-private-network-on-cloudflare/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "zero-trust-terminal-web-browser",
+      "title": "🟠⛅ A Zero Trust terminal in your web browser",
+      "date": "2021-04-15",
+      "category": "cloudflare",
+      "description": "Use a browser-based terminal to connect to non-HTTP resources with Zero Trust control.",
+      "url": "https://blog.cloudflare.com/browser-ssh-terminal-with-auditing/",
+      "external": true
+    },
+    {
+      "id": "announcing-data-loss-prevention",
+      "title": "🟠⛅ Announcing Cloudflare’s Data Loss Prevention platform",
+      "date": "2021-03-24",
+      "category": "cloudflare",
+      "description": "Introducing a new platform to help enterprises build Zero Trust controls over their data.",
+      "url": "https://blog.cloudflare.com/data-loss-prevention/",
+      "external": true
+    },
+    {
+      "id": "announcing-workplace-records",
+      "title": "🟠⛅ Announcing Workplace Records for Cloudflare for Teams",
+      "date": "2020-12-10",
+      "category": "cloudflare",
+      "description": "A solution using Access and Gateway logs to provide insights on where employees are working from.",
+      "url": "https://blog.cloudflare.com/work-jurisdiction-records-for-teams/",
+      "external": true
+    },
+    {
+      "id": "intrusion-detection-system",
+      "title": "🟠⛅ One more (Zero Trust) thing: Cloudflare Intrusion Detection System",
+      "date": "2020-10-17",
+      "category": "cloudflare",
+      "description": "Announcing plans for a new Intrusion Detection System to monitor network threats.",
+      "url": "https://blog.cloudflare.com/one-more-zero-trust-thing-cloudflare-intrusion-detection/",
+      "external": true
+    },
+    {
+      "id": "argo-tunnels-live-forever",
+      "title": "🟠⛅ Argo Tunnels that live forever",
+      "date": "2020-10-13",
+      "category": "cloudflare",
+      "description": "Learn how to securely connect your infrastructure to Cloudflare using Argo Tunnels.",
+      "url": "https://blog.cloudflare.com/argo-tunnels-that-live-forever/",
+      "external": true
+    },
+    {
+      "id": "cloudflare-access-for-saas",
+      "title": "🟠⛅ Cloudflare Access: now for SaaS apps, too",
+      "date": "2020-10-13",
+      "category": "cloudflare",
+      "description": "Secure your SaaS applications with Cloudflare Access and Zero Trust rules.",
+      "url": "https://blog.cloudflare.com/cloudflare-access-for-saas/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "what-is-cloudflare-one",
+      "title": "🟠⛅ What is Cloudflare One?",
+      "date": "2020-10-12",
+      "category": "cloudflare",
+      "description": "Introducing Cloudflare One – a new vision for corporate security and networking.",
+      "url": "https://blog.cloudflare.com/cloudflare-one/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "two-clicks-region-based-zero-trust-compliance",
+      "title": "🟠⛅ Two clicks to add region-based Zero Trust compliance",
+      "date": "2020-09-01",
+      "category": "cloudflare",
+      "description": "Easily add geography-based compliance rules in Cloudflare Access with just two clicks.",
+      "url": "https://blog.cloudflare.com/two-clicks-to-enable-regional-zero-trust-compliance/",
+      "external": true
+    },
+    {
+      "id": "require-hard-key-auth-cloudflare-access",
+      "title": "🟠⛅ Require hard key auth with Cloudflare Access",
+      "date": "2020-08-20",
+      "category": "cloudflare",
+      "description": "Restrict access to your admin panel by requiring hard key authentication using Cloudflare Access.",
+      "url": "https://blog.cloudflare.com/require-hard-key-auth-with-cloudflare-access/",
+      "external": true
+    },
+    {
+      "id": "export-logs-cloudflare-gateway-logpush",
+      "title": "🟠⛅ Export logs from Cloudflare Gateway with Logpush",
+      "date": "2020-05-29",
+      "category": "cloudflare",
+      "description": "Automatically export DNS query logs from Cloudflare Gateway to your SIEM with Logpush.",
+      "url": "https://blog.cloudflare.com/export-logs-from-cloudflare-gateway-with-logpush/",
+      "external": true
+    },
+    {
+      "id": "taniums-endpoint-security-cloudflare-for-teams",
+      "title": "🟠⛅ Tanium’s endpoint security meets Cloudflare for Teams",
+      "date": "2020-05-27",
+      "category": "cloudflare",
+      "description": "Integrate Tanium with Cloudflare for Teams to enhance endpoint security.",
+      "url": "https://blog.cloudflare.com/tanium-cloudflare-teams/",
+      "external": true
+    },
+    {
+      "id": "releasing-cloudflare-access-feature",
+      "title": "🟠⛅ Releasing Cloudflare Access’ most requested feature",
+      "date": "2020-05-22",
+      "category": "cloudflare",
+      "description": "Introducing a new feature in Cloudflare Access based on customer feedback.",
+      "url": "https://blog.cloudflare.com/releasing-cloudflare-access-most-requested-feature/",
+      "external": true
+    },
+    {
+      "id": "resolve-internal-hostnames",
+      "title": "🟠⛅ Resolve internal hostnames with Cloudflare for Teams",
+      "date": "2020-05-19",
+      "category": "cloudflare",
+      "description": "Customize DNS resolutions for your devices using Cloudflare Gateway.",
+      "url": "https://blog.cloudflare.com/redirect-users-to-new-destinations-with-cloudflare-for-teams/",
+      "external": true
+    },
+    {
+      "id": "single-dashboard-cloudflare-teams",
+      "title": "🟠⛅ A single dashboard for Cloudflare for Teams",
+      "date": "2020-05-04",
+      "category": "cloudflare",
+      "description": "Manage application and threat security in one unified dashboard with Cloudflare Access.",
+      "url": "https://blog.cloudflare.com/a-single-dashboard-for-cloudflare-for-teams/",
+      "external": true
+    },
+    {
+      "id": "releasing-kubectl-support-in-access",
+      "title": "🟠⛅ Releasing kubectl support in Access",
+      "date": "2020-04-27",
+      "category": "cloudflare",
+      "description": "Securely manage your Kubernetes cluster using Cloudflare Access and Argo Tunnel with new kubectl support.",
+      "url": "https://blog.cloudflare.com/releasing-kubectl-support-in-access/",
+      "external": true
+    },
+    {
+      "id": "open-sourcing-sentry-sso-plugin",
+      "title": "🟠⛅ Open sourcing our Sentry SSO plugin",
+      "date": "2020-03-11",
+      "category": "cloudflare",
+      "description": "Announcing the open source release of our Sentry SSO plugin for Cloudflare Access.",
+      "url": "https://blog.cloudflare.com/open-sourcing-our-sentry-sso-plugin/",
+      "external": true
+    },
+    {
+      "id": "how-cloudflare-keeps-employees-productive",
+      "title": "🟠⛅ How Cloudflare keeps employees productive from any location",
+      "date": "2020-03-06",
+      "category": "cloudflare",
+      "description": "Insights into Cloudflare’s strategies for maintaining productivity in a remote work environment.",
+      "url": "https://blog.cloudflare.com/how-cloudflare-keeps-employees-productive-from-any-location/",
+      "external": true
+    },
+    {
+      "id": "seamless-remote-work-cloudflare-teams",
+      "title": "🟠⛅ Seamless remote work with Cloudflare for Teams",
+      "date": "2020-02-24",
+      "category": "cloudflare",
+      "description": "Adapting to remote work challenges with Cloudflare for Teams solutions.",
+      "url": "https://blog.cloudflare.com/seamless-remote-work-with-cloudflare-access/",
+      "external": true
+    },
+    {
+      "id": "using-devices-as-key-to-apps",
+      "title": "🟠⛅ Using your devices as the key to your apps",
+      "date": "2020-02-21",
+      "category": "cloudflare",
+      "description": "A novel approach to authentication using your personal devices with Cloudflare Access.",
+      "url": "https://blog.cloudflare.com/using-your-devices-as-the-key-to-your-apps/",
+      "external": true
+    },
+    {
+      "id": "multi-sso-cloudflare-access",
+      "title": "🟠⛅ Multi-SSO and Cloudflare Access: Adding LinkedIn and GitHub Teams",
+      "date": "2020-02-20",
+      "category": "cloudflare",
+      "description": "Integrate LinkedIn and GitHub Teams as login methods in Cloudflare Access.",
+      "url": "https://blog.cloudflare.com/multi-sso-and-cloudflare-access-adding-linkedin-and-github-teams/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "announcing-cloudflare-access-app-launch",
+      "title": "🟠⛅ Announcing the Cloudflare Access App Launch",
+      "date": "2020-01-16",
+      "category": "cloudflare",
+      "description": "Introducing the new Cloudflare Access App to simplify secure access to applications.",
+      "url": "https://blog.cloudflare.com/announcing-the-cloudflare-access-app-launch/",
+      "external": true,
+      "starred": true,
+      "tags": ["hits"]
+    },
+    {
+      "id": "helping-mitigate-citrix-netscaler-cve",
+      "title": "🟠⛅ Helping mitigate the Citrix NetScaler CVE with Cloudflare Access",
+      "date": "2020-01-12",
+      "category": "cloudflare",
+      "description": "How Cloudflare Access serves as a defense-in-depth solution for the Citrix NetScaler vulnerability.",
+      "url": "https://blog.cloudflare.com/helping-mitigate-the-citrix-netscaler-cve-with-cloudflare-access/",
+      "external": true
+    },
+    {
+      "id": "security-on-internet-cloudflare-teams",
+      "title": "🟠⛅ Security on the Internet with Cloudflare for Teams",
+      "date": "2020-01-07",
+      "category": "cloudflare",
+      "description": "Exploring how Cloudflare for Teams enhances security for corporate internet access.",
+      "url": "https://blog.cloudflare.com/cloudflare-for-teams-products/",
+      "external": true
+    },
+    {
+      "id": "log-every-request-corporate-apps",
+      "title": "🟠⛅ Log every request to corporate apps, no code changes required",
+      "date": "2019-11-17",
+      "category": "cloudflare",
+      "description": "Introducing a new logging solution for corporate applications via Cloudflare Access.",
+      "url": "https://blog.cloudflare.com/log-every-request-to-corporate-apps-no-code-changes-required/",
+      "external": true
+    },
+    {
+      "id": "public-keys-not-enough-ssh-security",
+      "title": "🟠⛅ Public keys are not enough for SSH security",
+      "date": "2019-10-25",
+      "category": "cloudflare",
+      "description": "Discussing the limitations of SSH public key authentication and proposing a new approach.",
+      "url": "https://blog.cloudflare.com/public-keys-are-not-enough-for-ssh-security/",
+      "external": true
+    },
+    {
+      "id": "cloudflare-registrar-three-months",
+      "title": "🟠⛅ Cloudflare Registrar at three months",
+      "date": "2019-02-22",
+      "category": "cloudflare",
+      "description": "A status update on Cloudflare Registrar after three months of its launch.",
+      "url": "https://blog.cloudflare.com/cloudflare-registrar-at-three-months/",
+      "external": true
+    },
+    {
+        "id": "free-argo-tunnel",
+        "title": "🟠⛅ A free Argo Tunnel for your next project",
+        "date": "2019-06-15",
+        "category": "cloudflare",
+        "description": "Argo Tunnel lets you expose a server to the Internet without opening any ports. The service runs a lightweight process on your server that creates outbound tunnels to the Cloudflare network.",
+        "url": "https://blog.cloudflare.com/cloudflare-registrar-at-three-months/",
+        "external": true
+      },
+      {
+        "id": "rdp-in-access",
+        "title": "🟠⛅ Cloudflare Access now supports RDP",
+        "date": "2019-02-21",
+        "category": "cloudflare",
+        "description": "Cloudflare Access now supports RDP.",
+        "url": "https://blog.cloudflare.com/cloudflare-access-now-supports-rdp/",
+        "external": true
+      },  
+      {
+        "id": "service-tokens-in-access",
+        "title": "🟠⛅ Give your automated services credentials with Access service tokens",
+        "date": "2019-02-07",
+        "category": "cloudflare",
+        "description": "Cloudflare Access now supports service tokens.",
+        "url": "https://blog.cloudflare.com/give-your-automated-services-credentials-with-access-service-tokens/",
+        "external": true
+      },   
+      {
+        "id": "one-click-dnssec",
+        "title": "🟠⛅ One-Click DNSSEC with Cloudflare Registrar",
+        "date": "2019-01-16",
+        "category": "cloudflare",
+        "description": "Enable DNSSEC with a single button click.",
+        "url": "https://blog.cloudflare.com/one-click-dnssec-with-cloudflare-registrar/",
+        "external": true,
+        "starred": true,
+        "tags": ["hits"]
+      }, 
+      {
+        "id": "ssh-in-access",
+        "title": "🟠⛅ Announcing SSH Access through Cloudflare",
+        "date": "2018-11-16",
+        "category": "cloudflare",
+        "description": "Zero Trust SSH security.",
+        "url": "https://blog.cloudflare.com/releasing-the-cloudflare-access-feature-that-let-us-smash-a-vpn-on-stage/",
+        "external": true
+      }, 
+      {
+        "id": "curl-in-access",
+        "title": "🟠⛅ Leave your VPN and cURL secure APIs with Cloudflare Access",
+        "date": "2018-10-05",
+        "category": "cloudflare",
+        "description": "Connect to Zero Trust APIs.",
+        "url": "https://blog.cloudflare.com/leave-your-vpn-and-curl-secure-apis-with-cloudflare-access/",
+        "external": true
+      }, 
+      {
+        "id": "atlassian-plugin",
+        "title": "🟠⛅ Cloudflare Access: Sharing our single-sign on plugin for Atlassian",
+        "date": "2018-10-02",
+        "category": "cloudflare",
+        "description": "Zero Trust Atlassian suite.",
+        "url": "https://blog.cloudflare.com/cloudflare-access-sharing-our-single-sign-on-plugin-for-atlassian/",
+        "external": true
+      },
+      {
+        "id": "cloudflare-registrar",
+        "title": "🟠⛅ Cloudflare Registrar: what happens when you register a domain?",
+        "date": "2018-09-27",
+        "category": "cloudflare",
+        "description": "We built a registrar!",
+        "url": "https://blog.cloudflare.com/using-cloudflare-registrar/",
+        "external": true,
+        "starred": true,
+        "tags": ["hits"]
+      },
+      {
+        "id": "cloudflare-access-launch",
+        "title": "🟠⛅ Cloudflare Access: Now teams of any size can turn off their VPN",
+        "date": "2018-09-27",
+        "category": "cloudflare",
+        "description": "Launching Cloudflare Access",
+        "url": "https://blog.cloudflare.com/cloudflare-access-now-teams-of-any-size-can-turn-off-their-vpn/",
+        "external": true,
+        "starred": true,
+        "tags": ["hits"]
+      }
+  ]
+  

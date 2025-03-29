@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add some responsive padding to the prose content */
+.prose {
+  @apply px-0;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    overflow-y: scroll;
+  }
+
+  /* Add support for pretty text wrapping in all browsers */
+  p, li, blockquote {
+    text-wrap: pretty;
+  }
+
+  /* Variables for light/dark theme */
+  :root {
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b7280;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --border-color: #e5e7eb;
+    --accent-color: #3b82f6;
+  }
+
+  /* Improved dark mode variables */
+  .dark {
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --border-color: #374151;
+    --accent-color: #93c5fd;
+  }
+}
+
+/* Base link styles */
+.custom-link {
+  position: relative;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.custom-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-link:hover::after {
+  background-color: var(--accent-color);
+}
+
+/* Improved link styling for dark mode */
+.dark .custom-link {
+  text-decoration: none;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.dark .custom-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.dark .custom-link:hover {
+  color: #93c5fd; /* blue-300 */
+}
+
+.dark .custom-link:hover::after {
+  opacity: 0.8;
+  background-color: #93c5fd;
+}
+
+/* Dark mode specific styling for timeline components */
+.dark .timeline-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.dark .timeline-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Improved logo container in dark mode */
+.dark .logo-container {
+  background: #111827;
+  border: 1px solid #374151;
+  padding: 4px;
+}
+
+/* Override timeline connector style in dark mode for consistency */
+.dark .timeline-connector {
+  opacity: 0.4;
+}
+
+/* Add a subtle glow effect to the timeline dots in dark mode */
+.dark .timeline-dot {
+  box-shadow: 0 0 8px rgba(251, 146, 60, 0.2); /* orange-400 glow */
+}
+
+.dark .timeline-dot.red {
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.2); /* red-400 glow */
+}
+
+.dark .timeline-dot.blue {
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.2); /* blue-400 glow */
+}
+
+/* Card transitions for both light and dark mode */
+.card-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+.card-transition:hover {
+  transform: translateY(-2px);
+}
+
+/* Light mode hover shadow */
+.light .card-transition:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode hover shadow */
+.dark .card-transition:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Improved badge styling for dark mode */
+.dark .badge {
+  background-color: rgba(31, 41, 55, 0.8);
+  border: 1px solid rgba(55, 65, 81, 0.8);
+}
+
+/* Improved company name styling in dark mode */
+.dark .company-name {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Improve list item readability in dark mode */
+.dark .achievement-item {
+  color: #d1d5db;
+}
+
+/* Smooth transition for all interactive elements */
+a, button, .card, .badge, .dot {
+  transition: all 0.2s ease;
+}
+
+/* Fix alignment of achievement bullet points in both modes */
+.achievement-bullet {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-top: 0.3rem;
+  flex-shrink: 0;
+}
+
+/* CSS for code blocks in dark mode */
+.dark pre {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+}
+
+.dark code {
+  color: #e2e8f0;
+}
+
+/* Improved scrollbar for dark mode */
+.dark::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.dark::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.dark::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 5px;
+}
+
+.dark::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Add CSS class for company-specific glossy cards in light mode */
+.glossy-card {
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.glossy-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Adding subtle animations for hover interactions */
+@keyframes gentle-glow {
+  0% { box-shadow: 0 0 5px rgba(147, 197, 253, 0.3); }
+  50% { box-shadow: 0 0 10px rgba(147, 197, 253, 0.5); }
+  100% { box-shadow: 0 0 5px rgba(147, 197, 253, 0.3); }
+}
+
+.dark .special-hover:hover {
+  animation: gentle-glow 2s infinite;
+}
