@@ -1,13 +1,14 @@
-// src/components/Card.jsx
 import React from 'react';
-import { useTheme } from '../context/ThemeContext';
-import { getCompanyType, getThemeVariables, COMPANY_TYPES } from '../utils/themeConfig';
+import { useTheme } from '../context/ThemeContext'; // Ensure this path is correct
+import { getCompanyType, getThemeVariables, COMPANY_TYPES } from '../utils/themeConfig'; // Ensure this path is correct
 
 const Card = ({
   children,
   companyType = COMPANY_TYPES.DEFAULT, // Accept companyType
   className = '',
-  glossy = true
+  glossy = true,
+  onClick, // *** ADDED: Accept onClick prop ***
+  ...rest // *** ADDED: Accept any other standard div props (like aria-*, data-*, etc.) ***
 }) => {
   const { darkMode } = useTheme(); // Gets darkMode from context
   // Calculate theme variables using darkMode from context
@@ -24,15 +25,17 @@ const Card = ({
         bg-[var(--card-bg)]
         border border-[var(--card-border)]
         transition-colors duration-200
-        ${/* CORRECTED: Use 'darkMode' from context here */ ''}
         ${darkMode && companyType !== COMPANY_TYPES.DEFAULT ? 'ring-1 ring-[var(--card-accent-ring)]' : ''}
         ${className}
       `}
+      onClick={onClick} // *** ADDED: Apply onClick handler to the root div ***
+      {...rest} // *** ADDED: Spread remaining props onto the root div ***
     >
       {/* Glossy effect overlay */}
       {glossy && (
         <div
            className={`absolute -inset-0.5 backdrop-blur-md z-0 rounded-2xl ${glossyGradient}`}
+           aria-hidden="true" // Hide decorative element from screen readers
         ></div>
       )}
 
