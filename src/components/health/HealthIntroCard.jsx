@@ -14,7 +14,7 @@ const HealthIntroCard = () => (
     </div>
     
     <p className="text-gray-700 dark:text-gray-300">
-      Ignore this for now. WiP. Real working edition is at health.samrhea.com
+      I publish these to have a home page for myself. I think [a lot](https://blog.samrhea.com/post/2024-01-30-health-data) about this kind of data. And, if you're like me, you could use this [open-sourced dashboard](https://github.com/TownLake/core-health) I built, too.
     </p>
   </Card>
 );
