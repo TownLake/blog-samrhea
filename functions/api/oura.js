@@ -1,4 +1,4 @@
-// dashboard/api/oura.js
+// functions/api/oura.js
 export async function onRequest(context) {
     const { request, env, next, waitUntil } = context;
     

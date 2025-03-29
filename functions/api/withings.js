@@ -1,4 +1,4 @@
-// dashboard/api/withings.js
+// functions/api/withings.js
 export async function onRequest(context) {
     const { request, env, waitUntil } = context;
     

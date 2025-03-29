@@ -1,4 +1,4 @@
-// dashboard/api/running.js
+// functions/api/running.js
 export async function onRequest(context) {
     const { request, env, waitUntil } = context;
     

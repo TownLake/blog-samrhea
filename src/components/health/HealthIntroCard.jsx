@@ -14,9 +14,7 @@ const HealthIntroCard = () => (
     </div>
     
     <p className="text-gray-700 dark:text-gray-300">
-      I publish my health data to track progress over time and maintain accountability. 
-      This dashboard represents key metrics from my wearables and fitness activities, 
-      showing both daily fluctuations and long-term trends.
+      Ignore this for now. WiP. Real working edition is at health.samrhea.com
     </p>
   </Card>
 );
