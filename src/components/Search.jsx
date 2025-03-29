@@ -1,101 +1,185 @@
 // src/components/Search.jsx
-import React, { useState } from 'react';
-import { X } from 'lucide-react';
-import { SearchResults } from './SearchResults';
-import Card from './Card';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { X } from 'lucide-react'; // For the close button icon
+import { SearchResults } from './SearchResults'; // Component to display results
+import Card from './Card'; // Assuming Card is a custom component for styling the modal
 
-// Remove or keep mockResults for initial state or fallback if needed,
-// but it shouldn't be used in the actual search logic anymore.
-// const mockResults = [ ... ];
+// --- Configuration ---
+const DEBOUNCE_DELAY = 300; // Wait 300ms after user stops typing
+const MIN_QUERY_LENGTH = 2; // Only search if query is at least 2 characters long
 
 const Search = ({ toggleSearch }) => {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); // Add state for potential errors
+  // --- State Variables ---
+  const [query, setQuery] = useState(''); // Stores the current text in the search input
+  const [results, setResults] = useState([]); // Stores the search results from the API
+  const [loading, setLoading] = useState(false); // Tracks if a search is in progress
+  const [error, setError] = useState(null); // Stores any error message from the search
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!query.trim()) return;
+  // --- Refs ---
+  const inputRef = useRef(null); // Ref to access the input DOM element for autofocus
+  const debounceTimeoutRef = useRef(null); // Ref to store the ID of the debounce timer
 
-    setLoading(true);
-    setError(null); // Reset error state on new search
-    setResults([]); // Clear previous results immediately
+  // --- Effect for Autofocus ---
+  // Runs once when the component mounts to focus the input field
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []); // Empty dependency array means it runs only on mount
+
+  // --- API Call Function ---
+  // Memoized function to perform the actual search query to the backend
+  const performSearch = useCallback(async (searchTerm) => {
+    // Basic validation - already checked in debounce effect, but good practice
+    if (!searchTerm || searchTerm.length < MIN_QUERY_LENGTH) {
+        setResults([]);
+        setError(null);
+        setLoading(false);
+        return;
+    }
+
+    setLoading(true); // Indicate loading state
+    setError(null); // Clear previous errors
 
     try {
-      const response = await fetch('/api/search', { // Call your backend function
+      // Make POST request to the backend function
+      const response = await fetch('/api/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query: query }), // Send the query in the body
+        body: JSON.stringify({ query: searchTerm }), // Send the search term
       });
 
+      // Handle non-successful HTTP responses
       if (!response.ok) {
-        // Handle HTTP errors (like 400, 500 from your function)
-        const errorData = await response.json();
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        const errorData = await response.json(); // Try to parse error from backend
+        throw new Error(errorData.error || `Search failed: ${response.statusText} (${response.status})`);
       }
 
-      const data = await response.json(); // Parse the JSON response from your function
-      setResults(data); // Update state with the real results
+      // Parse the successful JSON response (array of results)
+      const data = await response.json();
+      setResults(data); // Update the results state
 
     } catch (err) {
       console.error("Search failed:", err);
-      setError(err.message || 'Failed to fetch search results.'); // Set error state
-      setResults([]); // Ensure results are empty on error
+      setError(err.message || 'An unexpected error occurred during search.'); // Set error state for display
+      setResults([]); // Clear results on error
     } finally {
-      setLoading(false); // Stop loading indicator regardless of success or error
+      setLoading(false); // Ensure loading indicator is turned off
     }
-  };
+  }, []); // useCallback dependency array is empty as it doesn't rely on external state/props here
 
-  // Dismiss modal when clicking on the backdrop
+  // --- Effect for Debounced Search ---
+  // Runs whenever the 'query' state changes
+  useEffect(() => {
+    // Clear any previously scheduled search (if user is still typing)
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
+
+    const trimmedQuery = query.trim(); // Use trimmed query for logic
+
+    if (trimmedQuery.length >= MIN_QUERY_LENGTH) {
+      // If query is long enough, show loading immediately (optional)
+      // setLoading(true); // You might prefer loading only when fetch starts in performSearch
+
+      // Schedule the search function to run after the debounce delay
+      debounceTimeoutRef.current = setTimeout(() => {
+        performSearch(trimmedQuery);
+      }, DEBOUNCE_DELAY);
+
+    } else {
+      // If query is too short or empty, clear results, error, and loading state
+      setResults([]);
+      setError(null);
+      setLoading(false); // Ensure loading is off if query becomes too short
+    }
+
+    // Cleanup function: This runs when the component unmounts
+    // or when the 'query' state changes *before* the effect runs again.
+    // It clears the scheduled timeout to prevent unnecessary searches.
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, [query, performSearch]); // Effect depends on 'query' and the 'performSearch' function
+
+  // --- Event Handlers ---
+  // Closes the modal if the user clicks on the backdrop (outside the card)
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
-      toggleSearch();
+      toggleSearch(); // Call the function passed from the parent to close the modal
     }
   };
 
+  // --- Render Logic ---
   return (
     <div
       onClick={handleBackdropClick}
-      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-start pt-10"
+      className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 z-50 flex justify-center items-start pt-10 sm:pt-20 px-4" // Added padding
+      aria-modal="true" // Accessibility attributes
+      role="dialog"
+      aria-labelledby="search-modal-title"
     >
+      {/* Use the Card component for consistent styling */}
       <Card className="w-full max-w-2xl" glossy={true}>
-        {/* ... (rest of the component remains the same, but add error display) ... */}
+        {/* Stop clicks inside the card from closing the modal */}
         <div onClick={(e) => e.stopPropagation()} className="relative z-10">
-           {/* ... Title, Close Button, Form ... */}
-           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Search</h2>
-            <button onClick={toggleSearch} aria-label="Close search">
-              <X size={24} className="text-gray-900 dark:text-gray-100" />
+          {/* Modal Header */}
+          <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+            <h2 id="search-modal-title" className="text-xl font-bold text-gray-900 dark:text-gray-100">Search Content</h2>
+            <button
+              onClick={toggleSearch}
+              aria-label="Close search"
+              className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-100 transition-colors"
+            >
+              <X size={24} />
             </button>
           </div>
-          <form onSubmit={handleSearch} className="mb-4">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Enter search term..."
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-            />
-            {/* Optionally add a submit button if hitting Enter isn't preferred */}
-             {/* <button type="submit" className="p-2 bg-blue-500 text-white rounded ml-2">Search</button> */}
-          </form>
 
-          {/* Display Loading, Error, Results, or No Results */}
-          {loading && (
-            <p className="text-gray-900 dark:text-gray-100">Searching...</p>
-          )}
-          {error && (
-            <p className="text-red-500 dark:text-red-400">Error: {error}</p>
-          )}
-          {!loading && !error && results.length > 0 && <SearchResults results={results} />}
-          {!loading && !error && query && results.length === 0 && (
-            <p className="text-gray-900 dark:text-gray-100">
-              No results found for "{query}"
-            </p>
-          )}
+          {/* Search Input Area */}
+          <div className="mb-4">
+            <input
+              ref={inputRef} // Assign ref for autofocus
+              type="search" // Use type="search" for semantics and potential browser features (like clear button)
+              value={query}
+              onChange={(e) => setQuery(e.target.value)} // Update query state on every change
+              placeholder="Start typing to search..."
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition" // Enhanced styling
+              aria-label="Search query" // Accessibility
+            />
+          </div>
+
+          {/* Results/Status Display Area */}
+          <div className="mt-4 min-h-[100px]"> {/* Added min-height to prevent layout shifts */}
+            {loading && (
+              <p className="text-gray-600 dark:text-gray-400 text-center py-4">Searching...</p>
+            )}
+            {error && (
+              <p className="text-red-600 dark:text-red-400 text-center py-4">Error: {error}</p>
+            )}
+
+            {/* Display results only if not loading and no error */}
+            {!loading && !error && results.length > 0 && (
+              <SearchResults results={results} />
+            )}
+
+            {/* Display 'No Results' message */}
+            {!loading && !error && query.trim().length >= MIN_QUERY_LENGTH && results.length === 0 && (
+              <p className="text-gray-600 dark:text-gray-400 text-center py-4">
+                No results found for "{query.trim()}"
+              </p>
+            )}
+
+            {/* Display 'Keep Typing' message */}
+            {!loading && !error && query.trim().length > 0 && query.trim().length < MIN_QUERY_LENGTH && (
+              <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+                Please enter at least {MIN_QUERY_LENGTH} characters.
+              </p>
+            )}
+          </div>
         </div>
       </Card>
     </div>
