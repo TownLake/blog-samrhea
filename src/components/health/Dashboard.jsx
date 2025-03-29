@@ -1,3 +1,5 @@
+// src/components/health/Dashboard.jsx
+
 import React from 'react';
 import { Heart, Scale, Activity, Hourglass, Waves, Ruler, HeartPulse, ClipboardCheck,
          Footprints, Wind, Timer, BedDouble, PlugZap } from 'lucide-react';
