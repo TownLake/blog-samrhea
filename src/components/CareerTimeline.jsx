@@ -1,19 +1,18 @@
 // src/components/CareerTimeline.jsx
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-// Removed internal useDarkMode hook import
-import { useTheme } from '../context/ThemeContext'; // Import useTheme hook
+import React, { useCallback, useMemo } from 'react'; // Removed useState, useEffect
+import { useTheme } from '../context/ThemeContext';
 import CompanyCard from './CompanyCard';
 import TimelineRole from './TimelineRole';
-import { getTextStyles, getCompanyType, COMPANY_TYPES } from '../utils/themeConfig';
+// Removed getTextStyles import, getCompanyType and COMPANY_TYPES are still needed
+import { getCompanyType, COMPANY_TYPES, getThemeVariables } from '../utils/themeConfig'; // Added getThemeVariables import
 
 /**
- * Career timeline component with improved state management using ThemeContext
+ * Career timeline component using CSS variables defined in children
  */
 const CareerTimeline = () => {
-  // Use the custom theme context hook
-  const { darkMode } = useTheme(); // Renamed isDarkMode to darkMode for consistency
+  const { darkMode } = useTheme(); // Still need darkMode for any top-level conditional logic if any
 
-  // Define memoized rendering function to reduce re-renders
+  // Define memoized rendering function (no change needed here)
   const renderAchievement = useCallback((achievement) => {
     if (typeof achievement === 'string') {
       return achievement;
@@ -28,7 +27,7 @@ const CareerTimeline = () => {
               href={part.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="custom-link" // Assuming .custom-link handles dark mode automatically now
+              className="custom-link" // Relies on index.css var(--link-color)
             >
               {part.text}
             </a>
@@ -40,39 +39,40 @@ const CareerTimeline = () => {
     return null;
   }, []);
 
-  // Memoize text styles based on dark mode from context
-  const textStyles = useMemo(() => getTextStyles(darkMode), [darkMode]);
-
-  // Section list component for education sections - memoized
+  // Section list component
   const SectionList = useCallback(({ sections, companyName = '' }) => {
+    const companyType = getCompanyType(companyName);
+    // Calculate theme variables for this specific section's scope
+    const themeVariables = getThemeVariables(companyType, darkMode);
+
     const getTitleClass = () => {
-      const companyType = getCompanyType(companyName);
-      if (companyType === COMPANY_TYPES.UTAUSTIN) {
-        // Use darkMode from context for conditional styling
-        return darkMode ? 'text-orange-200' : 'text-[#bf5700]';
-      }
-      return '';
+        // Use CSS variable for title color within this scope
+        return 'text-[var(--timeline-title-color)]';
     };
 
     return (
-      <div className="mt-6 pl-6">
+      // Apply the variables to this section's scope
+      <div className="mt-6 pl-6" style={themeVariables}>
         {sections.map((section, sectionIndex) => (
           <div key={sectionIndex} className="mb-4">
             <h4 className={`font-semibold mb-2 ${getTitleClass()}`}>
               {section.title}
             </h4>
-            {/* Use textStyles derived from context's darkMode state */}
-            <ul className={`space-y-1 text-sm ${textStyles.secondary}`}>
+            {/* Use global text-secondary variable */}
+            <ul className="space-y-1 text-sm text-[var(--text-secondary)]">
               {section.items.map((item, i) => (
                 <li key={i} className="flex items-start text-wrap-pretty" style={{ letterSpacing: '-0.01em' }}>
-                  <span className="mr-2 mt-1 text-xs flex-shrink-0">•</span>
+                   {/* General dark/light styling for bullet */}
+                  <span className={`achievement-bullet ${
+                    darkMode ? 'text-gray-400' : 'text-gray-600'
+                   }`}>•</span>
                   <span>
                     {typeof item === 'object' && item.link ? (
                       <a
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="custom-link" // Assuming .custom-link handles dark mode automatically
+                        className="custom-link" // Relies on index.css vars
                       >
                         {item.text}
                       </a>
@@ -85,13 +85,12 @@ const CareerTimeline = () => {
         ))}
       </div>
     );
-    // Dependency array updated to use darkMode from context
-  }, [darkMode, textStyles]);
+  }, [darkMode]); // Depend on darkMode
 
-  // Intro text from markdown file (kept as is for example)
+  // Intro text
   const introText = "I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now. I spent the previous six years launching, building, and leading the Zero Trust product line at Cloudflare as the VP of Product. I shipped the first prototype in that group into GA as a Product Manager in 2018. A few years later we became the only new vendor in the Gartner Magic Quadrant. Before that I launched our Registrar.";
 
-  // Career data with roles from the provided resume (kept as is)
+  // Career data with roles
   const companyData = [
     {
       id: 1,
@@ -166,7 +165,7 @@ const CareerTimeline = () => {
       name: "DevFactory",
       logo: "https://devfactory.com/wp-content/uploads/2020/03/logo.png",
       period: "2013 - 2018",
-      color: "#e11842", // Red color from DevFactory logo
+      color: "#e11842", // Note: This 'color' property is unused now
       roles: [
         {
           id: "r6",
@@ -181,7 +180,7 @@ const CareerTimeline = () => {
     {
       id: 3,
       name: "Ginor & Associates",
-      logo: null, // Will use Lucide icon
+      logo: null,
       period: "2012 - 2013",
       roles: [
         {
@@ -195,7 +194,7 @@ const CareerTimeline = () => {
     {
       id: 4,
       name: "Becker Venture Services Group",
-      logo: null, // Will use Lucide icon
+      logo: null,
       period: "2011 - 2012",
       roles: [
         {
@@ -208,14 +207,14 @@ const CareerTimeline = () => {
     }
   ];
 
-  // Education data with UT Austin burnt orange color scheme (kept as is)
+  // Education data
   const educationData = [
     {
       id: 5,
       name: "The University of Texas at Austin",
       logo: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/University_of_Texas_at_Austin_seal.svg/1920px-University_of_Texas_at_Austin_seal.svg.png",
       period: "2009 - 2013",
-      color: "#bf5700", // UT Austin burnt orange
+      color: "#bf5700", // Note: This 'color' property is unused now
       roles: [
         {
           id: "e1",
@@ -263,11 +262,10 @@ const CareerTimeline = () => {
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
-      {/* Intro section */}
+      {/* Intro section - uses global text vars */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-4" style={{ letterSpacing: '-0.025em' }}>At Work</h1>
-        {/* Use textStyles derived from context's darkMode state */}
-        <p className={`text-lg ${textStyles.secondary}`}
+        <h1 className="text-2xl font-bold mb-4 text-[var(--text-primary)]" style={{ letterSpacing: '-0.025em' }}>At Work</h1>
+        <p className="text-lg text-[var(--text-secondary)]"
            style={{ letterSpacing: '-0.01em', lineHeight: '1.75', textWrap: 'pretty' }}>
           {introText}
         </p>
@@ -276,20 +274,19 @@ const CareerTimeline = () => {
       {/* Work experience */}
       <div className="space-y-6">
         {companyData.map((company, companyIndex) => (
+          // CompanyCard now handles its own theme variables internally
           <CompanyCard
             key={company.id}
             company={company}
-            // isDarkMode prop removed
             isLastCompany={companyIndex === companyData.length - 1}
           >
-            {/* Roles within company */}
+            {/* Pass companyType to TimelineRole */}
             <div className="mt-4 space-y-4 pl-2">
               {company.roles.map((role, roleIndex) => (
                 <TimelineRole
                   key={role.id}
                   role={role}
-                  companyType={getCompanyType(company.name)}
-                  // isDarkMode prop removed
+                  companyType={getCompanyType(company.name)} // Pass companyType
                   isLastRole={roleIndex === company.roles.length - 1}
                   renderAchievement={renderAchievement}
                 />
@@ -300,27 +297,26 @@ const CareerTimeline = () => {
 
         {/* Education section */}
         {educationData.map((education) => (
+          // CompanyCard handles its theme variables
           <CompanyCard
             key={education.id}
             company={education}
-            // isDarkMode prop removed
             isLastCompany={true}
           >
-            {/* Education roles */}
             <div className="mt-4 space-y-4 pl-2">
               {education.roles.map((role, roleIndex) => (
+                // Pass companyType to TimelineRole
                 <TimelineRole
                   key={role.id}
                   role={role}
-                  companyType={getCompanyType(education.name)}
-                  // isDarkMode prop removed
+                  companyType={getCompanyType(education.name)} // Pass companyType
                   isLastRole={roleIndex === education.roles.length - 1}
                   renderAchievement={renderAchievement}
                 />
               ))}
             </div>
 
-            {/* Additional sections for education */}
+            {/* SectionList handles its own variables */}
             {education.sections && education.sections.length > 0 && (
               <SectionList
                 sections={education.sections}

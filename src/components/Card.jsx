@@ -1,32 +1,37 @@
 // src/components/Card.jsx
 import React from 'react';
-// Removed internal useDarkMode import
-import { useTheme } from '../context/ThemeContext'; // Import useTheme hook
-import { getCardStyles, COMPANY_TYPES } from '../utils/themeConfig';
+import { useTheme } from '../context/ThemeContext';
+import { getCompanyType, getThemeVariables, COMPANY_TYPES } from '../utils/themeConfig';
 
-/**
- * Reusable card component with theming support
- */
 const Card = ({
   children,
-  companyType = COMPANY_TYPES.DEFAULT,
+  companyType = COMPANY_TYPES.DEFAULT, // Accept companyType
   className = '',
   glossy = true
 }) => {
-  // Get darkMode state from context instead of the hook directly
   const { darkMode } = useTheme();
+  const themeVariables = getThemeVariables(companyType, darkMode);
 
-  // Get the appropriate color scheme from the centralized theme config
-  // Pass the darkMode state from context to the utility function
-  const currentScheme = getCardStyles(companyType, darkMode);
+  const glossyGradient = `bg-gradient-to-tr from-[var(--card-gradient-from)] via-[var(--card-gradient-via)] to-[var(--card-gradient-to)]`;
 
   return (
     <div
-      className={`rounded-2xl p-5 relative overflow-hidden backdrop-blur-xl ${currentScheme.background} border ${currentScheme.border} ${className}`}
+      style={themeVariables} // Apply CSS variables here
+      // Use Tailwind arbitrary properties to reference CSS variables
+      className={`
+        rounded-2xl p-5 relative overflow-hidden backdrop-blur-xl
+        bg-[var(--card-bg)]
+        border border-[var(--card-border)]
+        transition-colors duration-200
+        ${isDarkMode && companyType !== COMPANY_TYPES.DEFAULT ? 'ring-1 ring-[var(--card-accent-ring)]' : ''}
+        ${className}
+      `}
     >
       {/* Glossy effect overlay */}
       {glossy && (
-        <div className={`absolute -inset-0.5 ${currentScheme.gradient} backdrop-blur-md z-0 rounded-2xl`}></div>
+        <div
+           className={`absolute -inset-0.5 backdrop-blur-md z-0 rounded-2xl ${glossyGradient}`}
+        ></div>
       )}
 
       {/* Content container */}
