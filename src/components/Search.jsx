@@ -123,7 +123,7 @@ const Search = ({ toggleSearch }) => {
         <div onClick={(e) => e.stopPropagation()} className="relative z-10">
           {/* Modal Header */}
           <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
-            <h2 id="search-modal-title" className="text-xl font-bold text-gray-900 dark:text-gray-100">Search Content</h2>
+            <h2 id="search-modal-title" className="text-xl font-bold text-gray-900 dark:text-gray-100">Search Blog Posts</h2>
             <button
               onClick={toggleSearch}
               aria-label="Close search"
