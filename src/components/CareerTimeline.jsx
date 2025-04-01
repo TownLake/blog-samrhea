@@ -79,7 +79,7 @@ const CareerTimeline = () => {
   }, [darkMode]);
 
   // Intro text
-  const introText = "I work on the Emerging Technology and Incubation team at Cloudflare. We ship the future that we think our customers will need months and years from now. I spent the previous six years launching, building, and leading the Zero Trust product line at Cloudflare as the VP of Product. Before that I launched our Registrar.";
+  const introText = "I work in the Research group at Cloudflare. We ship the future that we think our customers will need months and years from now. I spent the previous six years launching, building, and leading the Zero Trust product line at Cloudflare as the VP of Product.";
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">

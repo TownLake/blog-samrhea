@@ -1,115 +1,306 @@
 [
-    {
-      "id": 1,
-      "name": "Cloudflare",
-      "logo": "https://cf-assets.www.cloudflare.com/slt3lc6tev37/6EYsdkdfBcHtgPmgp3YtkD/0b203affd2053988264b9253b13de6b3/logo-thumbnail.png",
-      "period": "2018 - Present",
-      "current": true,
-      "roles": [
-        {
-          "id": "r1",
-          "title": "VP, Strategic Advisor & CoS - Emerging Technology and Incubation",
-          "period": "Jun 2024 - Present",
-          "achievements": [
-            "Helping build the future in the Emerging Technology and Incubation team at Cloudflare.",
-            ["Launched ", { "text": "AI Audit", "link": "https://blog.cloudflare.com/cloudflare-ai-audit-control-ai-content-crawlers/" }, " to give publishers control of their content from AI bots."]
+  {
+    "id": 1,
+    "name": "Cloudflare",
+    "logo": "https://cf-assets.www.cloudflare.com/slt3lc6tev37/6EYsdkdfBcHtgPmgp3YtkD/0b203affd2053988264b9253b13de6b3/logo-thumbnail.png",
+    "period": "2018 - Present",
+    "current": true,
+    "roles": [
+      {
+        "id": "r9",
+        "title": "VP of Product, Research",
+        "period": "Apr 2025 - Present",
+        "achievements": [
+           "Helping build the future at Cloudflare across:",
+           "Cloudflare Research: our frontier technology group.",
+           "Cloudflare Privacy: making the Internet more private for anyone, anywhere.",
+           "Cloudflare Radar: our view into the Internet.",
+           "Cloudflare Blog: telling our story to a technical audience."
+        ]
+      },
+      {
+        "id": "r1",
+        "title": "VP, Strategic Advisor & CoS - Emerging Technology and Incubation",
+        "period": "Jun 2024 - Apr 2025",
+        "achievements": [
+          "Helping build the future in the Emerging Technology and Incubation team at Cloudflare.",
+          [
+            "Launched ",
+            {
+              "text": "AI Audit",
+              "link": "https://blog.cloudflare.com/cloudflare-ai-audit-control-ai-content-crawlers/"
+            },
+            " to give publishers control of their content from AI bots."
           ]
-        },
-        {
-          "id": "r2",
-          "title": "VP of Product, Cloudflare Zero Trust",
-          "period": "Oct 2022 - Jun 2024",
-          "achievements": [
-            "Led the Cloudflare Zero Trust product line.",
-            ["We made the biggest leap in the ", { "text": "2024 Gartner® Magic Quadrant™ for Security Service Edge", "link": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant-2024" }, "."],
-            ["We became the only new vendor in the ", { "text": "2023 Gartner® Magic Quadrant™ for Security Service Edge", "link": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant/" }, "."],
-            ["We kept customers safe while they ", { "text": "adopted AI tools", "link": "https://blog.cloudflare.com/zero-trust-ai-security/" }, "."],
-            ["Cloudflare brought the Zero Trust products into our  ", { "text": "Galileo and Athenian projects", "link": "https://blog.cloudflare.com/cloudflare-zero-trust-for-galileo-and-athenian/" }, "."],
-            ["Also, I ", { "text": "killed Railgun", "link": "https://blog.cloudflare.com/deprecating-railgun/" }, "."]
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "VP of Product, Cloudflare Zero Trust",
+        "period": "Oct 2022 - Jun 2024",
+        "achievements": [
+          "Led the Cloudflare Zero Trust product line.",
+          [
+            "We made the biggest leap in the ",
+            {
+              "text": "2024 Gartner® Magic Quadrant™ for Security Service Edge",
+              "link": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant-2024"
+            },
+            "."
+          ],
+          [
+            "We became the only new vendor in the ",
+            {
+              "text": "2023 Gartner® Magic Quadrant™ for Security Service Edge",
+              "link": "https://blog.cloudflare.com/cloudflare-sse-gartner-magic-quadrant/"
+            },
+            "."
+          ],
+          [
+            "We kept customers safe while they ",
+            {
+              "text": "adopted AI tools",
+              "link": "https://blog.cloudflare.com/zero-trust-ai-security/"
+            },
+            "."
+          ],
+          [
+            "Cloudflare brought the Zero Trust products into our  ",
+            {
+              "text": "Galileo and Athenian projects",
+              "link": "https://blog.cloudflare.com/cloudflare-zero-trust-for-galileo-and-athenian/"
+            },
+            "."
+          ],
+          [
+            "Also, I ",
+            {
+              "text": "killed Railgun",
+              "link": "https://blog.cloudflare.com/deprecating-railgun/"
+            },
+            "."
           ]
-        },
-        {
-          "id": "r3",
-          "title": "Senior Director of Product",
-          "period": "Apr 2022 - Oct 2022",
-          "achievements": [
-            "Led the Cloudflare Zero Trust product line."
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Senior Director of Product",
+        "period": "Apr 2022 - Oct 2022",
+        "achievements": [
+          "Led the Cloudflare Zero Trust product line."
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Director of Product",
+        "period": "Jul 2020 - Apr 2022",
+        "achievements": [
+          [
+            "Acquired ",
+            {
+              "text": "Vectrix",
+              "link": "https://blog.cloudflare.com/cloudflare-zero-trust-casb"
+            },
+            " to integrate CASB capabilities for SaaS application security."
+          ],
+          "Led the Cloudflare Zero Trust product line.",
+          [
+            "Launched ",
+            {
+              "text": "Cloudflare One",
+              "link": "https://blog.cloudflare.com/cloudflare-one/"
+            },
+            ", our comprehensive Secure Access Service Edge (SASE) solution."
+          ],
+          [
+            "Launched our comprehensive ",
+            {
+              "text": "DLP",
+              "link": "https://blog.cloudflare.com/data-loss-prevention/"
+            },
+            " suite."
+          ],
+          [
+            "Shipped Cloudflare's ",
+            {
+              "text": "Secure Web Gateway",
+              "link": "https://blog.cloudflare.com/tag/gateway"
+            },
+            "."
+          ],
+          [
+            "Gave customers the ability to ",
+            {
+              "text": "require hard keys",
+              "link": "https://blog.cloudflare.com/require-hard-key-auth-with-cloudflare-access/"
+            },
+            " on a per-app basis."
+          ],
+          [
+            "Brought Zero Trust control to ",
+            {
+              "text": "SaaS apps",
+              "link": "https://blog.cloudflare.com/cloudflare-access-for-saas/"
+            },
+            ", too."
+          ],
+          [
+            "Helped customers deploy Zero Trust networks to replace their ",
+            {
+              "text": "legacy corporate networks",
+              "link": "https://blog.cloudflare.com/build-your-own-private-network-on-cloudflare/"
+            },
+            "."
+          ],
+          [
+            "Selected by ",
+            {
+              "text": "CISA",
+              "link": "https://blog.cloudflare.com/helping-keep-governments-safe-and-secure"
+            },
+            " to offer Internet security to US civilian agencies",
+            "."
           ]
-        },
-        {
-          "id": "r4",
-          "title": "Director of Product",
-          "period": "Jul 2020 - Apr 2022",
-          "achievements": [
-            ["Acquired ", { "text": "Vectrix", "link": "https://blog.cloudflare.com/cloudflare-zero-trust-casb" }, " to integrate CASB capabilities for SaaS application security."],
-            "Led the Cloudflare Zero Trust product line.",
-            ["Launched ", { "text": "Cloudflare One", "link": "https://blog.cloudflare.com/cloudflare-one/" }, ", our comprehensive Secure Access Service Edge (SASE) solution."],
-            ["Launched our comprehensive ", { "text": "DLP", "link": "https://blog.cloudflare.com/data-loss-prevention/" }, " suite."],
-            ["Shipped Cloudflare's ", { "text": "Secure Web Gateway", "link": "https://blog.cloudflare.com/tag/gateway" }, "."],
-            ["Gave customers the ability to ", { "text": "require hard keys", "link": "https://blog.cloudflare.com/require-hard-key-auth-with-cloudflare-access/" }, " on a per-app basis."],
-            ["Brought Zero Trust control to ", { "text": "SaaS apps", "link": "https://blog.cloudflare.com/cloudflare-access-for-saas/" }, ", too."],
-            ["Helped customers deploy Zero Trust networks to replace their ", { "text": "legacy corporate networks", "link": "https://blog.cloudflare.com/build-your-own-private-network-on-cloudflare/" }, "."],
-            ["Selected by ", { "text": "CISA", "link": "https://blog.cloudflare.com/helping-keep-governments-safe-and-secure" }, " to offer Internet security to US civilian agencies", "."]
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "Product Manager",
+        "period": "Jun 2018 - Jul 2020",
+        "achievements": [
+          "Product Manager for Cloudflare Access, Cloudflare Registrar, and Cloudflare Tunnel.",
+          [
+            "Launched ",
+            {
+              "text": "Cloudflare Access",
+              "link": "https://blog.cloudflare.com/cloudflare-access-now-teams-of-any-size-can-turn-off-their-vpn/"
+            },
+            " to help teams turn off legacy VPNs."
+          ],
+          [
+            "Shipped ",
+            {
+              "text": "Cloudflare Registrar",
+              "link": "https://blog.cloudflare.com/using-cloudflare-registrar/"
+            },
+            ", our at-cost domain registration product."
+          ],
+          [
+            "Added ",
+            {
+              "text": "SSH",
+              "link": "https://blog.cloudflare.com/releasing-the-cloudflare-access-feature-that-let-us-smash-a-vpn-on-stage"
+            },
+            ", ",
+            {
+              "text": "service tokens",
+              "link": "https://blog.cloudflare.com/give-your-automated-services-credentials-with-access-service-tokens/"
+            },
+            ", ",
+            {
+              "text": "command line flows",
+              "link": "https://blog.cloudflare.com/leave-your-vpn-and-curl-secure-apis-with-cloudflare-access/"
+            },
+            ", ",
+            {
+              "text": "RDP support",
+              "link": "https://blog.cloudflare.com/cloudflare-access-now-supports-rdp/"
+            },
+            ", and ",
+            {
+              "text": "comprehensive logging",
+              "link": "https://blog.cloudflare.com/log-every-request-to-corporate-apps-no-code-changes-required/"
+            },
+            " to our Zero Trust platform."
+          ],
+          [
+            "Made auth seamless by shipping the ",
+            {
+              "text": "App Launcher",
+              "link": "https://blog.cloudflare.com/announcing-the-cloudflare-access-app-launch/"
+            },
+            ", adding ",
+            {
+              "text": "Multi-SSO support",
+              "link": "https://blog.cloudflare.com/multi-sso-and-cloudflare-access-adding-linkedin-and-github-teams/"
+            },
+            ", ",
+            {
+              "text": "mutual TLS flows",
+              "link": "https://blog.cloudflare.com/using-your-devices-as-the-key-to-your-apps/"
+            },
+            ", and ",
+            {
+              "text": "per-app identity choice",
+              "link": "https://blog.cloudflare.com/releasing-cloudflare-access-most-requested-feature/"
+            },
+            "."
+          ],
+          [
+            "Made ",
+            {
+              "text": "Cloudflare Tunnel",
+              "link": "https://blog.cloudflare.com/a-free-argo-tunnel-for-your-next-project"
+            },
+            " free for secure connections."
+          ],
+          [
+            "Made DNSSEC ",
+            {
+              "text": "one-click",
+              "link": "https://blog.cloudflare.com/one-click-dnssec-with-cloudflare-registrar"
+            },
+            " for all Registrar customers."
           ]
-        },
-        {
-          "id": "r5",
-          "title": "Product Manager",
-          "period": "Jun 2018 - Jul 2020",
-          "achievements": [
-            "Product Manager for Cloudflare Access, Cloudflare Registrar, and Cloudflare Tunnel.",
-            ["Launched ", { "text": "Cloudflare Access", "link": "https://blog.cloudflare.com/cloudflare-access-now-teams-of-any-size-can-turn-off-their-vpn/" }, " to help teams turn off legacy VPNs."],
-            ["Shipped ", { "text": "Cloudflare Registrar", "link": "https://blog.cloudflare.com/using-cloudflare-registrar/" }, ", our at-cost domain registration product."],
-            ["Added ", { "text": "SSH", "link": "https://blog.cloudflare.com/releasing-the-cloudflare-access-feature-that-let-us-smash-a-vpn-on-stage" }, ", ", { "text": "service tokens", "link": "https://blog.cloudflare.com/give-your-automated-services-credentials-with-access-service-tokens/" }, ", ", { "text": "command line flows", "link": "https://blog.cloudflare.com/leave-your-vpn-and-curl-secure-apis-with-cloudflare-access/" }, ", ", { "text": "RDP support", "link": "https://blog.cloudflare.com/cloudflare-access-now-supports-rdp/" }, ", and ", { "text": "comprehensive logging", "link": "https://blog.cloudflare.com/log-every-request-to-corporate-apps-no-code-changes-required/" }, " to our Zero Trust platform."],
-            ["Made auth seamless by shipping the ", { "text": "App Launcher", "link": "https://blog.cloudflare.com/announcing-the-cloudflare-access-app-launch/" }, ", adding ", { "text": "Multi-SSO support", "link": "https://blog.cloudflare.com/multi-sso-and-cloudflare-access-adding-linkedin-and-github-teams/" }, ", ", { "text": "mutual TLS flows", "link": "https://blog.cloudflare.com/using-your-devices-as-the-key-to-your-apps/" }, ", and ", { "text": "per-app identity choice", "link": "https://blog.cloudflare.com/releasing-cloudflare-access-most-requested-feature/" }, "."],
-            ["Made ", { "text": "Cloudflare Tunnel", "link": "https://blog.cloudflare.com/a-free-argo-tunnel-for-your-next-project" }, " free for secure connections."],
-            ["Made DNSSEC ", { "text": "one-click", "link": "https://blog.cloudflare.com/one-click-dnssec-with-cloudflare-registrar" }, " for all Registrar customers."]
-          ]
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "DevFactory",
-      "logo": "https://devfactory.com/wp-content/uploads/2020/03/logo.png",
-      "period": "2013 - 2018",
-      "roles": [
-        {
-          "id": "r6",
-          "title": "Product Manager",
-          "period": "Oct 2013 - May 2018",
-          "achievements": [
-            "Part of the Product and Engineering assembly line component of ESW Capital."
-          ]
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Ginor & Associates",
-      "logo": null,
-      "period": "2012 - 2013",
-      "roles": [
-        {
-          "id": "r7",
-          "title": "Associate",
-          "period": "Nov 2012 - Oct 2013",
-          "achievements": []
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Becker Venture Services Group",
-      "logo": null,
-      "period": "2011 - 2012",
-      "roles": [
-        {
-          "id": "r8",
-          "title": "Research Associate",
-          "period": "Jun 2011 - Nov 2012",
-          "achievements": []
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "DevFactory",
+    "logo": "https://devfactory.com/wp-content/uploads/2020/03/logo.png",
+    "period": "2013 - 2018",
+    "current": false,
+    "roles": [
+      {
+        "id": "r6",
+        "title": "Product Manager",
+        "period": "Oct 2013 - May 2018",
+        "achievements": [
+          "Part of the Product and Engineering assembly line component of ESW Capital."
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Ginor & Associates",
+    "logo": null,
+    "period": "2012 - 2013",
+    "current": false,
+    "roles": [
+      {
+        "id": "r7",
+        "title": "Associate",
+        "period": "Nov 2012 - Oct 2013",
+        "achievements": []
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Becker Venture Services Group",
+    "logo": null,
+    "period": "2011 - 2012",
+    "current": false,
+    "roles": [
+      {
+        "id": "r8",
+        "title": "Research Associate",
+        "period": "Jun 2011 - Nov 2012",
+        "achievements": []
+      }
+    ]
+  }
+]
