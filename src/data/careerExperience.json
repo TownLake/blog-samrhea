@@ -7,8 +7,8 @@
     "current": true,
     "roles": [
       {
-        "id": "r9", // New current role, placed first for recency
-        "title": "VP, Future Initiatives",
+        "id": "r9",
+        "title": "VP of Product, Research",
         "period": "Apr 2025 - Present",
         "achievements": [
            "Helping build the future at Cloudflare across:",
@@ -19,9 +19,9 @@
         ]
       },
       {
-        "id": "r1", // Previous role, now concluded
+        "id": "r1",
         "title": "VP, Strategic Advisor & CoS - Emerging Technology and Incubation",
-        "period": "Jun 2024 - Apr 2025", // End date updated
+        "period": "Jun 2024 - Apr 2025",
         "achievements": [
           "Helping build the future in the Emerging Technology and Incubation team at Cloudflare.",
           [
@@ -254,7 +254,6 @@
           ]
         ]
       }
-      // Note: The role with id "r9" from the original JSON was incorporated into the new current role above.
     ]
   },
   {
@@ -262,7 +261,7 @@
     "name": "DevFactory",
     "logo": "https://devfactory.com/wp-content/uploads/2020/03/logo.png",
     "period": "2013 - 2018",
-    "current": false, // Added current flag for completeness
+    "current": false,
     "roles": [
       {
         "id": "r6",
@@ -279,7 +278,7 @@
     "name": "Ginor & Associates",
     "logo": null,
     "period": "2012 - 2013",
-    "current": false, // Added current flag for completeness
+    "current": false,
     "roles": [
       {
         "id": "r7",
@@ -294,7 +293,7 @@
     "name": "Becker Venture Services Group",
     "logo": null,
     "period": "2011 - 2012",
-    "current": false, // Added current flag for completeness
+    "current": false,
     "roles": [
       {
         "id": "r8",
