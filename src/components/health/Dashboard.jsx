@@ -1,9 +1,11 @@
+// src/components/health/Dashboard.jsx
 import React from 'react';
 import { Heart, Scale, Activity, Hourglass, Waves, Ruler, HeartPulse, ClipboardCheck,
          Footprints, Wind, Timer, BedDouble, PlugZap } from 'lucide-react';
 import MetricCard from './MetricCard';
 import { useHealthData } from '../../store/HealthDataContext';
-import { getTrendInfo, createSparklineData, hasValidData, formatSecondsToMMSS } from '../../utils/dataUtils';
+import { createSparklineData, hasValidData, formatSecondsToMMSS } from '../../utils/dataUtils';
+import { getMetricCategoryInfo } from '../../utils/healthCategories';
 import MetricSection from './MetricSection';
 import HealthIntroCard from './HealthIntroCard';
 import Card from '../Card';
@@ -65,8 +67,8 @@ const Dashboard = () => {
                 title: "HRV",
                 value: ouraData[0]?.average_hrv?.toFixed(0) ?? '--',
                 unit: "ms",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(ouraData, 'average_hrv', 'hrv'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('average_hrv', ouraData[0]?.average_hrv),
                 sparklineData: createSparklineData(ouraData, 'average_hrv'),
                 icon: Activity,
                 fullData: ouraData,
@@ -76,8 +78,8 @@ const Dashboard = () => {
                 title: "Resting Heart Rate",
                 value: ouraData[0]?.resting_heart_rate?.toFixed(0) ?? '--',
                 unit: "bpm",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(ouraData, 'resting_heart_rate', 'rhr'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('resting_heart_rate', ouraData[0]?.resting_heart_rate),
                 sparklineData: createSparklineData(ouraData, 'resting_heart_rate'),
                 icon: HeartPulse,
                 fullData: ouraData,
@@ -97,8 +99,11 @@ const Dashboard = () => {
                 title: "Weight",
                 value: withingsData[0]?.weight?.toFixed(1) ?? '--',
                 unit: "lbs",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(withingsData, 'weight', 'weight'),
+                // Weight doesn't have a defined category, use default
+                textColorClass: "text-gray-500 dark:text-gray-400",
+                hexColor: "#a1a1aa",
+                category: "default",
+                label: "No Category",
                 sparklineData: createSparklineData(withingsData, 'weight'),
                 icon: Scale,
                 fullData: withingsData,
@@ -108,8 +113,8 @@ const Dashboard = () => {
                 title: "Body Fat",
                 value: withingsData[0]?.fat_ratio?.toFixed(1) ?? '--',
                 unit: "%",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(withingsData, 'fat_ratio', 'bodyFat'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('fat_ratio', withingsData[0]?.fat_ratio),
                 sparklineData: createSparklineData(withingsData, 'fat_ratio'),
                 icon: Ruler,
                 fullData: withingsData,
@@ -129,8 +134,8 @@ const Dashboard = () => {
                 title: "Total Sleep",
                 value: ouraData[0]?.total_sleep?.toFixed(1) ?? '--',
                 unit: "h",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(ouraData, 'total_sleep', 'sleep'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('total_sleep', ouraData[0]?.total_sleep),
                 sparklineData: createSparklineData(ouraData, 'total_sleep'),
                 icon: BedDouble,
                 fullData: ouraData,
@@ -140,8 +145,8 @@ const Dashboard = () => {
                 title: "Deep Sleep",
                 value: ouraData[0]?.deep_sleep_minutes?.toFixed(0) ?? '--',
                 unit: "min",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(ouraData, 'deep_sleep_minutes', 'deep_sleep'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('deep_sleep_minutes', ouraData[0]?.deep_sleep_minutes),
                 sparklineData: createSparklineData(ouraData, 'deep_sleep_minutes'),
                 icon: Waves,
                 fullData: ouraData,
@@ -151,8 +156,8 @@ const Dashboard = () => {
                 title: "Sleep Efficiency",
                 value: ouraData[0]?.efficiency?.toFixed(0) ?? '--',
                 unit: "%",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(ouraData, 'efficiency', 'efficiency'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('efficiency', ouraData[0]?.efficiency),
                 sparklineData: createSparklineData(ouraData, 'efficiency'),
                 icon: PlugZap,
                 fullData: ouraData,
@@ -162,8 +167,8 @@ const Dashboard = () => {
                 title: "Sleep Delay",
                 value: ouraData[0]?.delay?.toFixed(0) ?? '--',
                 unit: "min",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(ouraData, 'delay', 'delay'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('delay', ouraData[0]?.delay),
                 sparklineData: createSparklineData(ouraData, 'delay'),
                 icon: Hourglass,
                 fullData: ouraData,
@@ -182,10 +187,9 @@ const Dashboard = () => {
               {
                 title: "VO2 Max",
                 value: runningData[0]?.vo2_max?.toFixed(1) ?? '--',
-                // *** CHANGE #2: Set unit to empty string ***
                 unit: "",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(runningData.filter(d => !d.is_fill_value_vo2), 'vo2_max', 'vo2max'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('vo2_max', runningData[0]?.vo2_max),
                 sparklineData: createSparklineData(runningData, 'vo2_max'),
                 icon: Wind,
                 fullData: runningData,
@@ -195,8 +199,8 @@ const Dashboard = () => {
                 title: "5K Time",
                 value: runningData[0]?.five_k_formatted ?? '--',
                 unit: "",
-                // *** CHANGE #1: Spread getTrendInfo results for all metrics ***
-                ...getTrendInfo(runningData.filter(d => !d.is_fill_value_5k), 'five_k_seconds', 'five_k_seconds'),
+                // Get category info instead of trend info
+                ...getMetricCategoryInfo('five_k_seconds', runningData[0]?.five_k_seconds),
                 sparklineData: createSparklineData(runningData, 'five_k_seconds'),
                 icon: Timer,
                 fullData: runningData,

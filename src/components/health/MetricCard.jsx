@@ -5,16 +5,18 @@ import Card from '../Card'; // Adjust path
 import SparklineTooltip from './tooltips/SparklineTooltip'; // Adjust path
 import DetailedChartModal from './DetailedChartModal'; // Adjust path
 import { defaultTrendColor } from '../../config/chartConfig'; // Adjust path
+import { CATEGORY_COLORS } from '../../utils/healthCategories'; // Import category colors
 
 const MetricCard = memo(({
   title,
   value,
   unit,
-  trend,
+  category = 'default', // New prop for the category
+  label = null, // New prop for the category label
+  textColorClass = 'text-gray-500 dark:text-gray-400', // Default text color class
   sparklineData, // Expects { date, value } shape, chronological
   icon: Icon,
-  trendColor = "text-blue-500",
-  trendHexColor = defaultTrendColor.hex, // Use default from config
+  hexColor = CATEGORY_COLORS.default, // Use category color instead of trend color
   fullData, // Full dataset needed for the modal
   dataKey
 }) => {
@@ -45,7 +47,7 @@ const MetricCard = memo(({
     });
   }, [sparklineData, fullData, dataKey]);
 
-  const sparklineColor = trendHexColor; // Use color passed from Dashboard
+  const sparklineColor = hexColor; // Use category color for sparkline
 
   const handleCardClick = () => {
       console.log(`[MetricCard DEBUG] Clicked on card: "${title}". Setting modal open state.`);
@@ -71,16 +73,16 @@ const MetricCard = memo(({
           <span className="text-sm">{title}</span>
         </div>
 
-        {/* Body: Value, Trend, Sparkline */}
+        {/* Body: Value, Category, Sparkline */}
         <div className="flex justify-between items-end">
-          {/* Value and Trend Text */}
+          {/* Value and Category Label */}
           <div className="space-y-1">
             <div className="text-4xl font-semibold text-gray-900 dark:text-white">
               {value}
               {unit && <span className="text-gray-400 dark:text-gray-500 text-2xl ml-1">{unit}</span>}
             </div>
-            {trend && <div className={`text-sm ${trendColor}`}>
-              {trend}
+            {label && <div className={`text-sm ${textColorClass}`}>
+              {label}
             </div>}
           </div>
 
@@ -124,7 +126,7 @@ const MetricCard = memo(({
         dataKey={dataKey}
         unit={unit}
         icon={Icon}
-        lineColor={sparklineColor} // Pass trend color for daily view line
+        lineColor={sparklineColor} // Pass category color for chart line
       />
     </>
   );
