@@ -1,18 +1,35 @@
 // src/components/health/tooltips/CustomTooltip.jsx
 import React, { memo } from 'react';
 import { formatSecondsToMMSS } from '../../../utils/dataUtils'; // Adjust path as needed
+import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Import category utility
 
-const CustomTooltip = memo(({ active, payload, label, unit, dataKey }) => {
+const CustomTooltip = memo(({ active, payload, label, unit, originalDataKey, actualDataKey, filledDataKey }) => {
   if (active && payload && payload.length) {
     const dataPoint = payload[0].payload;
-    // Handle potential fill value indication (assuming flag exists like `is_fill_value_hrv`)
-    const fillValueKey = `is_fill_value_${dataKey?.split('_')[0]}`;
-    const isFilled = dataPoint?.[fillValueKey];
-    const value = payload[0].value;
+    
+    // Find the actual value from either the actual or filled data key
+    let value = null;
+    let isFilled = false;
+    
+    // Check which key has the value
+    if (payload.some(p => p.dataKey === actualDataKey && p.value !== null)) {
+      value = payload.find(p => p.dataKey === actualDataKey).value;
+      isFilled = false;
+    } else if (payload.some(p => p.dataKey === filledDataKey && p.value !== null)) {
+      value = payload.find(p => p.dataKey === filledDataKey).value;
+      isFilled = true;
+    }
 
-    const displayValue = dataKey === 'five_k_seconds' ?
+    // Exit if no value found
+    if (value === null) return null;
+
+    // Format the value for display
+    const displayValue = originalDataKey === 'five_k_seconds' ?
       formatSecondsToMMSS(value) :
       value?.toFixed(1) ?? '--';
+
+    // Get category info for the value
+    const { label: categoryLabel, textColorClass } = getMetricCategoryInfo(originalDataKey, value);
 
     return (
       <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
@@ -27,9 +44,12 @@ const CustomTooltip = memo(({ active, payload, label, unit, dataKey }) => {
           {displayValue}{unit}
           {isFilled && (
             <span className="text-xs ml-1 text-gray-500 dark:text-gray-400">
-              (est.) {/* Or (carried forward) */}
+              (est.)
             </span>
           )}
+        </p>
+        <p className={`text-xs mt-1 ${textColorClass}`}>
+          {categoryLabel}
         </p>
       </div>
     );

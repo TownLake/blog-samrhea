@@ -3,6 +3,7 @@ import React, { useState, useMemo, memo, useEffect } from 'react';
 import { X, BarChart2, LineChart as LineChartIcon } from 'lucide-react';
 import useDarkMode from '../../hooks/useDarkMode'; // Adjust path
 import { createMonthlyAverageData } from '../../utils/dataUtils'; // Adjust path
+import { getMetricCategoryInfo } from '../../utils/healthCategories'; // Import category utility
 import DailyChart from './charts/DailyChart'; // Adjust path
 import MonthlyChart from './charts/MonthlyChart'; // Adjust path
 // Note: Card component is not directly used here
@@ -49,6 +50,13 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
     return { minValue: min, maxValue: max, padding: pad };
   }, [monthlyData]);
   // ---
+
+  // Get category for current value if available
+  const currentValue = data && data.length > 0 ? data[0][dataKey] : null;
+  const { hexColor: categoryColor } = getMetricCategoryInfo(dataKey, currentValue);
+  
+  // Use passed lineColor or fallback to category color
+  const effectiveLineColor = lineColor || categoryColor;
 
   if (!isOpen) return null;
 
@@ -101,7 +109,7 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
               chartData={chartData}
               dataKey={dataKey}
               unit={unit}
-              lineColor={lineColor}
+              lineColor={effectiveLineColor}
               minValue={dailyChartValues.minValue}
               maxValue={dailyChartValues.maxValue}
               padding={dailyChartValues.padding}

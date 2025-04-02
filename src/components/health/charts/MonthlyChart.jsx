@@ -1,7 +1,8 @@
 // src/components/health/charts/MonthlyChart.jsx
-import React, { memo } from 'react';
-import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { memo, useMemo } from 'react';
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { formatSecondsToMMSS } from '../../../utils/dataUtils'; // Adjust path
+import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Add category utility
 import MonthlyTooltip from '../tooltips/MonthlyTooltip'; // Adjust path
 import { chartMargins, monthlyChartConfig, axisConfig, gridConfig } from '../../../config/chartConfig'; // Adjust path
 
@@ -10,17 +11,26 @@ const MonthlyChart = memo(({ monthlyData, unit, minValue, maxValue, padding, dat
   const axisColors = isDarkMode ? axisConfig.dark : axisConfig.light;
   const gridColors = isDarkMode ? gridConfig.dark : gridConfig.light;
 
-  // Use a neutral color for bars, could be from config or hardcoded if simple
-  const neutralBarColor = isDarkMode ? "#6B7280" : "#9CA3AF"; // Example: gray-500 dark, gray-400 light
+  // Process data to add category colors to each data point
+  const processedData = useMemo(() => {
+    if (!monthlyData || !monthlyData.length) return [];
+    
+    return monthlyData.map(monthItem => {
+      const { hexColor } = getMetricCategoryInfo(dataKey, monthItem.average);
+      return {
+        ...monthItem,
+        color: hexColor
+      };
+    });
+  }, [monthlyData, dataKey]);
 
-  if (!monthlyData || monthlyData.length === 0) {
-     return <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">Not enough data for monthly view.</div>;
+  if (!processedData || processedData.length === 0) {
+    return <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">Not enough data for monthly view.</div>;
   }
-
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={monthlyData} margin={chartMargins.monthly} barGap={10}>
+      <BarChart data={processedData} margin={chartMargins.monthly} barGap={10}>
         <CartesianGrid
           strokeDasharray="3 3"
           vertical={false}
@@ -47,10 +57,17 @@ const MonthlyChart = memo(({ monthlyData, unit, minValue, maxValue, padding, dat
         <Tooltip content={<MonthlyTooltip unit={unit} dataKey={dataKey} />} cursor={{fill: 'rgba(156, 163, 175, 0.1)'}}/> {/* Subtle hover cursor */}
         <Bar
           dataKey="average"
-          fill={neutralBarColor}
+          fill="#a1a1aa" // Default color (will be overridden by cell colors)
           radius={[4, 4, 0, 0]}
           maxBarSize={monthlyChartConfig.maxBarSize} // Use configured size
-        />
+          // Use individual bar colors based on categories
+          isAnimationActive={false}
+          name={dataKey}
+        >
+          {processedData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color} />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
