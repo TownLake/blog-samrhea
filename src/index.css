@@ -77,9 +77,6 @@
 /* Base link styles */
 .custom-link {
   position: relative;
-  /* --- FIX: Added display: inline-block --- */
-  display: inline-block; /* Ensures the link has a defined box for the ::after's width calculation */
-  /* --- End Fix --- */
   text-decoration: none;
   font-weight: 400;
   color: var(--link-color); /* Use CSS variable */
@@ -90,17 +87,13 @@
   content: '';
   position: absolute;
   left: 0;
-  /* --- FIX: Use width: 100% instead of right: 0 --- */
-  /* right: 0; */ /* Removed */
-  width: 100%; /* Explicitly set width relative to the link */
-  /* --- End Fix --- */
+  right: 0;
   bottom: 0;
   height: 1px;
   /* Use currentColor for the underline to match link color */
   background-color: currentColor;
   opacity: 0.6; /* Make underline slightly subtle */
   transition: opacity 0.2s ease-in-out;
-  pointer-events: none; /* Prevent pseudo-element from interfering with clicks */
 }
 
 .custom-link:hover {
@@ -108,8 +101,8 @@
 }
 
 .custom-link:hover::after {
-    opacity: 1.0; /* Make underline solid on hover */
-    background-color: var(--accent-color); /* Change underline color on hover */
+   opacity: 1.0; /* Make underline solid on hover */
+   background-color: var(--accent-color); /* Change underline color on hover */
 }
 
 /* --- REMOVED Component Specific Styles --- */
