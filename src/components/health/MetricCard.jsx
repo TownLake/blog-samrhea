@@ -33,16 +33,19 @@ const MetricCard = memo(({
   // Process sparkline data to add `isFilled` flag
   const processedSparklineData = useMemo(() => {
     if (!sparklineData || !Array.isArray(sparklineData)) return [];
-    const dataLength = fullData?.length ?? 0;
-    const sparkLength = sparklineData.length;
-
-    return sparklineData.map((item, index) => {
-       const originalIndexInFullData = dataLength - sparkLength + index;
-       let isFilled = false;
-       if(fullData && fullData[originalIndexInFullData]) {
-           const fillValueKey = `is_fill_value_${dataKey?.split('_')[0]}`;
-           isFilled = !!fullData[originalIndexInFullData][fillValueKey];
-       }
+    
+    // Simply add the isFilled flag to each data point
+    return sparklineData.map((item) => {
+      let isFilled = false;
+      if (fullData) {
+        // Find matching data point in full data by date
+        const matchingItem = fullData.find(dataItem => dataItem.date === item.date);
+        if (matchingItem) {
+          const fillValueKey = `is_fill_value_${dataKey?.split('_')[0]}`;
+          isFilled = !!matchingItem[fillValueKey];
+        }
+      }
+      
       return { ...item, isFilled };
     });
   }, [sparklineData, fullData, dataKey]);
