@@ -1,121 +1,140 @@
-// src/utils/dataUtils.js
+// src/components/health/MetricCard.jsx
+import React, { useState, memo, useMemo, useEffect } from 'react';
+import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
+import Card from '../Card'; // Adjust path
+import SparklineTooltip from './tooltips/SparklineTooltip'; // Adjust path
+import DetailedChartModal from './DetailedChartModal'; // Adjust path
+import { defaultTrendColor } from '../../config/chartConfig'; // Adjust path
+import { CATEGORY_COLORS } from '../../utils/healthCategories'; // Import category colors
 
-/**
- * Formats seconds to a MM:SS format
- * @param {number | null | undefined} seconds - The seconds to format
- * @returns {string} Formatted time string or '--:--' if input is invalid
- */
-export const formatSecondsToMMSS = (seconds) => {
-  // Handle null, undefined, or non-numeric input gracefully
-  if (seconds === null || seconds === undefined || isNaN(Number(seconds))) {
-    return '--:--';
-  }
+const MetricCard = memo(({
+  title,
+  value,
+  unit,
+  category = 'default', // New prop for the category
+  label = null, // New prop for the category label
+  textColorClass = 'text-gray-500 dark:text-gray-400', // Default text color class
+  sparklineData, // Expects { date, value } shape, chronological
+  icon: Icon,
+  hexColor = CATEGORY_COLORS.default, // Use category color instead of trend color
+  fullData, // Full dataset needed for the modal
+  dataKey
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const totalSeconds = Math.floor(Number(seconds)); // Ensure it's an integer
-  const mins = Math.floor(totalSeconds / 60);
-  const secs = totalSeconds % 60;
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
-};
+  // --- Debug Logging ---
+  useEffect(() => {
+    console.log(`[MetricCard DEBUG] Modal state for "${title}" changed to:`, isModalOpen);
+  }, [isModalOpen, title]);
+  // ---
 
-/**
- * Validates if the primary data arrays contain meaningful data
- * @param {Array | null | undefined} ouraData - Oura ring data
- * @param {Array | null | undefined} withingsData - Withings scale data
- * @returns {boolean} Whether valid data exists in at least one source
- */
-export const hasValidData = (ouraData, withingsData) => {
-  // Check if both are arrays and at least one has items
-  return (Array.isArray(ouraData) && ouraData.length > 0) ||
-         (Array.isArray(withingsData) && withingsData.length > 0);
-  // Depending on your needs, you might require *both* to have data,
-  // or check other data sources like runningData as well. Adjust if necessary.
-};
+  const gradientId = useMemo(() => `sparkline-${dataKey}-gradient`, [dataKey]);
 
-/**
- * Creates data for sparkline charts (last 14 days, chronological)
- * @param {Array | null | undefined} data - The source data array (expects objects with 'date' and the key)
- * @param {string} key - The property key to extract
- * @returns {Array} Formatted data [{date, value}, ...] for sparkline visualization
- */
-export const createSparklineData = (data, key) => {
-  if (!data || !Array.isArray(data) || data.length === 0) return [];
-
-  // Data is expected to be sorted DESC (most recent first) from the API
-  return data
-    .slice(0, 14) // Take the 14 most recent entries
-    .map(item => ({
-      // Ensure date and value exist, provide defaults if needed
-      date: item?.date ?? null,
-      value: item?.[key] ?? null // Use optional chaining
-    }))
-    .reverse(); // Reverse to show chronologically (oldest of the 14 first)
-};
-
-/**
- * Creates monthly average data from daily data points, handling potential errors.
- * @param {Array | null | undefined} data - The source data array (expects objects with a 'date' property and the specified key)
- * @param {string} key - The key to average
- * @returns {Array} Monthly averaged data [{ month, monthName, average, count }, ...]
- */
-export const createMonthlyAverageData = (data, key) => {
-    if (!data || !Array.isArray(data) || data.length === 0) return [];
-
-    const monthlyData = {};
-
-    data.forEach(item => {
-      // Ensure the item, key, and date exist and the value is not null/undefined
-      if (item == null || item[key] === null || item[key] === undefined || !item.date) {
-        return;
+  // Process sparkline data to add `isFilled` flag
+  const processedSparklineData = useMemo(() => {
+    if (!sparklineData || !Array.isArray(sparklineData)) return [];
+    
+    // Simply add the isFilled flag to each data point
+    return sparklineData.map((item) => {
+      let isFilled = false;
+      if (fullData) {
+        // Find matching data point in full data by date
+        const matchingItem = fullData.find(dataItem => dataItem.date === item.date);
+        if (matchingItem) {
+          const fillValueKey = `is_fill_value_${dataKey?.split('_')[0]}`;
+          isFilled = !!matchingItem[fillValueKey];
+        }
       }
-
-      try {
-        const date = new Date(item.date);
-        if (isNaN(date.getTime())) {
-          console.warn(`Invalid date encountered for item key "${key}":`, item.date, item);
-          return;
-        }
-
-        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-        const monthName = date.toLocaleString('default', { month: 'short' });
-
-        if (!monthlyData[monthKey]) {
-          monthlyData[monthKey] = {
-            month: monthKey,
-            monthName,
-            values: [],
-            count: 0
-          };
-        }
-
-        const numericValue = Number(item[key]);
-        if (!isNaN(numericValue)) {
-            monthlyData[monthKey].values.push(numericValue);
-            monthlyData[monthKey].count += 1;
-        } else {
-             console.warn(`Non-numeric value encountered for item key "${key}":`, item[key], item);
-        }
-
-      } catch (error) {
-          console.error("Error processing item for monthly average:", item, error);
-          return;
-      }
+      
+      return { ...item, isFilled };
     });
+  }, [sparklineData, fullData, dataKey]);
 
-    return Object.values(monthlyData)
-      .map(month => {
-          const average = (month.count > 0)
-            ? month.values.reduce((sum, val) => sum + val, 0) / month.count
-            : 0;
+  const sparklineColor = hexColor; // Use category color for sparkline
 
-          return {
-            month: month.month,
-            monthName: month.monthName,
-            average: average,
-            count: month.count
-          };
-      })
-      .sort((a, b) => a.month.localeCompare(b.month));
+  const handleCardClick = () => {
+      console.log(`[MetricCard DEBUG] Clicked on card: "${title}". Setting modal open state.`);
+      setIsModalOpen(true);
   };
 
-// Note: The trend-related functions (getTrendInfo) have been removed as they're replaced by
-// the category-based functionality in healthCategories.js
+  const handleCloseModal = () => {
+      console.log(`[MetricCard DEBUG] Closing modal for "${title}"`);
+      setIsModalOpen(false);
+  }
+
+  return (
+    <>
+      <Card
+        className="p-5 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+        onClick={handleCardClick}
+        aria-haspopup="dialog"
+        aria-label={`View details for ${title}`}
+      >
+        {/* Header */}
+        <div className="flex items-center text-gray-500 dark:text-gray-400 mb-4">
+          {Icon && <Icon className="w-5 h-5 mr-2" />}
+          <span className="text-sm">{title}</span>
+        </div>
+
+        {/* Body: Value, Category, Sparkline */}
+        <div className="flex justify-between items-end">
+          {/* Value and Category Label */}
+          <div className="space-y-1">
+            <div className="text-4xl font-semibold text-gray-900 dark:text-white">
+              {value}
+              {unit && <span className="text-gray-400 dark:text-gray-500 text-2xl ml-1">{unit}</span>}
+            </div>
+            {label && <div className={`text-sm ${textColorClass}`}>
+              {label}
+            </div>}
+          </div>
+
+          {/* Sparkline Area - Using Tailwind classes for size */}
+          {processedSparklineData && processedSparklineData.length > 0 && (
+            <div className="w-32 h-16">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={processedSparklineData}>
+                  <defs>
+                    <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={sparklineColor} stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor={sparklineColor} stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <Tooltip
+                    content={<SparklineTooltip dataKey={dataKey} />}
+                    cursor={{ stroke: sparklineColor, strokeWidth: 1 }}
+                  />
+                  <Area
+                    type="monotone" dataKey="value" stroke={sparklineColor} strokeWidth={2}
+                    fillOpacity={1} fill={`url(#${gradientId})`}
+                    dot={(props) => {
+                      if (props.payload.isFilled) return <circle cx={props.cx} cy={props.cy} r={2} fill={sparklineColor} fillOpacity={0.5}/>;
+                      return null;
+                    }}
+                    isAnimationActive={false} connectNulls={false}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+      </Card>
+
+      {/* Render Modal */}
+      <DetailedChartModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title={title}
+        data={fullData}
+        dataKey={dataKey}
+        unit={unit}
+        icon={Icon}
+        lineColor={sparklineColor} // Pass category color for chart line
+      />
+    </>
+  );
+});
+
+MetricCard.displayName = 'MetricCard';
+
+export default MetricCard;
