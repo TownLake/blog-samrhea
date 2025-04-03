@@ -74,10 +74,10 @@ export const CATEGORY_COLORS = {
     
     // Running metrics
     'vo2_max': [
-      { category: 'excellent', min: 52, max: Infinity },
-      { category: 'good', min: 46, max: 52 },
-      { category: 'fair', min: 40, max: 46 },
-      { category: 'poor', min: 0, max: 40 }
+      { category: 'excellent', min: 50, max: Infinity },
+      { category: 'good', min: 42, max: 50 },
+      { category: 'fair', min: 36, max: 42 },
+      { category: 'poor', min: 0, max: 36 }
     ]
     // 5K time doesn't have categories per your note
   };
