@@ -24,12 +24,13 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
   const chartData = useMemo(() => { // For DailyChart - Last 3 months
     if (!data || !Array.isArray(data)) return [];
     // Use our utility to get last 3 months of data
-    return createDetailChartData(data);
+    // Then sort chronologically (oldest first) for the chart to display correctly
+    return createDetailChartData(data).reverse();
   }, [data]);
 
-  const monthlyData = useMemo(() => { // For MonthlyChart - using ALL data points in each month
+  const monthlyData = useMemo(() => { // For MonthlyChart - using ALL data points
     if (!data || !Array.isArray(data)) return [];
-    // We no longer filter out filled values - the utility will use ALL data for each month
+    // We no longer filter out filled values here - include ALL data
     return createMonthlyAverageData(data, dataKey);
   }, [data, dataKey]);
 
@@ -108,7 +109,7 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
         <div className="h-[400px] w-full">
           {viewMode === 'daily' ? (
             <DailyChart
-              chartData={chartData}
+              chartData={chartData} 
               dataKey={dataKey}
               unit={unit}
               lineColor={effectiveLineColor}

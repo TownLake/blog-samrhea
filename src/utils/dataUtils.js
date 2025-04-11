@@ -75,7 +75,7 @@ export const createSparklineData = (data, key) => {
 /**
  * Creates data for the detailed line chart showing the last 3 months
  * @param {Array | null | undefined} fullData - Complete dataset with date property
- * @returns {Array} Data from last 3 months
+ * @returns {Array} Data from last 3 months in REVERSE chronological order (newest first)
  */
 export const createDetailChartData = (fullData) => {
   if (!fullData || !Array.isArray(fullData) || fullData.length === 0) {
@@ -95,7 +95,8 @@ export const createDetailChartData = (fullData) => {
     return !isNaN(itemDate.getTime()) && itemDate >= threeMonthsAgo;
   });
 
-  // Return in reverse chronological order (newest first) for the daily chart
+  // Return in reverse chronological order (newest first)
+  // The DetailedChartModal will reverse this again if needed for the DailyChart
   return [...recentData].sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
@@ -110,70 +111,76 @@ export const createDetailChartData = (fullData) => {
  * @returns {Array} Monthly averaged data [{ month, monthName, average, count }, ...]
  */
 export const createMonthlyAverageData = (data, key) => {
-  if (!data || !Array.isArray(data) || data.length === 0) return [];
+  if (!data || !Array.isArray(data) || data.length === 0 || !key) {
+    return [];
+  }
 
-  const monthlyData = {};
-
+  // Group by month and year - without filtering anything
+  const monthlyGroups = {};
+  
   data.forEach(item => {
-    // Ensure the item, key, and date exist and the value is not null/undefined
+    // Skip invalid items but keep filled values
     if (item == null || item[key] === null || item[key] === undefined || !item.date) {
       return;
     }
-
+    
     try {
       const date = new Date(item.date);
       if (isNaN(date.getTime())) {
         console.warn(`Invalid date encountered for item key "${key}":`, item.date, item);
         return;
       }
-
+      
       const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
       const monthName = date.toLocaleString('default', { month: 'short' });
-
-      if (!monthlyData[monthKey]) {
-        monthlyData[monthKey] = {
+      
+      if (!monthlyGroups[monthKey]) {
+        monthlyGroups[monthKey] = {
           month: monthKey,
+          year: date.getFullYear(),
+          monthNum: date.getMonth(),
           monthName,
           values: [],
-          count: 0
+          count: 0,
+          sum: 0
         };
       }
-
+      
       const numericValue = Number(item[key]);
       if (!isNaN(numericValue)) {
-          monthlyData[monthKey].values.push(numericValue);
-          monthlyData[monthKey].count += 1;
+        monthlyGroups[monthKey].values.push(numericValue);
+        monthlyGroups[monthKey].sum += numericValue;
+        monthlyGroups[monthKey].count += 1;
       } else {
-           console.warn(`Non-numeric value encountered for item key "${key}":`, item[key], item);
+        console.warn(`Non-numeric value encountered for item key "${key}":`, item[key], item);
       }
-
     } catch (error) {
-        console.error("Error processing item for monthly average:", item, error);
-        return;
+      console.error("Error processing item for monthly average:", item, error);
+      return;
     }
   });
-
-  return Object.values(monthlyData)
-    .map(month => {
-        const average = (month.count > 0)
-          ? month.values.reduce((sum, val) => sum + val, 0) / month.count
-          : 0;
-        
-        return {
-          month: month.month,
-          year: parseInt(month.month.split('-')[0], 10),
-          monthNum: parseInt(month.month.split('-')[1], 10) - 1, // Convert to 0-indexed for sorting
-          monthName: month.monthName,
-          average: average,
-          count: month.count,
-          min: Math.min(...month.values),
-          max: Math.max(...month.values),
-          // Add formatted date for XAxis in charts
-          date: `${month.month}-01`
-        };
-    })
-    .sort((a, b) => {
-      if (a.year !== b.year) return a.year - b.year;
-      return a.monthNum - b.monthNum;
-    });
+  
+  // Convert to array with averages
+  const result = Object.values(monthlyGroups).map(group => {
+    const avg = group.count > 0 ? group.sum / group.count : 0;
+    
+    return {
+      month: group.month,
+      year: group.year,
+      monthNum: group.monthNum,
+      monthYear: `${group.year}-${group.monthNum + 1}`, // 1-indexed for display
+      monthName: group.monthName,
+      date: `${group.year}-${(group.monthNum + 1).toString().padStart(2, '0')}-01`,
+      average: avg,
+      count: group.count,
+      min: Math.min(...group.values),
+      max: Math.max(...group.values)
+    };
+  });
+  
+  // Sort by date (oldest first)
+  return result.sort((a, b) => {
+    if (a.year !== b.year) return a.year - b.year;
+    return a.monthNum - b.monthNum;
+  });
 };
