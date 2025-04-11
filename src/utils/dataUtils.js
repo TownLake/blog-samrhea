@@ -1,26 +1,44 @@
 // src/utils/dataUtils.js
 
 /**
- * Formats seconds to MM:SS format for display
- * @param {number} seconds - Total seconds
- * @returns {string} Formatted time
+ * Formats seconds to a MM:SS format
+ * @param {number | null | undefined} seconds - The seconds to format
+ * @returns {string} Formatted time string or '--:--' if input is invalid
  */
 export const formatSecondsToMMSS = (seconds) => {
-  if (seconds === null || seconds === undefined) return '--:--';
-  
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
+  // Handle null, undefined, or non-numeric input gracefully
+  if (seconds === null || seconds === undefined || isNaN(Number(seconds))) {
+    return '--:--';
+  }
+
+  const totalSeconds = Math.floor(Number(seconds)); // Ensure it's an integer
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
 /**
- * Creates date-normalized sparkline data for the last 45 days
- * @param {Array} fullData - Complete dataset with date property
- * @param {string} dataKey - Key to extract value from
- * @returns {Array} Last 45 days worth of data
+ * Validates if the primary data arrays contain meaningful data
+ * @param {Array | null | undefined} ouraData - Oura ring data
+ * @param {Array | null | undefined} withingsData - Withings scale data
+ * @returns {boolean} Whether valid data exists in at least one source
  */
-export const createSparklineData = (fullData, dataKey) => {
-  if (!fullData || !Array.isArray(fullData) || fullData.length === 0) {
+export const hasValidData = (ouraData, withingsData) => {
+  // Check if both are arrays and at least one has items
+  return (Array.isArray(ouraData) && ouraData.length > 0) ||
+         (Array.isArray(withingsData) && withingsData.length > 0);
+  // Depending on your needs, you might require *both* to have data,
+  // or check other data sources like runningData as well. Adjust if necessary.
+};
+
+/**
+ * Creates data for sparkline charts (last 45 days, chronological)
+ * @param {Array | null | undefined} data - The source data array (expects objects with 'date' and the key)
+ * @param {string} key - The property key to extract
+ * @returns {Array} Formatted data [{date, value}, ...] for sparkline visualization
+ */
+export const createSparklineData = (data, key) => {
+  if (!data || !Array.isArray(data) || data.length === 0) {
     return [];
   }
 
@@ -31,29 +49,32 @@ export const createSparklineData = (fullData, dataKey) => {
   cutoffDate.setDate(today.getDate() - 45);
   
   // Filter data to only include measurements from last 45 days
-  const recentData = fullData.filter(item => {
+  const recentData = data.filter(item => {
+    if (!item || !item.date) return false;
     const itemDate = new Date(item.date);
-    return itemDate >= cutoffDate;
+    return !isNaN(itemDate.getTime()) && itemDate >= cutoffDate;
   });
 
   // Sort by date ascending (oldest first)
-  const sortedData = [...recentData].sort((a, b) => 
-    new Date(a.date) - new Date(b.date)
-  );
+  const sortedData = [...recentData].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateA - dateB;
+  });
 
   // For sparkline, we only need date and value
   return sortedData.map(item => ({
     date: item.date,
-    value: item[dataKey],
+    value: item[key],
     // Preserve the fill flag if present
-    ...(item[`is_fill_value_${dataKey?.split('_')[0]}`] ? 
+    ...(item[`is_fill_value_${key?.split('_')[0]}`] ? 
         { isFilled: true } : {})
   }));
 };
 
 /**
  * Creates data for the detailed line chart showing the last 3 months
- * @param {Array} fullData - Complete dataset with date property
+ * @param {Array | null | undefined} fullData - Complete dataset with date property
  * @returns {Array} Data from last 3 months
  */
 export const createDetailChartData = (fullData) => {
@@ -69,72 +90,90 @@ export const createDetailChartData = (fullData) => {
   
   // Filter data to only include measurements from last 3 months
   const recentData = fullData.filter(item => {
+    if (!item || !item.date) return false;
     const itemDate = new Date(item.date);
-    return itemDate >= threeMonthsAgo;
+    return !isNaN(itemDate.getTime()) && itemDate >= threeMonthsAgo;
   });
 
   // Return in reverse chronological order (newest first) for the daily chart
-  return [...recentData].sort((a, b) => 
-    new Date(b.date) - new Date(a.date)
-  );
+  return [...recentData].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB - dateA;
+  });
 };
 
 /**
  * Creates monthly average data that includes ALL available data for each month
- * @param {Array} data - Data array with date property 
- * @param {string} dataKey - Key to extract value from
- * @returns {Array} Monthly averaged data
+ * @param {Array | null | undefined} data - The source data array (expects objects with 'date' property and the specified key)
+ * @param {string} key - The key to average
+ * @returns {Array} Monthly averaged data [{ month, monthName, average, count }, ...]
  */
-export const createMonthlyAverageData = (data, dataKey) => {
-  if (!data || !Array.isArray(data) || data.length === 0 || !dataKey) {
-    return [];
-  }
+export const createMonthlyAverageData = (data, key) => {
+  if (!data || !Array.isArray(data) || data.length === 0) return [];
 
-  // Group by month and year
-  const monthlyGroups = {};
-  
+  const monthlyData = {};
+
   data.forEach(item => {
-    if (item[dataKey] === null || item[dataKey] === undefined) return;
-    
-    const date = new Date(item.date);
-    const monthYear = `${date.getFullYear()}-${date.getMonth()}`;
-    
-    if (!monthlyGroups[monthYear]) {
-      monthlyGroups[monthYear] = {
-        month: date.getMonth(),
-        year: date.getFullYear(),
-        values: [],
-        count: 0,
-        sum: 0
-      };
+    // Ensure the item, key, and date exist and the value is not null/undefined
+    if (item == null || item[key] === null || item[key] === undefined || !item.date) {
+      return;
     }
-    
-    monthlyGroups[monthYear].values.push(item[dataKey]);
-    monthlyGroups[monthYear].sum += item[dataKey];
-    monthlyGroups[monthYear].count++;
+
+    try {
+      const date = new Date(item.date);
+      if (isNaN(date.getTime())) {
+        console.warn(`Invalid date encountered for item key "${key}":`, item.date, item);
+        return;
+      }
+
+      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const monthName = date.toLocaleString('default', { month: 'short' });
+
+      if (!monthlyData[monthKey]) {
+        monthlyData[monthKey] = {
+          month: monthKey,
+          monthName,
+          values: [],
+          count: 0
+        };
+      }
+
+      const numericValue = Number(item[key]);
+      if (!isNaN(numericValue)) {
+          monthlyData[monthKey].values.push(numericValue);
+          monthlyData[monthKey].count += 1;
+      } else {
+           console.warn(`Non-numeric value encountered for item key "${key}":`, item[key], item);
+      }
+
+    } catch (error) {
+        console.error("Error processing item for monthly average:", item, error);
+        return;
+    }
   });
-  
-  // Convert to array with averages
-  const result = Object.values(monthlyGroups).map(group => {
-    const avg = group.count > 0 ? group.sum / group.count : 0;
-    const monthDate = new Date(group.year, group.month, 1);
-    
-    return {
-      month: group.month,
-      year: group.year,
-      monthYear: `${group.year}-${group.month + 1}`, // 1-indexed for display
-      monthName: monthDate.toLocaleString('default', { month: 'short' }),
-      date: `${group.year}-${(group.month + 1).toString().padStart(2, '0')}-01`,
-      average: avg,
-      count: group.count,
-      min: Math.min(...group.values),
-      max: Math.max(...group.values)
-    };
-  });
-  
-  // Sort by date (oldest first)
-  return result.sort((a, b) => {
-    if (a.year !== b.year) return a.year - b.year;
-    return a.month - b.month;
-  });
+
+  return Object.values(monthlyData)
+    .map(month => {
+        const average = (month.count > 0)
+          ? month.values.reduce((sum, val) => sum + val, 0) / month.count
+          : 0;
+        
+        return {
+          month: month.month,
+          year: parseInt(month.month.split('-')[0], 10),
+          monthNum: parseInt(month.month.split('-')[1], 10) - 1, // Convert to 0-indexed for sorting
+          monthName: month.monthName,
+          average: average,
+          count: month.count,
+          min: Math.min(...month.values),
+          max: Math.max(...month.values),
+          // Add formatted date for XAxis in charts
+          date: `${month.month}-01`
+        };
+    })
+    .sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return a.monthNum - b.monthNum;
+    });
 };
