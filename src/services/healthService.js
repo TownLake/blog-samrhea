@@ -2,7 +2,7 @@
 
 /**
  * Fetches health data from Cloudflare API endpoints.
- * Assumes the API functions are served relative to the app's origin.
+ * Each endpoint returns up to a year of data.
  * @returns {Promise<Object>} The health data from various sources.
  */
 export const fetchHealthData = async () => {
@@ -14,11 +14,10 @@ export const fetchHealthData = async () => {
       running: '/api/running',
     };
 
-    // Helper function to fetch and parse JSON from an endpoint
+    // Helper function to fetch and parse JSON
     const fetchData = async (url) => {
       const response = await fetch(url);
       if (!response.ok) {
-        // Attempt to parse error details if available
         let errorDetails = `HTTP status ${response.status}`;
         try {
           const errorJson = await response.json();
@@ -38,7 +37,7 @@ export const fetchHealthData = async () => {
       fetchData(endpoints.running),
     ]);
 
-    // Return the data in the structure expected by the context/dashboard
+    // Return the data
     return {
       oura: ouraData || [],
       withings: withingsData || [],
@@ -47,7 +46,6 @@ export const fetchHealthData = async () => {
 
   } catch (error) {
     console.error('Error fetching health data from API:', error);
-    // Re-throw the error so the HealthDataContext can catch it and set the error state
     throw error;
   }
 };
