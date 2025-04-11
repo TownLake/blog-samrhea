@@ -2,7 +2,7 @@
 import React, { useState, useMemo, memo, useEffect } from 'react';
 import { X, BarChart2, LineChart as LineChartIcon } from 'lucide-react';
 import useDarkMode from '../../hooks/useDarkMode'; // Adjust path
-import { createMonthlyAverageData } from '../../utils/dataUtils'; // Adjust path
+import { createMonthlyAverageData, createDetailChartData } from '../../utils/dataUtils'; // Import our updated utility functions
 import { getMetricCategoryInfo } from '../../utils/healthCategories'; // Import category utility
 import DailyChart from './charts/DailyChart'; // Adjust path
 import MonthlyChart from './charts/MonthlyChart'; // Adjust path
@@ -21,14 +21,16 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
   // ---
 
   // --- Data Processing ---
-  const chartData = useMemo(() => { // For DailyChart
+  const chartData = useMemo(() => { // For DailyChart - Last 3 months
     if (!data || !Array.isArray(data)) return [];
-    return [...data].reverse();
+    // Use our utility to get last 3 months of data
+    return createDetailChartData(data);
   }, [data]);
 
-  const monthlyData = useMemo(() => { // For MonthlyChart
-    const filteredData = data ? data.filter(item => !item[`is_fill_value_${dataKey?.split('_')[0]}`]) : [];
-    return createMonthlyAverageData(filteredData, dataKey);
+  const monthlyData = useMemo(() => { // For MonthlyChart - using ALL data points in each month
+    if (!data || !Array.isArray(data)) return [];
+    // We no longer filter out filled values - the utility will use ALL data for each month
+    return createMonthlyAverageData(data, dataKey);
   }, [data, dataKey]);
 
   // --- Min/Max Calculations ---

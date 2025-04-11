@@ -6,6 +6,7 @@ import SparklineTooltip from './tooltips/SparklineTooltip'; // Adjust path
 import DetailedChartModal from './DetailedChartModal'; // Adjust path
 import { defaultTrendColor } from '../../config/chartConfig'; // Adjust path
 import { CATEGORY_COLORS } from '../../utils/healthCategories'; // Import category colors
+import { createSparklineData } from '../../utils/dataUtils'; // Import our new utility
 
 const MetricCard = memo(({
   title,
@@ -14,7 +15,7 @@ const MetricCard = memo(({
   category = 'default', // New prop for the category
   label = null, // New prop for the category label
   textColorClass = 'text-gray-500 dark:text-gray-400', // Default text color class
-  sparklineData, // Expects { date, value } shape, chronological
+  sparklineData: providedSparklineData, // Original sparkline data prop (might be null)
   icon: Icon,
   hexColor = CATEGORY_COLORS.default, // Use category color instead of trend color
   fullData, // Full dataset needed for the modal
@@ -30,19 +31,37 @@ const MetricCard = memo(({
 
   const gradientId = useMemo(() => `sparkline-${dataKey}-gradient`, [dataKey]);
 
-  // Process sparkline data to add `isFilled` flag
+  // Generate sparkline data for the last 45 days
+  const sparklineData = useMemo(() => {
+    // Use provided data if available, otherwise generate from fullData
+    if (providedSparklineData && Array.isArray(providedSparklineData) && providedSparklineData.length > 0) {
+      return providedSparklineData;
+    }
+    // Generate last 45 days of data
+    return createSparklineData(fullData, dataKey);
+  }, [providedSparklineData, fullData, dataKey]);
+
+  // Process sparkline data to ensure it has the isFilled flag
   const processedSparklineData = useMemo(() => {
     if (!sparklineData || !Array.isArray(sparklineData)) return [];
-    const dataLength = fullData?.length ?? 0;
-    const sparkLength = sparklineData.length;
-
-    return sparklineData.map((item, index) => {
-       const originalIndexInFullData = dataLength - sparkLength + index;
-       let isFilled = false;
-       if(fullData && fullData[originalIndexInFullData]) {
-           const fillValueKey = `is_fill_value_${dataKey?.split('_')[0]}`;
-           isFilled = !!fullData[originalIndexInFullData][fillValueKey];
-       }
+    
+    return sparklineData.map(item => {
+      // If we already have isFilled flag on the item, use it
+      if (item.hasOwnProperty('isFilled')) {
+        return item;
+      }
+       
+      // Otherwise, check if we can find this date in the fullData for its fill status
+      const matchingDataPoint = fullData?.find(dataPoint => 
+        dataPoint.date === item.date
+      );
+      
+      let isFilled = false;
+      if (matchingDataPoint) {
+        const fillValueKey = `is_fill_value_${dataKey?.split('_')[0]}`;
+        isFilled = !!matchingDataPoint[fillValueKey];
+      }
+      
       return { ...item, isFilled };
     });
   }, [sparklineData, fullData, dataKey]);
