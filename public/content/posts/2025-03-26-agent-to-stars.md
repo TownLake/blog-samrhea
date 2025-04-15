@@ -44,5 +44,5 @@ From New York Times bestseller and Hugo Award-winner, John Scalzi, a gleeful mas
 
 ## Notes - No Spoilers
 
-* * You can see how much he invests into his characters. As well as some Scalzi character tropes (somewhat clueless but well-meaning and nerdy male protagonist, strong female lead partnering up with him).
-* * I really, really liked how the aliens were written. Their whole attitude. Their whole vibe. I would be so happy to hang out with them.
+* You can see how much he invests into his characters. As well as some Scalzi character tropes (somewhat clueless but well-meaning and nerdy male protagonist, strong female lead partnering up with him).
+* I really, really liked how the aliens were written. Their whole attitude. Their whole vibe. I would be so happy to hang out with them.
