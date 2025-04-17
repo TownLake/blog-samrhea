@@ -1,24 +1,20 @@
 // src/components/health/Dashboard.jsx
 import React, { useEffect, useRef } from 'react';
-import { Heart, Scale, Activity, Hourglass, Waves, Ruler, HeartPulse, ClipboardCheck,
-         Footprints, Wind, Timer, BedDouble, PlugZap } from 'lucide-react';
-import MetricCard from './MetricCard';
-import { useHealthData } from '../../store/HealthDataContext';
-import { createSparklineData, hasValidData, formatSecondsToMMSS } from '../../utils/dataUtils';
-import { getMetricCategoryInfo } from '../../utils/healthCategories';
+import { Heart, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse, Ruler, Waves, PlugZap, Hourglass, Wind, Timer } from 'lucide-react';
 import MetricSection from './MetricSection';
 import HealthIntroCard from './HealthIntroCard';
 import Card from '../Card';
 import useDarkMode from '../../hooks/useDarkMode';
+import { useHealthData } from '../../store/HealthDataContext';
+import { hasValidData } from '../../utils/dataUtils';
+import { getMetricCategoryInfo } from '../../utils/healthCategories';
 
-// Loading state component
 const LoadingView = () => (
   <div className="py-20 text-center text-gray-500 dark:text-gray-400">
     <p>Loading health data...</p>
   </div>
 );
 
-// Error display component
 const ErrorView = ({ message }) => (
   <div className="py-10 max-w-xl mx-auto text-center">
     <Card className="p-6">
@@ -33,55 +29,45 @@ const ErrorView = ({ message }) => (
 const Dashboard = () => {
   const [isDarkMode] = useDarkMode();
   const {
-    ouraData,
-    withingsData,
-    runningData,
+    ouraSpark,
+    oura,
+    withings,
+    runningSpark,
+    running,
     isLoading,
     error,
   } = useHealthData();
 
-  // References for scroll targets
   const heartSectionRef = useRef(null);
   const bodySectionRef = useRef(null);
   const sleepSectionRef = useRef(null);
   const runningSectionRef = useRef(null);
 
-  // Handle hash-based navigation
   useEffect(() => {
-    // Check if there's a hash in the URL
     const hash = window.location.hash;
     if (hash) {
-      // Remove the # character
       const section = hash.substring(1);
-      
-      // Map section names to refs
-      const sectionRefs = {
+      const refs = {
         heart: heartSectionRef,
         body: bodySectionRef,
         sleep: sleepSectionRef,
-        running: runningSectionRef
+        running: runningSectionRef,
       };
-      
-      // Scroll to the section if it exists
-      const targetRef = sectionRefs[section];
-      if (targetRef && targetRef.current) {
-        // Add a small delay to ensure the DOM is fully rendered
+      const ref = refs[section];
+      if (ref && ref.current) {
         setTimeout(() => {
-          targetRef.current.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          });
+          ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       }
     }
-  }, [isLoading]); // Re-run when loading state changes
+  }, [isLoading]);
 
   if (isLoading) {
     return <LoadingView />;
   }
 
-  if (!hasValidData(ouraData, withingsData) && !runningData?.length > 0) {
-    return <ErrorView message={error || 'No health data available'} />;
+  if (!hasValidData(oura, withings) && !(running && running.length > 0)) {
+    return <ErrorView message={error} />;
   }
 
   return (
@@ -91,8 +77,7 @@ const Dashboard = () => {
       <HealthIntroCard />
 
       <div className="space-y-10">
-        {/* Heart Section */}
-        {(ouraData && ouraData.length > 0) && (
+        {(oura && oura.length > 0) && (
           <section id="heart" ref={heartSectionRef}>
             <MetricSection
               title="Heart"
@@ -100,22 +85,22 @@ const Dashboard = () => {
               metrics={[
                 {
                   title: "HRV",
-                  value: ouraData[0]?.average_hrv?.toFixed(0) ?? '--',
+                  value: oura[0]?.average_hrv?.toFixed(0) ?? '--',
                   unit: "ms",
-                  ...getMetricCategoryInfo('average_hrv', ouraData[0]?.average_hrv),
-                  sparklineData: createSparklineData(ouraData, 'average_hrv'),
+                  ...getMetricCategoryInfo('average_hrv', oura[0]?.average_hrv),
+                  sparklineData: ouraSpark,
                   icon: Activity,
-                  fullData: ouraData,
+                  fullData: oura,
                   dataKey: "average_hrv"
                 },
                 {
                   title: "Resting Heart Rate",
-                  value: ouraData[0]?.resting_heart_rate?.toFixed(0) ?? '--',
+                  value: oura[0]?.resting_heart_rate?.toFixed(0) ?? '--',
                   unit: "bpm",
-                  ...getMetricCategoryInfo('resting_heart_rate', ouraData[0]?.resting_heart_rate),
-                  sparklineData: createSparklineData(ouraData, 'resting_heart_rate'),
+                  ...getMetricCategoryInfo('resting_heart_rate', oura[0]?.resting_heart_rate),
+                  sparklineData: ouraSpark,
                   icon: HeartPulse,
-                  fullData: ouraData,
+                  fullData: oura,
                   dataKey: "resting_heart_rate"
                 }
               ]}
@@ -123,8 +108,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Body Section */}
-        {(withingsData && withingsData.length > 0) && (
+        {(withings && withings.length > 0) && (
           <section id="body" ref={bodySectionRef}>
             <MetricSection
               title="Body"
@@ -132,25 +116,25 @@ const Dashboard = () => {
               metrics={[
                 {
                   title: "Weight",
-                  value: withingsData[0]?.weight?.toFixed(1) ?? '--',
+                  value: withings[0]?.weight?.toFixed(1) ?? '--',
                   unit: "lbs",
                   textColorClass: "text-gray-500 dark:text-gray-400",
                   hexColor: "#a1a1aa",
                   category: "default",
                   label: "No Category",
-                  sparklineData: createSparklineData(withingsData, 'weight'),
+                  sparklineData: withings,
                   icon: Scale,
-                  fullData: withingsData,
+                  fullData: withings,
                   dataKey: "weight"
                 },
                 {
                   title: "Body Fat",
-                  value: withingsData[0]?.fat_ratio?.toFixed(1) ?? '--',
+                  value: withings[0]?.fat_ratio?.toFixed(1) ?? '--',
                   unit: "%",
-                  ...getMetricCategoryInfo('fat_ratio', withingsData[0]?.fat_ratio),
-                  sparklineData: createSparklineData(withingsData, 'fat_ratio'),
+                  ...getMetricCategoryInfo('fat_ratio', withings[0]?.fat_ratio),
+                  sparklineData: withings,
                   icon: Ruler,
-                  fullData: withingsData,
+                  fullData: withings,
                   dataKey: "fat_ratio"
                 }
               ]}
@@ -158,8 +142,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Sleep Section */}
-        {(ouraData && ouraData.length > 0) && (
+        {(oura && oura.length > 0) && (
           <section id="sleep" ref={sleepSectionRef}>
             <MetricSection
               title="Sleep"
@@ -167,42 +150,42 @@ const Dashboard = () => {
               metrics={[
                 {
                   title: "Total Sleep",
-                  value: ouraData[0]?.total_sleep?.toFixed(1) ?? '--',
+                  value: oura[0]?.total_sleep?.toFixed(1) ?? '--',
                   unit: "h",
-                  ...getMetricCategoryInfo('total_sleep', ouraData[0]?.total_sleep),
-                  sparklineData: createSparklineData(ouraData, 'total_sleep'),
+                  ...getMetricCategoryInfo('total_sleep', oura[0]?.total_sleep),
+                  sparklineData: ouraSpark,
                   icon: BedDouble,
-                  fullData: ouraData,
+                  fullData: oura,
                   dataKey: "total_sleep"
                 },
                 {
                   title: "Deep Sleep",
-                  value: ouraData[0]?.deep_sleep_minutes?.toFixed(0) ?? '--',
+                  value: oura[0]?.deep_sleep_minutes?.toFixed(0) ?? '--',
                   unit: "min",
-                  ...getMetricCategoryInfo('deep_sleep_minutes', ouraData[0]?.deep_sleep_minutes),
-                  sparklineData: createSparklineData(ouraData, 'deep_sleep_minutes'),
+                  ...getMetricCategoryInfo('deep_sleep_minutes', oura[0]?.deep_sleep_minutes),
+                  sparklineData: ouraSpark,
                   icon: Waves,
-                  fullData: ouraData,
+                  fullData: oura,
                   dataKey: "deep_sleep_minutes"
                 },
                 {
                   title: "Sleep Efficiency",
-                  value: ouraData[0]?.efficiency?.toFixed(0) ?? '--',
+                  value: oura[0]?.efficiency?.toFixed(0) ?? '--',
                   unit: "%",
-                  ...getMetricCategoryInfo('efficiency', ouraData[0]?.efficiency),
-                  sparklineData: createSparklineData(ouraData, 'efficiency'),
+                  ...getMetricCategoryInfo('efficiency', oura[0]?.efficiency),
+                  sparklineData: ouraSpark,
                   icon: PlugZap,
-                  fullData: ouraData,
+                  fullData: oura,
                   dataKey: "efficiency"
                 },
                 {
                   title: "Sleep Delay",
-                  value: ouraData[0]?.delay?.toFixed(0) ?? '--',
+                  value: oura[0]?.delay?.toFixed(0) ?? '--',
                   unit: "min",
-                  ...getMetricCategoryInfo('delay', ouraData[0]?.delay),
-                  sparklineData: createSparklineData(ouraData, 'delay'),
+                  ...getMetricCategoryInfo('delay', oura[0]?.delay),
+                  sparklineData: ouraSpark,
                   icon: Hourglass,
-                  fullData: ouraData,
+                  fullData: oura,
                   dataKey: "delay"
                 }
               ]}
@@ -210,8 +193,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Running Section */}
-        {(runningData && runningData.length > 0) && (
+        {(running && running.length > 0) && (
           <section id="running" ref={runningSectionRef}>
             <MetricSection
               title="Running"
@@ -219,25 +201,25 @@ const Dashboard = () => {
               metrics={[
                 {
                   title: "VO2 Max",
-                  value: runningData[0]?.vo2_max?.toFixed(1) ?? '--',
+                  value: running[0]?.vo2_max?.toFixed(1) ?? '--',
                   unit: "",
-                  ...getMetricCategoryInfo('vo2_max', runningData[0]?.vo2_max),
-                  sparklineData: createSparklineData(runningData, 'vo2_max'),
+                  ...getMetricCategoryInfo('vo2_max', running[0]?.vo2_max),
+                  sparklineData: runningSpark,
                   icon: Wind,
-                  fullData: runningData,
+                  fullData: running,
                   dataKey: "vo2_max"
                 },
                 {
                   title: "5K Time",
-                  value: runningData[0]?.five_k_formatted ?? '--',
+                  value: running[0]?.five_k_formatted ?? '--',
                   unit: "",
                   textColorClass: "text-gray-500 dark:text-gray-400",
                   hexColor: "#a1a1aa",
                   category: "default",
                   label: "No Category",
-                  sparklineData: createSparklineData(runningData, 'five_k_seconds'),
+                  sparklineData: runningSpark,
                   icon: Timer,
-                  fullData: runningData,
+                  fullData: running,
                   dataKey: "five_k_seconds"
                 }
               ]}
