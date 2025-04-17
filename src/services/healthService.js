@@ -1,51 +1,51 @@
 // src/services/healthService.js
 
 /**
- * Fetches health data from Cloudflare API endpoints.
- * Each endpoint returns up to a year of data.
- * @returns {Promise<Object>} The health data from various sources.
+ * Fetches health data from optimized API endpoints with payload slicing.
+ * - ouraSpark: last 45 days for sparklines
+ * - ouraFull: last 365 days for detail & monthly
+ * - withings: last 365 days (body metrics)
+ * - runningSpark: last 45 days for sparklines
+ * - runningFull: last 365 days for detail
  */
 export const fetchHealthData = async () => {
   try {
-    // Define the API endpoints
     const endpoints = {
-      oura: '/api/oura',
-      withings: '/api/withings',
-      running: '/api/running',
+      ouraSpark:  '/api/oura?days=45',
+      ouraFull:   '/api/oura?days=365',
+      withings:   '/api/withings?days=365',
+      runningSpark: '/api/running?days=45',
+      runningFull:  '/api/running?days=365',
     };
 
-    // Helper function to fetch and parse JSON
     const fetchData = async (url) => {
-      const response = await fetch(url);
-      if (!response.ok) {
-        let errorDetails = `HTTP status ${response.status}`;
-        try {
-          const errorJson = await response.json();
-          errorDetails = errorJson.error || errorJson.message || JSON.stringify(errorJson);
-        } catch (e) {
-          // Ignore if error response is not JSON
-        }
-        throw new Error(`Failed to fetch ${url}: ${errorDetails}`);
+      const res = await fetch(url);
+      if (!res.ok) {
+        let details = `HTTP ${res.status}`;
+        try { details = (await res.json()).error || details; } catch {}
+        throw new Error(`Fetch ${url} failed: ${details}`);
       }
-      return response.json();
+      return res.json();
     };
 
-    // Fetch data from all endpoints in parallel
-    const [ouraData, withingsData, runningData] = await Promise.all([
-      fetchData(endpoints.oura),
-      fetchData(endpoints.withings),
-      fetchData(endpoints.running),
-    ]);
+    const [ouraSpark, ouraFull, withingsData, runningSpark, runningFull] =
+      await Promise.all([
+        fetchData(endpoints.ouraSpark),
+        fetchData(endpoints.ouraFull),
+        fetchData(endpoints.withings),
+        fetchData(endpoints.runningSpark),
+        fetchData(endpoints.runningFull),
+      ]);
 
-    // Return the data
     return {
-      oura: ouraData || [],
-      withings: withingsData || [],
-      running: runningData || [],
+      ouraSpark: ouraSpark || [],
+      oura:      ouraFull  || [],
+      withings:  withingsData || [],
+      runningSpark: runningSpark  || [],
+      running:      runningFull   || [],
     };
-
   } catch (error) {
-    console.error('Error fetching health data from API:', error);
+    console.error('Error fetching health data:', error);
     throw error;
   }
 };

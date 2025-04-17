@@ -1,7 +1,9 @@
 // functions/api/oura.js
+
+const stmts = new Map();
+
 export async function onRequest(context) {
   const { request, env, waitUntil } = context;
-  
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -14,54 +16,58 @@ export async function onRequest(context) {
     return new Response(null, { headers });
   }
 
-  // Create cache key
-  const cacheKey = new Request(request.url, { method: 'GET' });
+  // Parse days param (default to 365)
+  const url = new URL(request.url);
+  const daysParam = url.searchParams.get('days') || '365';
+
+  // Prepare (and cache) a statement per daysParam
+  let stmt = stmts.get(daysParam);
+  if (!stmt) {
+    stmt = env.DB.prepare(`
+      SELECT
+        date,
+        average_hrv,
+        resting_heart_rate,
+        total_sleep,
+        deep_sleep_minutes,
+        efficiency,
+        delay
+      FROM oura_data
+      WHERE date >= datetime('now', '-${daysParam} days')
+      ORDER BY date DESC
+    `);
+    stmts.set(daysParam, stmt);
+  }
+
+  // Try edge cache
   const cache = caches.default;
-  let cachedResponse = await cache.match(cacheKey);
-  
-  if (cachedResponse) {
-    console.log('Serving Oura data from cache');
-    return cachedResponse;
+  const cacheKey = new Request(request.url, { method: 'GET' });
+  const cached = await cache.match(cacheKey);
+  if (cached) {
+    console.log(`Serving Oura (${daysParam}d) from cache`);
+    return cached;
   }
 
   try {
-    if (!env.DB) {
-      throw new Error('Database binding not found');
-    }
+    const { results } = await stmt.all();
+    console.log(`Oura → ${results.length} rows`);
 
-    // Get up to 365 days of data (a full year)
-    console.log('Querying Oura data...');
-    const data = await env.DB.prepare(`
-      SELECT * FROM oura_data 
-      WHERE date >= datetime('now', '-365 days')
-      ORDER BY date DESC
-    `).all();
+    const body = JSON.stringify(results);
+    const response = new Response(body, { headers });
 
-    if (!data || !data.results) {
-      throw new Error('Failed to retrieve data from database');
-    }
-
-    console.log('Oura data retrieved:', data.results.length, 'records');
-    
-    const response = new Response(
-      JSON.stringify(data.results || []), 
-      { headers }
-    );
-
+    // Populate cache in background
     waitUntil(cache.put(cacheKey, response.clone()));
-    
     return response;
   } catch (error) {
     console.error('Error in Oura API:', error);
-    
-    return new Response(
-      JSON.stringify({ 
-        error: error.message,
-        code: 'DB_ERROR',
-        timestamp: new Date().toISOString(),
-        details: error.toString()
-      }), 
-      { status: 500, headers }
-    );
+    return new Response(JSON.stringify({
+      error: error.message,
+      code: 'DB_ERROR',
+      timestamp: new Date().toISOString(),
+      details: error.toString()
+    }), {
+      status: 500,
+      headers
+    });
   }
 }

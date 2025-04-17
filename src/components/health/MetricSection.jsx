@@ -1,4 +1,5 @@
 // src/components/health/MetricSection.jsx
+
 import React from 'react';
 import MetricCard from './MetricCard';
 import Card from '../Card';
@@ -6,19 +7,18 @@ import useDarkMode from '../../hooks/useDarkMode';
 
 const MetricSection = ({ title, icon: Icon, metrics }) => {
   const [isDarkMode] = useDarkMode();
-  
+
   // Determine the hash ID based on the title
   const sectionId = title.toLowerCase();
-  
+
   // Handler for icon click to update URL hash without scrolling
   const handleIconClick = (e) => {
     e.preventDefault();
-    
+
     // Update the URL with the hash without triggering a scroll
-    // This preserves current scroll position for easy copying
     const newUrl = `${window.location.pathname}${window.location.search}#${sectionId}`;
     window.history.replaceState(null, '', newUrl);
-    
+
     // Optional: Show a small visual feedback
     const iconElement = e.currentTarget;
     iconElement.classList.add('opacity-50');
@@ -26,7 +26,7 @@ const MetricSection = ({ title, icon: Icon, metrics }) => {
       iconElement.classList.remove('opacity-50');
     }, 200);
   };
-  
+
   return (
     <section>
       <div className="flex items-center gap-2 mb-4">
