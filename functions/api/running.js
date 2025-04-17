@@ -1,7 +1,44 @@
 // functions/api/running.js
+
+const stmts = new Map();
+
+function formatSecondsToMMSS(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+async function checkTableExists(db, tableName) {
+  try {
+    const { results } = await db.prepare(`
+      SELECT name FROM sqlite_master
+      WHERE type='table' AND name=?
+    `).bind(tableName).all();
+    return results.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+function generateMockRunningData(days) {
+  const baseVo2 = 42.5;
+  const base5k = 1518;
+  return Array.from({ length: days }).map((_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const variation = () => (Math.random() - 0.5) * 30;
+    const secs = base5k + i * 6 + variation();
+    return {
+      date: d.toISOString(),
+      vo2_max: +(baseVo2 - i * 0.1 + (Math.random() - 0.5) * 0.5).toFixed(1),
+      five_k_seconds: secs,
+      five_k_formatted: formatSecondsToMMSS(secs)
+    };
+  });
+}
+
 export async function onRequest(context) {
   const { request, env, waitUntil } = context;
-  
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -14,138 +51,73 @@ export async function onRequest(context) {
     return new Response(null, { headers });
   }
 
-  // Create cache key
-  const cacheKey = new Request(request.url, { method: 'GET' });
+  const url = new URL(request.url);
+  const daysParam = url.searchParams.get('days') || '365';
+  const days = parseInt(daysParam, 10);
+
+  // edge cache key
   const cache = caches.default;
-  let cachedResponse = await cache.match(cacheKey);
-  
-  if (cachedResponse) {
-    console.log('Serving Running data from cache');
-    return cachedResponse;
+  const cacheKey = new Request(request.url, { method: 'GET' });
+  const cached = await cache.match(cacheKey);
+  if (cached) {
+    console.log(`Serving Running (${daysParam}d) from cache`);
+    return cached;
   }
 
   try {
-    if (!env.DB) {
-      throw new Error('Database binding not found');
+    if (!env.DB) throw new Error('DB binding not found');
+
+    // if table missing, return mock data
+    const exists = await checkTableExists(env.DB, 'running_data');
+    if (!exists) {
+      return new Response(JSON.stringify(generateMockRunningData(days)), { headers });
     }
 
-    // Check if the running_data table exists
-    const tableExists = await checkTableExists(env.DB, 'running_data');
-    
-    if (!tableExists) {
-      // If table doesn't exist, generate a year of mock data
-      const mockData = generateMockRunningData(365);
-      return new Response(JSON.stringify(mockData), { headers });
+    // prepare & cache statement per window
+    let stmt = stmts.get(daysParam);
+    if (!stmt) {
+      stmt = env.DB.prepare(`
+        SELECT date, vo2_max, five_k_seconds
+        FROM running_data
+        WHERE date >= datetime('now', '-${daysParam} days')
+        ORDER BY date DESC
+      `);
+      stmts.set(daysParam, stmt);
     }
 
-    // Get up to 365 days of data (a full year)
-    console.log('Querying Running data...');
-    const data = await env.DB.prepare(`
-      SELECT * FROM running_data 
-      WHERE date >= datetime('now', '-365 days')
-      ORDER BY date DESC
-    `).all();
+    const { results } = await stmt.all();
 
-    if (!data || !data.results) {
-      throw new Error('Failed to retrieve data from database');
+    // two‑pass fill and format
+    let last5k = null, lastVo2 = null;
+    for (const r of results) {
+      if (r.five_k_seconds != null) {
+        last5k = last5k ?? r.five_k_seconds;
+        r.five_k_formatted = formatSecondsToMMSS(r.five_k_seconds);
+      }
+      if (r.vo2_max != null) {
+        lastVo2 = lastVo2 ?? r.vo2_max;
+      }
+    }
+    for (const r of results) {
+      if (r.five_k_seconds == null && last5k != null) {
+        r.five_k_seconds = last5k;
+        r.five_k_formatted = formatSecondsToMMSS(last5k);
+        r.is_fill_value_5k = true;
+      }
+      if (r.vo2_max == null && lastVo2 != null) {
+        r.vo2_max = lastVo2;
+        r.is_fill_value_vo2 = true;
+      }
     }
 
-    console.log('Running data retrieved:', data.results.length, 'records');
-    
-    // Process data to handle null values and add formatting
-    const formattedData = data.results;
-    
-    let lastValidFiveKSeconds = null;
-    let lastValidVo2Max = null;
-    
-    // First pass - find most recent non-null values
-    for (const record of formattedData) {
-      if (record.five_k_seconds !== null && record.five_k_seconds !== undefined) {
-        if (lastValidFiveKSeconds === null) {
-          lastValidFiveKSeconds = record.five_k_seconds;
-        }
-        record.five_k_formatted = formatSecondsToMMSS(record.five_k_seconds);
-      }
-      
-      if (record.vo2_max !== null && record.vo2_max !== undefined) {
-        if (lastValidVo2Max === null) {
-          lastValidVo2Max = record.vo2_max;
-        }
-      }
-    }
-    
-    // Second pass - fill in null values with most recent valid values
-    for (const record of formattedData) {
-      if (record.five_k_seconds === null || record.five_k_seconds === undefined) {
-        if (lastValidFiveKSeconds !== null) {
-          record.five_k_seconds = lastValidFiveKSeconds;
-          record.five_k_formatted = formatSecondsToMMSS(lastValidFiveKSeconds);
-          record.is_fill_value_5k = true;
-        }
-      }
-      
-      if (record.vo2_max === null || record.vo2_max === undefined) {
-        if (lastValidVo2Max !== null) {
-          record.vo2_max = lastValidVo2Max;
-          record.is_fill_value_vo2 = true;
-        }
-      }
-    }
-    
-    const response = new Response(JSON.stringify(formattedData || []), { headers });
+    const body = JSON.stringify(results);
+    const response = new Response(body, { headers });
     waitUntil(cache.put(cacheKey, response.clone()));
     return response;
-  } catch (error) {
-    console.error('Error in Running API:', error);
-    
-    // Generate a year of mock data if there's an error
-    const mockData = generateMockRunningData(365);
-    return new Response(JSON.stringify(mockData), { headers });
-  }
-}
 
-// Helper function to check if a table exists
-async function checkTableExists(db, tableName) {
-  try {
-    const result = await db.prepare(`
-      SELECT name FROM sqlite_master 
-      WHERE type='table' AND name=?
-    `).bind(tableName).all();
-    
-    return result && result.results && result.results.length > 0;
-  } catch (error) {
-    console.error('Error checking table exists:', error);
-    return false;
+  } catch (err) {
+    console.error('Error in Running API:', err);
+    // fallback to mock data
+    return new Response(JSON.stringify(generateMockRunningData(days)), { headers });
   }
-}
-
-// Helper function to format seconds to MM:SS
-function formatSecondsToMMSS(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = Math.floor(seconds % 60);
-  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-}
-
-// Helper function to generate mock running data
-function generateMockRunningData(days) {
-  const data = [];
-  const baseVo2Max = 42.5;
-  const base5kTimeSeconds = 1518;
-  
-  for (let i = 0; i < days; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    
-    const randomVariation = () => (Math.random() - 0.5) * 30;
-    const seconds = base5kTimeSeconds + (i * 6) + randomVariation();
-    
-    data.push({
-      date: date.toISOString(),
-      vo2_max: baseVo2Max - (i * 0.1) + ((Math.random() - 0.5) * 0.5),
-      five_k_seconds: seconds,
-      five_k_formatted: formatSecondsToMMSS(seconds)
-    });
-  }
-  
-  return data;
 }
