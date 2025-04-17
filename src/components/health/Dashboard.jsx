@@ -1,6 +1,21 @@
 // src/components/health/Dashboard.jsx
 import React, { useEffect, useRef } from 'react';
-import { Heart, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse, Ruler, Waves, PlugZap, Hourglass, Wind, Timer } from 'lucide-react';
+import {
+  Heart,
+  Scale,
+  ClipboardCheck,
+  BedDouble,
+  Footprints,
+  Activity,
+  HeartPulse,
+  Ruler,
+  Waves,
+  PlugZap,
+  Hourglass,
+  Wind,
+  Timer
+} from 'lucide-react';
+import { createSparklineData } from '../../utils/dataUtils';
 import MetricSection from './MetricSection';
 import HealthIntroCard from './HealthIntroCard';
 import Card from '../Card';
@@ -77,7 +92,7 @@ const Dashboard = () => {
       <HealthIntroCard />
 
       <div className="space-y-10">
-        {(oura && oura.length > 0) && (
+        {oura.length > 0 && (
           <section id="heart" ref={heartSectionRef}>
             <MetricSection
               title="Heart"
@@ -88,7 +103,7 @@ const Dashboard = () => {
                   value: oura[0]?.average_hrv?.toFixed(0) ?? '--',
                   unit: "ms",
                   ...getMetricCategoryInfo('average_hrv', oura[0]?.average_hrv),
-                  sparklineData: ouraSpark,
+                  sparklineData: createSparklineData(ouraSpark, 'average_hrv'),
                   icon: Activity,
                   fullData: oura,
                   dataKey: "average_hrv"
@@ -98,7 +113,7 @@ const Dashboard = () => {
                   value: oura[0]?.resting_heart_rate?.toFixed(0) ?? '--',
                   unit: "bpm",
                   ...getMetricCategoryInfo('resting_heart_rate', oura[0]?.resting_heart_rate),
-                  sparklineData: ouraSpark,
+                  sparklineData: createSparklineData(ouraSpark, 'resting_heart_rate'),
                   icon: HeartPulse,
                   fullData: oura,
                   dataKey: "resting_heart_rate"
@@ -108,7 +123,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {(withings && withings.length > 0) && (
+        {withings.length > 0 && (
           <section id="body" ref={bodySectionRef}>
             <MetricSection
               title="Body"
@@ -122,7 +137,7 @@ const Dashboard = () => {
                   hexColor: "#a1a1aa",
                   category: "default",
                   label: "No Category",
-                  sparklineData: withings,
+                  sparklineData: createSparklineData(withings, 'weight'),
                   icon: Scale,
                   fullData: withings,
                   dataKey: "weight"
@@ -132,7 +147,7 @@ const Dashboard = () => {
                   value: withings[0]?.fat_ratio?.toFixed(1) ?? '--',
                   unit: "%",
                   ...getMetricCategoryInfo('fat_ratio', withings[0]?.fat_ratio),
-                  sparklineData: withings,
+                  sparklineData: createSparklineData(withings, 'fat_ratio'),
                   icon: Ruler,
                   fullData: withings,
                   dataKey: "fat_ratio"
@@ -142,7 +157,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {(oura && oura.length > 0) && (
+        {oura.length > 0 && (
           <section id="sleep" ref={sleepSectionRef}>
             <MetricSection
               title="Sleep"
@@ -153,7 +168,7 @@ const Dashboard = () => {
                   value: oura[0]?.total_sleep?.toFixed(1) ?? '--',
                   unit: "h",
                   ...getMetricCategoryInfo('total_sleep', oura[0]?.total_sleep),
-                  sparklineData: ouraSpark,
+                  sparklineData: createSparklineData(ouraSpark, 'total_sleep'),
                   icon: BedDouble,
                   fullData: oura,
                   dataKey: "total_sleep"
@@ -163,7 +178,7 @@ const Dashboard = () => {
                   value: oura[0]?.deep_sleep_minutes?.toFixed(0) ?? '--',
                   unit: "min",
                   ...getMetricCategoryInfo('deep_sleep_minutes', oura[0]?.deep_sleep_minutes),
-                  sparklineData: ouraSpark,
+                  sparklineData: createSparklineData(ouraSpark, 'deep_sleep_minutes'),
                   icon: Waves,
                   fullData: oura,
                   dataKey: "deep_sleep_minutes"
@@ -173,7 +188,7 @@ const Dashboard = () => {
                   value: oura[0]?.efficiency?.toFixed(0) ?? '--',
                   unit: "%",
                   ...getMetricCategoryInfo('efficiency', oura[0]?.efficiency),
-                  sparklineData: ouraSpark,
+                  sparklineData: createSparklineData(ouraSpark, 'efficiency'),
                   icon: PlugZap,
                   fullData: oura,
                   dataKey: "efficiency"
@@ -183,7 +198,7 @@ const Dashboard = () => {
                   value: oura[0]?.delay?.toFixed(0) ?? '--',
                   unit: "min",
                   ...getMetricCategoryInfo('delay', oura[0]?.delay),
-                  sparklineData: ouraSpark,
+                  sparklineData: createSparklineData(ouraSpark, 'delay'),
                   icon: Hourglass,
                   fullData: oura,
                   dataKey: "delay"
@@ -193,7 +208,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {(running && running.length > 0) && (
+        {running.length > 0 && (
           <section id="running" ref={runningSectionRef}>
             <MetricSection
               title="Running"
@@ -204,7 +219,7 @@ const Dashboard = () => {
                   value: running[0]?.vo2_max?.toFixed(1) ?? '--',
                   unit: "",
                   ...getMetricCategoryInfo('vo2_max', running[0]?.vo2_max),
-                  sparklineData: runningSpark,
+                  sparklineData: createSparklineData(runningSpark, 'vo2_max'),
                   icon: Wind,
                   fullData: running,
                   dataKey: "vo2_max"
@@ -217,7 +232,7 @@ const Dashboard = () => {
                   hexColor: "#a1a1aa",
                   category: "default",
                   label: "No Category",
-                  sparklineData: runningSpark,
+                  sparklineData: createSparklineData(runningSpark, 'five_k_seconds'),
                   icon: Timer,
                   fullData: running,
                   dataKey: "five_k_seconds"
