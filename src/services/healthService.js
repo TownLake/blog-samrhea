@@ -1,59 +1,95 @@
 // src/services/healthService.js
+import { formatSecondsToMMSS } from '../utils/dataUtils';
 
-/**
- * Fetches health data from optimized API endpoints with payload slicing.
- * - ouraSpark: last 45 days for sparklines
- * - ouraFull: last 365 days for detail & monthly
- * - withings: last 365 days (body metrics)
- * - runningSpark: last 45 days for sparklines
- * - runningFull: last 365 days for detail
- * - clinicalSpark: last 45 days for sparklines (though data is sparse)
- * - clinicalFull: last 365 days for clinical measures
- */
+const handleFetchError = async (response, dataType) => {
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error(`${dataType} fetch error (${response.status}):`, errorText);
+    throw new Error(`Failed to fetch ${dataType} data`);
+  }
+  return response.json();
+};
+
+const enrichRunningData = (data) => {
+  return data.map(run => ({
+    ...run,
+    date: run.date,
+    distance: Number(run.distance),
+    distance_imperial: Number(run.distance) * 0.621371,
+    calories: Number(run.calories),
+    vo2_max: Number(run.vo2_max),
+    five_k_seconds: Number(run.five_k_seconds),
+    five_k_formatted: formatSecondsToMMSS(run.five_k_seconds)
+  }));
+};
+
 export const fetchHealthData = async () => {
   try {
-    const endpoints = {
-      ouraSpark:  '/api/oura?days=45',
-      ouraFull:   '/api/oura?days=365',
-      withings:   '/api/withings?days=365',
-      runningSpark: '/api/running?days=45',
-      runningFull:  '/api/running?days=365',
-      clinicalSpark: '/api/clinical?days=45',
-      clinicalFull:  '/api/clinical?days=365',
-    };
+    const days = 5000; // Extended range for more comprehensive data
 
-    const fetchData = async (url) => {
-      const res = await fetch(url);
-      if (!res.ok) {
-        let details = `HTTP ${res.status}`;
-        try { details = (await res.json()).error || details; } catch {}
-        throw new Error(`Fetch ${url} failed: ${details}`);
-      }
-      return res.json();
-    };
+    // Fetch all data sources in parallel
+    const [
+      ouraFullRes,
+      ouraSparkRes,
+      withingsRes,
+      runningSparkRes,
+      runningFullRes,
+      clinicalRes,
+      clinicalSparkRes
+    ] = await Promise.all([
+      fetch(`/api/oura?days=${days}`),
+      fetch(`/api/oura?days=45`),
+      fetch(`/api/withings?days=${days}`),
+      fetch(`/api/running?days=45`),
+      fetch(`/api/running?days=${days}`),
+      fetch(`/api/clinical?days=${days}`),
+      fetch(`/api/clinical?days=45`)
+    ]);
 
-    const [ouraSpark, ouraFull, withingsData, runningSpark, runningFull, clinicalSpark, clinicalFull] =
-      await Promise.all([
-        fetchData(endpoints.ouraSpark),
-        fetchData(endpoints.ouraFull),
-        fetchData(endpoints.withings),
-        fetchData(endpoints.runningSpark),
-        fetchData(endpoints.runningFull),
-        fetchData(endpoints.clinicalSpark),
-        fetchData(endpoints.clinicalFull),
-      ]);
+    // Process all responses with error handling
+    const [
+      ouraFull,
+      ouraSpark,
+      withings,
+      runningSpark,
+      runningFull,
+      clinical,
+      clinicalSpark
+    ] = await Promise.all([
+      handleFetchError(ouraFullRes, 'Oura full').catch(() => []),
+      handleFetchError(ouraSparkRes, 'Oura spark').catch(() => []),
+      handleFetchError(withingsRes, 'Withings').catch(() => []),
+      handleFetchError(runningSparkRes, 'Running spark').catch(() => []),
+      handleFetchError(runningFullRes, 'Running full').catch(() => []),
+      handleFetchError(clinicalRes, 'Clinical').catch(() => []),
+      handleFetchError(clinicalSparkRes, 'Clinical spark').catch(() => [])
+    ]);
 
+    // Enrich running data with additional fields
+    const enrichedRunning = enrichRunningData(runningFull);
+    const enrichedRunningSpark = enrichRunningData(runningSpark);
+
+    // Ensure all arrays are valid
     return {
-      ouraSpark: ouraSpark || [],
-      oura:      ouraFull  || [],
-      withings:  withingsData || [],
-      runningSpark: runningSpark  || [],
-      running:      runningFull   || [],
-      clinicalSpark: clinicalSpark || [],
-      clinical:      clinicalFull   || [],
+      oura: Array.isArray(ouraFull) ? ouraFull : [],
+      ouraSpark: Array.isArray(ouraSpark) ? ouraSpark : [],
+      withings: Array.isArray(withings) ? withings : [],
+      running: Array.isArray(enrichedRunning) ? enrichedRunning : [],
+      runningSpark: Array.isArray(enrichedRunningSpark) ? enrichedRunningSpark : [],
+      clinical: Array.isArray(clinical) ? clinical : [],
+      clinicalSpark: Array.isArray(clinicalSpark) ? clinicalSpark : []
     };
   } catch (error) {
-    console.error('Error fetching health data:', error);
-    throw error;
+    console.error('Error in fetchHealthData:', error);
+    // Return empty arrays for all data sources on error
+    return {
+      oura: [],
+      ouraSpark: [],
+      withings: [],
+      running: [],
+      runningSpark: [],
+      clinical: [],
+      clinicalSpark: []
+    };
   }
 };
