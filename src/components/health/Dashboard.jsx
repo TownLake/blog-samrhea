@@ -13,7 +13,9 @@ import {
   PlugZap,
   Hourglass,
   Wind,
-  Timer
+  Timer,
+  Watch,
+  Microscope
 } from 'lucide-react';
 import { createSparklineData } from '../../utils/dataUtils';
 import MetricSection from './MetricSection';
@@ -49,6 +51,8 @@ const Dashboard = () => {
     withings,
     runningSpark,
     running,
+    clinicalSpark,
+    clinical,
     isLoading,
     error,
   } = useHealthData();
@@ -84,7 +88,6 @@ const Dashboard = () => {
   if (!hasValidData(oura, withings) && !(running && running.length > 0)) {
     return <ErrorView message={error} />;
   }
-
   return (
     <div className="pt-2 pb-8">
       {error && !isLoading && <ErrorView message={error} />}
@@ -156,8 +159,7 @@ const Dashboard = () => {
             />
           </section>
         )}
-
-        {oura.length > 0 && (
+{oura.length > 0 && (
           <section id="sleep" ref={sleepSectionRef}>
             <MetricSection
               title="Sleep"
@@ -207,22 +209,31 @@ const Dashboard = () => {
             />
           </section>
         )}
-
-        {running.length > 0 && (
+{running.length > 0 && (
           <section id="running" ref={runningSectionRef}>
             <MetricSection
               title="Running"
               icon={Footprints}
               metrics={[
                 {
-                  title: "VO2 Max",
+                  title: "VO2 Max (Watch)",
                   value: running[0]?.vo2_max?.toFixed(1) ?? '--',
                   unit: "",
                   ...getMetricCategoryInfo('vo2_max', running[0]?.vo2_max),
                   sparklineData: createSparklineData(runningSpark, 'vo2_max'),
-                  icon: Wind,
+                  icon: Watch,
                   fullData: running,
                   dataKey: "vo2_max"
+                },
+                {
+                  title: "VO2 Max (Clinical)",
+                  value: clinical[0]?.vo2_max_clinical?.toFixed(1) ?? '--',
+                  unit: "",
+                  ...getMetricCategoryInfo('vo2_max', clinical[0]?.vo2_max_clinical),
+                  sparklineData: createSparklineData(clinicalSpark, 'vo2_max_clinical'),
+                  icon: Microscope,
+                  fullData: clinical,
+                  dataKey: "vo2_max_clinical"
                 },
                 {
                   title: "5K Time",
