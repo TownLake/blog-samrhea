@@ -1,4 +1,8 @@
-## School
+## Teaching
+
+I will be teaching `Intro to Product Management` at [NOVA SBE](https://www.novasbe.unl.pt/en/) this fall. Are you a student interested in the class? Please reach out!
+
+## Studying
 
 I studied in the [Plan II Program](https://liberalarts.utexas.edu/plan2/) at The University of Texas at Austin. Yes, it is a major in and of itself.
 
