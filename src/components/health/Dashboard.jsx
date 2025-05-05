@@ -60,7 +60,7 @@ const Dashboard = () => {
   const heartSectionRef = useRef(null);
   const bodySectionRef = useRef(null);
   const sleepSectionRef = useRef(null);
-  const runningSectionRef = useRef(null);
+  const fitnessSectionRef = useRef(null);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -70,7 +70,7 @@ const Dashboard = () => {
         heart: heartSectionRef,
         body: bodySectionRef,
         sleep: sleepSectionRef,
-        running: runningSectionRef,
+        running: fitnessSectionRef,
       };
       const ref = refs[section];
       if (ref && ref.current) {
@@ -210,9 +210,9 @@ const Dashboard = () => {
           </section>
         )}
 {running.length > 0 && (
-          <section id="running" ref={runningSectionRef}>
+          <section id="fitness" ref={fitnessSectionRef}>
             <MetricSection
-              title="Running"
+              title="Fitness"
               icon={Footprints}
               metrics={[
                 {
