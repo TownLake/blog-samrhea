@@ -13,6 +13,8 @@ export const HealthDataProvider = ({ children }) => {
   const [running, setRunning] = useState([]);
   const [clinicalSpark, setClinicalSpark] = useState([]);
   const [clinical, setClinical] = useState([]);
+  const [otherData, setOtherData] = useState([]); // New state for otherData
+  const [otherDataSpark, setOtherDataSpark] = useState([]); // New state for otherData sparklines
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -32,18 +34,18 @@ export const HealthDataProvider = ({ children }) => {
         setRunning(data.running || []);
         setClinicalSpark(data.clinicalSpark || []);
         setClinical(data.clinical || []);
-      } catch (err) {
-        console.error('Error loading health data:', err);
+        setOtherData(data.otherData || []); // Set new data
+        setOtherDataSpark(data.otherDataSpark || []); // Set new sparkline data
+
+      } catch (err) { // This catch might be for errors not caught within fetchHealthData
+        console.error('Error loading health data in context:', err);
         setError(err.message || 'Failed to load health data');
         
-        // Set empty arrays on error to prevent undefined access
-        setOuraSpark([]);
-        setOura([]);
-        setWithings([]);
-        setRunningSpark([]);
-        setRunning([]);
-        setClinicalSpark([]);
-        setClinical([]);
+        // Set empty arrays on error
+        setOuraSpark([]); setOura([]); setWithings([]);
+        setRunningSpark([]); setRunning([]);
+        setClinicalSpark([]); setClinical([]);
+        setOtherData([]); setOtherDataSpark([]); // Also clear new data on error
       } finally {
         setIsLoading(false);
       }
@@ -61,6 +63,8 @@ export const HealthDataProvider = ({ children }) => {
     running,
     clinicalSpark,
     clinical,
+    otherData,         // Provide new data
+    otherDataSpark,    // Provide new sparkline data
     isLoading,
     error
   };
