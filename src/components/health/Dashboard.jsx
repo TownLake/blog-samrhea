@@ -10,7 +10,7 @@ import HealthIntroCard from './HealthIntroCard';
 import Card from '../Card';
 // import useDarkMode from '../../hooks/useDarkMode'; // Not used in this snippet
 import { useHealthData } from '../../store/HealthDataContext';
-import { hasValidData } from '../../utils/dataUtils';
+// import { hasValidData } from '../../utils/dataUtils'; // Not directly used for this component's logic anymore
 import { getMetricCategoryInfo } from '../../utils/healthCategories';
 
 const LoadingView = () => (
@@ -68,7 +68,6 @@ const Dashboard = () => {
     return <LoadingView />;
   }
 
-  // Consider all relevant data sources for showing error or "no data"
   const allPrimaryDataEmpty = !(oura && oura.length > 0) &&
                              !(withings && withings.length > 0) &&
                              !(running && running.length > 0) &&
@@ -136,6 +135,17 @@ const Dashboard = () => {
       fullData: otherData,
       dataKey: "peak_flow"
     });
+    // SWAPPED ORDER HERE: Left Hand Grip first, then Right Hand Grip
+    fitnessMetrics.push({
+      title: "Left Hand Grip",
+      value: latestOtherData?.weak_grip?.toFixed(1) ?? '--', // Assuming 'weak_grip' is the key for left hand
+      unit: "kg",
+      ...getMetricCategoryInfo('weak_grip', latestOtherData?.weak_grip),
+      sparklineData: createSparklineData(otherDataSpark, 'weak_grip'),
+      icon: Hand,
+      fullData: otherData,
+      dataKey: "weak_grip"
+    });
     fitnessMetrics.push({
       title: "Right Hand Grip",
       value: latestOtherData?.strong_grip?.toFixed(1) ?? '--',
@@ -146,19 +156,8 @@ const Dashboard = () => {
       fullData: otherData,
       dataKey: "strong_grip"
     });
-    fitnessMetrics.push({
-      title: "Left Hand Grip",
-      value: latestOtherData?.weak_grip?.toFixed(1) ?? '--',
-      unit: "kg",
-      ...getMetricCategoryInfo('weak_grip', latestOtherData?.weak_grip),
-      sparklineData: createSparklineData(otherDataSpark, 'weak_grip'),
-      icon: Hand,
-      fullData: otherData,
-      dataKey: "weak_grip"
-    });
   }
   
-  // Condition for showing the Fitness section
   const showFitnessSection = fitnessMetrics.length > 0;
 
   return (
@@ -168,7 +167,7 @@ const Dashboard = () => {
       <HealthIntroCard />
 
       <div className="space-y-10">
-        {/* Heart Section */}
+        {/* Heart Section - unchanged */}
         {oura && oura.length > 0 && (
           <section id="heart" ref={heartSectionRef}>
             <MetricSection
@@ -200,7 +199,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Body Section */}
+        {/* Body Section - unchanged */}
         {withings && withings.length > 0 && (
           <section id="body" ref={bodySectionRef}>
             <MetricSection
@@ -232,7 +231,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Sleep Section */}
+        {/* Sleep Section - unchanged */}
         {oura && oura.length > 0 && (
           <section id="sleep" ref={sleepSectionRef}>
             <MetricSection
@@ -290,7 +289,7 @@ const Dashboard = () => {
             <MetricSection
               title="Fitness"
               icon={Footprints}
-              metrics={fitnessMetrics.filter(metric => metric && Object.keys(metric).length > 0)} // Ensure no empty objects
+              metrics={fitnessMetrics.filter(metric => metric && Object.keys(metric).length > 0)}
             />
           </section>
         )}
