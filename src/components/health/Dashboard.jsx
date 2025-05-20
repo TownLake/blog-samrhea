@@ -2,15 +2,15 @@
 import React, { useEffect, useRef } from 'react';
 import {
   Heart, Scale, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse,
-  Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand // Added Wind, Hand
+  Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand
 } from 'lucide-react';
 import { createSparklineData } from '../../utils/dataUtils';
 import MetricSection from './MetricSection';
 import HealthIntroCard from './HealthIntroCard';
 import Card from '../Card';
-// import useDarkMode from '../../hooks/useDarkMode'; // useDarkMode is not used in this component snippet
+// import useDarkMode from '../../hooks/useDarkMode'; // Not used in this snippet
 import { useHealthData } from '../../store/HealthDataContext';
-import { hasValidData } from '../../utils/dataUtils'; // hasValidData might need to be updated if 'otherData' is a primary source
+import { hasValidData } from '../../utils/dataUtils';
 import { getMetricCategoryInfo } from '../../utils/healthCategories';
 
 const LoadingView = () => (
@@ -31,20 +31,19 @@ const ErrorView = ({ message }) => (
 );
 
 const Dashboard = () => {
-  // const [isDarkMode] = useDarkMode(); // isDarkMode not used
   const {
     ouraSpark, oura,
-    withings, // Assuming withings data is available for hasValidData check
+    withings,
     runningSpark, running,
     clinicalSpark, clinical,
-    otherData, otherDataSpark, // Get new data from context
+    otherData, otherDataSpark,
     isLoading, error,
   } = useHealthData();
 
   const heartSectionRef = useRef(null);
   const bodySectionRef = useRef(null);
   const sleepSectionRef = useRef(null);
-  const fitnessSectionRef = useRef(null); // Already exists
+  const fitnessSectionRef = useRef(null);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -54,44 +53,122 @@ const Dashboard = () => {
         heart: heartSectionRef,
         body: bodySectionRef,
         sleep: sleepSectionRef,
-        fitness: fitnessSectionRef, // Corrected from 'running' to 'fitness' to match ID
+        fitness: fitnessSectionRef,
       };
       const ref = refs[section];
       if (ref && ref.current) {
         setTimeout(() => {
           ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100); // Delay to ensure content is rendered
+        }, 100);
       }
     }
-  }, [isLoading]); // Rerun on isLoading change
+  }, [isLoading]);
 
   if (isLoading) {
     return <LoadingView />;
   }
 
-  // Update hasValidData if 'otherData' should also be considered for initial dashboard display
-  // For now, keeps original logic:
-  if (!hasValidData(oura, withings) && !(running && running.length > 0) && !(otherData && otherData.length > 0)) {
-     // If all primary data sources are empty, show error or a "no data" state
+  // Consider all relevant data sources for showing error or "no data"
+  const allPrimaryDataEmpty = !(oura && oura.length > 0) &&
+                             !(withings && withings.length > 0) &&
+                             !(running && running.length > 0) &&
+                             !(otherData && otherData.length > 0) &&
+                             !(clinical && clinical.length > 0 && clinical[0]?.vo2_max_clinical);
+
+
+  if (allPrimaryDataEmpty) {
     if (error) {
         return <ErrorView message={error} />;
     }
-    // You might want a specific "No data available" view if error is null but data is empty
-    return <ErrorView message="No health data available to display. Please check your data sources." />;
+    return <ErrorView message="No relevant health data available to display. Please check your data sources." />;
   }
   
-  // Check if 'otherData' exists and has entries before trying to access otherData[0]
   const latestOtherData = otherData && otherData.length > 0 ? otherData[0] : {};
+  const latestClinicalData = clinical && clinical.length > 0 ? clinical[0] : {};
+
+  // Build fitness metrics array conditionally
+  const fitnessMetrics = [];
+
+  if (running && running.length > 0) {
+    fitnessMetrics.push({
+      title: "VO2 Max (Watch)",
+      value: running[0]?.vo2_max?.toFixed(1) ?? '--',
+      unit: "",
+      ...getMetricCategoryInfo('vo2_max', running[0]?.vo2_max),
+      sparklineData: createSparklineData(runningSpark, 'vo2_max'),
+      icon: Watch,
+      fullData: running,
+      dataKey: "vo2_max"
+    });
+    fitnessMetrics.push({
+      title: "5K Time",
+      value: running[0]?.five_k_formatted ?? '--:--',
+      unit: "",
+      ...getMetricCategoryInfo('five_k_seconds', running[0]?.five_k_seconds),
+      sparklineData: createSparklineData(runningSpark, 'five_k_seconds'),
+      icon: Timer,
+      fullData: running,
+      dataKey: "five_k_seconds"
+    });
+  }
+
+  if (clinical && clinical.length > 0 && latestClinicalData?.vo2_max_clinical) {
+    fitnessMetrics.push({
+      title: "VO2 Max (Clinical)",
+      value: latestClinicalData?.vo2_max_clinical?.toFixed(1) ?? '--',
+      unit: "",
+      ...getMetricCategoryInfo('vo2_max_clinical', latestClinicalData?.vo2_max_clinical),
+      sparklineData: createSparklineData(clinicalSpark, 'vo2_max_clinical'),
+      icon: Microscope,
+      fullData: clinical,
+      dataKey: "vo2_max_clinical"
+    });
+  }
+
+  if (otherData && otherData.length > 0) {
+    fitnessMetrics.push({
+      title: "Peak Flow",
+      value: latestOtherData?.peak_flow?.toFixed(0) ?? '--',
+      unit: "L/min",
+      ...getMetricCategoryInfo('peak_flow', latestOtherData?.peak_flow),
+      sparklineData: createSparklineData(otherDataSpark, 'peak_flow'),
+      icon: Wind,
+      fullData: otherData,
+      dataKey: "peak_flow"
+    });
+    fitnessMetrics.push({
+      title: "Right Hand Grip",
+      value: latestOtherData?.strong_grip?.toFixed(1) ?? '--',
+      unit: "kg",
+      ...getMetricCategoryInfo('strong_grip', latestOtherData?.strong_grip),
+      sparklineData: createSparklineData(otherDataSpark, 'strong_grip'),
+      icon: Hand,
+      fullData: otherData,
+      dataKey: "strong_grip"
+    });
+    fitnessMetrics.push({
+      title: "Left Hand Grip",
+      value: latestOtherData?.weak_grip?.toFixed(1) ?? '--',
+      unit: "kg",
+      ...getMetricCategoryInfo('weak_grip', latestOtherData?.weak_grip),
+      sparklineData: createSparklineData(otherDataSpark, 'weak_grip'),
+      icon: Hand,
+      fullData: otherData,
+      dataKey: "weak_grip"
+    });
+  }
+  
+  // Condition for showing the Fitness section
+  const showFitnessSection = fitnessMetrics.length > 0;
 
   return (
     <div className="pt-2 pb-8">
-      {/* Display error prominently if it exists, even if some data might be loaded partially */}
       {error && !isLoading && <ErrorView message={error} />}
 
       <HealthIntroCard />
 
       <div className="space-y-10">
-        {/* Heart Section - unchanged */}
+        {/* Heart Section */}
         {oura && oura.length > 0 && (
           <section id="heart" ref={heartSectionRef}>
             <MetricSection
@@ -123,7 +200,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Body Section - unchanged */}
+        {/* Body Section */}
         {withings && withings.length > 0 && (
           <section id="body" ref={bodySectionRef}>
             <MetricSection
@@ -134,8 +211,7 @@ const Dashboard = () => {
                   title: "Weight",
                   value: withings[0]?.weight?.toFixed(1) ?? '--',
                   unit: "lbs",
-                  // Explicitly default for Weight as it has no categories defined
-                  ...getMetricCategoryInfo('weight', withings[0]?.weight), // Will return 'default'
+                  ...getMetricCategoryInfo('weight', withings[0]?.weight),
                   sparklineData: createSparklineData(withings, 'weight'),
                   icon: Scale,
                   fullData: withings,
@@ -156,7 +232,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Sleep Section - unchanged */}
+        {/* Sleep Section */}
         {oura && oura.length > 0 && (
           <section id="sleep" ref={sleepSectionRef}>
             <MetricSection
@@ -169,7 +245,7 @@ const Dashboard = () => {
                   unit: "h",
                   ...getMetricCategoryInfo('total_sleep', oura[0]?.total_sleep),
                   sparklineData: createSparklineData(ouraSpark, 'total_sleep'),
-                  icon: BedDouble, // Can reuse or pick a more specific one
+                  icon: BedDouble,
                   fullData: oura,
                   dataKey: "total_sleep"
                 },
@@ -208,85 +284,13 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Fitness Section - ADD NEW METRICS HERE */}
-        {/* Ensure fitness section shows if either running OR otherData is available */}
-        {(running && running.length > 0 || otherData && otherData.length > 0) && (
+        {/* Fitness Section - Updated Logic */}
+        {showFitnessSection && (
           <section id="fitness" ref={fitnessSectionRef}>
             <MetricSection
               title="Fitness"
-              icon={Footprints} // Main icon for fitness
-              metrics={[
-                // Existing Fitness Metrics (if running data is available)
-                ...(running && running.length > 0 ? [
-                  {
-                    title: "VO2 Max (Watch)",
-                    value: running[0]?.vo2_max?.toFixed(1) ?? '--',
-                    unit: "", // Unit is often part of the title or implied
-                    ...getMetricCategoryInfo('vo2_max', running[0]?.vo2_max),
-                    sparklineData: createSparklineData(runningSpark, 'vo2_max'),
-                    icon: Watch,
-                    fullData: running,
-                    dataKey: "vo2_max"
-                  },
-                  { // Only show clinical VO2 if clinical data exists
-                    ...(clinical && clinical.length > 0 && clinical[0]?.vo2_max_clinical ? [{
-                        title: "VO2 Max (Clinical)",
-                        value: clinical[0]?.vo2_max_clinical?.toFixed(1) ?? '--',
-                        unit: "",
-                        ...getMetricCategoryInfo('vo2_max_clinical', clinical[0]?.vo2_max_clinical), // use 'vo2_max_clinical' if ranges differ
-                        sparklineData: createSparklineData(clinicalSpark, 'vo2_max_clinical'),
-                        icon: Microscope,
-                        fullData: clinical,
-                        dataKey: "vo2_max_clinical"
-                    }] : [])
-                  },
-                  {
-                    title: "5K Time",
-                    value: running[0]?.five_k_formatted ?? '--:--',
-                    unit: "", // Unit is in formatted time
-                    ...getMetricCategoryInfo('five_k_seconds', running[0]?.five_k_seconds), // No category for 5K
-                    sparklineData: createSparklineData(runningSpark, 'five_k_seconds'),
-                    icon: Timer,
-                    fullData: running,
-                    dataKey: "five_k_seconds"
-                  }
-                ] : []),
-                
-                // New Fitness Metrics (if otherData is available)
-                ...(otherData && otherData.length > 0 ? [
-                  {
-                    title: "Peak Flow",
-                    value: latestOtherData?.peak_flow?.toFixed(0) ?? '--', // Or toFixed(1) if needed
-                    unit: "L/min",
-                    ...getMetricCategoryInfo('peak_flow', latestOtherData?.peak_flow),
-                    sparklineData: createSparklineData(otherDataSpark, 'peak_flow'),
-                    icon: Wind, // Lucide icon for wind/air flow
-                    fullData: otherData,
-                    dataKey: "peak_flow"
-                  },
-                  {
-                    title: "Right Hand Grip",
-                    value: latestOtherData?.strong_grip?.toFixed(1) ?? '--',
-                    unit: "kg",
-                    ...getMetricCategoryInfo('strong_grip', latestOtherData?.strong_grip),
-                    sparklineData: createSparklineData(otherDataSpark, 'strong_grip'),
-                    icon: Hand, // Lucide icon (generic Hand, or find a specific Grip icon)
-                    fullData: otherData,
-                    dataKey: "strong_grip"
-                  },
-                  {
-                    title: "Left Hand Grip",
-                    value: latestOtherData?.weak_grip?.toFixed(1) ?? '--', // Assuming 'weak_grip' is the key for left hand
-                    unit: "kg",
-                    ...getMetricCategoryInfo('weak_grip', latestOtherData?.weak_grip),
-                    sparklineData: createSparklineData(otherDataSpark, 'weak_grip'),
-                    icon: Hand, // Can use the same icon, or a mirrored one if available
-                    fullData: otherData,
-                    dataKey: "weak_grip"
-                  }
-                ] : [])
-              ].filter(metric => metric && Object.keys(metric).length > 0) // Filter out any potentially empty objects from conditional spreading
-            }
+              icon={Footprints}
+              metrics={fitnessMetrics.filter(metric => metric && Object.keys(metric).length > 0)} // Ensure no empty objects
             />
           </section>
         )}
