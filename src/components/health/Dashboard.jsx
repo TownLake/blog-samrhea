@@ -103,7 +103,8 @@ const Dashboard = () => {
       title: "5K Time",
       value: running[0]?.five_k_formatted ?? '--:--',
       unit: "",
-      ...getMetricCategoryInfo('five_k_seconds', running[0]?.five_k_seconds),
+      // Now getMetricCategoryInfo will provide a category based on the new ranges
+      ...getMetricCategoryInfo('five_k_seconds', running[0]?.five_k_seconds), 
       sparklineData: createSparklineData(runningSpark, 'five_k_seconds'),
       icon: Timer,
       fullData: running,
