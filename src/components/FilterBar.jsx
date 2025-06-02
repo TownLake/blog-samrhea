@@ -7,10 +7,19 @@ const FilterBar = ({ options, currentOption, onOptionClick, useNavLink = false }
     <div className="w-full mb-8 flex justify-center">
       <div className="flex space-x-2">
         {options.map((option) => {
+          // Get the icon from the option. It could be a string (emoji) or a component.
+          const Icon = option.icon;
+
           // Prepare the common content
           const buttonContent = (
             <div className="flex items-center">
-              <span className={currentOption === option.id ? "mr-2" : ""}>{option.icon}</span>
+              <span className={currentOption === option.id ? "mr-2" : ""}>
+                {/* Check if the Icon is a function (meaning it's a component).
+                  If so, render it as a JSX element with a size prop.
+                  Otherwise, render it directly as a string (emoji).
+                */}
+                {typeof Icon === 'function' ? <Icon size={18} /> : Icon}
+              </span>
               {currentOption === option.id && <span>{option.label}</span>}
             </div>
           );
@@ -28,7 +37,7 @@ const FilterBar = ({ options, currentOption, onOptionClick, useNavLink = false }
             <NavLink
               key={option.id}
               to={option.path}
-              className={({ isActive }) => commonClasses}
+              className={commonClasses}
             >
               {buttonContent}
             </NavLink>
