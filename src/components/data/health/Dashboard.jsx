@@ -1,17 +1,17 @@
-// src/components/health/Dashboard.jsx
+// src/components/data/health/Dashboard.jsx
 import React, { useEffect, useRef } from 'react';
 import {
   Heart, Scale, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse,
   Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand
 } from 'lucide-react';
-import { createSparklineData } from '../../utils/dataUtils';
+import { createSparklineData } from '../../../utils/dataUtils';
 import MetricSection from './MetricSection';
 import HealthIntroCard from './HealthIntroCard';
-import Card from '../Card';
+import Card from '../../Card';
 // import useDarkMode from '../../hooks/useDarkMode'; // Not used in this snippet
-import { useHealthData } from '../../store/HealthDataContext';
+import { useHealthData } from '../../../store/HealthDataContext';
 // import { hasValidData } from '../../utils/dataUtils'; // Not directly used for this component's logic anymore
-import { getMetricCategoryInfo } from '../../utils/healthCategories';
+import { getMetricCategoryInfo } from '../../../utils/healthCategories';
 
 const LoadingView = () => (
   <div className="py-20 text-center text-gray-500 dark:text-gray-400">

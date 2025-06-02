@@ -1,10 +1,10 @@
-// src/components/health/charts/MonthlyChart.jsx
+// src/components/data/health/charts/MonthlyChart.jsx
 import React, { memo, useMemo } from 'react';
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import { formatSecondsToMMSS } from '../../../utils/dataUtils'; // Adjust path
-import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Add category utility
+import { formatSecondsToMMSS } from '../../../../utils/dataUtils'; // Adjust path
+import { getMetricCategoryInfo } from '../../../../utils/healthCategories'; // Add category utility
 import MonthlyTooltip from '../tooltips/MonthlyTooltip'; // Adjust path
-import { chartMargins, monthlyChartConfig, axisConfig, gridConfig } from '../../../config/chartConfig'; // Adjust path
+import { chartMargins, monthlyChartConfig, axisConfig, gridConfig } from '../../../../config/chartConfig'; // Adjust path
 
 const MonthlyChart = memo(({ monthlyData, unit, domain, dataKey, isDarkMode }) => { // UPDATED props
   const axisColors = isDarkMode ? axisConfig.dark : axisConfig.light;

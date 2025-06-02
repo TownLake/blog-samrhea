@@ -1,9 +1,9 @@
-// src/components/health/MetricSection.jsx
+// src/components/data/health/MetricSection.jsx
 
 import React from 'react';
 import MetricCard from './MetricCard';
-import Card from '../Card';
-import useDarkMode from '../../hooks/useDarkMode';
+import Card from '../../Card';
+import useDarkMode from '../../../hooks/useDarkMode';
 
 const MetricSection = ({ title, icon: Icon, metrics }) => {
   const [isDarkMode] = useDarkMode();

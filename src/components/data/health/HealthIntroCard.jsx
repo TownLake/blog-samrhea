@@ -1,7 +1,7 @@
-// src/components/health/HealthIntroCard.jsx
+// src/components/data/health/HealthIntroCard.jsx
 
 import React from 'react';
-import Card from '../Card';
+import Card from '../../Card';
 import { BarChart2 } from 'lucide-react';
 
 const HealthIntroCard = () => (

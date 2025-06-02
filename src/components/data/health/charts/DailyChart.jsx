@@ -1,9 +1,9 @@
-// src/components/health/charts/DailyChart.jsx
+// src/components/data/health/charts/DailyChart.jsx
 import React, { memo, useMemo } from 'react';
 import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { formatSecondsToMMSS } from '../../../utils/dataUtils'; // Adjust path as needed
+import { formatSecondsToMMSS } from '../../../../utils/dataUtils'; // Adjust path as needed
 import CustomTooltip from '../tooltips/CustomTooltip'; // Adjust path as needed
-import { chartMargins, axisConfig, gridConfig } from '../../../config/chartConfig'; // Adjust path as needed
+import { chartMargins, axisConfig, gridConfig } from '../../../../config/chartConfig'; // Adjust path as needed
 
 const DailyChart = memo(({
   chartData: initialChartData,

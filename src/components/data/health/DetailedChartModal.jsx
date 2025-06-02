@@ -1,9 +1,9 @@
-// src/components/health/DetailedChartModal.jsx
+// src/components/data/health/DetailedChartModal.jsx
 import React, { useState, useMemo, memo, useEffect } from 'react';
 import { X, BarChart2, LineChart as LineChartIcon } from 'lucide-react';
-import useDarkMode from '../../hooks/useDarkMode';
-import { createMonthlyAverageData, createDetailChartData } from '../../utils/dataUtils';
-import { getMetricCategoryInfo } from '../../utils/healthCategories';
+import useDarkMode from '../../../hooks/useDarkMode';
+import { createMonthlyAverageData, createDetailChartData } from '../../../utils/dataUtils';
+import { getMetricCategoryInfo } from '../../../utils/healthCategories';
 import DailyChart from './charts/DailyChart';
 import MonthlyChart from './charts/MonthlyChart';
 

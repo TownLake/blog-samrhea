@@ -1,10 +1,11 @@
 // src/constants/index.js
 // Centralized constants for the application
+import { Activity, Newspaper, Pill, Laptop } from 'lucide-react'; // Import new icons
 
 // Pagination
 export const POSTS_PER_PAGE = 12;
 
-// Filter options for main page
+// Filter options for main page (blog)
 export const FILTER_OPTIONS = [
   { id: 'Starred', label: 'Hits', icon: '⭐' },
   { id: 'Reading', label: 'Reading', icon: '📚' },
@@ -22,12 +23,21 @@ export const ABOUT_SECTIONS = [
   { id: 'projects', label: 'Projects', icon: '🚧', path: '/about/projects' },
 ];
 
+// Data page section options (NEW)
+export const DATA_SECTIONS = [
+  { id: 'health', label: 'Health', icon: Activity, path: '/data/health' },
+  { id: 'news', label: 'News', icon: Newspaper, path: '/data/news' },
+  { id: 'supplements', label: 'Supplements', icon: Pill, path: '/data/supplements' },
+  { id: 'digital', label: 'Digital', icon: Laptop, path: '/data/digital' },
+];
+
+
 // API Endpoints
 export const API_ENDPOINTS = {
   POSTS: '/posts.json',
   POST_CONTENT: (filename) => `/content/posts/${filename}`,
   ABOUT_CONTENT: (section) => `/content/about/${section}.md`,
-  SEARCH: '/api/search', // Added Search API endpoint
+  SEARCH: '/api/search',
 };
 
 // Animation timings
@@ -42,7 +52,7 @@ export const ERROR_MESSAGES = {
   POST_NOT_FOUND: 'Post not found',
   POST_CONTENT_NOT_FOUND: 'Post content not found',
   CONTENT_LOAD_FAILED: 'Failed to load content',
-  SEARCH_FAILED_GENERIC: 'An error occurred during search.', // Added generic search error
+  SEARCH_FAILED_GENERIC: 'An error occurred during search.',
   DEFAULT_EMPTY_CONTENT: 'Content not available.',
 };
 
@@ -50,11 +60,11 @@ export const ERROR_MESSAGES = {
 export const DEFAULT_MESSAGES = {
   LOADING_POSTS: 'Loading posts...',
   LOADING_POST: 'Loading post...',
-  LOADING_CONTENT: 'Loading content...', // Added generic loading
-  LOADING_SEARCH: 'Searching content...', // Added search loading
+  LOADING_CONTENT: 'Loading content...',
+  LOADING_SEARCH: 'Searching content...',
   NO_POSTS_FOUND: 'No posts found with the selected filter.',
-  NO_SEARCH_RESULTS: (query) => `No results found for "${query}"`, // Dynamic no results message
-  SEARCH_SHORT_QUERY: (length) => `Please enter at least ${length} characters.`, // Dynamic short query message
+  NO_SEARCH_RESULTS: (query) => `No results found for "${query}"`,
+  SEARCH_SHORT_QUERY: (length) => `Please enter at least ${length} characters.`,
   POST_NOT_FOUND_TITLE: 'Post Not Found',
   POST_NOT_FOUND_MESSAGE: 'Sorry, the post you\'re looking for doesn\'t exist or has been moved.',
   SECTION_NOT_FOUND: 'Section not found',
@@ -67,6 +77,15 @@ export const ROUTES = {
   ABOUT_SECTION: (section) => `/about/${section}`,
   POST: (slug) => `/post/${slug}`,
   FILTER: (filter) => `/${filter.toLowerCase()}`,
+  
+  // Data section routes (NEW)
+  DATA: '/data',
+  DATA_HEALTH: '/data/health',
+  DATA_NEWS: '/data/news',
+  DATA_SUPPLEMENTS: '/data/supplements',
+  DATA_DIGITAL: '/data/digital',
+  DATA_SECTION: (section) => `/data/${section}`, // Helper for dynamic section paths
+
   NOT_FOUND: '/404',
 };
 
@@ -83,11 +102,8 @@ export const STORAGE_KEYS = {
   CONTENT_CACHE: 'contentCache',
 };
 
-// Event names (Removed DARK_MODE_CHANGE)
-// export const EVENTS = { ... }; // Can remove if empty
-
 // Search Configuration
 export const SEARCH_CONFIG = {
-    DEBOUNCE_DELAY: 300, // ms
+    DEBOUNCE_DELAY: 300,
     MIN_QUERY_LENGTH: 2,
 };
