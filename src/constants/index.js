@@ -1,6 +1,10 @@
 // src/constants/index.js
 // Centralized constants for the application
-import { Activity, Newspaper, Pill, Laptop } from 'lucide-react'; // Import new icons
+// Lucide icons are still used for ABOUT_SECTIONS, so keep those imports if needed,
+// or remove specific ones if they are no longer used anywhere else.
+// For this example, I'm assuming some Lucide icons might still be used elsewhere or in ABOUT_SECTIONS.
+// If not, you can remove them. For now, I'll only remove the ones explicitly replaced.
+// import { Activity, Newspaper, Pill, Laptop } from 'lucide-react'; // REMOVED these as they are replaced by emojis for DATA_SECTIONS
 
 // Pagination
 export const POSTS_PER_PAGE = 12;
@@ -15,6 +19,7 @@ export const FILTER_OPTIONS = [
 ];
 
 // About page section options
+// Assuming these still use Lucide icons or other non-emoji icons as previously defined
 export const ABOUT_SECTIONS = [
   { id: 'home', label: 'Home', icon: '👋', path: '/about/home' },
   { id: 'work', label: 'Work', icon: '👷', path: '/about/work' },
@@ -23,13 +28,12 @@ export const ABOUT_SECTIONS = [
   { id: 'projects', label: 'Projects', icon: '🚧', path: '/about/projects' },
 ];
 
-// Data page section options
+// Data page section options (UPDATED with Emojis)
 export const DATA_SECTIONS = [
-  { id: 'health', label: 'Health', icon: Activity, path: '/data/health' },
-  { id: 'news', label: 'News', icon: Newspaper, path: '/data/news' },
-  // *** FIXED THE PATH FOR SUPPLEMENTS ***
-  { id: 'supplements', label: 'Supplements', icon: Pill, path: '/data/supplements' },
-  { id: 'digital', label: 'Digital', icon: Laptop, path: '/data/digital' },
+  { id: 'health', label: 'Health', icon: '❤️', path: '/data/health' },
+  { id: 'news', label: 'News', icon: '📰', path: '/data/news' },
+  { id: 'supplements', label: 'Supplements', icon: '💊', path: '/data/supplements' },
+  { id: 'digital', label: 'Digital', icon: '💻', path: '/data/digital' },
 ];
 
 
