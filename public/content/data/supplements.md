@@ -15,12 +15,12 @@
 
 ---
 
-## Post-Workout / Breakfast – **With food (contains fat)**
+## Post-Workout / Breakfast – **With food (containing fat)**
 
 | Substance | Nutrient(s) & Amount |
 |-----------|----------------------|
 | 🌾 **Fiber Blend — 1 scoop** | PHGG **6 g** • Turmeric **150 mg** • Ginger **50 mg** • Boswellia **20 mg** |
-| **Multivitamin — 1 tablet** | Vitamins A-K, full B-complex, minerals & botanical blends (see label) |
+| 💊 **Multivitamin — 1 tablet** | Vitamins A-K, full B-complex, minerals & botanical blends (see label) |
 | 🐟 **Omega-3 Fish-Oil — 2 softgels** | Fish-oil concentrate **2.2 g** → EPA **360 mg**, DHA **240 mg**, Other ω-3 **40 mg** |
 | 🔄 **L-Lysine — 1 capsule** | L-Lysine **500 mg** |
 
