@@ -10,7 +10,10 @@ import {
   Tooltip,
   Cell
 } from 'recharts';
-import { chartMargins, axisConfig, gridConfig, CATEGORY_COLORS } from '../../config/chartConfig';
+// Imports from chartConfig are fine
+import { chartMargins, axisConfig, gridConfig } from '../../config/chartConfig';
+// CATEGORY_COLORS is imported from healthCategories
+import { CATEGORY_COLORS } from '../../utils/healthCategories';
 // Corrected import path for CustomTooltip
 import CustomTooltip from '../data/health/tooltips/CustomTooltip';
 
@@ -19,7 +22,8 @@ const SimpleBarChart = memo(({
   xAxisDataKey,
   barDataKey,
   layout = "horizontal",
-  barColor = CATEGORY_COLORS.good || '#3b82f6',
+  // Default barColor now references the correctly imported CATEGORY_COLORS
+  barColor = CATEGORY_COLORS.good || '#3b82f6', 
   isDarkMode,
   height = 320,
   unit = "",
@@ -98,7 +102,6 @@ const SimpleBarChart = memo(({
           )}
           <Tooltip
             cursor={{ fill: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)' }}
-            // Passing originalDataKey as barDataKey. CustomTooltip will need to handle this.
             content={<CustomTooltip unit={unit} originalDataKey={barDataKey} />}
           />
           <Bar dataKey={barDataKey} radius={[4, 4, 0, 0]} barSize={barSize}>
