@@ -31,8 +31,8 @@ export const ABOUT_SECTIONS = [
 // Data page section options (UPDATED with Emojis)
 export const DATA_SECTIONS = [
   { id: 'health', label: 'Health', icon: '❤️', path: '/data/health' },
-  { id: 'news', label: 'News', icon: '📰', path: '/data/news' },
   { id: 'supplements', label: 'Supplements', icon: '💊', path: '/data/supplements' },
+  { id: 'news', label: 'News', icon: '📰', path: '/data/news' },
   { id: 'digital', label: 'Digital', icon: '💻', path: '/data/digital' },
 ];
 
