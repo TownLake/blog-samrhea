@@ -1,12 +1,12 @@
 // src/components/data/health/DetailedChartModal.jsx
 import React, { useState, useMemo, memo, useEffect } from 'react';
-import { BarChart2, LineChart as LineChartIcon } from 'lucide-react'; // X is now handled by ChartModal
-import useDarkMode from '../../../hooks/useDarkMode'; // Adjusted path
-import { createMonthlyAverageData, createDetailChartData } from '../../../utils/dataUtils'; // Adjusted path
-import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Adjusted path
+import { BarChart2, LineChart as LineChartIcon } from 'lucide-react';
+import useDarkMode from '../../../hooks/useDarkMode';
+import { createMonthlyAverageData, createDetailChartData } from '../../../utils/dataUtils';
+import { getMetricCategoryInfo } from '../../../utils/healthCategories';
 import DailyChart from './charts/DailyChart';
 import MonthlyChart from './charts/MonthlyChart';
-import ChartModal from '../../modals/ChartModal'; // Import the generic modal
+import ChartModal from '../../modals/ChartModal';
 
 const DetailedChartModal = memo(({
   isOpen,
@@ -14,8 +14,8 @@ const DetailedChartModal = memo(({
   title,
   data,
   dataKey,
-  unit,
-  icon: Icon, // This is the icon for the specific metric
+  unit, // Unit will be passed to ChartModal
+  icon: Icon,
   lineColor
 }) => {
   const [viewMode, setViewMode] = useState('monthly');
@@ -23,12 +23,9 @@ const DetailedChartModal = memo(({
 
   useEffect(() => {
     if (isOpen) {
-      // When modal opens, reset to monthly view or a preferred default
       setViewMode('monthly');
-      console.log(`[DetailedChartModal] Rendering for "${title}". Default view mode: monthly`);
     }
-  }, [isOpen, title]);
-
+  }, [isOpen]);
 
   const chartData = useMemo(() => {
     if (!data || !Array.isArray(data)) return [];
@@ -46,7 +43,7 @@ const DetailedChartModal = memo(({
     if (values.length === 0) return [0, 100];
     const min = Math.min(...values);
     const max = Math.max(...values);
-    const padding = Math.max((max - min) * 0.2, (max === min ? 5 : 2)); // Ensure some padding if min=max
+    const padding = Math.max((max - min) * 0.2, (max === min ? 5 : 2));
     return [min - padding, max + padding];
   }, [chartData, dataKey]);
 
@@ -65,30 +62,23 @@ const DetailedChartModal = memo(({
   const effectiveLineColor = lineColor || categoryColor;
 
   const toggleView = () => {
-    setViewMode(currentMode => {
-      const newMode = currentMode === 'daily' ? 'monthly' : 'daily';
-      console.log(`[DetailedChartModal] Toggling view for "${title}" from ${currentMode} to ${newMode}`);
-      return newMode;
-    });
+    setViewMode(currentMode => (currentMode === 'daily' ? 'monthly' : 'daily'));
   };
 
   const headerActionsContent = (
-    <>
-      {unit && <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 hidden md:inline">({unit})</span>}
-      <button
-        onClick={toggleView}
-        className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-colors"
-        aria-label={viewMode === 'daily' ? 'Switch to monthly view' : 'Switch to daily view'}
-      >
-        {viewMode === 'daily' ?
-          <BarChart2 className="w-5 h-5 text-gray-500 dark:text-gray-400" /> :
-          <LineChartIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-        }
-      </button>
-    </>
+    // REMOVED unit from here
+    <button
+      onClick={toggleView}
+      className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-colors"
+      aria-label={viewMode === 'daily' ? 'Switch to monthly view' : 'Switch to daily view'}
+    >
+      {viewMode === 'daily' ?
+        <BarChart2 className="w-5 h-5 text-gray-500 dark:text-gray-400" /> :
+        <LineChartIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+      }
+    </button>
   );
 
-  // If not open or no dataKey (can happen during fast transitions), don't render
   if (!isOpen || !dataKey) return null;
 
   return (
@@ -96,10 +86,11 @@ const DetailedChartModal = memo(({
       isOpen={isOpen}
       onClose={onClose}
       title={title}
-      icon={Icon} // Pass the metric's specific icon to the generic modal
+      unit={unit} // PASS unit to ChartModal
+      icon={Icon}
       headerActions={headerActionsContent}
     >
-      <div className="h-[350px] sm:h-[400px] w-full"> {/* Fixed height for chart area */}
+      <div className="h-[350px] sm:h-[400px] w-full">
         {viewMode === 'daily' ? (
           <DailyChart
             chartData={chartData}
