@@ -1,5 +1,4 @@
 // src/utils/healthCategories.js
-
 /**
  * Health metrics categories and ranges.
  * Categories: 'excellent', 'good', 'fair', 'poor'
@@ -137,7 +136,10 @@ const METRIC_RANGES = {
     { category: 'good', min: 48, max: 54.000001 },              // 48 to 54 (inclusive)
     { category: 'fair', min: 40, max: 48 },                     // 40 to 47.99... (covers 40-47.9)
     { category: 'poor', min: 0, max: 40 }                       // < 40
-  ]
+  ],
+  
+  // Placeholder for new metric
+  'power_breathe_4_min': [],
 };
 
 /**

@@ -6,12 +6,10 @@ import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Add 
 import MonthlyTooltip from '../tooltips/MonthlyTooltip'; // Adjust path
 import { chartMargins, monthlyChartConfig, axisConfig, gridConfig } from '../../../config/chartConfig'; // Adjust path
 
-const MonthlyChart = memo(({ monthlyData, unit, minValue, maxValue, padding, dataKey, isDarkMode }) => {
-  // Determine colors based on dark mode
+const MonthlyChart = memo(({ monthlyData, unit, domain, dataKey, isDarkMode }) => { // UPDATED props
   const axisColors = isDarkMode ? axisConfig.dark : axisConfig.light;
   const gridColors = isDarkMode ? gridConfig.dark : gridConfig.light;
 
-  // Process data to add category colors to each data point
   const processedData = useMemo(() => {
     if (!monthlyData || !monthlyData.length) return [];
     
@@ -34,33 +32,34 @@ const MonthlyChart = memo(({ monthlyData, unit, minValue, maxValue, padding, dat
         <CartesianGrid
           strokeDasharray="3 3"
           vertical={false}
-          stroke={gridColors.stroke} // Use configured color
+          stroke={gridColors.stroke}
         />
         <XAxis
           dataKey="monthName"
-          stroke={axisColors.stroke} // Use configured color
-          tick={{ fill: axisColors.tickFill }} // Use configured color
-          tickLine={{ stroke: axisColors.stroke }} // Use configured color
-          axisLine={{ stroke: axisColors.axisLine }} // Use configured color
+          stroke={axisColors.stroke}
+          tick={{ fill: axisColors.tickFill }}
+          tickLine={{ stroke: axisColors.stroke }}
+          axisLine={{ stroke: axisColors.axisLine }}
         />
         <YAxis
-          stroke={axisColors.stroke} // Use configured color
-          domain={[minValue - padding, maxValue + padding]}
+          stroke={axisColors.stroke}
+          domain={domain} // Use the domain passed via props
           tickFormatter={(value) => {
             if (dataKey === 'five_k_seconds') return formatSecondsToMMSS(value);
             return `${Math.round(value)}`;
           }}
-          tick={{ fill: axisColors.tickFill }} // Use configured color
-          tickLine={{ stroke: axisColors.stroke }} // Use configured color
-          axisLine={{ stroke: axisColors.axisLine }} // Use configured color
+          tick={{ fill: axisColors.tickFill }}
+          tickLine={{ stroke: axisColors.stroke }}
+          axisLine={{ stroke: axisColors.axisLine }}
+          allowDataOverflow={true} // Important for custom domains
+          width={40} // Give Y-axis enough space
         />
-        <Tooltip content={<MonthlyTooltip unit={unit} dataKey={dataKey} />} cursor={{fill: 'rgba(156, 163, 175, 0.1)'}}/> {/* Subtle hover cursor */}
+        <Tooltip content={<MonthlyTooltip unit={unit} dataKey={dataKey} />} cursor={{fill: 'rgba(156, 163, 175, 0.1)'}}/>
         <Bar
           dataKey="average"
-          fill="#a1a1aa" // Default color (will be overridden by cell colors)
+          fill="#a1a1aa"
           radius={[4, 4, 0, 0]}
-          maxBarSize={monthlyChartConfig.maxBarSize} // Use configured size
-          // Use individual bar colors based on categories
+          maxBarSize={monthlyChartConfig.maxBarSize}
           isAnimationActive={false}
           name={dataKey}
         >

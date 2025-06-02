@@ -157,6 +157,16 @@ const Dashboard = () => {
       fullData: otherData,
       dataKey: "strong_grip"
     });
+    fitnessMetrics.push({
+      title: "Power Breathe 4 Min.",
+      value: '--',
+      unit: "min",
+      ...getMetricCategoryInfo('power_breathe_4_min', null),
+      sparklineData: [],
+      icon: Timer,
+      fullData: [],
+      dataKey: "power_breathe_4_min"
+    });
   }
   
   const showFitnessSection = fitnessMetrics.length > 0;

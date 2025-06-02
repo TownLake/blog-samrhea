@@ -11,63 +11,61 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
   const [viewMode, setViewMode] = useState('monthly');
   const [isDarkMode] = useDarkMode();
 
-  // Log rendering for debugging
   useEffect(() => {
     if (isOpen) {
       console.log(`[DetailedChartModal] Rendering for "${title}". View mode: ${viewMode}`);
     }
   }, [isOpen, title, viewMode]);
 
-  // For DailyChart - Create data for the last 3 months
   const chartData = useMemo(() => {
     if (!data || !Array.isArray(data)) return [];
     return createDetailChartData(data);
   }, [data]);
 
-  // For MonthlyChart - Use all available data points
   const monthlyData = useMemo(() => {
     if (!data || !Array.isArray(data)) return [];
     return createMonthlyAverageData(data, dataKey);
   }, [data, dataKey]);
 
-  // Calculate min/max values for daily chart
-  const dailyChartValues = useMemo(() => {
-    if (!chartData || chartData.length === 0) return { minValue: 0, maxValue: 100, padding: 10 };
+  // --- REFACTORED: Centralized Y-axis domain calculation ---
+  const dailyChartDomain = useMemo(() => {
+    if (!chartData || chartData.length === 0) return [0, 100];
     
     const values = chartData.map(d => d[dataKey]).filter(v => v !== null && v !== undefined);
-    if (values.length === 0) return { minValue: 0, maxValue: 100, padding: 10 };
+    if (values.length === 0) return [0, 100];
     
     const min = Math.min(...values);
     const max = Math.max(...values);
-    const pad = Math.max((max - min) * 0.1, 5);
     
-    return { minValue: min, maxValue: max, padding: pad };
+    // Use a sensible padding: 20% of the data range, with a minimum of 2 units.
+    const padding = Math.max((max - min) * 0.2, 2);
+    
+    return [min - padding, max + padding];
   }, [chartData, dataKey]);
 
-  // Calculate min/max values for monthly chart
-  const monthlyChartValues = useMemo(() => {
-    if (!monthlyData || monthlyData.length === 0) return { minValue: 0, maxValue: 100, padding: 10 };
+  const monthlyChartDomain = useMemo(() => {
+    if (!monthlyData || monthlyData.length === 0) return [0, 100];
     
     const values = monthlyData.map(d => d.average).filter(v => v !== null && v !== undefined);
-    if (values.length === 0) return { minValue: 0, maxValue: 100, padding: 10 };
+    if (values.length === 0) return [0, 100];
     
     const min = Math.min(...values);
     const max = Math.max(...values);
-    const pad = Math.max((max - min) * 0.1, 5);
-    
-    return { minValue: min, maxValue: max, padding: pad };
-  }, [monthlyData]);
 
-  // Get category for current value if available
+    // Use the same sensible padding logic.
+    const padding = Math.max((max - min) * 0.2, 2);
+
+    return [min - padding, max + padding];
+  }, [monthlyData]);
+  // ---
+
   const currentValue = data && data.length > 0 ? data[0][dataKey] : null;
   const { hexColor: categoryColor } = getMetricCategoryInfo(dataKey, currentValue);
   
-  // Use passed lineColor or fallback to category color
   const effectiveLineColor = lineColor || categoryColor;
 
   if (!isOpen) return null;
 
-  // Toggle between daily and monthly views
   const toggleView = () => {
     setViewMode(currentMode => {
       const newMode = currentMode === 'daily' ? 'monthly' : 'daily';
@@ -126,18 +124,14 @@ const DetailedChartModal = memo(({ isOpen, onClose, title, data, dataKey, unit, 
               dataKey={dataKey}
               unit={unit}
               lineColor={effectiveLineColor}
-              minValue={dailyChartValues.minValue}
-              maxValue={dailyChartValues.maxValue}
-              padding={dailyChartValues.padding}
+              domain={dailyChartDomain} // Pass calculated domain
               isDarkMode={isDarkMode}
             />
           ) : (
             <MonthlyChart
               monthlyData={monthlyData}
               unit={unit}
-              minValue={monthlyChartValues.minValue}
-              maxValue={monthlyChartValues.maxValue}
-              padding={monthlyChartValues.padding}
+              domain={monthlyChartDomain} // Pass calculated domain
               dataKey={dataKey}
               isDarkMode={isDarkMode}
             />
