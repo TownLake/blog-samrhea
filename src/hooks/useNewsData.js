@@ -6,6 +6,7 @@ const useNewsData = (days = 90, sourceDays = 30) => {
     articlesByDay: [],
     articlesBySource: [],
     articlesByHour: [],
+    articlesByDayOfWeek: [], // ADDED
     recentArticles: [],
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,14 @@ const useNewsData = (days = 90, sourceDays = 30) => {
           throw new Error(`Failed to fetch news data: ${response.statusText}`);
         }
         const data = await response.json();
-        setNewsData(data);
+        // Ensure all expected arrays are initialized even if API doesn't return them
+        setNewsData({
+            articlesByDay: data.articlesByDay || [],
+            articlesBySource: data.articlesBySource || [],
+            articlesByHour: data.articlesByHour || [],
+            articlesByDayOfWeek: data.articlesByDayOfWeek || [], // ADDED
+            recentArticles: data.recentArticles || [],
+        });
       } catch (err) {
         console.error(err);
         setError(err.message);

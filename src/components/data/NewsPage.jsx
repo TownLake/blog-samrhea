@@ -1,14 +1,14 @@
 // src/components/data/NewsPage.jsx
 import React, { useState, useMemo } from 'react';
-import { Newspaper, BarChart3, Users, Clock } from 'lucide-react'; // Added more icons
+import { Newspaper, BarChart3, Users, Clock, CalendarDays } from 'lucide-react'; // Added CalendarDays
 import DataIntroCard from './DataIntroCard';
-import Card from '../Card'; // Main card for summaries
+import Card from '../Card';
 import LoadingIndicator from '../LoadingIndicator';
 import StatusMessage from '../StatusMessage';
 import useNewsData from '../../hooks/useNewsData';
 import { useTheme } from '../../context/ThemeContext';
 import SimpleBarChart from '../charts/SimpleBarChart';
-import ChartModal from '../modals/ChartModal'; // Import the new modal
+import ChartModal from '../modals/ChartModal';
 import { formatDate } from '../../utils/formatters';
 
 // Helper to format date for X-axis ticks (e.g., "May 30")
@@ -25,9 +25,48 @@ const formatSourceName = (name, maxLength = 20) => {
   return name.length > maxLength ? `${name.substring(0, maxLength)}...` : name;
 };
 
-// The table component remains mostly the same
+// ArticlesBySourceCard, ArticlesByHourCard, RecentArticlesTable remain the same from previous response...
+// For brevity, I'll omit them here but assume they are present and styled.
+
+const ArticlesBySourceCard = ({ data, isDarkMode, onClick }) => (
+  <Card onClick={onClick} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
+    <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
+      <Users className="w-5 h-5 mr-2" />
+      <span className="text-sm">Top Sources</span>
+    </div>
+    {data && data.length > 0 ? (
+      <>
+        <div className="text-2xl font-semibold text-gray-900 dark:text-white truncate" title={data[0].source}>{formatSourceName(data[0].source, 15)}</div>
+        <div className="text-sm text-gray-500 dark:text-gray-400">{data[0].count} articles (Top, last 30d)</div>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Click to see all top 10</p>
+      </>
+    ) : (
+      <div className="text-2xl font-semibold text-gray-900 dark:text-white">N/A</div>
+    )}
+  </Card>
+);
+
+const ArticlesByHourCard = ({ data, onClick }) => {
+  const peak = useMemo(() => {
+    if (!data || data.length === 0) return { hourLabel: 'N/A', count: 0 };
+    return data.reduce((max, current) => (current.count > max.count ? current : max), data[0] || { hourLabel: 'N/A', count: 0 });
+  }, [data]);
+
+  return (
+    <Card onClick={onClick} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
+      <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
+        <Clock className="w-5 h-5 mr-2" />
+        <span className="text-sm">Peak Reading Time</span>
+      </div>
+      <div className="text-2xl font-semibold text-gray-900 dark:text-white">{peak.hourLabel}</div>
+      <div className="text-sm text-gray-500 dark:text-gray-400">{peak.count} articles (last 30d)</div>
+      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Click for hourly breakdown</p>
+    </Card>
+  );
+};
+
 const RecentArticlesTable = ({ data }) => (
-    <Card className="p-1 sm:p-4 mt-8"> {/* Added mt-8 for spacing */}
+    <Card className="p-1 sm:p-4 mt-8">
       <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white px-3 sm:px-0">Most Recent Reads</h3>
       {data && data.length > 0 ? (
         <div className="overflow-x-auto">
@@ -63,10 +102,11 @@ const RecentArticlesTable = ({ data }) => (
     </Card>
   );
 
+
 const NewsPage = () => {
   const { newsData, isLoading, error } = useNewsData();
   const { darkMode } = useTheme();
-  const [modalContent, setModalContent] = useState(null); // { title: string, chartType: string }
+  const [modalContent, setModalContent] = useState(null);
 
   const openModal = (title, chartType) => {
     setModalContent({ title, chartType });
@@ -75,26 +115,19 @@ const NewsPage = () => {
     setModalContent(null);
   };
 
-  // Calculate summary statistics
   const dailyAvg = useMemo(() => {
-    if (!newsData.articlesByDay || newsData.articlesByDay.length === 0) return 0;
+    if (!newsData.articlesByDay || newsData.articlesByDay.length === 0) return '0.0';
     const totalArticles = newsData.articlesByDay.reduce((sum, day) => sum + day.count, 0);
-    return (totalArticles / newsData.articlesByDay.length).toFixed(1);
+    const numberOfDaysWithData = newsData.articlesByDay.length > 0 ? newsData.articlesByDay.length : 1; // Avoid division by zero if no data for range
+    return (totalArticles / numberOfDaysWithData).toFixed(1);
   }, [newsData.articlesByDay]);
 
-  const topSource = useMemo(() => {
+  const topSourceData = useMemo(() => {
     if (!newsData.articlesBySource || newsData.articlesBySource.length === 0) return { name: 'N/A', count: 0 };
     return { name: newsData.articlesBySource[0].source, count: newsData.articlesBySource[0].count };
   }, [newsData.articlesBySource]);
 
-  const peakHourData = useMemo(() => {
-    if (!newsData.articlesByHour || newsData.articlesByHour.length === 0) return { hour: 'N/A', count: 0 };
-    // API already sorts by hour, but we need to find the max count
-    const peak = newsData.articlesByHour.reduce((max, current) => (current.count > max.count ? current : max), newsData.articlesByHour[0]);
-    return { hour: `${String(peak.hour).padStart(2, '0')}:00`, count: peak.count };
-  }, [newsData.articlesByHour]);
-  
-  // Prepare data for hourly chart (all 24 hours)
+  // Prepare full hourly data for chart (all 24 hours)
   const fullHourlyData = useMemo(() => {
     if (!newsData.articlesByHour) return [];
     return Array.from({ length: 24 }, (_, i) => {
@@ -107,6 +140,20 @@ const NewsPage = () => {
     });
   }, [newsData.articlesByHour]);
 
+  const peakHourData = useMemo(() => {
+    if (!fullHourlyData || fullHourlyData.length === 0) return { hourLabel: 'N/A', count: 0 };
+    const peak = fullHourlyData.reduce((max, current) => (current.count > max.count ? current : max), fullHourlyData[0] || { hourLabel: 'N/A', count: 0 });
+    return { hourLabel: peak.hourLabel, count: peak.count };
+  }, [fullHourlyData]);
+
+
+  // NEW: Calculate Busiest Day for summary card
+  const busiestDayData = useMemo(() => {
+    if (!newsData.articlesByDayOfWeek || newsData.articlesByDayOfWeek.length === 0) return { name: 'N/A', count: 0 };
+    // API now provides { dayName, count } sorted by dayOfWeekNumeric
+    const peak = newsData.articlesByDayOfWeek.reduce((max, current) => (current.count > max.count ? current : max), newsData.articlesByDayOfWeek[0] || { dayName: 'N/A', count: 0});
+    return { name: peak.dayName, count: peak.count };
+  }, [newsData.articlesByDayOfWeek]);
 
   return (
     <div className="py-2">
@@ -119,9 +166,9 @@ const NewsPage = () => {
 
       {!isLoading && !error && newsData && (
         <>
-          {/* Summary Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <Card onClick={() => openModal('Daily Reading Volume', 'dailyVolume')} className="p-5 cursor-pointer hover:shadow-lg transition-shadow">
+          {/* UPDATED: Summary Cards Grid to 2x2 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+            <Card onClick={() => openModal('Daily Reading Volume', 'dailyVolume')} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
               <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
                 <BarChart3 className="w-5 h-5 mr-2" />
                 <span className="text-sm">Daily Volume</span>
@@ -130,69 +177,46 @@ const NewsPage = () => {
               <div className="text-sm text-gray-500 dark:text-gray-400">Avg articles/day (last 90d)</div>
             </Card>
 
-            <Card onClick={() => openModal('Articles by Source (Top 10)', 'bySource')} className="p-5 cursor-pointer hover:shadow-lg transition-shadow">
+            <ArticlesBySourceCard 
+              data={newsData.articlesBySource} 
+              isDarkMode={darkMode}
+              onClick={() => openModal('Articles by Source (Top 10)', 'bySource')}
+            />
+            
+            <ArticlesByHourCard 
+              data={fullHourlyData} // Pass full hourly data
+              isDarkMode={darkMode}
+              onClick={() => openModal('Reading Times (by Hour)', 'byHour')}
+            />
+            
+            {/* NEW: Day of the Week Summary Card */}
+            <Card onClick={() => openModal('Reading by Day of Week', 'byDayOfWeek')} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
               <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
-                <Users className="w-5 h-5 mr-2" />
-                <span className="text-sm">Top Source</span>
+                <CalendarDays className="w-5 h-5 mr-2" />
+                <span className="text-sm">Busiest Day</span>
               </div>
-              <div className="text-3xl font-semibold text-gray-900 dark:text-white truncate" title={topSource.name}>{formatSourceName(topSource.name, 15)}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">{topSource.count} articles (last 30d)</div>
-            </Card>
-
-            <Card onClick={() => openModal('Reading Times (by Hour)', 'byHour')} className="p-5 cursor-pointer hover:shadow-lg transition-shadow">
-              <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
-                <Clock className="w-5 h-5 mr-2" />
-                <span className="text-sm">Peak Reading Time</span>
-              </div>
-              <div className="text-3xl font-semibold text-gray-900 dark:text-white">{peakHourData.hour}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">{peakHourData.count} articles (last 30d)</div>
+              <div className="text-3xl font-semibold text-gray-900 dark:text-white">{busiestDayData.name}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">{busiestDayData.count} articles (last 30d)</div>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Click for weekly breakdown</p>
             </Card>
           </div>
 
           <RecentArticlesTable data={newsData.recentArticles} />
 
-          {/* Modal for Detailed Charts */}
           {modalContent && (
             <ChartModal isOpen={!!modalContent} onClose={closeModal} title={modalContent.title}>
               {modalContent.chartType === 'dailyVolume' && (
-                <SimpleBarChart
-                    chartData={newsData.articlesByDay}
-                    xAxisDataKey="date"
-                    barDataKey="count"
-                    isDarkMode={darkMode}
-                    height={400} // Taller chart for modal
-                    unit=" articles"
-                    xAxisTickFormatter={formatAxisDate}
-                    yAxisTickFormatter={(value) => Math.round(value)}
-                />
+                <SimpleBarChart chartData={newsData.articlesByDay} xAxisDataKey="date" barDataKey="count" isDarkMode={darkMode} height={400} unit=" articles" xAxisTickFormatter={formatAxisDate} yAxisTickFormatter={(value) => Math.round(value)} />
               )}
               {modalContent.chartType === 'bySource' && (
-                <SimpleBarChart
-                    chartData={newsData.articlesBySource.slice().reverse()}
-                    layout="vertical"
-                    xAxisDataKey="source"
-                    barDataKey="count"
-                    isDarkMode={darkMode}
-                    height={500} // Taller for more sources
-                    unit=" articles"
-                    yAxisTickFormatter={(value) => formatSourceName(value, 30)} // Allow longer names in modal
-                    xAxisTickFormatter={(value) => Math.round(value)}
-                    yAxisWidth={180}
-                    barSize={20}
-                />
+                <SimpleBarChart chartData={newsData.articlesBySource.slice().reverse()} layout="vertical" xAxisDataKey="source" barDataKey="count" isDarkMode={darkMode} height={Math.max(300, newsData.articlesBySource.length * 40)} yAxisTickFormatter={(value) => formatSourceName(value, 30)} xAxisTickFormatter={(value) => Math.round(value)} yAxisWidth={180} barSize={20} />
               )}
               {modalContent.chartType === 'byHour' && (
-                <SimpleBarChart
-                    chartData={fullHourlyData}
-                    layout="horizontal"
-                    xAxisDataKey="hourLabel"
-                    barDataKey="count"
-                    isDarkMode={darkMode}
-                    height={400}
-                    unit=" articles"
-                    xAxisTickFormatter={(value) => value.substring(0,2)}
-                    yAxisTickFormatter={(value) => Math.round(value)}
-                />
+                <SimpleBarChart chartData={fullHourlyData} layout="horizontal" xAxisDataKey="hourLabel" barDataKey="count" isDarkMode={darkMode} height={400} unit=" articles" xAxisTickFormatter={(value) => value.substring(0,2)} yAxisTickFormatter={(value) => Math.round(value)} />
+              )}
+              {/* NEW: Modal content for Day of Week Chart */}
+              {modalContent.chartType === 'byDayOfWeek' && (
+                <SimpleBarChart chartData={newsData.articlesByDayOfWeek} xAxisDataKey="dayName" barDataKey="count" isDarkMode={darkMode} height={400} unit=" articles" yAxisTickFormatter={(value) => Math.round(value)} />
               )}
             </ChartModal>
           )}
