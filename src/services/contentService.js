@@ -2,8 +2,8 @@
 import { marked } from 'marked';
 
 /**
- * Fetches and parses the supplements markdown file into a structured array.
- * @returns {Promise<Array>} A promise that resolves to an array of schedule sections.
+ * Fetches and parses the supplements markdown file.
+ * @returns {Promise<Object>} A promise that resolves to an object containing the intro markdown and schedule sections.
  */
 export async function fetchAndParseSupplements() {
   const response = await fetch('/content/data/supplements.md');
@@ -12,45 +12,53 @@ export async function fetchAndParseSupplements() {
   }
   const markdown = await response.text();
 
-  // Use the marked lexer to break the markdown into tokens
   const tokens = marked.lexer(markdown);
 
+  let introMarkdown = '';
   const sections = [];
   let currentSection = null;
+  let parsingIntro = true;
 
   for (const token of tokens) {
-    // A level 2 heading (##) indicates the start of a new time section
+    if (token.type === 'hr' && parsingIntro) { // Horizontal rule can also separate intro from sections
+        parsingIntro = false; // Stop collecting intro content after the first HR if it precedes sections
+        continue; // Don't include the HR in introMarkdown or section parsing
+    }
+
     if (token.type === 'heading' && token.depth === 2) {
+      parsingIntro = false; // First H2 marks the end of the intro
       if (currentSection) {
-        sections.push(currentSection); // Push the previously completed section
+        sections.push(currentSection);
       }
       
-      // Split the heading text into a main title and a subtitle
       const [title, ...subtitleParts] = token.text.split('–');
-
       currentSection = {
         title: title.trim(),
         subtitle: subtitleParts.join('–').trim(),
         supplements: []
       };
+      continue; // Continue to next token after processing H2
     }
 
-    // A table token contains the list of supplements for the current section
-    if (token.type === 'table' && currentSection) {
-      // The `rows` property contains the table body rows
+    if (parsingIntro) {
+      // Append the raw markdown of the token to build up the intro section
+      // This handles H1, blockquotes, paragraphs, etc. in the intro
+      if (token.raw) {
+        introMarkdown += token.raw + '\n';
+      }
+    } else if (token.type === 'table' && currentSection) {
       for (const row of token.rows) {
         currentSection.supplements.push({
-          name: row[0].text,      // First column is the substance name
-          nutrients: row[1].text  // Second column is the nutrient details
+          name: row[0].text,
+          nutrients: row[1].text
         });
       }
     }
   }
 
-  // Add the last processed section to the array
   if (currentSection) {
     sections.push(currentSection);
   }
 
-  return sections;
+  return { introMarkdown: introMarkdown.trim(), sections };
 }
