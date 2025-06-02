@@ -7,7 +7,7 @@ const SupplementsPage = () => {
   return (
     <div className="py-2">
       <DataIntroCard title="Supplements" icon={Pill}>
-        <p>An overview of the supplements I take, the reasons why, and links to relevant research. This is not medical advice. Content for this section will be available soon.</p>
+        <p>Hold.</p>
       </DataIntroCard>
     </div>
   );

@@ -7,7 +7,7 @@ const NewsPage = () => {
   return (
     <div className="py-2">
       <DataIntroCard title="News & Media" icon={Newspaper}>
-        <p>A collection of articles I've written or been featured in across various publications. Content for this section will be available soon.</p>
+        <p>Hold.</p>
       </DataIntroCard>
     </div>
   );
