@@ -1,10 +1,9 @@
 // functions/api/news.js
 
-console.log("NEWS API: File loaded, defining stmts map."); // Log when the module itself is loaded
+console.log("NEWS API: File loaded, defining stmts map.");
 const stmts = new Map();
 
 export async function onRequest(context) {
-  // ---> ADDED LOG: Very first line in the handler <---
   console.log("NEWS API: onRequest invoked. Request URL:", context.request.url, "Method:", context.request.method);
 
   const { request, env, waitUntil } = context;
@@ -21,7 +20,6 @@ export async function onRequest(context) {
     return new Response(null, { headers });
   }
 
-  // ---> ADDED LOG: Before DB check <---
   console.log("NEWS API: Checking for NEWS_DB binding...");
   if (!env.NEWS_DB) {
     console.error('NEWS API: FATAL - NEWS_DB D1 binding not found in worker environment.');
@@ -34,7 +32,6 @@ export async function onRequest(context) {
   const sourceDaysParam = parseInt(url.searchParams.get('sourceDays') || '30', 10);
   const limitParam = parseInt(url.searchParams.get('limit') || '5', 10);
 
-  // ---> ADDED LOG: After parsing params <---
   console.log(`NEWS API: Parsed params - days: ${daysParam}, sourceDays: ${sourceDaysParam}, limit: ${limitParam}`);
 
   if (isNaN(daysParam) || isNaN(sourceDaysParam) || isNaN(limitParam) || daysParam <= 0 || sourceDaysParam <= 0 || limitParam <= 0) {
@@ -52,65 +49,63 @@ export async function onRequest(context) {
   console.log('NEWS API: No cache hit, fetching from D1 for URL:', request.url);
 
   try {
-    // ---> ADDED LOG: Entering TRY block <---
     console.log("NEWS API: Entering TRY block for D1 queries.");
     const db = env.NEWS_DB;
 
-    // ... (rest of your D1 query preparation logic for articlesByDayStmt, etc.)
     // Query for articles read by day
-    let articlesByDayStmt = stmts.get('articlesByDay');
+    let articlesByDayStmt = stmts.get('articlesByDay_clicks'); // Updated cache key slightly for clarity
     if (!articlesByDayStmt) {
-      console.log("NEWS API: Preparing articlesByDayStmt");
+      console.log("NEWS API: Preparing articlesByDayStmt for 'clicks' table");
       articlesByDayStmt = db.prepare(`
         SELECT DATE(clicked_at) as date, COUNT(*) as count
-        FROM news
+        FROM clicks -- UPDATED TABLE NAME
         WHERE clicked_at >= DATE('now', ?1)
         GROUP BY DATE(clicked_at)
         ORDER BY DATE(clicked_at) ASC
       `);
-      stmts.set('articlesByDay', articlesByDayStmt);
+      stmts.set('articlesByDay_clicks', articlesByDayStmt);
     }
 
     // Query for articles read by source
-    let articlesBySourceStmt = stmts.get('articlesBySource');
+    let articlesBySourceStmt = stmts.get('articlesBySource_clicks');
     if (!articlesBySourceStmt) {
-      console.log("NEWS API: Preparing articlesBySourceStmt");
+      console.log("NEWS API: Preparing articlesBySourceStmt for 'clicks' table");
       articlesBySourceStmt = db.prepare(`
         SELECT source, COUNT(*) as count
-        FROM news
+        FROM clicks -- UPDATED TABLE NAME
         WHERE clicked_at >= DATE('now', ?1)
         GROUP BY source
         ORDER BY count DESC
         LIMIT 10
       `);
-      stmts.set('articlesBySource', articlesBySourceStmt);
+      stmts.set('articlesBySource_clicks', articlesBySourceStmt);
     }
 
     // Query for articles read by time of day (hour)
-    let articlesByHourStmt = stmts.get('articlesByHour');
+    let articlesByHourStmt = stmts.get('articlesByHour_clicks');
     if (!articlesByHourStmt) {
-      console.log("NEWS API: Preparing articlesByHourStmt");
+      console.log("NEWS API: Preparing articlesByHourStmt for 'clicks' table");
       articlesByHourStmt = db.prepare(`
         SELECT STRFTIME('%H', clicked_at) as hour, COUNT(*) as count
-        FROM news
+        FROM clicks -- UPDATED TABLE NAME
         WHERE clicked_at >= DATE('now', ?1)
         GROUP BY STRFTIME('%H', clicked_at)
         ORDER BY hour ASC
       `);
-      stmts.set('articlesByHour', articlesByHourStmt);
+      stmts.set('articlesByHour_clicks', articlesByHourStmt);
     }
     
     // Query for most recent articles
-    let recentArticlesStmt = stmts.get('recentArticles');
+    let recentArticlesStmt = stmts.get('recentArticles_clicks');
     if (!recentArticlesStmt) {
-      console.log("NEWS API: Preparing recentArticlesStmt");
+      console.log("NEWS API: Preparing recentArticlesStmt for 'clicks' table");
       recentArticlesStmt = db.prepare(`
         SELECT link, headline, source, clicked_at
-        FROM news
+        FROM clicks -- UPDATED TABLE NAME
         ORDER BY clicked_at DESC
         LIMIT ?1
       `);
-      stmts.set('recentArticles', recentArticlesStmt);
+      stmts.set('recentArticles_clicks', recentArticlesStmt);
     }
     
     console.log('NEWS API: Binding parameters and preparing to execute D1 queries...');
@@ -146,7 +141,6 @@ export async function onRequest(context) {
     return response;
 
   } catch (e) {
-    // ---> MODIFIED LOG: More detailed error logging <---
     console.error('NEWS API: CRITICAL ERROR in try/catch block:', e.message);
     console.error('NEWS API: Stack trace:', e.stack);
     if (e.cause) {
