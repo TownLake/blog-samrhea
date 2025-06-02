@@ -120,7 +120,12 @@ const METRIC_RANGES = {
     { category: 'fair', min: 40, max: 48 },                     // 40 to 47.99...
     { category: 'poor', min: 0, max: 40 }                       // < 40
   ],
-  'power_breathe_4_min': [], // Placeholder
+  'power_breathe_level': [ // Higher is better
+    { category: 'excellent', min: 8, max: Infinity },
+    { category: 'good', min: 6, max: 8 },
+    { category: 'fair', min: 4, max: 6 },
+    { category: 'poor', min: 0, max: 4 }
+  ],
 };
 
 /**
