@@ -13,7 +13,8 @@ import StatusMessage from './components/StatusMessage';
 import { DATA_SECTIONS, ROUTES, DEFAULT_MESSAGES } from './constants';
 
 // Lazy load page components for better initial load time
-const HealthDashboard = React.lazy(() => import('./components/data/HealthDashboard'));
+// *** FIXED THE IMPORT PATH FOR THE DASHBOARD ***
+const HealthDashboard = React.lazy(() => import('./components/data/health/Dashboard.jsx')); 
 const NewsPage = React.lazy(() => import('./components/data/NewsPage'));
 const SupplementsPage = React.lazy(() => import('./components/data/SupplementsPage'));
 const DigitalPage = React.lazy(() => import('./components/data/DigitalPage'));
