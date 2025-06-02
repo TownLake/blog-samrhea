@@ -1,14 +1,14 @@
 // src/components/data/DigitalPage.jsx
 import React from 'react';
-import Card from '../Card';
+import DataIntroCard from './DataIntroCard';
+import { Laptop } from 'lucide-react';
 
 const DigitalPage = () => {
   return (
-    <div className="py-8">
-      <Card>
-        <h1 className="text-2xl font-semibold mb-4">Digital</h1>
-        <p>Content for the Digital data section will be available soon.</p>
-      </Card>
+    <div className="py-2">
+      <DataIntroCard title="Digital Presence" icon={Laptop}>
+        <p>A summary of my online activity, including social media metrics, GitHub contributions, and other digital footprints. Content for this section will be available soon.</p>
+      </DataIntroCard>
     </div>
   );
 };

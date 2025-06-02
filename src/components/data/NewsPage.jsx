@@ -1,14 +1,14 @@
 // src/components/data/NewsPage.jsx
 import React from 'react';
-import Card from '../Card'; // Assuming Card can be used for consistent styling
+import DataIntroCard from './DataIntroCard';
+import { Newspaper } from 'lucide-react';
 
 const NewsPage = () => {
   return (
-    <div className="py-8">
-      <Card>
-        <h1 className="text-2xl font-semibold mb-4">News</h1>
-        <p>Content for the News data section will be available soon.</p>
-      </Card>
+    <div className="py-2">
+      <DataIntroCard title="News & Media" icon={Newspaper}>
+        <p>A collection of articles I've written or been featured in across various publications. Content for this section will be available soon.</p>
+      </DataIntroCard>
     </div>
   );
 };
