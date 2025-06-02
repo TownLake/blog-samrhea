@@ -23,10 +23,11 @@ export const ABOUT_SECTIONS = [
   { id: 'projects', label: 'Projects', icon: '🚧', path: '/about/projects' },
 ];
 
-// Data page section options (NEW)
+// Data page section options
 export const DATA_SECTIONS = [
   { id: 'health', label: 'Health', icon: Activity, path: '/data/health' },
   { id: 'news', label: 'News', icon: Newspaper, path: '/data/news' },
+  // *** FIXED THE PATH FOR SUPPLEMENTS ***
   { id: 'supplements', label: 'Supplements', icon: Pill, path: '/data/supplements' },
   { id: 'digital', label: 'Digital', icon: Laptop, path: '/data/digital' },
 ];
@@ -78,13 +79,13 @@ export const ROUTES = {
   POST: (slug) => `/post/${slug}`,
   FILTER: (filter) => `/${filter.toLowerCase()}`,
   
-  // Data section routes (NEW)
+  // Data section routes
   DATA: '/data',
   DATA_HEALTH: '/data/health',
   DATA_NEWS: '/data/news',
   DATA_SUPPLEMENTS: '/data/supplements',
   DATA_DIGITAL: '/data/digital',
-  DATA_SECTION: (section) => `/data/${section}`, // Helper for dynamic section paths
+  DATA_SECTION: (section) => `/data/${section}`,
 
   NOT_FOUND: '/404',
 };
