@@ -1,17 +1,15 @@
-// src/components/health/Dashboard.jsx
+// src/components/data/health/HealthDashboard.jsx
 import React, { useEffect, useRef } from 'react';
 import {
   Heart, Scale, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse,
-  Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand
+  Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand, BarChart2
 } from 'lucide-react';
-import { createSparklineData } from '../../utils/dataUtils';
+import { createSparklineData } from '../../../utils/dataUtils';
 import MetricSection from './MetricSection';
-import HealthIntroCard from './HealthIntroCard';
-import Card from '../Card';
-// import useDarkMode from '../../hooks/useDarkMode'; // Not used in this snippet
-import { useHealthData } from '../../store/HealthDataContext';
-// import { hasValidData } from '../../utils/dataUtils'; // Not directly used for this component's logic anymore
-import { getMetricCategoryInfo } from '../../utils/healthCategories';
+import DataIntroCard from '../DataIntroCard';
+import Card from '../../Card';
+import { useHealthData } from '../../../store/HealthDataContext';
+import { getMetricCategoryInfo } from '../../../utils/healthCategories';
 
 const LoadingView = () => (
   <div className="py-20 text-center text-gray-500 dark:text-gray-400">
@@ -30,7 +28,7 @@ const ErrorView = ({ message }) => (
   </div>
 );
 
-const Dashboard = () => {
+const HealthDashboard = () => {
   const {
     ouraSpark, oura,
     withings,
@@ -85,9 +83,10 @@ const Dashboard = () => {
   const latestOtherData = otherData && otherData.length > 0 ? otherData[0] : {};
   const latestClinicalData = clinical && clinical.length > 0 ? clinical[0] : {};
 
-  // Build fitness metrics array conditionally
+  // Build fitness metrics array conditionally in the desired order
   const fitnessMetrics = [];
 
+  // Row 1: VO2 Max
   if (running && running.length > 0) {
     fitnessMetrics.push({
       title: "VO2 Max (Watch)",
@@ -99,19 +98,7 @@ const Dashboard = () => {
       fullData: running,
       dataKey: "vo2_max"
     });
-    fitnessMetrics.push({
-      title: "5K Time",
-      value: running[0]?.five_k_formatted ?? '--:--',
-      unit: "",
-      // Now getMetricCategoryInfo will provide a category based on the new ranges
-      ...getMetricCategoryInfo('five_k_seconds', running[0]?.five_k_seconds), 
-      sparklineData: createSparklineData(runningSpark, 'five_k_seconds'),
-      icon: Timer,
-      fullData: running,
-      dataKey: "five_k_seconds"
-    });
   }
-
   if (clinical && clinical.length > 0 && latestClinicalData?.vo2_max_clinical) {
     fitnessMetrics.push({
       title: "VO2 Max (Clinical)",
@@ -125,7 +112,18 @@ const Dashboard = () => {
     });
   }
 
+  // Row 2: Power & Peak
   if (otherData && otherData.length > 0) {
+    fitnessMetrics.push({
+      title: "Power Breathe",
+      value: latestOtherData?.power_breathe_level?.toFixed(1) ?? '--',
+      unit: "Level",
+      ...getMetricCategoryInfo('power_breathe_level', latestOtherData?.power_breathe_level),
+      sparklineData: createSparklineData(otherDataSpark, 'power_breathe_level'),
+      icon: Timer,
+      fullData: otherData,
+      dataKey: "power_breathe_level"
+    });
     fitnessMetrics.push({
       title: "Peak Flow",
       value: latestOtherData?.peak_flow?.toFixed(0) ?? '--',
@@ -136,10 +134,13 @@ const Dashboard = () => {
       fullData: otherData,
       dataKey: "peak_flow"
     });
-    // SWAPPED ORDER HERE: Left Hand Grip first, then Right Hand Grip
+  }
+
+  // Row 3: Grip Strength
+  if (otherData && otherData.length > 0) {
     fitnessMetrics.push({
       title: "Left Hand Grip",
-      value: latestOtherData?.weak_grip?.toFixed(1) ?? '--', // Assuming 'weak_grip' is the key for left hand
+      value: latestOtherData?.weak_grip?.toFixed(1) ?? '--',
       unit: "kg",
       ...getMetricCategoryInfo('weak_grip', latestOtherData?.weak_grip),
       sparklineData: createSparklineData(otherDataSpark, 'weak_grip'),
@@ -159,16 +160,51 @@ const Dashboard = () => {
     });
   }
   
+  // Row 4: Run Times
+  if (running && running.length > 0) {
+    fitnessMetrics.push({
+      title: "5K Time",
+      value: running[0]?.five_k_formatted ?? '--:--',
+      unit: "",
+      ...getMetricCategoryInfo('five_k_seconds', running[0]?.five_k_seconds), 
+      sparklineData: createSparklineData(runningSpark, 'five_k_seconds'),
+      icon: Timer,
+      fullData: running,
+      dataKey: "five_k_seconds"
+    });
+    // NEW 10k Time Card
+    fitnessMetrics.push({
+      title: "10K Time",
+      value: '--:--',
+      unit: "",
+      ...getMetricCategoryInfo('ten_k_seconds', null),
+      sparklineData: [],
+      icon: Timer,
+      fullData: [],
+      dataKey: "ten_k_seconds"
+    });
+  }
+  
   const showFitnessSection = fitnessMetrics.length > 0;
 
   return (
     <div className="pt-2 pb-8">
       {error && !isLoading && <ErrorView message={error} />}
 
-      <HealthIntroCard />
+      <DataIntroCard title="Health Data" icon={BarChart2}>
+        <p>
+          I publish these to have a home page for myself. I think{' '} 
+          <a href="https://blog.samrhea.com/post/2024-01-30-health-data" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+            a lot
+          </a> about this kind of data. And, if you're like me, you could use this{' '} 
+          <a href="https://github.com/TownLake/core-health" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+            open-sourced dashboard
+          </a> I built, too.
+        </p>
+      </DataIntroCard>
 
       <div className="space-y-10">
-        {/* Heart Section - unchanged */}
+        {/* Heart Section */}
         {oura && oura.length > 0 && (
           <section id="heart" ref={heartSectionRef}>
             <MetricSection
@@ -200,7 +236,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Body Section - unchanged */}
+        {/* Body Section */}
         {withings && withings.length > 0 && (
           <section id="body" ref={bodySectionRef}>
             <MetricSection
@@ -232,7 +268,7 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Sleep Section - unchanged */}
+        {/* Sleep Section */}
         {oura && oura.length > 0 && (
           <section id="sleep" ref={sleepSectionRef}>
             <MetricSection
@@ -284,13 +320,13 @@ const Dashboard = () => {
           </section>
         )}
 
-        {/* Fitness Section - Updated Logic */}
+        {/* Fitness Section */}
         {showFitnessSection && (
           <section id="fitness" ref={fitnessSectionRef}>
             <MetricSection
               title="Fitness"
               icon={Footprints}
-              metrics={fitnessMetrics.filter(metric => metric && Object.keys(metric).length > 0)}
+              metrics={fitnessMetrics}
             />
           </section>
         )}
@@ -299,4 +335,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default HealthDashboard;

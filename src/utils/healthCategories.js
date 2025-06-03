@@ -1,5 +1,4 @@
 // src/utils/healthCategories.js
-
 /**
  * Health metrics categories and ranges.
  * Categories: 'excellent', 'good', 'fair', 'poor'
@@ -95,49 +94,38 @@ const METRIC_RANGES = {
     { category: 'poor', min: 0, max: 36 }
   ],
   'five_k_seconds': [ // Lower is better for time
-    // Under 21:00 (1260 seconds)
-    { category: 'excellent', min: 0, max: 1260 },
-    // 21:00 (1260 seconds) – 24:30 (1470 seconds)
-    { category: 'good', min: 1260, max: 1470 + 1 }, // Added 1 to max to ensure 1470 is included
-    // 24:31 (1471 seconds) – 28:00 (1680 seconds)
-    { category: 'fair', min: 1470 + 1, max: 1680 + 1 }, // Added 1 to max to ensure 1680 is included, and 1 to min to ensure 1471 is included
-    // Over 28:00 (1680 seconds)
-    { category: 'poor', min: 1680 + 1, max: Infinity } // Added 1 to min to ensure values greater than 1680 are poor
+    { category: 'excellent', min: 0, max: 1260 },      // Under 21:00
+    { category: 'good', min: 1260, max: 1471 },     // 21:00 to 24:30
+    { category: 'fair', min: 1471, max: 1681 },     // 24:31 to 28:00
+    { category: 'poor', min: 1681, max: Infinity }  // Over 28:00
   ],
+  'ten_k_seconds': [], // Placeholder for new 10K time metric
 
-
-  // New Fitness Metrics (from user request)
-  // Peak Flow Measure (L/min): E(>700), G(600-700), F(500-599), P(<500)
-  // Higher is better.
-  'peak_flow': [
-    // Order E, G, F, P. If value is 700.000000, it's Good. If 700.000001, it's Excellent.
+  // Other Fitness Metrics
+  'peak_flow': [ // Higher is better.
     { category: 'excellent', min: 700.000001, max: Infinity }, // Strictly > 700
     { category: 'good', min: 600, max: 700.000001 },            // 600 to 700 (inclusive)
-    { category: 'fair', min: 500, max: 600 },                   // 500 to 599.99... (covers 500-599)
+    { category: 'fair', min: 500, max: 600 },                   // 500 to 599.99...
     { category: 'poor', min: 0, max: 500 }                      // < 500
   ],
-
-  // Right Hand Grip Strength (kg): E(>58), G(52-58), F(44-51.9), P(<44)
-  // Higher is better. Data key: 'strong_grip'
-  'strong_grip': [
-    // Order E, G, F, P. If value is 58.0, it's Good. If 58.000001, it's Excellent.
-    // Fair range 44-51.9 means values up to 51.999... are fair.
+  'strong_grip': [ // Right Hand Grip. Higher is better.
     { category: 'excellent', min: 58.000001, max: Infinity },   // Strictly > 58
     { category: 'good', min: 52, max: 58.000001 },              // 52 to 58 (inclusive)
-    { category: 'fair', min: 44, max: 52 },                     // 44 to 51.99... (covers 44-51.9)
+    { category: 'fair', min: 44, max: 52 },                     // 44 to 51.99...
     { category: 'poor', min: 0, max: 44 }                       // < 44
   ],
-
-  // Left Hand Grip Strength (kg): E(>54), G(48-54), F(40-47.9), P(<40)
-  // Higher is better. Data key: 'weak_grip'
-  'weak_grip': [
-    // Order E, G, F, P. If value is 54.0, it's Good. If 54.000001, it's Excellent.
-    // Fair range 40-47.9 means values up to 47.999... are fair.
+  'weak_grip': [ // Left Hand Grip. Higher is better.
     { category: 'excellent', min: 54.000001, max: Infinity },   // Strictly > 54
     { category: 'good', min: 48, max: 54.000001 },              // 48 to 54 (inclusive)
-    { category: 'fair', min: 40, max: 48 },                     // 40 to 47.99... (covers 40-47.9)
+    { category: 'fair', min: 40, max: 48 },                     // 40 to 47.99...
     { category: 'poor', min: 0, max: 40 }                       // < 40
-  ]
+  ],
+  'power_breathe_level': [ // Higher is better
+    { category: 'excellent', min: 8, max: Infinity },
+    { category: 'good', min: 6, max: 8 },
+    { category: 'fair', min: 4, max: 6 },
+    { category: 'poor', min: 0, max: 4 }
+  ],
 };
 
 /**
@@ -153,7 +141,7 @@ export const getMetricCategory = (metricKey, value) => {
   const numericValue = parseFloat(value);
 
   // Specific metrics without standard categories
-  if (metricKey === 'weight') { // 'five_k_seconds' is now categorized
+  if (metricKey === 'weight') {
     return 'default';
   }
 
@@ -186,7 +174,6 @@ export const getMetricCategoryInfo = (metricKey, value) => {
   const category = getMetricCategory(metricKey, value);
 
   // Handle metrics that are explicitly 'default' and don't need a category label
-  // 'five_k_seconds' is now categorized, so it's removed from this condition
   if (metricKey === 'weight' || category === 'default') {
     return {
       category: 'default',

@@ -7,15 +7,23 @@ const FilterBar = ({ options, currentOption, onOptionClick, useNavLink = false }
     <div className="w-full mb-8 flex justify-center">
       <div className="flex space-x-2">
         {options.map((option) => {
-          // Prepare the common content
+          // *** THE FIX IS HERE ***
+          // 1. Alias the icon to a variable starting with a capital letter.
+          const IconComponent = option.icon;
+
           const buttonContent = (
             <div className="flex items-center">
-              <span className={currentOption === option.id ? "mr-2" : ""}>{option.icon}</span>
+              <span className={currentOption === option.id ? "mr-2" : ""}>
+                {/* 2. Check the type and render the capitalized variable as a component. */}
+                {typeof IconComponent === 'function' 
+                  ? <IconComponent size={18} /> 
+                  : IconComponent // This handles string emojis like '⭐'
+                }
+              </span>
               {currentOption === option.id && <span>{option.label}</span>}
             </div>
           );
           
-          // Common classes for both button and NavLink
           const commonClasses = `flex items-center justify-center rounded-full transition-all
             ${currentOption === option.id
               ? 'bg-blue-500 text-white px-5 py-3'
@@ -23,12 +31,11 @@ const FilterBar = ({ options, currentOption, onOptionClick, useNavLink = false }
             }
             ${currentOption === option.id ? 'min-w-20' : 'aspect-square'} flex-shrink-0`;
           
-          // Return either NavLink or button based on the prop
           return useNavLink ? (
             <NavLink
               key={option.id}
               to={option.path}
-              className={({ isActive }) => commonClasses}
+              className={commonClasses}
             >
               {buttonContent}
             </NavLink>

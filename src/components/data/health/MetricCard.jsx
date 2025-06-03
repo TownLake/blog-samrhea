@@ -1,12 +1,12 @@
-// src/components/health/MetricCard.jsx
+// src/components/data/health/MetricCard.jsx
 import React, { useState, memo, useMemo, useEffect } from 'react';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
-import Card from '../Card'; // Adjust path
+import Card from '../../Card'; // Adjust path
 import SparklineTooltip from './tooltips/SparklineTooltip'; // Adjust path
 import DetailedChartModal from './DetailedChartModal'; // Adjust path
-import { defaultTrendColor } from '../../config/chartConfig'; // Adjust path
-import { CATEGORY_COLORS } from '../../utils/healthCategories'; // Import category colors
-import { createSparklineData } from '../../utils/dataUtils'; // Import our new utility
+import { defaultTrendColor } from '../../../config/chartConfig'; // Adjust path
+import { CATEGORY_COLORS } from '../../../utils/healthCategories'; // Import category colors
+import { createSparklineData } from '../../../utils/dataUtils'; // Import our new utility
 
 const MetricCard = memo(({
   title,

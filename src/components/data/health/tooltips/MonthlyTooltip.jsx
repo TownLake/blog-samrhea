@@ -1,7 +1,7 @@
-// src/components/health/tooltips/MonthlyTooltip.jsx
+// src/components/data/health/tooltips/MonthlyTooltip.jsx
 import React, { memo } from 'react';
-import { formatSecondsToMMSS } from '../../../utils/dataUtils'; // Adjust path as needed
-import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Import category utility
+import { formatSecondsToMMSS } from '../../../../utils/dataUtils'; // Adjust path as needed
+import { getMetricCategoryInfo } from '../../../../utils/healthCategories'; // Import category utility
 
 const MonthlyTooltip = memo(({ active, payload, unit, dataKey }) => {
   if (active && payload && payload.length) {

@@ -1,7 +1,7 @@
-// src/components/health/tooltips/CustomTooltip.jsx
+// src/components/data/health/tooltips/CustomTooltip.jsx
 import React, { memo } from 'react';
-import { formatSecondsToMMSS } from '../../../utils/dataUtils'; // Adjust path as needed
-import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Import category utility
+import { formatSecondsToMMSS } from '../../../../utils/dataUtils'; // Adjust path as needed
+import { getMetricCategoryInfo } from '../../../../utils/healthCategories'; // Import category utility
 
 const CustomTooltip = memo(({ active, payload, label, unit, originalDataKey, actualDataKey, filledDataKey }) => {
   if (active && payload && payload.length) {

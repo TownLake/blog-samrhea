@@ -1,7 +1,7 @@
-// src/components/health/tooltips/SparklineTooltip.jsx
+// src/components/data/health/tooltips/SparklineTooltip.jsx
 import React, { memo } from 'react';
-import { formatSecondsToMMSS } from '../../../utils/dataUtils'; // Adjust path as needed
-import { getMetricCategoryInfo } from '../../../utils/healthCategories'; // Import category utility
+import { formatSecondsToMMSS } from '../../../../utils/dataUtils'; // Adjust path as needed
+import { getMetricCategoryInfo } from '../../../../utils/healthCategories'; // Import category utility
 
 const SparklineTooltip = memo(({ active, payload, dataKey }) => {
     if (active && payload && payload.length) {
