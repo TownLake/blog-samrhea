@@ -46,7 +46,7 @@ const SupplementsPage = () => {
     return (
         <div className="py-2">
             <DataIntroCard title="Supplements" icon={Pill}>
-              <p>An overview of the supplements I take, the reasons why, and links to relevant research. This is not medical advice.</p>
+              <p>More for my own reminders (and to copy-paste the .md to an LLM for periodic review).</p>
             </DataIntroCard>
 
             {/* NEW: Styled header for the schedule section */}

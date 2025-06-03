@@ -11,7 +11,6 @@ import SimpleBarChart from '../charts/SimpleBarChart';
 import ChartModal from '../modals/ChartModal';
 import { formatDate } from '../../utils/formatters';
 
-// Helper to format date for X-axis ticks (e.g., "May 30")
 const formatAxisDate = (dateString) => {
   try {
     const dateObj = new Date(dateString);
@@ -24,9 +23,6 @@ const formatSourceName = (name, maxLength = 20) => {
   if (!name) return '';
   return name.length > maxLength ? `${name.substring(0, maxLength)}...` : name;
 };
-
-// ArticlesBySourceCard, ArticlesByHourCard, RecentArticlesTable remain the same from previous response...
-// For brevity, I'll omit them here but assume they are present and styled.
 
 const ArticlesBySourceCard = ({ data, isDarkMode, onClick }) => (
   <Card onClick={onClick} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
@@ -158,7 +154,7 @@ const NewsPage = () => {
   return (
     <div className="py-2">
       <DataIntroCard title="News & Reading Habits" icon={Newspaper}>
-        <p>An overview of the articles I'm reading, aggregated by day, source, and time of day. Plus, a list of my most recently read items.</p>
+        <p>Built an RSS reader that captures what I'm reading. Does not log everything, just what I select through the reader.</p>
       </DataIntroCard>
 
       {isLoading && <LoadingIndicator message="Loading news data..." />}

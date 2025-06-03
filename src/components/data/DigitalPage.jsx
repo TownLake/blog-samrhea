@@ -6,7 +6,7 @@ import { Laptop } from 'lucide-react';
 const DigitalPage = () => {
   return (
     <div className="py-2">
-      <DataIntroCard title="Digital Presence" icon={Laptop}>
+      <DataIntroCard title="Digital" icon={Laptop}>
         <p>Hold.</p>
       </DataIntroCard>
     </div>
