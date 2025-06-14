@@ -45,6 +45,7 @@ const HealthDashboard = () => {
   const location = useLocation();
   const [activeModal, setActiveModal] = useState(null);
 
+  // This effect syncs the modal state FROM the URL (e.g., on page load, back/forward)
   useEffect(() => {
     const hash = location.hash.replace('#', '');
     if (!hash) {
@@ -62,14 +63,19 @@ const HealthDashboard = () => {
     }
   }, [location.hash, isLoading]);
 
+  // --- MODIFIED: Click handlers now directly set state to fix bug ---
   const handleOpenModal = (dataKey) => {
+    // Set state directly to ensure modal opens even if hash doesn't change
+    setActiveModal(dataKey); 
     window.location.hash = dataKey;
   };
 
   const handleCloseModal = () => {
-    const { pathname, search } = window.location;
-    window.history.pushState("", document.title, pathname + search);
+    // Set state directly to ensure modal closes immediately
     setActiveModal(null);
+    const { pathname, search } = window.location;
+    // Clean the URL
+    window.history.pushState("", document.title, pathname + search);
   };
 
   if (isLoading) {
@@ -89,7 +95,7 @@ const HealthDashboard = () => {
     onClose: handleCloseModal,
   });
   
-  // --- Define Metric Arrays ---
+  // --- Define Metric Arrays (no changes to this logic) ---
   const latestOura = hasData(oura) ? oura[0] : {};
   const heartMetrics = hasData(oura) ? [
     { title: "HRV", value: latestOura.average_hrv?.toFixed(0) ?? '--', unit: "ms", ...getMetricCategoryInfo('average_hrv', latestOura.average_hrv), sparklineData: createSparklineData(ouraSpark, 'average_hrv'), icon: Activity, fullData: oura, dataKey: "average_hrv" },
@@ -143,7 +149,6 @@ const HealthDashboard = () => {
         </p>
       </DataIntroCard>
 
-      {/* --- MODIFIED: Reordered sections --- */}
       <div className="space-y-12 mt-8">
         {heartMetrics.length > 0 && (
           <MetricSection title="Heart" icon={Heart} metrics={heartMetrics.map(createMetricProps)} />
