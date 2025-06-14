@@ -1,4 +1,5 @@
 // src/utils/healthCategories.js
+
 /**
  * Health metrics categories and ranges.
  * Categories: 'excellent', 'good', 'fair', 'poor'
@@ -6,11 +7,11 @@
 
 // Category color mappings (hex values)
 export const CATEGORY_COLORS = {
-  excellent: '#22c55e', // green for excellent
-  good: '#3b82f6',       // blue for good
-  fair: '#eab308',       // yellow for fair
-  poor: '#ef4444',       // red for poor
-  default: '#a1a1aa'     // gray for no category or unknown
+  excellent: '#22c55e', // green-500
+  good: '#3b82f6',       // blue-500
+  fair: '#eab308',       // yellow-500
+  poor: '#ef4444',       // red-500
+  default: '#a1a1aa'     // gray-400
 };
 
 // Tailwind CSS class mappings for text color
@@ -24,12 +25,8 @@ export const CATEGORY_TEXT_CLASSES = {
 
 /**
  * Defines the value ranges for different health metrics.
- * The structure assumes that for a given metric, higher values are better,
- * unless the metric typically implies lower is better (e.g., resting_heart_rate).
  * Ranges are defined as [min, max), meaning min is inclusive, max is exclusive.
- * The order of categories within each metric's array matters for the getMetricCategory function.
- * It's generally best to order from "excellent" to "poor" or vice-versa consistently.
- * Current implementation iterates and takes the first match.
+ * The order of categories within each metric's array matters.
  */
 const METRIC_RANGES = {
   // Heart Metrics
@@ -47,34 +44,34 @@ const METRIC_RANGES = {
   ],
 
   // Body Metrics
-  'fat_ratio': [ // Lower is generally better (within healthy limits)
-    { category: 'excellent', min: 10, max: 15 }, // Represents 10-14.99...%
-    { category: 'good', min: 15, max: 18 },      // Represents 15-17.99...%
-    { category: 'fair', min: 18, max: 23 },      // Represents 18-22.99...%
-    { category: 'poor', min: 23, max: Infinity } // Represents >= 23%
+  'fat_ratio': [ // Lower is generally better
+    { category: 'excellent', min: 10, max: 15 }, 
+    { category: 'good', min: 15, max: 18 },      
+    { category: 'fair', min: 18, max: 23 },      
+    { category: 'poor', min: 23, max: Infinity } 
   ],
 
   // Sleep Metrics
-  'total_sleep': [ // Higher is better (within limits)
-    { category: 'excellent', min: 7.5, max: 8.6 },  // 7.5 to 8.59... hours
+  'total_sleep': [ // Higher is better
+    { category: 'excellent', min: 7.5, max: 8.6 },
     { category: 'good', min: 7.0, max: 7.5 },
     { category: 'fair', min: 6.5, max: 7.0 },
     { category: 'poor', min: 0, max: 6.5 }
   ],
   'deep_sleep_minutes': [ // Higher is better
-    { category: 'excellent', min: 90, max: 121 },  // 90-120 minutes
+    { category: 'excellent', min: 90, max: 121 },
     { category: 'good', min: 70, max: 90 },
     { category: 'fair', min: 50, max: 70 },
     { category: 'poor', min: 0, max: 50 }
   ],
   'delay': [ // Sleep latency - Lower is better
-    { category: 'excellent', min: 0, max: 10 },    // < 10 minutes
-    { category: 'good', min: 10, max: 21 },        // 10-20 minutes
-    { category: 'fair', min: 21, max: 31 },        // 21-30 minutes
-    { category: 'poor', min: 31, max: Infinity }  // >= 31 minutes
+    { category: 'excellent', min: 0, max: 10 },
+    { category: 'good', min: 10, max: 21 },
+    { category: 'fair', min: 21, max: 31 },
+    { category: 'poor', min: 31, max: Infinity }
   ],
   'efficiency': [ // Higher is better
-    { category: 'excellent', min: 90, max: 101 }, // 90-100% (max 101 to include 100.x values if they occur)
+    { category: 'excellent', min: 90, max: 101 },
     { category: 'good', min: 85, max: 90 },
     { category: 'fair', min: 75, max: 85 },
     { category: 'poor', min: 0, max: 75 }
@@ -87,38 +84,38 @@ const METRIC_RANGES = {
     { category: 'fair', min: 36, max: 42 },
     { category: 'poor', min: 0, max: 36 }
   ],
-  'vo2_max_clinical': [ // Assuming same ranges as watch VO2 Max; adjust if different
+  'vo2_max_clinical': [ // Same ranges as watch VO2 Max
     { category: 'excellent', min: 50, max: Infinity },
     { category: 'good', min: 42, max: 50 },
     { category: 'fair', min: 36, max: 42 },
     { category: 'poor', min: 0, max: 36 }
   ],
-  'five_k_seconds': [ // Lower is better for time
+  'five_k_seconds': [ // Lower is better
     { category: 'excellent', min: 0, max: 1260 },      // Under 21:00
     { category: 'good', min: 1260, max: 1471 },     // 21:00 to 24:30
     { category: 'fair', min: 1471, max: 1681 },     // 24:31 to 28:00
     { category: 'poor', min: 1681, max: Infinity }  // Over 28:00
   ],
-  'ten_k_seconds': [], // Placeholder for new 10K time metric
+  'ten_k_seconds': [], // Placeholder
 
   // Other Fitness Metrics
-  'peak_flow': [ // Higher is better.
-    { category: 'excellent', min: 700.000001, max: Infinity }, // Strictly > 700
-    { category: 'good', min: 600, max: 700.000001 },            // 600 to 700 (inclusive)
-    { category: 'fair', min: 500, max: 600 },                   // 500 to 599.99...
-    { category: 'poor', min: 0, max: 500 }                      // < 500
+  'peak_flow': [ // Higher is better
+    { category: 'excellent', min: 700.000001, max: Infinity },
+    { category: 'good', min: 600, max: 700.000001 },
+    { category: 'fair', min: 500, max: 600 },
+    { category: 'poor', min: 0, max: 500 }
   ],
-  'strong_grip': [ // Right Hand Grip. Higher is better.
-    { category: 'excellent', min: 58.000001, max: Infinity },   // Strictly > 58
-    { category: 'good', min: 52, max: 58.000001 },              // 52 to 58 (inclusive)
-    { category: 'fair', min: 44, max: 52 },                     // 44 to 51.99...
-    { category: 'poor', min: 0, max: 44 }                       // < 44
+  'strong_grip': [ // Higher is better
+    { category: 'excellent', min: 58.000001, max: Infinity },
+    { category: 'good', min: 52, max: 58.000001 },
+    { category: 'fair', min: 44, max: 52 },
+    { category: 'poor', min: 0, max: 44 }
   ],
-  'weak_grip': [ // Left Hand Grip. Higher is better.
-    { category: 'excellent', min: 54.000001, max: Infinity },   // Strictly > 54
-    { category: 'good', min: 48, max: 54.000001 },              // 48 to 54 (inclusive)
-    { category: 'fair', min: 40, max: 48 },                     // 40 to 47.99...
-    { category: 'poor', min: 0, max: 40 }                       // < 40
+  'weak_grip': [ // Higher is better
+    { category: 'excellent', min: 54.000001, max: Infinity },
+    { category: 'good', min: 48, max: 54.000001 },
+    { category: 'fair', min: 40, max: 48 },
+    { category: 'poor', min: 0, max: 40 }
   ],
   'power_breathe_level': [ // Higher is better
     { category: 'excellent', min: 8, max: Infinity },
@@ -126,21 +123,76 @@ const METRIC_RANGES = {
     { category: 'fair', min: 4, max: 6 },
     { category: 'poor', min: 0, max: 4 }
   ],
+
+  // --- NEW MACRO METRICS ---
+  // Target: 2200 kcal. Excellent is +/- 10%, Good is +/- 20%.
+  'calories_kcal': [
+    { category: 'excellent', min: 1980, max: 2420 }, // 2200 * 0.9 to 1.1
+    { category: 'good', min: 1760, max: 1980 },      // 2200 * 0.8 to 0.9
+    { category: 'good', min: 2420, max: 2640 },      // 2200 * 1.1 to 1.2
+    { category: 'fair', min: 1540, max: 1760 },      // 2200 * 0.7 to 0.8
+    { category: 'fair', min: 2640, max: 2860 },      // 2200 * 1.2 to 1.3
+    { category: 'poor', min: 0, max: 1540 },
+    { category: 'poor', min: 2860, max: Infinity },
+  ],
+  // Target: 165g. Excellent is +/- 10%, Good is +/- 20%.
+  'protein_g': [
+    { category: 'excellent', min: 148.5, max: 181.5 }, // 165 * 0.9 to 1.1
+    { category: 'good', min: 132, max: 148.5 },        // 165 * 0.8 to 0.9
+    { category: 'good', min: 181.5, max: 198 },        // 165 * 1.1 to 1.2
+    { category: 'fair', min: 115.5, max: 132 },        // 165 * 0.7 to 0.8
+    { category: 'fair', min: 198, max: 214.5 },        // 165 * 1.2 to 1.3
+    { category: 'poor', min: 0, max: 115.5 },
+    { category: 'poor', min: 214.5, max: Infinity },
+  ],
+  // Target: 61g. Excellent is +/- 15%, Good is +/- 30%.
+  'fat_g': [
+    { category: 'excellent', min: 51.8, max: 70.2 }, // 61 * 0.85 to 1.15
+    { category: 'good', min: 42.7, max: 51.8 },      // 61 * 0.7 to 0.85
+    { category: 'good', min: 70.2, max: 79.3 },      // 61 * 1.15 to 1.3
+    { category: 'fair', min: 30.5, max: 42.7 },      // 61 * 0.5 to 0.7
+    { category: 'fair', min: 79.3, max: 91.5 },      // 61 * 1.3 to 1.5
+    { category: 'poor', min: 0, max: 30.5 },
+    { category: 'poor', min: 91.5, max: Infinity },
+  ],
+  // Target: 248g. Excellent is +/- 10%, Good is +/- 20%.
+  'carbs_g': [
+    { category: 'excellent', min: 223.2, max: 272.8 }, // 248 * 0.9 to 1.1
+    { category: 'good', min: 198.4, max: 223.2 },      // 248 * 0.8 to 0.9
+    { category: 'good', min: 272.8, max: 297.6 },      // 248 * 1.1 to 1.2
+    { category: 'fair', min: 173.6, max: 198.4 },      // 248 * 0.7 to 0.8
+    { category: 'fair', min: 297.6, max: 322.4 },      // 248 * 1.2 to 1.3
+    { category: 'poor', min: 0, max: 173.6 },
+    { category: 'poor', min: 322.4, max: Infinity },
+  ],
+  // Limit: 50g. Lower is better.
+  'sugar_g': [
+    { category: 'excellent', min: 0, max: 35 },        // < 35g
+    { category: 'good', min: 35, max: 50.00001 },     // 35g to 50g (inclusive)
+    { category: 'fair', min: 50.00001, max: 70 },     // > 50g to 70g
+    { category: 'poor', min: 70, max: Infinity },      // > 70g
+  ],
+  // Limit: 20g. Lower is better.
+  'sat_fat_g': [
+    { category: 'excellent', min: 0, max: 15 },        // < 15g
+    { category: 'good', min: 15, max: 20.00001 },     // 15g to 20g (inclusive)
+    { category: 'fair', min: 20.00001, max: 28 },     // > 20g to 28g
+    { category: 'poor', min: 28, max: Infinity },      // > 28g
+  ],
 };
 
 /**
  * Determines the health category for a given metric and its value.
- * @param {string} metricKey The key for the metric (e.g., 'average_hrv', 'peak_flow').
+ * @param {string} metricKey The key for the metric (e.g., 'average_hrv').
  * @param {number | null | undefined} value The numerical value of the metric.
  * @returns {string} The category ('excellent', 'good', 'fair', 'poor', or 'default').
 */
 export const getMetricCategory = (metricKey, value) => {
   if (value === null || value === undefined || isNaN(parseFloat(value))) {
-    return 'default'; // Handle invalid or missing values
+    return 'default';
   }
   const numericValue = parseFloat(value);
 
-  // Specific metrics without standard categories
   if (metricKey === 'weight') {
     return 'default';
   }
@@ -148,19 +200,16 @@ export const getMetricCategory = (metricKey, value) => {
   const ranges = METRIC_RANGES[metricKey];
 
   if (!ranges) {
-    // console.warn(`[getMetricCategory] No ranges defined for metric key: ${metricKey}`);
-    return 'default'; // No ranges defined for this metric
+    return 'default';
   }
 
-  // Iterate through the defined ranges for the metric.
-  // The order in the METRIC_RANGES array is important here.
   for (const range of ranges) {
     if (numericValue >= range.min && numericValue < range.max) {
       return range.category;
     }
   }
 
-  return 'default'; // Fallback if no range is matched (e.g., value outside all defined ranges)
+  return 'default';
 };
 
 /**
@@ -168,16 +217,14 @@ export const getMetricCategory = (metricKey, value) => {
  * @param {string} metricKey The key for the metric.
  * @param {number | null | undefined} value The numerical value of the metric.
  * @returns {{category: string, label: string, textColorClass: string, hexColor: string}}
- * An object containing category name, display label, Tailwind CSS class, and hex color.
 */
 export const getMetricCategoryInfo = (metricKey, value) => {
   const category = getMetricCategory(metricKey, value);
 
-  // Handle metrics that are explicitly 'default' and don't need a category label
   if (metricKey === 'weight' || category === 'default') {
     return {
       category: 'default',
-      label: '', // No label for 'default' or specifically excluded metrics
+      label: '',
       textColorClass: CATEGORY_TEXT_CLASSES.default,
       hexColor: CATEGORY_COLORS.default
     };
@@ -185,7 +232,7 @@ export const getMetricCategoryInfo = (metricKey, value) => {
 
   return {
     category,
-    label: category.charAt(0).toUpperCase() + category.slice(1), // Capitalize first letter for display
+    label: category.charAt(0).toUpperCase() + category.slice(1),
     textColorClass: CATEGORY_TEXT_CLASSES[category] || CATEGORY_TEXT_CLASSES.default,
     hexColor: CATEGORY_COLORS[category] || CATEGORY_COLORS.default
   };
