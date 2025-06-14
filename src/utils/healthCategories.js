@@ -26,9 +26,9 @@ export const CATEGORY_TEXT_CLASSES = {
 /**
  * Defines the value ranges for different health metrics.
  * Ranges are defined as [min, max), meaning min is inclusive, max is exclusive.
- * The order of categories within each metric's array matters.
  */
-const METRIC_RANGES = {
+// --- MODIFIED: Added 'export' to the constant ---
+export const METRIC_RANGES = {
   // Heart Metrics
   'average_hrv': [ // Higher is better
     { category: 'excellent', min: 80, max: Infinity },
@@ -123,61 +123,55 @@ const METRIC_RANGES = {
     { category: 'fair', min: 4, max: 6 },
     { category: 'poor', min: 0, max: 4 }
   ],
-
-  // --- NEW MACRO METRICS ---
-  // Target: 2200 kcal. Excellent is +/- 10%, Good is +/- 20%.
+    
+  // Macro Metrics
   'calories_kcal': [
-    { category: 'excellent', min: 1980, max: 2420 }, // 2200 * 0.9 to 1.1
-    { category: 'good', min: 1760, max: 1980 },      // 2200 * 0.8 to 0.9
-    { category: 'good', min: 2420, max: 2640 },      // 2200 * 1.1 to 1.2
-    { category: 'fair', min: 1540, max: 1760 },      // 2200 * 0.7 to 0.8
-    { category: 'fair', min: 2640, max: 2860 },      // 2200 * 1.2 to 1.3
+    { category: 'excellent', min: 1980, max: 2420 },
+    { category: 'good', min: 1760, max: 1980 },
+    { category: 'good', min: 2420, max: 2640 },
+    { category: 'fair', min: 1540, max: 1760 },
+    { category: 'fair', min: 2640, max: 2860 },
     { category: 'poor', min: 0, max: 1540 },
     { category: 'poor', min: 2860, max: Infinity },
   ],
-  // Target: 165g. Excellent is +/- 10%, Good is +/- 20%.
   'protein_g': [
-    { category: 'excellent', min: 148.5, max: 181.5 }, // 165 * 0.9 to 1.1
-    { category: 'good', min: 132, max: 148.5 },        // 165 * 0.8 to 0.9
-    { category: 'good', min: 181.5, max: 198 },        // 165 * 1.1 to 1.2
-    { category: 'fair', min: 115.5, max: 132 },        // 165 * 0.7 to 0.8
-    { category: 'fair', min: 198, max: 214.5 },        // 165 * 1.2 to 1.3
+    { category: 'excellent', min: 148.5, max: 181.5 },
+    { category: 'good', min: 132, max: 148.5 },
+    { category: 'good', min: 181.5, max: 198 },
+    { category: 'fair', min: 115.5, max: 132 },
+    { category: 'fair', min: 198, max: 214.5 },
     { category: 'poor', min: 0, max: 115.5 },
     { category: 'poor', min: 214.5, max: Infinity },
   ],
-  // Target: 61g. Excellent is +/- 15%, Good is +/- 30%.
   'fat_g': [
-    { category: 'excellent', min: 51.8, max: 70.2 }, // 61 * 0.85 to 1.15
-    { category: 'good', min: 42.7, max: 51.8 },      // 61 * 0.7 to 0.85
-    { category: 'good', min: 70.2, max: 79.3 },      // 61 * 1.15 to 1.3
-    { category: 'fair', min: 30.5, max: 42.7 },      // 61 * 0.5 to 0.7
-    { category: 'fair', min: 79.3, max: 91.5 },      // 61 * 1.3 to 1.5
+    { category: 'excellent', min: 51.8, max: 70.2 },
+    { category: 'good', min: 42.7, max: 51.8 },
+    { category: 'good', min: 70.2, max: 79.3 },
+    { category: 'fair', min: 30.5, max: 42.7 },
+    { category: 'fair', min: 79.3, max: 91.5 },
     { category: 'poor', min: 0, max: 30.5 },
     { category: 'poor', min: 91.5, max: Infinity },
   ],
-  // Target: 248g. Excellent is +/- 10%, Good is +/- 20%.
   'carbs_g': [
-    { category: 'excellent', min: 223.2, max: 272.8 }, // 248 * 0.9 to 1.1
-    { category: 'good', min: 198.4, max: 223.2 },      // 248 * 0.8 to 0.9
-    { category: 'good', min: 272.8, max: 297.6 },      // 248 * 1.1 to 1.2
-    { category: 'fair', min: 173.6, max: 198.4 },      // 248 * 0.7 to 0.8
-    { category: 'fair', min: 297.6, max: 322.4 },      // 248 * 1.2 to 1.3
+    { category: 'excellent', min: 223.2, max: 272.8 },
+    { category: 'good', min: 198.4, max: 223.2 },
+    { category: 'good', min: 272.8, max: 297.6 },
+    { category: 'fair', min: 173.6, max: 198.4 },
+    { category: 'fair', min: 297.6, max: 322.4 },
     { category: 'poor', min: 0, max: 173.6 },
     { category: 'poor', min: 322.4, max: Infinity },
   ],
-  // Limit: 50g. Lower is better.
   'sugar_g': [
-    { category: 'excellent', min: 0, max: 35 },        // < 35g
-    { category: 'good', min: 35, max: 50.00001 },     // 35g to 50g (inclusive)
-    { category: 'fair', min: 50.00001, max: 70 },     // > 50g to 70g
-    { category: 'poor', min: 70, max: Infinity },      // > 70g
+    { category: 'excellent', min: 0, max: 35 },
+    { category: 'good', min: 35, max: 50.00001 },
+    { category: 'fair', min: 50.00001, max: 70 },
+    { category: 'poor', min: 70, max: Infinity },
   ],
-  // Limit: 20g. Lower is better.
   'sat_fat_g': [
-    { category: 'excellent', min: 0, max: 15 },        // < 15g
-    { category: 'good', min: 15, max: 20.00001 },     // 15g to 20g (inclusive)
-    { category: 'fair', min: 20.00001, max: 28 },     // > 20g to 28g
-    { category: 'poor', min: 28, max: Infinity },      // > 28g
+    { category: 'excellent', min: 0, max: 15 },
+    { category: 'good', min: 15, max: 20.00001 },
+    { category: 'fair', min: 20.00001, max: 28 },
+    { category: 'poor', min: 28, max: Infinity },
   ],
 };
 
