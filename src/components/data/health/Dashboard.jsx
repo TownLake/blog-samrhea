@@ -6,7 +6,7 @@ import {
   Heart, Scale, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse,
   Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand, BarChart2,
   Flame, Beef, Wheat, Donut, Link2,
-  Nut // --- MODIFIED: Replaced non-existent 'Cheese' icon with 'Nut' ---
+  Nut
 } from 'lucide-react';
 import { createSparklineData } from '../../../utils/dataUtils';
 import MetricSection from './MetricSection';
@@ -123,11 +123,11 @@ const HealthDashboard = () => {
   const latestMacros = hasData(macros) ? macros[0] : {};
   const macroMetrics = hasData(macros) ? [
     { title: "Calories", value: latestMacros.calories_kcal?.toLocaleString() ?? '--', unit: "kcal", ...getMetricCategoryInfo('calories_kcal', latestMacros.calories_kcal), sparklineData: createSparklineData(macrosSpark, 'calories_kcal'), icon: Flame, fullData: macros, dataKey: "calories_kcal" },
-    { title: "Protein", value: latestMacros.protein_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestMacros.protein_g), sparklineData: createSparklineData(macrosSpark, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g" },
-    { title: "Carbs", value: latestMacros.carbs_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('carbs_g', latestMacros.carbs_g), sparklineData: createSparklineData(macrosSpark, 'carbs_g'), icon: Wheat, fullData: macros, dataKey: "carbs_g" },
-    { title: "Fat", value: latestMacros.fat_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestMacros.fat_g), sparklineData: createSparklineData(macrosSpark, 'fat_g'), icon: Nut, fullData: macros, dataKey: "fat_g" },
-    { title: "Saturated Fat", value: latestMacros.sat_fat_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestMacros.sat_fat_g), sparklineData: createSparklineData(macrosSpark, 'sat_fat_g'), icon: Link2, fullData: macros, dataKey: "sat_fat_g" },
-    { title: "Sugar", value: latestMacros.sugar_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestMacros.sugar_g), sparklineData: createSparklineData(macrosSpark, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g" }
+    { title: "Protein", value: latestMacros.protein_g != null ? Math.round(latestMacros.protein_g) : '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestMacros.protein_g), sparklineData: createSparklineData(macrosSpark, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g" },
+    { title: "Carbs", value: latestMacros.carbs_g != null ? Math.round(latestMacros.carbs_g) : '--', unit: "g", ...getMetricCategoryInfo('carbs_g', latestMacros.carbs_g), sparklineData: createSparklineData(macrosSpark, 'carbs_g'), icon: Wheat, fullData: macros, dataKey: "carbs_g" },
+    { title: "Fat", value: latestMacros.fat_g != null ? Math.round(latestMacros.fat_g) : '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestMacros.fat_g), sparklineData: createSparklineData(macrosSpark, 'fat_g'), icon: Nut, fullData: macros, dataKey: "fat_g" },
+    { title: "Saturated Fat", value: latestMacros.sat_fat_g != null ? Math.round(latestMacros.sat_fat_g) : '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestMacros.sat_fat_g), sparklineData: createSparklineData(macrosSpark, 'sat_fat_g'), icon: Link2, fullData: macros, dataKey: "sat_fat_g" },
+    { title: "Sugar", value: latestMacros.sugar_g != null ? Math.round(latestMacros.sugar_g) : '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestMacros.sugar_g), sparklineData: createSparklineData(macrosSpark, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g" }
   ] : [];
 
   return (
