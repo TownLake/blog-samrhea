@@ -1,17 +1,20 @@
 // src/components/data/health/charts/DailyChart.jsx
+
 import React, { memo, useMemo } from 'react';
-import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { formatSecondsToMMSS } from '../../../../utils/dataUtils'; // Adjust path as needed
-import CustomTooltip from '../tooltips/CustomTooltip'; // Adjust path as needed
-import { chartMargins, axisConfig, gridConfig } from '../../../../config/chartConfig'; // Adjust path as needed
+import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts';
+import { formatSecondsToMMSS } from '../../../../utils/dataUtils';
+import CustomTooltip from '../tooltips/CustomTooltip';
+import { chartMargins, axisConfig, gridConfig } from '../../../../config/chartConfig';
+import { METRIC_RANGES, CATEGORY_COLORS } from '../../../../utils/healthCategories';
 
 const DailyChart = memo(({
   chartData: initialChartData,
   dataKey,
   unit,
   lineColor,
-  domain, // UPDATED: Accept final domain directly
-  isDarkMode
+  domain,
+  isDarkMode,
+  showBands
 }) => {
   const axisColors = isDarkMode ? axisConfig.dark : axisConfig.light;
   const gridColors = isDarkMode ? gridConfig.dark : gridConfig.light;
@@ -20,41 +23,33 @@ const DailyChart = memo(({
   const gradientId = `detailGradient-${dataKey}`;
   const filledGradientId = `detailGradientFilled-${dataKey}`;
 
-  // --- Data Processing logic remains the same to split actual vs. filled ---
   const { processedChartData, actualDataKey, filledDataKey } = useMemo(() => {
     if (!initialChartData || !Array.isArray(initialChartData)) {
         return { processedChartData: [], actualDataKey: `${dataKey}_actual`, filledDataKey: `${dataKey}_filled` };
     }
-
     const actualKey = `${dataKey}_actual`;
     const filledKey = `${dataKey}_filled`;
     const dataKeyBase = dataKey?.split('_')[0];
     const fillFlagKey = `is_fill_value_${dataKeyBase}`;
-
     const processed = initialChartData.map(point => {
         if (!point || typeof point !== 'object') return null;
-
         const hasDataKeyValue = point.hasOwnProperty(dataKey) && point[dataKey] !== null && point[dataKey] !== undefined;
         const isFilled = point.hasOwnProperty(fillFlagKey) && !!point[fillFlagKey];
-
         return {
             ...point,
             [actualKey]: hasDataKeyValue && !isFilled ? point[dataKey] : null,
             [filledKey]: hasDataKeyValue && isFilled ? point[dataKey] : null,
         };
     }).filter(Boolean);
-
     const uniqueData = Array.from(new Map(processed.map(item => [item.date, item])).values());
     return { processedChartData: uniqueData, actualDataKey: actualKey, filledDataKey: filledKey };
   }, [initialChartData, dataKey]);
 
-  const hasSufficientData = processedChartData && processedChartData.length >= 2;
+  const categoryRanges = METRIC_RANGES[dataKey] || METRIC_RANGES[dataKey.replace('_clinical', '')] || [];
 
-  if (!hasSufficientData) {
+  if (!processedChartData || processedChartData.length < 2) {
      return <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">Not enough data for daily view.</div>;
   }
-
-  // --- REMOVED: Redundant min/max/padding calculation is gone ---
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -69,6 +64,26 @@ const DailyChart = memo(({
             <stop offset="95%" stopColor={effectiveLineColor} stopOpacity={0}/>
           </linearGradient>
         </defs>
+        
+        {/* Render Category Bands Behind Grid */}
+        {showBands && categoryRanges.map(range => {
+          if (range.min === Infinity || !range.max) return null;
+          return (
+            <ReferenceArea
+              key={range.category + range.min}
+              y1={range.min}
+              y2={range.max === Infinity ? domain[1] : range.max}
+              fill={CATEGORY_COLORS[range.category]}
+              fillOpacity={0.08}
+              stroke={CATEGORY_COLORS[range.category]}
+              strokeOpacity={0.2}
+              strokeWidth={1}
+              strokeDasharray="3 3"
+              ifOverflow="hidden"
+            />
+          );
+        })}
+
         <CartesianGrid
           strokeDasharray="3 3"
           vertical={false}
@@ -82,10 +97,7 @@ const DailyChart = memo(({
                   const dateObj = new Date(dateString);
                   if (isNaN(dateObj.getTime())) return '';
                   return dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-              } catch (e) {
-                  console.error("Error formatting date:", dateString, e);
-                  return '';
-              }
+              } catch (e) { return ''; }
           }}
           tick={{ fill: axisColors.tickFill }}
           tickLine={{ stroke: axisColors.stroke }}
@@ -93,7 +105,7 @@ const DailyChart = memo(({
         />
         <YAxis
           stroke={axisColors.stroke}
-          domain={domain} // Use the domain passed via props
+          domain={domain}
           tickFormatter={(value) => {
             if (dataKey === 'five_k_seconds') return formatSecondsToMMSS(value);
             return typeof value === 'number' ? `${Math.round(value)}` : '';
@@ -101,12 +113,11 @@ const DailyChart = memo(({
           tick={{ fill: axisColors.tickFill }}
           tickLine={{ stroke: axisColors.stroke }}
           axisLine={{ stroke: axisColors.axisLine }}
-          allowDataOverflow={true} // Important for custom domains
-          width={40} // Give Y-axis enough space
+          allowDataOverflow={true}
+          width={40}
         />
         <Tooltip content={<CustomTooltip unit={unit} originalDataKey={dataKey} actualDataKey={actualDataKey} filledDataKey={filledDataKey}/>} />
-
-        {/* Area for filled values (drawn first, in the back) */}
+        
         <Area
           type="monotone"
           dataKey={filledDataKey}
@@ -120,7 +131,6 @@ const DailyChart = memo(({
           connectNulls={false}
           isAnimationActive={false}
         />
-        {/* Area for actual values (drawn on top) */}
         <Area
           type="monotone"
           dataKey={actualDataKey}
@@ -131,7 +141,7 @@ const DailyChart = memo(({
           dot={false}
           activeDot={{ r: 6, stroke: effectiveLineColor, strokeWidth: 2, fill: isDarkMode ? '#1E293B' : '#FFFFFF' }}
           name="Actual Data"
-          connectNulls={true} // *** FIX: This connects the line across gaps with 'filled' data ***
+          connectNulls={true}
           isAnimationActive={false}
         />
       </AreaChart>
@@ -140,5 +150,4 @@ const DailyChart = memo(({
 });
 
 DailyChart.displayName = 'DailyChart';
-
 export default DailyChart;
