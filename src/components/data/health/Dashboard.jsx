@@ -5,7 +5,8 @@ import { useLocation } from 'react-router-dom';
 import {
   Heart, Scale, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse,
   Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand, BarChart2,
-  Flame, Beef, Wheat, Droplets, Donut, Unplug
+  Flame, Beef, Wheat, Donut,
+  Cheese, Link2 // --- MODIFIED: Replaced previous icons with the new selections
 } from 'lucide-react';
 import { createSparklineData } from '../../../utils/dataUtils';
 import MetricSection from './MetricSection';
@@ -45,7 +46,6 @@ const HealthDashboard = () => {
   const location = useLocation();
   const [activeModal, setActiveModal] = useState(null);
 
-  // This effect syncs the modal state FROM the URL (e.g., on page load, back/forward)
   useEffect(() => {
     const hash = location.hash.replace('#', '');
     if (!hash) {
@@ -63,18 +63,14 @@ const HealthDashboard = () => {
     }
   }, [location.hash, isLoading]);
 
-  // --- MODIFIED: Click handlers now directly set state to fix bug ---
   const handleOpenModal = (dataKey) => {
-    // Set state directly to ensure modal opens even if hash doesn't change
     setActiveModal(dataKey); 
     window.location.hash = dataKey;
   };
 
   const handleCloseModal = () => {
-    // Set state directly to ensure modal closes immediately
     setActiveModal(null);
     const { pathname, search } = window.location;
-    // Clean the URL
     window.history.pushState("", document.title, pathname + search);
   };
 
@@ -95,7 +91,6 @@ const HealthDashboard = () => {
     onClose: handleCloseModal,
   });
   
-  // --- Define Metric Arrays (no changes to this logic) ---
   const latestOura = hasData(oura) ? oura[0] : {};
   const heartMetrics = hasData(oura) ? [
     { title: "HRV", value: latestOura.average_hrv?.toFixed(0) ?? '--', unit: "ms", ...getMetricCategoryInfo('average_hrv', latestOura.average_hrv), sparklineData: createSparklineData(ouraSpark, 'average_hrv'), icon: Activity, fullData: oura, dataKey: "average_hrv" },
@@ -130,8 +125,8 @@ const HealthDashboard = () => {
     { title: "Calories", value: latestMacros.calories_kcal?.toLocaleString() ?? '--', unit: "kcal", ...getMetricCategoryInfo('calories_kcal', latestMacros.calories_kcal), sparklineData: createSparklineData(macrosSpark, 'calories_kcal'), icon: Flame, fullData: macros, dataKey: "calories_kcal" },
     { title: "Protein", value: latestMacros.protein_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestMacros.protein_g), sparklineData: createSparklineData(macrosSpark, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g" },
     { title: "Carbs", value: latestMacros.carbs_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('carbs_g', latestMacros.carbs_g), sparklineData: createSparklineData(macrosSpark, 'carbs_g'), icon: Wheat, fullData: macros, dataKey: "carbs_g" },
-    { title: "Fat", value: latestMacros.fat_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestMacros.fat_g), sparklineData: createSparklineData(macrosSpark, 'fat_g'), icon: Droplets, fullData: macros, dataKey: "fat_g" },
-    { title: "Saturated Fat", value: latestMacros.sat_fat_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestMacros.sat_fat_g), sparklineData: createSparklineData(macrosSpark, 'sat_fat_g'), icon: Unplug, fullData: macros, dataKey: "sat_fat_g" },
+    { title: "Fat", value: latestMacros.fat_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestMacros.fat_g), sparklineData: createSparklineData(macrosSpark, 'fat_g'), icon: Cheese, fullData: macros, dataKey: "fat_g" },
+    { title: "Saturated Fat", value: latestMacros.sat_fat_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestMacros.sat_fat_g), sparklineData: createSparklineData(macrosSpark, 'sat_fat_g'), icon: Link2, fullData: macros, dataKey: "sat_fat_g" },
     { title: "Sugar", value: latestMacros.sugar_g?.toFixed(1) ?? '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestMacros.sugar_g), sparklineData: createSparklineData(macrosSpark, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g" }
   ] : [];
 
