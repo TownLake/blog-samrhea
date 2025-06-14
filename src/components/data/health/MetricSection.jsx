@@ -19,8 +19,8 @@ const MetricSection = ({ title, icon: Icon, metrics }) => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{title}</h2>
         </a>
       </div>
-      {/* Responsive grid that works well for 2, 3, or 4 items per row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
+      {/* --- MODIFIED: Reverted to a 2-column layout on medium screens and up --- */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> 
         {metrics.map((metricProps, index) => (
           <MetricCard 
             key={`${metricProps.dataKey}-${index}`} 
