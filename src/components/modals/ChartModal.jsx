@@ -1,4 +1,5 @@
 // src/components/modals/ChartModal.jsx
+
 import React from 'react';
 import { X } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
@@ -31,14 +32,13 @@ const ChartModal = ({
       aria-labelledby={`modal-title-${title?.replace(/\s+/g, '-').toLowerCase()}`}
     >
       <div
-        // UPDATED: Increased width
         className={`${modalBackgroundClass} ${textColorClass} rounded-xl w-full max-w-4xl shadow-2xl border ${borderColorClass} flex flex-col overflow-hidden`}
         style={{ maxHeight: 'calc(100vh - 4rem)' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className={`flex justify-between items-center p-4 sm:p-5 border-b ${borderColorClass} flex-shrink-0`}>
-          <div className="flex items-baseline gap-2 min-w-0"> {/* Changed items-center to items-baseline for better title/unit alignment */}
+          <div className="flex items-baseline gap-2 min-w-0">
             {IconComponent && <IconComponent className={`w-5 h-5 sm:w-6 sm:h-6 ${iconColorClass} flex-shrink-0`} />}
             <h2 id={`modal-title-${title?.replace(/\s+/g, '-').toLowerCase()}`} className="text-lg sm:text-xl font-semibold truncate">
               {title}
@@ -54,7 +54,7 @@ const ChartModal = ({
             {headerActions}
             <button
               onClick={onClose}
-              className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors ${unitColorClass}`} // Use unitColor for consistency
+              className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors ${unitColorClass}`}
               aria-label="Close modal"
             >
               <X className="w-5 h-5 sm:w-6 sm:h-6" />
