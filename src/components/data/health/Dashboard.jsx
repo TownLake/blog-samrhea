@@ -14,6 +14,7 @@ import DataIntroCard from '../DataIntroCard';
 import Card from '../../Card';
 import { useHealthData } from '../../../store/HealthDataContext';
 import { getMetricCategoryInfo } from '../../../utils/healthCategories';
+import KeyMetricsSlider from './KeyMetricsSlider';
 
 const LoadingView = () => (
   <div className="py-20 text-center text-gray-500 dark:text-gray-400">
@@ -130,8 +131,53 @@ const HealthDashboard = () => {
     { title: "Sugar", value: latestMacros.sugar_g != null ? Math.round(latestMacros.sugar_g) : '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestMacros.sugar_g), sparklineData: createSparklineData(macrosSpark, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g" }
   ] : [];
 
+  const keyMetrics = [];
+
+  if (latestOura) {
+    keyMetrics.push({
+      dataKey: 'resting_heart_rate',
+      title: 'Resting HR',
+      value: latestOura.resting_heart_rate?.toFixed(0) ?? '--',
+      unit: 'bpm'
+    });
+    keyMetrics.push({
+      dataKey: 'total_sleep',
+      title: 'Total Sleep',
+      value: latestOura.total_sleep?.toFixed(1) ?? '--',
+      unit: 'h'
+    });
+  }
+
+  if (latestWithings) {
+    keyMetrics.push({
+      dataKey: 'weight',
+      title: 'Weight',
+      value: latestWithings.weight?.toFixed(1) ?? '--',
+      unit: 'lbs'
+    });
+  }
+
+  if (latestRunning) {
+    keyMetrics.push({
+      dataKey: 'vo2_max',
+      title: 'VO2 Max',
+      value: latestRunning.vo2_max?.toFixed(1) ?? '--',
+      unit: ''
+    });
+  }
+
+  if (latestMacros) {
+    keyMetrics.push({
+      dataKey: 'calories_kcal',
+      title: 'Calories',
+      value: latestMacros.calories_kcal?.toLocaleString() ?? '--',
+      unit: 'kcal'
+    });
+  }
+
   return (
     <div className="pt-2 pb-8">
+      <KeyMetricsSlider metrics={keyMetrics} />
       <DataIntroCard title="Health Data" icon={BarChart2}>
         <p>
           I publish these to have a home page for myself. I think{' '} 
