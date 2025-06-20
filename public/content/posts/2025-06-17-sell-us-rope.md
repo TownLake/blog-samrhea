@@ -1,5 +1,5 @@
 ---
-title: "🔖🔖 Sell Us the Rope by Stephen May"
+title: "🪢🎭 Sell Us the Rope by Stephen May"
 date: "2025-06-17"
 template: "post"
 draft: false
