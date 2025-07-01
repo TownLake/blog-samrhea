@@ -1,5 +1,14 @@
 [
     {
+      "id": "ai-search-crawl-refer-ratio-on-radar",
+      "title": "🟠⛅ The crawl before the fall… of referrals: understanding AI’s impact on content providers",
+      "date": "2025-07-01",
+      "category": "cloudflare",
+      "description": "Internet users can now see the impact of AI crawling and its relationship to site traffic.",
+      "url": "https://blog.cloudflare.com/ai-search-crawl-refer-ratio-on-radar/",
+      "external": true
+    },
+    {
       "id": "cloudflare-ai-audit-control",
       "title": "🟠⛅ Start auditing and controlling the AI models accessing your content",
       "date": "2024-09-23",
