@@ -11,7 +11,6 @@
 |-----------|----------------------|
 | 🏋️ **Creatine — 1 scoop** | Creatine Monohydrate · **5 g** |
 | 🛡️ **NAC Complex — 1 capsule** | N-Acetyl-Cysteine **600 mg** • Selenium **70 µg** • Molybdenum **75 µg** |
-| ✨ **Magnesium Chelate — 1 tablet** | Elemental Magnesium (malate / citrate / bis-glycinate) **210 mg** |
 
 ---
 
