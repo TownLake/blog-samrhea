@@ -1,10 +1,6 @@
 // src/constants/index.js
-// Centralized constants for the application
 
-// Pagination
-export const POSTS_PER_PAGE = 12;
-
-// Filter options for main page (blog) - UPDATED
+// --- DEPENDENCIES DECLARED FIRST ---
 export const FILTER_OPTIONS = [
   { id: 'Starred', label: 'Starred', icon: '⭐' },
   { id: 'Reading', label: 'Reading List', icon: '📚' },
@@ -13,15 +9,13 @@ export const FILTER_OPTIONS = [
   { id: 'Cloudflare', label: 'At Cloudflare', icon: '⛅' },
 ];
 
-// About page section options
 export const ABOUT_SECTIONS = [
-  { id: 'home', label: 'Home', icon: '👋', path: '/about/home' },
+  { id: 'home', label: 'Home', icon: 'ℹ️', path: '/about/home' },
   { id: 'work', label: 'Work', icon: '👷', path: '/about/work' },
   { id: 'school', label: 'School', icon: '🎓', path: '/about/school' },
   { id: 'portugal', label: 'Portugal', icon: '🇵🇹', path: '/about/portugal' },
 ];
 
-// Data page section options
 export const DATA_SECTIONS = [
   { id: 'health', label: 'Health', icon: '❤️', path: '/data/health' },
   { id: 'supplements', label: 'Supplements', icon: '💊', path: '/data/supplements' },
@@ -30,7 +24,55 @@ export const DATA_SECTIONS = [
 ];
 
 
-// API Endpoints
+// --- MAIN NAVIGATION MAP (DEPENDS ON THE ABOVE) ---
+export const NAVIGATION_MAP = {
+  blog: {
+    id: 'blog',
+    label: 'Blog',
+    icon: '📝',
+    path: '/',
+    contextIcon: '📝',
+    subnav: [
+      { id: 'All', label: 'All Posts', icon: '🗂️', path: '/' },
+      ...FILTER_OPTIONS.map(opt => ({...opt, path: `/${opt.id.toLowerCase()}`}))
+    ]
+  },
+  about: {
+    id: 'about',
+    label: 'About',
+    icon: '👋',
+    path: '/about',
+    contextIcon: '👋',
+    subnav: ABOUT_SECTIONS
+  },
+  data: {
+    id: 'data',
+    label: 'Data',
+    icon: '🔢',
+    path: '/data',
+    contextIcon: '🔢',
+    subnav: DATA_SECTIONS
+  },
+};
+
+export const PRIMARY_NAV_SECTIONS = [
+  NAVIGATION_MAP.blog,
+  NAVIGATION_MAP.about,
+  NAVIGATION_MAP.data
+];
+
+
+// --- OTHER CONSTANTS ---
+export const POSTS_PER_PAGE = 12;
+
+export const ROUTES = {
+  HOME: '/',
+  ABOUT: '/about',
+  POST: (slug) => `/post/${slug}`,
+  DATA: '/data',
+  NOT_FOUND: '/404',
+};
+
 export const API_ENDPOINTS = {
   POSTS: '/posts.json',
   POST_CONTENT: (filename) => `/content/posts/${filename}`,
@@ -38,13 +80,11 @@ export const API_ENDPOINTS = {
   SEARCH: '/api/search',
 };
 
-// Animation timings
 export const ANIMATION_TIMING = {
-  LOADING_TIMEOUT: 200, // ms
-  TRANSITION: 300, // ms
+  LOADING_TIMEOUT: 200,
+  TRANSITION: 300,
 };
 
-// Error messages
 export const ERROR_MESSAGES = {
   LOAD_POSTS_FAILED: 'Failed to load posts data',
   POST_NOT_FOUND: 'Post not found',
@@ -54,7 +94,6 @@ export const ERROR_MESSAGES = {
   DEFAULT_EMPTY_CONTENT: 'Content not available.',
 };
 
-// Default messages
 export const DEFAULT_MESSAGES = {
   LOADING_POSTS: 'Loading posts...',
   LOADING_POST: 'Loading post...',
@@ -68,40 +107,18 @@ export const DEFAULT_MESSAGES = {
   SECTION_NOT_FOUND: 'Section not found',
 };
 
-// Routes
-export const ROUTES = {
-  HOME: '/',
-  ABOUT: '/about',
-  ABOUT_SECTION: (section) => `/about/${section}`,
-  POST: (slug) => `/post/${slug}`,
-  FILTER: (filter) => `/${filter.toLowerCase()}`,
-  
-  // Data section routes
-  DATA: '/data',
-  DATA_HEALTH: '/data/health',
-  DATA_NEWS: '/data/news',
-  DATA_SUPPLEMENTS: '/data/supplements',
-  DATA_DIGITAL: '/data/digital',
-  DATA_SECTION: (section) => `/data/${section}`,
-
-  NOT_FOUND: '/404',
-};
-
-// Size constants
 export const SIZES = {
-  MOBILE_BREAKPOINT: 768, // pixels
-  MAX_CONTENT_WIDTH: 2048, // pixels
-  AVATAR_SIZE: 48, // pixels
+  MOBILE_BREAKPOINT: 768,
+  MAX_CONTENT_WIDTH: 2048,
+  AVATAR_SIZE: 48,
 };
 
-// Local storage keys
 export const STORAGE_KEYS = {
   DARK_MODE: 'darkMode',
   CONTENT_CACHE: 'contentCache',
 };
 
-// Search Configuration
 export const SEARCH_CONFIG = {
-    DEBOUNCE_DELAY: 300,
-    MIN_QUERY_LENGTH: 2,
+  DEBOUNCE_DELAY: 300,
+  MIN_QUERY_LENGTH: 2,
 };
