@@ -1,5 +1,5 @@
 // src/components/data/health/HealthDashboard.jsx
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Heart, Scale, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse,
@@ -32,7 +32,7 @@ const ErrorView = ({ message }) => (
 );
 
 const PairedMetricContainer = ({ children }) => (
-  <div className="grid grid-cols-2 gap-4">
+  <div className="grid grid-cols-2 gap-4 md:contents">
     {children}
   </div>
 );
@@ -78,63 +78,16 @@ const HealthDashboard = () => {
     const { pathname, search } = window.location;
     window.history.pushState("", document.title, pathname + search);
   };
-  
+
   if (isLoading) {
     return <LoadingView />;
   }
 
   const hasData = (arr) => arr && arr.length > 0;
-  
-  const allDataSourcesEmpty = [oura, withings, running, otherData, macros].every(source => !hasData(source));
-  if (allDataSourcesEmpty) {
+
+  if (!hasData(oura) && !hasData(withings) && !hasData(running) && !hasData(otherData) && !hasData(macros)) {
     return <ErrorView message={error || "No relevant health data available to display."} />;
   }
-  
-  const createMetric = ({
-    data, dataSpark, dataKey,
-    title, unit, icon,
-    formatter = (v) => v != null ? Math.round(v).toLocaleString() : '--',
-    categoryKey = dataKey
-  }) => {
-    const latestRecord = (data || []).find(d => d[dataKey] != null) || {};
-    const rawValue = latestRecord[dataKey];
-    
-    return {
-      title,
-      value: formatter(rawValue, latestRecord),
-      unit,
-      ...getMetricCategoryInfo(categoryKey, rawValue),
-      sparklineData: createSparklineData(dataSpark || data, dataKey),
-      icon,
-      fullData: data,
-      dataKey,
-    };
-  };
-  
-  const metrics = useMemo(() => ({
-    hrv: createMetric({ data: oura, dataSpark: ouraSpark, dataKey: 'average_hrv', title: "HRV", unit: "ms", icon: Activity }),
-    rhr: createMetric({ data: oura, dataSpark: ouraSpark, dataKey: 'resting_heart_rate', title: "RHR", unit: "bpm", icon: HeartPulse }),
-    weight: createMetric({ data: withings, dataSpark: withings, dataKey: 'weight', title: "Weight", unit: "lbs", icon: Scale, formatter: v => v?.toFixed(1) ?? '--' }),
-    bodyFat: createMetric({ data: withings, dataSpark: withings, dataKey: 'fat_ratio', title: "Body Fat", unit: "%", icon: Ruler, formatter: v => v?.toFixed(1) ?? '--' }),
-    totalSleep: createMetric({ data: oura, dataSpark: ouraSpark, dataKey: 'total_sleep', title: "Total Sleep", unit: "h", icon: BedDouble, formatter: v => v?.toFixed(1) ?? '--' }),
-    deepSleep: createMetric({ data: oura, dataSpark: ouraSpark, dataKey: 'deep_sleep_minutes', title: "Deep Sleep", unit: "min", icon: Waves }),
-    sleepEfficiency: createMetric({ data: oura, dataSpark: ouraSpark, dataKey: 'efficiency', title: "Sleep Efficiency", unit: "%", icon: PlugZap }),
-    sleepDelay: createMetric({ data: oura, dataSpark: ouraSpark, dataKey: 'delay', title: "Sleep Delay", unit: "min", icon: Hourglass }),
-    vo2MaxWatch: createMetric({ data: running, dataSpark: runningSpark, dataKey: 'vo2_max', title: "VO2 Max (Watch)", unit: "", icon: Watch, formatter: v => v?.toFixed(1) ?? '--' }),
-    vo2MaxClinical: createMetric({ data: clinical, dataSpark: clinicalSpark, dataKey: 'vo2_max_clinical', title: "VO2 Max (Clinical)", unit: "", icon: Microscope, formatter: v => v?.toFixed(1) ?? '--' }),
-    powerBreathe: createMetric({ data: otherData, dataSpark: otherDataSpark, dataKey: 'power_breathe_level', title: "Power Breathe", unit: "Level", icon: Timer, formatter: v => v?.toFixed(1) ?? '--' }),
-    peakFlow: createMetric({ data: otherData, dataSpark: otherDataSpark, dataKey: 'peak_flow', title: "Peak Flow", unit: "L/min", icon: Wind }),
-    leftGrip: createMetric({ data: otherData, dataSpark: otherDataSpark, dataKey: 'weak_grip', title: "Left Hand Grip", unit: "kg", icon: Hand, formatter: v => v?.toFixed(1) ?? '--' }),
-    rightGrip: createMetric({ data: otherData, dataSpark: otherDataSpark, dataKey: 'strong_grip', title: "Right Hand Grip", unit: "kg", icon: Hand, formatter: v => v?.toFixed(1) ?? '--' }),
-    fiveK: createMetric({ data: running, dataSpark: runningSpark, dataKey: 'five_k_seconds', title: "5K Time", unit: "", icon: Timer, formatter: (v, rec) => rec?.five_k_formatted ?? '--:--' }),
-    tenK: createMetric({ data: [], dataSpark: [], dataKey: 'ten_k_seconds', title: "10K Time", unit: "", icon: Timer, formatter: () => '--:--' }),
-    calories: createMetric({ data: macros, dataSpark: macrosSpark, dataKey: 'calories_kcal', title: "Calories", unit: "kcal", icon: Flame }),
-    protein: createMetric({ data: macros, dataSpark: macrosSpark, dataKey: 'protein_g', title: "Protein", unit: "g", icon: Beef }),
-    carbs: createMetric({ data: macros, dataSpark: macrosSpark, dataKey: 'carbs_g', title: "Carbs", unit: "g", icon: Wheat }),
-    fat: createMetric({ data: macros, dataSpark: macrosSpark, dataKey: 'fat_g', title: "Fat", unit: "g", icon: Nut }),
-    satFat: createMetric({ data: macros, dataSpark: macrosSpark, dataKey: 'sat_fat_g', title: "Saturated Fat", unit: "g", icon: Link2 }),
-    sugar: createMetric({ data: macros, dataSpark: macrosSpark, dataKey: 'sugar_g', title: "Sugar", unit: "g", icon: Donut }),
-  }), [oura, ouraSpark, withings, running, runningSpark, clinical, clinicalSpark, otherData, otherDataSpark, macros, macrosSpark]);
 
   const createMetricProps = (metric, displayMode = 'full') => ({
     ...metric,
@@ -143,43 +96,61 @@ const HealthDashboard = () => {
     onOpen: () => handleOpenModal(metric.dataKey),
     onClose: handleCloseModal,
   });
+
+  const findLatestRecord = (data, key) => hasData(data) ? data.find(d => d[key] != null) : {};
   
-  const dashboardSections = [
-    {
-      title: 'Heart', icon: Heart, hasData: hasData(oura),
-      items: [ { type: 'pair', metrics: [metrics.hrv, metrics.rhr] } ]
-    },
-    {
-      title: 'Body', icon: ClipboardCheck, hasData: hasData(withings),
-      items: [ { type: 'pair', metrics: [metrics.weight, metrics.bodyFat] } ]
-    },
-    {
-      title: 'Sleep', icon: BedDouble, hasData: hasData(oura),
-      items: [
-        { type: 'full', metric: metrics.totalSleep },
-        { type: 'full', metric: metrics.deepSleep },
-        { type: 'pair', metrics: [metrics.sleepEfficiency, metrics.sleepDelay] }
-      ]
-    },
-    {
-      title: 'Fitness', icon: Footprints, hasData: [running, clinical, otherData].some(hasData),
-      items: [
-        { type: 'pair', metrics: [metrics.vo2MaxWatch, metrics.vo2MaxClinical], condition: hasData(running) && hasData(clinical) },
-        { type: 'pair', metrics: [metrics.powerBreathe, metrics.peakFlow], condition: hasData(otherData) },
-        { type: 'pair', metrics: [metrics.leftGrip, metrics.rightGrip], condition: hasData(otherData) },
-        { type: 'pair', metrics: [metrics.fiveK, metrics.tenK], condition: hasData(running) },
-      ]
-    },
-    {
-      title: 'Macros', icon: BarChart2, hasData: hasData(macros),
-      items: [
-        { type: 'full', metric: metrics.calories },
-        { type: 'full', metric: metrics.protein },
-        { type: 'pair', metrics: [metrics.fat, metrics.satFat] },
-        { type: 'pair', metrics: [metrics.carbs, metrics.sugar] }
-      ]
-    }
-  ];
+  const latestHrv = findLatestRecord(oura, 'average_hrv');
+  const latestRhr = findLatestRecord(oura, 'resting_heart_rate');
+  const latestWeight = findLatestRecord(withings, 'weight');
+  const latestBodyFat = findLatestRecord(withings, 'fat_ratio');
+  const latestTotalSleep = findLatestRecord(oura, 'total_sleep');
+  const latestDeepSleep = findLatestRecord(oura, 'deep_sleep_minutes');
+  const latestSleepEfficiency = findLatestRecord(oura, 'efficiency');
+  const latestSleepDelay = findLatestRecord(oura, 'delay');
+  const latestVo2MaxWatch = findLatestRecord(running, 'vo2_max');
+  const latestVo2MaxClinical = findLatestRecord(clinical, 'vo2_max_clinical');
+  const latestPowerBreathe = findLatestRecord(otherData, 'power_breathe_level');
+  const latestPeakFlow = findLatestRecord(otherData, 'peak_flow');
+  const latestLeftGrip = findLatestRecord(otherData, 'weak_grip');
+  const latestRightGrip = findLatestRecord(otherData, 'strong_grip');
+  const latest5k = findLatestRecord(running, 'five_k_seconds');
+  const latestCalories = findLatestRecord(macros, 'calories_kcal');
+  const latestProtein = findLatestRecord(macros, 'protein_g');
+  const latestCarbs = findLatestRecord(macros, 'carbs_g');
+  const latestFat = findLatestRecord(macros, 'fat_g');
+  const latestSatFat = findLatestRecord(macros, 'sat_fat_g');
+  const latestSugar = findLatestRecord(macros, 'sugar_g');
+
+  const metrics = {
+    hrv: { title: "HRV", value: latestHrv?.average_hrv?.toFixed(0) ?? '--', unit: "ms", ...getMetricCategoryInfo('average_hrv', latestHrv?.average_hrv), sparklineData: createSparklineData(ouraSpark, 'average_hrv'), icon: Activity, fullData: oura, dataKey: "average_hrv" },
+    rhr: { title: "RHR", value: latestRhr?.resting_heart_rate?.toFixed(0) ?? '--', unit: "bpm", ...getMetricCategoryInfo('resting_heart_rate', latestRhr?.resting_heart_rate), sparklineData: createSparklineData(ouraSpark, 'resting_heart_rate'), icon: HeartPulse, fullData: oura, dataKey: "resting_heart_rate" },
+    weight: { title: "Weight", value: latestWeight?.weight?.toFixed(1) ?? '--', unit: "lbs", ...getMetricCategoryInfo('weight', latestWeight?.weight), sparklineData: createSparklineData(withings, 'weight'), icon: Scale, fullData: withings, dataKey: "weight" },
+    bodyFat: { title: "Body Fat", value: latestBodyFat?.fat_ratio?.toFixed(1) ?? '--', unit: "%", ...getMetricCategoryInfo('fat_ratio', latestBodyFat?.fat_ratio), sparklineData: createSparklineData(withings, 'fat_ratio'), icon: Ruler, fullData: withings, dataKey: "fat_ratio" },
+    totalSleep: { title: "Total Sleep", value: latestTotalSleep?.total_sleep?.toFixed(1) ?? '--', unit: "h", ...getMetricCategoryInfo('total_sleep', latestTotalSleep?.total_sleep), sparklineData: createSparklineData(ouraSpark, 'total_sleep'), icon: BedDouble, fullData: oura, dataKey: "total_sleep" },
+    deepSleep: { title: "Deep Sleep", value: latestDeepSleep?.deep_sleep_minutes?.toFixed(0) ?? '--', unit: "min", ...getMetricCategoryInfo('deep_sleep_minutes', latestDeepSleep?.deep_sleep_minutes), sparklineData: createSparklineData(ouraSpark, 'deep_sleep_minutes'), icon: Waves, fullData: oura, dataKey: "deep_sleep_minutes" },
+    sleepEfficiency: { title: "Sleep Efficiency", value: latestSleepEfficiency?.efficiency?.toFixed(0) ?? '--', unit: "%", ...getMetricCategoryInfo('efficiency', latestSleepEfficiency?.efficiency), sparklineData: createSparklineData(ouraSpark, 'efficiency'), icon: PlugZap, fullData: oura, dataKey: "efficiency" },
+    sleepDelay: { title: "Sleep Delay", value: latestSleepDelay?.delay?.toFixed(0) ?? '--', unit: "min", ...getMetricCategoryInfo('delay', latestSleepDelay?.delay), sparklineData: createSparklineData(ouraSpark, 'delay'), icon: Hourglass, fullData: oura, dataKey: "delay" },
+    vo2MaxWatch: { title: "VO2 Max (Watch)", value: latestVo2MaxWatch?.vo2_max?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max', latestVo2MaxWatch?.vo2_max), sparklineData: createSparklineData(runningSpark, 'vo2_max'), icon: Watch, fullData: running, dataKey: "vo2_max" },
+    vo2MaxClinical: { title: "VO2 Max (Clinical)", value: latestVo2MaxClinical?.vo2_max_clinical?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max_clinical', latestVo2MaxClinical?.vo2_max_clinical), sparklineData: createSparklineData(clinicalSpark, 'vo2_max_clinical'), icon: Microscope, fullData: clinical, dataKey: "vo2_max_clinical" },
+    powerBreathe: { title: "Power Breathe", value: latestPowerBreathe?.power_breathe_level?.toFixed(1) ?? '--', unit: "Level", ...getMetricCategoryInfo('power_breathe_level', latestPowerBreathe?.power_breathe_level), sparklineData: createSparklineData(otherDataSpark, 'power_breathe_level'), icon: Timer, fullData: otherData, dataKey: "power_breathe_level" },
+    peakFlow: { title: "Peak Flow", value: latestPeakFlow?.peak_flow?.toFixed(0) ?? '--', unit: "L/min", ...getMetricCategoryInfo('peak_flow', latestPeakFlow?.peak_flow), sparklineData: createSparklineData(otherDataSpark, 'peak_flow'), icon: Wind, fullData: otherData, dataKey: "peak_flow" },
+    leftGrip: { title: "Left Hand Grip", value: latestLeftGrip?.weak_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('weak_grip', latestLeftGrip?.weak_grip), sparklineData: createSparklineData(otherDataSpark, 'weak_grip'), icon: Hand, fullData: otherData, dataKey: "weak_grip" },
+    rightGrip: { title: "Right Hand Grip", value: latestRightGrip?.strong_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('strong_grip', latestRightGrip?.strong_grip), sparklineData: createSparklineData(otherDataSpark, 'strong_grip'), icon: Hand, fullData: otherData, dataKey: "strong_grip" },
+    fiveK: { title: "5K Time", value: latest5k?.five_k_formatted ?? '--:--', unit: "", ...getMetricCategoryInfo('five_k_seconds', latest5k?.five_k_seconds), sparklineData: createSparklineData(runningSpark, 'five_k_seconds'), icon: Timer, fullData: running, dataKey: "five_k_seconds" },
+    tenK: { title: "10K Time", value: '--:--', unit: "", ...getMetricCategoryInfo('ten_k_seconds', null), sparklineData: [], icon: Timer, fullData: [], dataKey: "ten_k_seconds" },
+    calories: { title: "Calories", value: latestCalories?.calories_kcal?.toLocaleString() ?? '--', unit: "kcal", ...getMetricCategoryInfo('calories_kcal', latestCalories?.calories_kcal), sparklineData: createSparklineData(macrosSpark, 'calories_kcal'), icon: Flame, fullData: macros, dataKey: "calories_kcal" },
+    protein: { title: "Protein", value: latestProtein?.protein_g != null ? Math.round(latestProtein.protein_g) : '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestProtein?.protein_g), sparklineData: createSparklineData(macrosSpark, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g" },
+    carbs: { title: "Carbs", value: latestCarbs?.carbs_g != null ? Math.round(latestCarbs.carbs_g) : '--', unit: "g", ...getMetricCategoryInfo('carbs_g', latestCarbs?.carbs_g), sparklineData: createSparklineData(macrosSpark, 'carbs_g'), icon: Wheat, fullData: macros, dataKey: "carbs_g" },
+    fat: { title: "Fat", value: latestFat?.fat_g != null ? Math.round(latestFat.fat_g) : '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestFat?.fat_g), sparklineData: createSparklineData(macrosSpark, 'fat_g'), icon: Nut, fullData: macros, dataKey: "fat_g" },
+    satFat: { title: "Saturated Fat", value: latestSatFat?.sat_fat_g != null ? Math.round(latestSatFat.sat_fat_g) : '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestSatFat?.sat_fat_g), sparklineData: createSparklineData(macrosSpark, 'sat_fat_g'), icon: Link2, fullData: macros, dataKey: "sat_fat_g" },
+    sugar: { title: "Sugar", value: latestSugar?.sugar_g != null ? Math.round(latestSugar.sugar_g) : '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestSugar?.sugar_g), sparklineData: createSparklineData(macrosSpark, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g" },
+  };
+
+  const hasHeartData = hasData(oura);
+  const hasBodyData = hasData(withings);
+  const hasSleepData = hasData(oura);
+  const hasFitnessData = hasData(running) || hasData(clinical) || hasData(otherData);
+  const hasMacrosData = hasData(macros);
 
   return (
     <div className="pt-2 pb-8">
@@ -188,29 +159,74 @@ const HealthDashboard = () => {
       </DataIntroCard>
 
       <div className="space-y-12 mt-8">
-        {dashboardSections.map(section => (
-          section.hasData && (
-            <MetricSection key={section.title} title={section.title} icon={section.icon}>
-              {section.items
-                .filter(item => item.condition !== false)
-                .map((item, index) => {
-                  if (item.type === 'full') {
-                    return <MetricCard key={item.metric.dataKey} {...createMetricProps(item.metric, 'full')} />;
-                  }
-                  
-                  if (item.type === 'pair') {
-                    return (
-                      <PairedMetricContainer key={index}>
-                        <MetricCard {...createMetricProps(item.metrics[0], 'compact')} />
-                        <MetricCard {...createMetricProps(item.metrics[1], 'compact')} />
-                      </PairedMetricContainer>
-                    );
-                  }
-                  return null;
-              })}
-            </MetricSection>
-          )
-        ))}
+        {hasHeartData && (
+          <MetricSection title="Heart" icon={Heart}>
+            <PairedMetricContainer>
+              <MetricCard {...createMetricProps(metrics.hrv, 'compact')} />
+              <MetricCard {...createMetricProps(metrics.rhr, 'compact')} />
+            </PairedMetricContainer>
+          </MetricSection>
+        )}
+        {hasBodyData && (
+          <MetricSection title="Body" icon={ClipboardCheck}>
+            <PairedMetricContainer>
+              <MetricCard {...createMetricProps(metrics.weight, 'compact')} />
+              <MetricCard {...createMetricProps(metrics.bodyFat, 'compact')} />
+            </PairedMetricContainer>
+          </MetricSection>
+        )}
+        {hasSleepData && (
+          <MetricSection title="Sleep" icon={BedDouble}>
+            <MetricCard {...createMetricProps(metrics.totalSleep, 'full')} />
+            <MetricCard {...createMetricProps(metrics.deepSleep, 'full')} />
+            <PairedMetricContainer>
+              <MetricCard {...createMetricProps(metrics.sleepEfficiency, 'compact')} />
+              <MetricCard {...createMetricProps(metrics.sleepDelay, 'compact')} />
+            </PairedMetricContainer>
+          </MetricSection>
+        )}
+        {hasFitnessData && (
+          <MetricSection title="Fitness" icon={Footprints}>
+            {latestVo2MaxWatch && latestVo2MaxClinical && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.vo2MaxWatch, 'compact')} />
+                <MetricCard {...createMetricProps(metrics.vo2MaxClinical, 'compact')} />
+              </PairedMetricContainer>
+            )}
+            {latestPowerBreathe && latestPeakFlow && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.powerBreathe, 'compact')} />
+                <MetricCard {...createMetricProps(metrics.peakFlow, 'compact')} />
+              </PairedMetricContainer>
+            )}
+             {latestLeftGrip && latestRightGrip && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.leftGrip, 'compact')} />
+                <MetricCard {...createMetricProps(metrics.rightGrip, 'compact')} />
+              </PairedMetricContainer>
+            )}
+            {latest5k && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.fiveK, 'compact')} />
+                <MetricCard {...createMetricProps(metrics.tenK, 'compact')} />
+              </PairedMetricContainer>
+            )}
+          </MetricSection>
+        )}
+        {hasMacrosData && (
+           <MetricSection title="Macros" icon={BarChart2}>
+             <MetricCard {...createMetricProps(metrics.calories, 'full')} />
+             <MetricCard {...createMetricProps(metrics.protein, 'full')} />
+             <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.fat, 'compact')} />
+                <MetricCard {...createMetricProps(metrics.satFat, 'compact')} />
+             </PairedMetricContainer>
+             <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.carbs, 'compact')} />
+                <MetricCard {...createMetricProps(metrics.sugar, 'compact')} />
+             </PairedMetricContainer>
+           </MetricSection>
+        )}
       </div>
     </div>
   );
