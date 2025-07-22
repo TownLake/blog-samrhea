@@ -2,13 +2,13 @@
 import React from 'react';
 import MetricCard from './MetricCard';
 
-// --- MODIFIED: Accept createMetricProps function as a prop ---
+// --- MODIFIED: Accept createMetricProps function as a prop and add more robust error handling ---
 const MetricSection = ({ title, icon: Icon, metrics, createMetricProps }) => {
   const sectionId = title.toLowerCase().replace(/\s+/g, '-');
 
-  // --- ADDED: A defensive check to prevent crashes if metrics is not an array ---
-  if (!Array.isArray(metrics) || !createMetricProps) {
-    return null; // Render nothing if the necessary props aren't provided
+  // We can't render cards without this function, so we'll check for it.
+  if (!createMetricProps) {
+    return null; 
   }
 
   return (
@@ -25,12 +25,20 @@ const MetricSection = ({ title, icon: Icon, metrics, createMetricProps }) => {
         </a>
       </div>
       <div className="grid grid-cols-2 gap-4"> 
-        {/* --- MODIFIED: Map over raw metrics and call createMetricProps inside --- */}
-        {metrics.map((metric, index) => {
+        {/* --- MODIFIED: Use optional chaining on `metrics` to prevent crash if it's undefined. --- */}
+        {/* This ensures we always attempt to map over an array, defaulting to an empty one. */}
+        {(metrics || []).map((metric, index) => {
+          // Additional guard clause to ensure the metric object itself is valid before processing.
+          if (!metric) {
+            return null;
+          }
+          
           const metricProps = createMetricProps(metric);
+          
           return (
             <div
-              key={`${metricProps.dataKey}-${index}`}
+              // Add a more robust key with a fallback
+              key={`${metricProps.dataKey || title}-${index}`}
               className={metricProps.layout === 'full' ? 'col-span-2 md:col-span-1' : 'col-span-1'}
             >
               <MetricCard 
