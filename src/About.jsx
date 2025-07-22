@@ -5,18 +5,17 @@ import Layout from './components/Layout';
 import Markdown from './components/Markdown';
 import ErrorBoundary from './components/ErrorBoundary';
 import CareerTimeline from './components/CareerTimeline';
-import FloatingNav from './components/FloatingNav';
 import { isEmpty } from './utils/validation';
 import Search from './components/Search';
 import { useSearch } from './hooks/useSearch';
-import { ABOUT_SECTIONS, API_ENDPOINTS, ERROR_MESSAGES, DEFAULT_MESSAGES, ROUTES } from './constants';
+import { ABOUT_SECTIONS, API_ENDPOINTS, ERROR_MESSAGES, DEFAULT_MESSAGES, NAVIGATION_MAP } from './constants';
 import LoadingIndicator from './components/LoadingIndicator';
 import StatusMessage from './components/StatusMessage';
 
 const About = () => {
   const location = useLocation();
   const pathParts = location.pathname.split('/');
-  const currentSection = pathParts.length > 2 ? pathParts[2] : 'home';
+  const currentSection = pathParts[2] && ABOUT_SECTIONS.some(s => s.id === pathParts[2]) ? pathParts[2] : 'home';
   const [contentCache, setContentCache] = useState({});
   const [isSearchActive, toggleSearch] = useSearch();
 
@@ -48,24 +47,17 @@ const About = () => {
       <Layout toggleSearch={toggleSearch}>
         <Suspense fallback={<LoadingIndicator message={DEFAULT_MESSAGES.LOADING_CONTENT} />}>
           <Routes>
-            <Route path="/" element={<Navigate to={ROUTES.ABOUT_SECTION('home')} replace />} />
+            <Route path="/" element={<Navigate to={NAVIGATION_MAP.about.subnav[0].path} replace />} />
             <Route path=":section" element={<AboutSection contentCache={contentCache} setContentCache={setContentCache} />} />
             <Route path="*" element={<StatusMessage type="error" message={DEFAULT_MESSAGES.SECTION_NOT_FOUND} />} />
           </Routes>
         </Suspense>
-        <FloatingNav
-          options={ABOUT_SECTIONS}
-          currentOption={currentSection}
-          useNavLink={true}
-          basePath={ROUTES.ABOUT}
-        />
       </Layout>
       {isSearchActive && <Search toggleSearch={toggleSearch} />}
     </>
   );
 };
 
-// The AboutSection component remains unchanged
 const AboutSection = ({ contentCache, setContentCache }) => {
   const { section } = useParams();
   const [content, setContent] = useState('');

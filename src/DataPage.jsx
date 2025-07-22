@@ -1,15 +1,14 @@
 // src/DataPage.jsx
 import React, { Suspense } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
-import FloatingNav from './components/FloatingNav';
 import { HealthDataProvider } from './store/HealthDataContext';
 import { useSearch } from './hooks/useSearch';
 import Search from './components/Search';
 import LoadingIndicator from './components/LoadingIndicator';
 import StatusMessage from './components/StatusMessage';
-import { DATA_SECTIONS, ROUTES, DEFAULT_MESSAGES } from './constants';
+import { DEFAULT_MESSAGES, NAVIGATION_MAP } from './constants';
 
 const HealthDashboard = React.lazy(() => import('./components/data/health/Dashboard.jsx'));
 const NewsPage = React.lazy(() => import('./components/data/NewsPage'));
@@ -17,9 +16,6 @@ const SupplementsPage = React.lazy(() => import('./components/data/SupplementsPa
 const DigitalPage = React.lazy(() => import('./components/data/DigitalPage'));
 
 const DataPage = () => {
-  const location = useLocation();
-  const pathParts = location.pathname.split('/');
-  const currentSection = pathParts[2] && DATA_SECTIONS.some(s => s.id === pathParts[2]) ? pathParts[2] : 'health';
   const [isSearchActive, toggleSearch] = useSearch();
 
   return (
@@ -28,7 +24,7 @@ const DataPage = () => {
         <ErrorBoundary>
           <Suspense fallback={<LoadingIndicator message={DEFAULT_MESSAGES.LOADING_CONTENT} />}>
             <Routes>
-              <Route path="/" element={<Navigate to={ROUTES.DATA_HEALTH} replace />} />
+              <Route path="/" element={<Navigate to={NAVIGATION_MAP.data.subnav[0].path} replace />} />
               <Route path="health" element={<HealthDataProvider><HealthDashboard /></HealthDataProvider>} />
               <Route path="news" element={<NewsPage />} />
               <Route path="supplements" element={<SupplementsPage />} />
@@ -37,12 +33,6 @@ const DataPage = () => {
             </Routes>
           </Suspense>
         </ErrorBoundary>
-        <FloatingNav
-          options={DATA_SECTIONS}
-          currentOption={currentSection}
-          useNavLink={true}
-          basePath={ROUTES.DATA}
-        />
       </Layout>
       {isSearchActive && <Search toggleSearch={toggleSearch} />}
     </>

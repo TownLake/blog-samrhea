@@ -6,19 +6,12 @@ import PostList from './components/PostList';
 import Pagination from './components/Pagination';
 import ErrorBoundary from './components/ErrorBoundary';
 import Search from './components/Search';
-import FloatingNav from './components/FloatingNav';
 import { useSearch } from './hooks/useSearch';
-import { capitalizeFirstLetter } from './utils/formatters';
 import { clamp } from './utils/validation';
 import { fetchPosts, filterPosts } from './services/postService';
-import { POSTS_PER_PAGE, FILTER_OPTIONS, DEFAULT_MESSAGES, ERROR_MESSAGES, ROUTES } from './constants';
+import { POSTS_PER_PAGE, DEFAULT_MESSAGES, ERROR_MESSAGES, NAVIGATION_MAP } from './constants';
 import LoadingIndicator from './components/LoadingIndicator';
 import StatusMessage from './components/StatusMessage';
-
-const navOptions = [
-  { id: 'All', label: 'All Posts', icon: '📝' },
-  ...FILTER_OPTIONS
-];
 
 const App = () => {
   const location = useLocation();
@@ -39,15 +32,13 @@ const App = () => {
   }, [location.search]);
 
   useEffect(() => {
-    if (filter) {
-      const filterName = capitalizeFirstLetter(filter);
-      if (navOptions.some(option => option.id === filterName)) {
-        setCurrentFilter(filterName);
-      } else {
-        setCurrentFilter('All');
-      }
+    const validFilters = NAVIGATION_MAP.blog.subnav.map(f => f.id);
+    if (filter && validFilters.some(f => f.toLowerCase() === filter.toLowerCase())) {
+        // Find the correct case-sensitive filter ID
+        const matchedFilter = validFilters.find(f => f.toLowerCase() === filter.toLowerCase());
+        setCurrentFilter(matchedFilter);
     } else {
-      setCurrentFilter('All');
+        setCurrentFilter('All');
     }
   }, [filter]);
 
@@ -70,20 +61,9 @@ const App = () => {
   const filteredPosts = useMemo(() => filterPosts(posts, currentFilter), [posts, currentFilter]);
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
-  const activeFilter = navOptions.find(opt => opt.id === currentFilter) || navOptions[0];
-
-  const handleFilterClick = (filterId) => {
-    setCurrentPage(1);
-    if (filterId === 'All') {
-      navigate(ROUTES.HOME);
-    } else {
-      navigate(ROUTES.FILTER(filterId));
-    }
-  };
-
   const goToPage = (page) => {
     const validPage = clamp(page, 1, totalPages);
-    const basePath = currentFilter === 'All' ? ROUTES.HOME : ROUTES.FILTER(currentFilter);
+    const basePath = currentFilter === 'All' ? '/' : `/${currentFilter.toLowerCase()}`;
     navigate(`${basePath}?page=${validPage}`);
   };
 
@@ -94,20 +74,19 @@ const App = () => {
     if (error) {
       return <StatusMessage type="error" message={error} details="Please try refreshing the page." />;
     }
-    if (filteredPosts.length === 0) {
-      return (
-        <>
-          <h1 className="text-2xl font-semibold mb-6">{activeFilter.label}</h1>
-          <StatusMessage type="empty" message={DEFAULT_MESSAGES.NO_POSTS_FOUND} />
-        </>
-      );
-    }
+    const activeFilterLabel = NAVIGATION_MAP.blog.subnav.find(opt => opt.id === currentFilter)?.label;
     return (
       <>
-        <h1 className="text-2xl font-semibold mb-6">{activeFilter.label}</h1>
-        <PostList posts={filteredPosts} currentPage={currentPage} postsPerPage={POSTS_PER_PAGE} />
-        {totalPages > 1 && (
-          <Pagination currentPage={currentPage} totalPages={totalPages} goToPage={goToPage} />
+        <h1 className="text-2xl font-semibold mb-6">{activeFilterLabel}</h1>
+        {filteredPosts.length === 0 ? (
+          <StatusMessage type="empty" message={DEFAULT_MESSAGES.NO_POSTS_FOUND} />
+        ) : (
+          <>
+            <PostList posts={filteredPosts} currentPage={currentPage} postsPerPage={POSTS_PER_PAGE} />
+            {totalPages > 1 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} goToPage={goToPage} />
+            )}
+          </>
         )}
       </>
     );
@@ -117,12 +96,6 @@ const App = () => {
     <>
       <Layout toggleSearch={toggleSearch}>
         <ErrorBoundary>{renderContent()}</ErrorBoundary>
-        <FloatingNav
-          options={navOptions}
-          currentOption={currentFilter}
-          onOptionClick={handleFilterClick}
-          useNavLink={false}
-        />
       </Layout>
       {isSearchActive && <Search toggleSearch={toggleSearch} />}
     </>
