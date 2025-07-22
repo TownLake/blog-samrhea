@@ -1,32 +1,29 @@
 // src/components/data/health/MetricSection.jsx
-
 import React from 'react';
-import MetricCard from './MetricCard';
 
-const MetricSection = ({ title, icon: Icon, metrics }) => {
+const MetricSection = ({ title, icon: Icon, children }) => {
   const sectionId = title.toLowerCase().replace(/\s+/g, '-');
 
   return (
-    <section id={sectionId} className="scroll-mt-20"> 
+    <section id={sectionId} className="scroll-mt-20">
       <div className="flex items-center gap-3 mb-4">
-        <a 
-          href={`#${sectionId}`} 
-          className="flex items-center gap-3 group" 
-          style={{textDecoration: 'none'}} 
+        <a
+          href={`#${sectionId}`}
+          className="flex items-center gap-3 group"
+          style={{ textDecoration: 'none' }}
           title={`Link to ${title} section`}
         >
           <Icon className="w-6 h-6 text-gray-900 dark:text-white transition-transform group-hover:scale-110" />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{title}</h2>
         </a>
       </div>
-      {/* --- MODIFIED: Reverted to a 2-column layout on medium screens and up --- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> 
-        {metrics.map((metricProps, index) => (
-          <MetricCard 
-            key={`${metricProps.dataKey}-${index}`} 
-            {...metricProps}
-          />
-        ))}
+      {/*
+        This grid handles both full-width and paired cards gracefully.
+        - On mobile (grid-cols-1), a full-width card takes a row, and a div wrapping two compact cards also takes one row.
+        - On desktop (md:grid-cols-2), full-width cards take a slot, and paired cards (using `md:contents`) each take a slot.
+      */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {children}
       </div>
     </section>
   );
