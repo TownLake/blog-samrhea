@@ -32,10 +32,6 @@ const ErrorView = ({ message }) => (
 );
 
 const PairedMetricContainer = ({ children }) => (
-  // On mobile, this creates a 2-column grid for the paired "cube" cards.
-  // On desktop, `md:contents` makes this div disappear from the layout,
-  // allowing its children to become direct children of the parent grid,
-  // which preserves the overall 2-column desktop layout.
   <div className="grid grid-cols-2 gap-4 md:contents">
     {children}
   </div>
@@ -56,7 +52,6 @@ const HealthDashboard = () => {
   const [activeModal, setActiveModal] = useState(null);
 
   useEffect(() => {
-    // Modal and scrolling logic remains the same
     const hash = location.hash.replace('#', '');
     if (!hash) {
       setActiveModal(null);
@@ -102,38 +97,57 @@ const HealthDashboard = () => {
     onClose: handleCloseModal,
   });
 
-  // --- Define Metric Data ---
-  const latestOura = hasData(oura) ? oura[0] : {};
-  const latestWithings = hasData(withings) ? withings[0] : {};
-  const latestRunning = hasData(running) ? running[0] : {};
-  const latestClinicalData = hasData(clinical) ? clinical[0] : {};
-  const latestOtherData = hasData(otherData) ? otherData[0] : {};
-  const latestMacros = hasData(macros) ? macros[0] : {};
+  // --- REVISED: Robustly find the latest non-null value for each metric ---
+  // This new approach ensures the dashboard always displays the true "latest"
+  // value, even if it wasn't recorded on the most recent day.
+  const findLatestRecord = (data, key) => hasData(data) ? data.find(d => d[key] != null) : {};
+  
+  const latestHrv = findLatestRecord(oura, 'average_hrv');
+  const latestRhr = findLatestRecord(oura, 'resting_heart_rate');
+  const latestWeight = findLatestRecord(withings, 'weight');
+  const latestBodyFat = findLatestRecord(withings, 'fat_ratio');
+  const latestTotalSleep = findLatestRecord(oura, 'total_sleep');
+  const latestDeepSleep = findLatestRecord(oura, 'deep_sleep_minutes');
+  const latestSleepEfficiency = findLatestRecord(oura, 'efficiency');
+  const latestSleepDelay = findLatestRecord(oura, 'delay');
+  const latestVo2MaxWatch = findLatestRecord(running, 'vo2_max');
+  const latestVo2MaxClinical = findLatestRecord(clinical, 'vo2_max_clinical');
+  const latestPowerBreathe = findLatestRecord(otherData, 'power_breathe_level');
+  const latestPeakFlow = findLatestRecord(otherData, 'peak_flow');
+  const latestLeftGrip = findLatestRecord(otherData, 'weak_grip');
+  const latestRightGrip = findLatestRecord(otherData, 'strong_grip');
+  const latest5k = findLatestRecord(running, 'five_k_seconds');
+  const latestCalories = findLatestRecord(macros, 'calories_kcal');
+  const latestProtein = findLatestRecord(macros, 'protein_g');
+  const latestCarbs = findLatestRecord(macros, 'carbs_g');
+  const latestFat = findLatestRecord(macros, 'fat_g');
+  const latestSatFat = findLatestRecord(macros, 'sat_fat_g');
+  const latestSugar = findLatestRecord(macros, 'sugar_g');
+  // --- END OF REVISION ---
 
-  // All metric definitions remain the same, just organized for rendering
   const metrics = {
-    hrv: { title: "HRV", value: latestOura.average_hrv?.toFixed(0) ?? '--', unit: "ms", ...getMetricCategoryInfo('average_hrv', latestOura.average_hrv), sparklineData: createSparklineData(ouraSpark, 'average_hrv'), icon: Activity, fullData: oura, dataKey: "average_hrv" },
-    rhr: { title: "Resting Heart Rate", value: latestOura.resting_heart_rate?.toFixed(0) ?? '--', unit: "bpm", ...getMetricCategoryInfo('resting_heart_rate', latestOura.resting_heart_rate), sparklineData: createSparklineData(ouraSpark, 'resting_heart_rate'), icon: HeartPulse, fullData: oura, dataKey: "resting_heart_rate" },
-    weight: { title: "Weight", value: latestWithings.weight?.toFixed(1) ?? '--', unit: "lbs", ...getMetricCategoryInfo('weight', latestWithings.weight), sparklineData: createSparklineData(withings, 'weight'), icon: Scale, fullData: withings, dataKey: "weight" },
-    bodyFat: { title: "Body Fat", value: latestWithings.fat_ratio?.toFixed(1) ?? '--', unit: "%", ...getMetricCategoryInfo('fat_ratio', latestWithings.fat_ratio), sparklineData: createSparklineData(withings, 'fat_ratio'), icon: Ruler, fullData: withings, dataKey: "fat_ratio" },
-    totalSleep: { title: "Total Sleep", value: latestOura.total_sleep?.toFixed(1) ?? '--', unit: "h", ...getMetricCategoryInfo('total_sleep', latestOura.total_sleep), sparklineData: createSparklineData(ouraSpark, 'total_sleep'), icon: BedDouble, fullData: oura, dataKey: "total_sleep" },
-    deepSleep: { title: "Deep Sleep", value: latestOura.deep_sleep_minutes?.toFixed(0) ?? '--', unit: "min", ...getMetricCategoryInfo('deep_sleep_minutes', latestOura.deep_sleep_minutes), sparklineData: createSparklineData(ouraSpark, 'deep_sleep_minutes'), icon: Waves, fullData: oura, dataKey: "deep_sleep_minutes" },
-    sleepEfficiency: { title: "Sleep Efficiency", value: latestOura.efficiency?.toFixed(0) ?? '--', unit: "%", ...getMetricCategoryInfo('efficiency', latestOura.efficiency), sparklineData: createSparklineData(ouraSpark, 'efficiency'), icon: PlugZap, fullData: oura, dataKey: "efficiency" },
-    sleepDelay: { title: "Sleep Delay", value: latestOura.delay?.toFixed(0) ?? '--', unit: "min", ...getMetricCategoryInfo('delay', latestOura.delay), sparklineData: createSparklineData(ouraSpark, 'delay'), icon: Hourglass, fullData: oura, dataKey: "delay" },
-    vo2MaxWatch: hasData(running) ? { title: "VO2 Max (Watch)", value: latestRunning.vo2_max?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max', latestRunning.vo2_max), sparklineData: createSparklineData(runningSpark, 'vo2_max'), icon: Watch, fullData: running, dataKey: "vo2_max" } : null,
-    vo2MaxClinical: hasData(clinical) && latestClinicalData?.vo2_max_clinical ? { title: "VO2 Max (Clinical)", value: latestClinicalData.vo2_max_clinical?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max_clinical', latestClinicalData.vo2_max_clinical), sparklineData: createSparklineData(clinicalSpark, 'vo2_max_clinical'), icon: Microscope, fullData: clinical, dataKey: "vo2_max_clinical" } : null,
-    powerBreathe: hasData(otherData) ? { title: "Power Breathe", value: latestOtherData.power_breathe_level?.toFixed(1) ?? '--', unit: "Level", ...getMetricCategoryInfo('power_breathe_level', latestOtherData.power_breathe_level), sparklineData: createSparklineData(otherDataSpark, 'power_breathe_level'), icon: Timer, fullData: otherData, dataKey: "power_breathe_level" } : null,
-    peakFlow: hasData(otherData) ? { title: "Peak Flow", value: latestOtherData.peak_flow?.toFixed(0) ?? '--', unit: "L/min", ...getMetricCategoryInfo('peak_flow', latestOtherData.peak_flow), sparklineData: createSparklineData(otherDataSpark, 'peak_flow'), icon: Wind, fullData: otherData, dataKey: "peak_flow" } : null,
-    leftGrip: hasData(otherData) ? { title: "Left Hand Grip", value: latestOtherData.weak_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('weak_grip', latestOtherData.weak_grip), sparklineData: createSparklineData(otherDataSpark, 'weak_grip'), icon: Hand, fullData: otherData, dataKey: "weak_grip" } : null,
-    rightGrip: hasData(otherData) ? { title: "Right Hand Grip", value: latestOtherData.strong_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('strong_grip', latestOtherData.strong_grip), sparklineData: createSparklineData(otherDataSpark, 'strong_grip'), icon: Hand, fullData: otherData, dataKey: "strong_grip" } : null,
-    fiveK: hasData(running) ? { title: "5K Time", value: latestRunning.five_k_formatted ?? '--:--', unit: "", ...getMetricCategoryInfo('five_k_seconds', latestRunning.five_k_seconds), sparklineData: createSparklineData(runningSpark, 'five_k_seconds'), icon: Timer, fullData: running, dataKey: "five_k_seconds" } : null,
+    hrv: { title: "HRV", value: latestHrv?.average_hrv?.toFixed(0) ?? '--', unit: "ms", ...getMetricCategoryInfo('average_hrv', latestHrv?.average_hrv), sparklineData: createSparklineData(ouraSpark, 'average_hrv'), icon: Activity, fullData: oura, dataKey: "average_hrv" },
+    rhr: { title: "Resting Heart Rate", value: latestRhr?.resting_heart_rate?.toFixed(0) ?? '--', unit: "bpm", ...getMetricCategoryInfo('resting_heart_rate', latestRhr?.resting_heart_rate), sparklineData: createSparklineData(ouraSpark, 'resting_heart_rate'), icon: HeartPulse, fullData: oura, dataKey: "resting_heart_rate" },
+    weight: { title: "Weight", value: latestWeight?.weight?.toFixed(1) ?? '--', unit: "lbs", ...getMetricCategoryInfo('weight', latestWeight?.weight), sparklineData: createSparklineData(withings, 'weight'), icon: Scale, fullData: withings, dataKey: "weight" },
+    bodyFat: { title: "Body Fat", value: latestBodyFat?.fat_ratio?.toFixed(1) ?? '--', unit: "%", ...getMetricCategoryInfo('fat_ratio', latestBodyFat?.fat_ratio), sparklineData: createSparklineData(withings, 'fat_ratio'), icon: Ruler, fullData: withings, dataKey: "fat_ratio" },
+    totalSleep: { title: "Total Sleep", value: latestTotalSleep?.total_sleep?.toFixed(1) ?? '--', unit: "h", ...getMetricCategoryInfo('total_sleep', latestTotalSleep?.total_sleep), sparklineData: createSparklineData(ouraSpark, 'total_sleep'), icon: BedDouble, fullData: oura, dataKey: "total_sleep" },
+    deepSleep: { title: "Deep Sleep", value: latestDeepSleep?.deep_sleep_minutes?.toFixed(0) ?? '--', unit: "min", ...getMetricCategoryInfo('deep_sleep_minutes', latestDeepSleep?.deep_sleep_minutes), sparklineData: createSparklineData(ouraSpark, 'deep_sleep_minutes'), icon: Waves, fullData: oura, dataKey: "deep_sleep_minutes" },
+    sleepEfficiency: { title: "Sleep Efficiency", value: latestSleepEfficiency?.efficiency?.toFixed(0) ?? '--', unit: "%", ...getMetricCategoryInfo('efficiency', latestSleepEfficiency?.efficiency), sparklineData: createSparklineData(ouraSpark, 'efficiency'), icon: PlugZap, fullData: oura, dataKey: "efficiency" },
+    sleepDelay: { title: "Sleep Delay", value: latestSleepDelay?.delay?.toFixed(0) ?? '--', unit: "min", ...getMetricCategoryInfo('delay', latestSleepDelay?.delay), sparklineData: createSparklineData(ouraSpark, 'delay'), icon: Hourglass, fullData: oura, dataKey: "delay" },
+    vo2MaxWatch: { title: "VO2 Max (Watch)", value: latestVo2MaxWatch?.vo2_max?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max', latestVo2MaxWatch?.vo2_max), sparklineData: createSparklineData(runningSpark, 'vo2_max'), icon: Watch, fullData: running, dataKey: "vo2_max" },
+    vo2MaxClinical: { title: "VO2 Max (Clinical)", value: latestVo2MaxClinical?.vo2_max_clinical?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max_clinical', latestVo2MaxClinical?.vo2_max_clinical), sparklineData: createSparklineData(clinicalSpark, 'vo2_max_clinical'), icon: Microscope, fullData: clinical, dataKey: "vo2_max_clinical" },
+    powerBreathe: { title: "Power Breathe", value: latestPowerBreathe?.power_breathe_level?.toFixed(1) ?? '--', unit: "Level", ...getMetricCategoryInfo('power_breathe_level', latestPowerBreathe?.power_breathe_level), sparklineData: createSparklineData(otherDataSpark, 'power_breathe_level'), icon: Timer, fullData: otherData, dataKey: "power_breathe_level" },
+    peakFlow: { title: "Peak Flow", value: latestPeakFlow?.peak_flow?.toFixed(0) ?? '--', unit: "L/min", ...getMetricCategoryInfo('peak_flow', latestPeakFlow?.peak_flow), sparklineData: createSparklineData(otherDataSpark, 'peak_flow'), icon: Wind, fullData: otherData, dataKey: "peak_flow" },
+    leftGrip: { title: "Left Hand Grip", value: latestLeftGrip?.weak_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('weak_grip', latestLeftGrip?.weak_grip), sparklineData: createSparklineData(otherDataSpark, 'weak_grip'), icon: Hand, fullData: otherData, dataKey: "weak_grip" },
+    rightGrip: { title: "Right Hand Grip", value: latestRightGrip?.strong_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('strong_grip', latestRightGrip?.strong_grip), sparklineData: createSparklineData(otherDataSpark, 'strong_grip'), icon: Hand, fullData: otherData, dataKey: "strong_grip" },
+    fiveK: { title: "5K Time", value: latest5k?.five_k_formatted ?? '--:--', unit: "", ...getMetricCategoryInfo('five_k_seconds', latest5k?.five_k_seconds), sparklineData: createSparklineData(runningSpark, 'five_k_seconds'), icon: Timer, fullData: running, dataKey: "five_k_seconds" },
     tenK: { title: "10K Time", value: '--:--', unit: "", ...getMetricCategoryInfo('ten_k_seconds', null), sparklineData: [], icon: Timer, fullData: [], dataKey: "ten_k_seconds" },
-    calories: { title: "Calories", value: latestMacros.calories_kcal?.toLocaleString() ?? '--', unit: "kcal", ...getMetricCategoryInfo('calories_kcal', latestMacros.calories_kcal), sparklineData: createSparklineData(macrosSpark, 'calories_kcal'), icon: Flame, fullData: macros, dataKey: "calories_kcal" },
-    protein: { title: "Protein", value: latestMacros.protein_g != null ? Math.round(latestMacros.protein_g) : '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestMacros.protein_g), sparklineData: createSparklineData(macrosSpark, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g" },
-    carbs: { title: "Carbs", value: latestMacros.carbs_g != null ? Math.round(latestMacros.carbs_g) : '--', unit: "g", ...getMetricCategoryInfo('carbs_g', latestMacros.carbs_g), sparklineData: createSparklineData(macrosSpark, 'carbs_g'), icon: Wheat, fullData: macros, dataKey: "carbs_g" },
-    fat: { title: "Fat", value: latestMacros.fat_g != null ? Math.round(latestMacros.fat_g) : '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestMacros.fat_g), sparklineData: createSparklineData(macrosSpark, 'fat_g'), icon: Nut, fullData: macros, dataKey: "fat_g" },
-    satFat: { title: "Saturated Fat", value: latestMacros.sat_fat_g != null ? Math.round(latestMacros.sat_fat_g) : '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestMacros.sat_fat_g), sparklineData: createSparklineData(macrosSpark, 'sat_fat_g'), icon: Link2, fullData: macros, dataKey: "sat_fat_g" },
-    sugar: { title: "Sugar", value: latestMacros.sugar_g != null ? Math.round(latestMacros.sugar_g) : '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestMacros.sugar_g), sparklineData: createSparklineData(macrosSpark, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g" },
+    calories: { title: "Calories", value: latestCalories?.calories_kcal?.toLocaleString() ?? '--', unit: "kcal", ...getMetricCategoryInfo('calories_kcal', latestCalories?.calories_kcal), sparklineData: createSparklineData(macrosSpark, 'calories_kcal'), icon: Flame, fullData: macros, dataKey: "calories_kcal" },
+    protein: { title: "Protein", value: latestProtein?.protein_g != null ? Math.round(latestProtein.protein_g) : '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestProtein?.protein_g), sparklineData: createSparklineData(macrosSpark, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g" },
+    carbs: { title: "Carbs", value: latestCarbs?.carbs_g != null ? Math.round(latestCarbs.carbs_g) : '--', unit: "g", ...getMetricCategoryInfo('carbs_g', latestCarbs?.carbs_g), sparklineData: createSparklineData(macrosSpark, 'carbs_g'), icon: Wheat, fullData: macros, dataKey: "carbs_g" },
+    fat: { title: "Fat", value: latestFat?.fat_g != null ? Math.round(latestFat.fat_g) : '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestFat?.fat_g), sparklineData: createSparklineData(macrosSpark, 'fat_g'), icon: Nut, fullData: macros, dataKey: "fat_g" },
+    satFat: { title: "Saturated Fat", value: latestSatFat?.sat_fat_g != null ? Math.round(latestSatFat.sat_fat_g) : '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestSatFat?.sat_fat_g), sparklineData: createSparklineData(macrosSpark, 'sat_fat_g'), icon: Link2, fullData: macros, dataKey: "sat_fat_g" },
+    sugar: { title: "Sugar", value: latestSugar?.sugar_g != null ? Math.round(latestSugar.sugar_g) : '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestSugar?.sugar_g), sparklineData: createSparklineData(macrosSpark, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g" },
   };
 
   const hasHeartData = hasData(oura);
@@ -177,25 +191,25 @@ const HealthDashboard = () => {
         )}
         {hasFitnessData && (
           <MetricSection title="Fitness" icon={Footprints}>
-            {metrics.vo2MaxWatch && metrics.vo2MaxClinical && (
+            {latestVo2MaxWatch && latestVo2MaxClinical && (
               <PairedMetricContainer>
                 <MetricCard {...createMetricProps(metrics.vo2MaxWatch, 'compact')} />
                 <MetricCard {...createMetricProps(metrics.vo2MaxClinical, 'compact')} />
               </PairedMetricContainer>
             )}
-            {metrics.powerBreathe && metrics.peakFlow && (
+            {latestPowerBreathe && latestPeakFlow && (
               <PairedMetricContainer>
                 <MetricCard {...createMetricProps(metrics.powerBreathe, 'compact')} />
                 <MetricCard {...createMetricProps(metrics.peakFlow, 'compact')} />
               </PairedMetricContainer>
             )}
-             {metrics.leftGrip && metrics.rightGrip && (
+             {latestLeftGrip && latestRightGrip && (
               <PairedMetricContainer>
                 <MetricCard {...createMetricProps(metrics.leftGrip, 'compact')} />
                 <MetricCard {...createMetricProps(metrics.rightGrip, 'compact')} />
               </PairedMetricContainer>
             )}
-            {metrics.fiveK && (
+            {latest5k && (
               <PairedMetricContainer>
                 <MetricCard {...createMetricProps(metrics.fiveK, 'compact')} />
                 <MetricCard {...createMetricProps(metrics.tenK, 'compact')} />
