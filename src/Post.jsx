@@ -1,103 +1,70 @@
 // src/Post.jsx
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import Layout from './components/Layout';
 import Markdown from './components/Markdown';
 import ErrorBoundary from './components/ErrorBoundary';
 import { getCategoryIcon, isStarred } from './utils/categoryIcons';
 import { formatDate } from './utils/formatters';
 import { fetchPost } from './services/postService';
-import {
-  DEFAULT_MESSAGES,
-  ERROR_MESSAGES, // Import ERROR_MESSAGES
-  ROUTES
-} from './constants';
-// Import new components
+import { DEFAULT_MESSAGES, ROUTES } from './constants';
 import LoadingIndicator from './components/LoadingIndicator';
 import StatusMessage from './components/StatusMessage';
-import { useSearch } from './hooks/useSearch'; // Import useSearch
+import { useSearch } from './hooks/useSearch';
+import Search from './components/Search';
 
 const Post = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [copySuccess, setCopySuccess] = useState('');
-  const [isSearchActive, toggleSearch] = useSearch(); // Add search hook state
+  const [isSearchActive, toggleSearch] = useSearch();
 
-  useEffect(() => {
-    const loadPost = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const postData = await fetchPost(slug);
-        setPost(postData);
-      } catch (err) {
-        console.error('Error loading post:', err);
-        // Use specific error message if available, otherwise generic not found
-        if (err.message === ERROR_MESSAGES.POST_NOT_FOUND || err.message === ERROR_MESSAGES.POST_CONTENT_NOT_FOUND) {
-            setError(DEFAULT_MESSAGES.POST_NOT_FOUND_MESSAGE); // Set error for display
-            // Optional: Still navigate for truly not found posts, or just show message
-            // navigate(ROUTES.NOT_FOUND, { replace: true });
-        } else {
-            setError(ERROR_MESSAGES.CONTENT_LOAD_FAILED); // Generic load error
-        }
-
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPost();
-  }, [slug, navigate]);
+  // Fetch the specific post using React Query. The query key is an array
+  // to ensure the query is unique for each post slug.
+  const { data: post, isLoading, isError, error } = useQuery(
+    ['post', slug],
+    () => fetchPost(slug),
+    {
+      // Don't refetch an old post if the user navigates back to it
+      staleTime: Infinity,
+    }
+  );
 
   const copyToClipboard = () => {
-    const currentUrl = window.location.href;
-    navigator.clipboard.writeText(currentUrl)
+    navigator.clipboard.writeText(window.location.href)
       .then(() => {
         setCopySuccess('Copied!');
         setTimeout(() => setCopySuccess(''), 2000);
       })
-      .catch(err => {
-        console.error('Failed to copy URL: ', err);
-      });
+      .catch(err => console.error('Failed to copy URL: ', err));
   };
 
-  // Use LoadingIndicator
-  if (loading) {
+  if (isLoading) {
     return (
-      // Pass toggleSearch to Layout
       <Layout toggleSearch={toggleSearch}>
         <LoadingIndicator message={DEFAULT_MESSAGES.LOADING_POST} />
       </Layout>
     );
   }
 
-  // Use StatusMessage for error state
-  if (error || !post) {
+  if (isError || !post) {
     return (
-       // Pass toggleSearch to Layout
       <Layout toggleSearch={toggleSearch}>
         <div className="py-10 text-center">
-            {/* Use StatusMessage centered or within a container */}
-           <StatusMessage type="error" message={DEFAULT_MESSAGES.POST_NOT_FOUND_TITLE} details={error || DEFAULT_MESSAGES.POST_NOT_FOUND_MESSAGE} />
+           <StatusMessage type="error" message={DEFAULT_MESSAGES.POST_NOT_FOUND_TITLE} details={error?.message || DEFAULT_MESSAGES.POST_NOT_FOUND_MESSAGE} />
            <Link to={ROUTES.HOME} className="mt-6 inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
             Return Home
            </Link>
         </div>
-         {/* Render Search overlay if active */}
          {isSearchActive && <Search toggleSearch={toggleSearch} />}
       </Layout>
     );
   }
 
-  // --- Post Display Logic (remains mostly the same) ---
   const categoryIcon = getCategoryIcon(post.category);
   const starred = isStarred(post);
 
   return (
-    // Pass toggleSearch to Layout
     <Layout toggleSearch={toggleSearch}>
       <article className="mb-12">
         <header className="mb-10 text-center">
@@ -149,7 +116,6 @@ const Post = () => {
           </div>
         </div>
       </div>
-       {/* Render Search overlay if active */}
        {isSearchActive && <Search toggleSearch={toggleSearch} />}
     </Layout>
   );

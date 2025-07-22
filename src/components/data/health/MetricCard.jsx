@@ -1,29 +1,23 @@
 // src/components/data/health/MetricCard.jsx
 import React, { memo, useMemo, useState, useEffect } from 'react';
-import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
+import { ResponsiveContainer, AreaChart, Area, Tooltip as RechartsTooltip } from 'recharts';
 import Card from '../../Card';
-import SparklineTooltip from './tooltips/SparklineTooltip';
 import DetailedChartModal from './DetailedChartModal';
-import { CATEGORY_COLORS } from '../../../utils/healthCategories';
+import Tooltip from '../../ui/Tooltip'; // Import the new unified tooltip
+import { CATEGORY_COLORS, getMetricCategoryInfo } from '../../../utils/healthCategories';
+import { formatSecondsToMMSS } from '../../../utils/dataUtils';
 
-// A simple, self-contained hook to check for a media query match.
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
-
   useEffect(() => {
     const media = window.matchMedia(query);
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
+    if (media.matches !== matches) setMatches(media.matches);
     const listener = () => setMatches(media.matches);
-    // Use the modern addEventListener syntax
     media.addEventListener('change', listener);
     return () => media.removeEventListener('change', listener);
   }, [matches, query]);
-
   return matches;
 };
-
 
 const MetricCard = memo(({
   title,
@@ -45,6 +39,31 @@ const MetricCard = memo(({
   const sparklineColor = hexColor;
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
+  const renderSparklineTooltip = (dataPoint) => {
+    if (!dataPoint) return null;
+
+    const pointValue = dataPoint.value;
+    const isFilled = dataPoint.isFilled;
+    const date = dataPoint.date;
+
+    if (pointValue === null || pointValue === undefined) return null;
+
+    const displayValue = dataKey === 'five_k_seconds' ? formatSecondsToMMSS(pointValue) : pointValue?.toFixed(1) ?? '--';
+    const formattedDate = date ? new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '';
+    const { label: categoryLabel, textColorClass } = getMetricCategoryInfo(dataKey, pointValue);
+
+    return (
+      <div className="bg-white dark:bg-slate-800 px-3 py-2 rounded-md shadow-sm border border-slate-200 dark:border-slate-700">
+        <p className="text-gray-500 dark:text-gray-400 text-xs mb-1">{formattedDate}</p>
+        <p className="text-gray-900 dark:text-white text-sm font-medium">
+          {displayValue}
+          {isFilled && <span className="text-xs ml-1 text-gray-500">*</span>}
+        </p>
+        <p className={`text-xs ${textColorClass}`}>{categoryLabel}</p>
+      </div>
+    );
+  };
+
   const renderSparkline = () => (
     sparklineData && sparklineData.length > 0 && (
       <ResponsiveContainer width="100%" height="100%">
@@ -55,26 +74,16 @@ const MetricCard = memo(({
               <stop offset="95%" stopColor={sparklineColor} stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <Tooltip
-            content={<SparklineTooltip dataKey={dataKey} />}
+          <RechartsTooltip
+            content={<Tooltip renderContent={renderSparklineTooltip} />}
             cursor={{ stroke: sparklineColor, strokeWidth: 1 }}
           />
-          <Area
-            type="monotone"
-            dataKey="value"
-            stroke={sparklineColor}
-            strokeWidth={2}
-            fillOpacity={1}
-            fill={`url(#${gradientId})`}
-            isAnimationActive={false}
-            connectNulls={false}
-          />
+          <Area type="monotone" dataKey="value" stroke={sparklineColor} strokeWidth={2} fillOpacity={1} fill={`url(#${gradientId})`} isAnimationActive={false} connectNulls={false} />
         </AreaChart>
       </ResponsiveContainer>
     )
   );
 
-  // On desktop, always use the 'full' layout. On mobile, respect the displayMode.
   const useFullLayout = isDesktop || displayMode === 'full';
 
   return (
@@ -88,7 +97,6 @@ const MetricCard = memo(({
       >
         {useFullLayout ? (
           <>
-            {/* Full Layout (Desktop or specified) */}
             <div className="flex items-center text-gray-500 dark:text-gray-400 mb-4">
               {Icon && <Icon className="w-5 h-5 mr-2" />}
               <span className="text-sm">{title}</span>
@@ -106,14 +114,11 @@ const MetricCard = memo(({
           </>
         ) : (
           <>
-            {/* Compact Layout (Mobile only) */}
             <div className="flex items-center gap-2">
               {Icon && <Icon className="w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />}
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</span>
             </div>
-            <div className="w-full h-10 my-2">
-              {renderSparkline()}
-            </div>
+            <div className="w-full h-10 my-2">{renderSparkline()}</div>
             <div>
               <div className="text-2xl font-semibold text-gray-900 dark:text-white">
                 {value}
@@ -125,16 +130,7 @@ const MetricCard = memo(({
         )}
       </Card>
 
-      <DetailedChartModal
-        isOpen={isOpen}
-        onClose={onClose}
-        title={title}
-        data={fullData}
-        dataKey={dataKey}
-        unit={unit}
-        icon={Icon}
-        lineColor={sparklineColor}
-      />
+      <DetailedChartModal isOpen={isOpen} onClose={onClose} title={title} data={fullData} dataKey={dataKey} unit={unit} icon={Icon} lineColor={sparklineColor} />
     </>
   );
 });

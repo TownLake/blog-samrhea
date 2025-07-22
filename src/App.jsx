@@ -1,6 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import Layout from './components/Layout';
 import PostList from './components/PostList';
 import Pagination from './components/Pagination';
@@ -18,12 +19,12 @@ const App = () => {
   const navigate = useNavigate();
   const { filter } = useParams();
 
-  const [posts, setPosts] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('All');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isSearchActive, toggleSearch] = useSearch();
+
+  // Fetch posts data using React Query
+  const { data: posts = [], isLoading, isError, error } = useQuery('posts', fetchPosts);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -34,29 +35,12 @@ const App = () => {
   useEffect(() => {
     const validFilters = NAVIGATION_MAP.blog.subnav.map(f => f.id);
     if (filter && validFilters.some(f => f.toLowerCase() === filter.toLowerCase())) {
-        // Find the correct case-sensitive filter ID
         const matchedFilter = validFilters.find(f => f.toLowerCase() === filter.toLowerCase());
         setCurrentFilter(matchedFilter);
     } else {
         setCurrentFilter('All');
     }
   }, [filter]);
-
-  useEffect(() => {
-    const loadPosts = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await fetchPosts();
-        setPosts(data);
-      } catch (err) {
-        setError(ERROR_MESSAGES.LOAD_POSTS_FAILED);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadPosts();
-  }, []);
 
   const filteredPosts = useMemo(() => filterPosts(posts, currentFilter), [posts, currentFilter]);
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
@@ -68,11 +52,11 @@ const App = () => {
   };
 
   const renderContent = () => {
-    if (loading) {
+    if (isLoading) {
       return <LoadingIndicator message={DEFAULT_MESSAGES.LOADING_POSTS} />;
     }
-    if (error) {
-      return <StatusMessage type="error" message={error} details="Please try refreshing the page." />;
+    if (isError) {
+      return <StatusMessage type="error" message={ERROR_MESSAGES.LOAD_POSTS_FAILED} details={error.message} />;
     }
     const activeFilterLabel = NAVIGATION_MAP.blog.subnav.find(opt => opt.id === currentFilter)?.label;
     return (

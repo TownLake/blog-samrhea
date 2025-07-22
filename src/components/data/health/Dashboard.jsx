@@ -1,35 +1,20 @@
-// src/components/data/health/HealthDashboard.jsx
+// src/components/data/health/Dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import {
   Heart, Scale, ClipboardCheck, BedDouble, Footprints, Activity, HeartPulse,
   Ruler, Waves, PlugZap, Hourglass, Wind, Timer, Watch, Microscope, Hand, BarChart2,
   Flame, Beef, Wheat, Donut, Link2, Nut
 } from 'lucide-react';
 import { createSparklineData } from '../../../utils/dataUtils';
+import { fetchHealthData } from '../../../services/healthService';
 import MetricSection from './MetricSection';
 import MetricCard from './MetricCard';
-import DataIntroCard from '../DataIntroCard';
 import Card from '../../Card';
-import { useHealthData } from '../../../store/HealthDataContext';
 import { getMetricCategoryInfo } from '../../../utils/healthCategories';
-
-const LoadingView = () => (
-  <div className="py-20 text-center text-gray-500 dark:text-gray-400">
-    <p>Loading health data...</p>
-  </div>
-);
-
-const ErrorView = ({ message }) => (
-  <div className="py-10 max-w-xl mx-auto text-center">
-    <Card className="p-6">
-      <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-        Unable to Load Health Data
-      </h2>
-      <p className="text-gray-700 dark:text-gray-300">{message || 'An error occurred while loading your health data.'}</p>
-    </Card>
-  </div>
-);
+import LoadingIndicator from '../../LoadingIndicator';
+import StatusMessage from '../../StatusMessage';
 
 const PairedMetricContainer = ({ children }) => (
   <div className="grid grid-cols-2 gap-4 md:contents">
@@ -38,18 +23,19 @@ const PairedMetricContainer = ({ children }) => (
 );
 
 const HealthDashboard = () => {
-  const {
-    oura, ouraSpark,
-    withings,
-    running, runningSpark,
-    clinical, clinicalSpark,
-    otherData, otherDataSpark,
-    macros, macrosSpark,
-    isLoading, error,
-  } = useHealthData();
-
   const location = useLocation();
   const [activeModal, setActiveModal] = useState(null);
+
+  const { data: healthData, isLoading, isError, error } = useQuery('healthData', fetchHealthData);
+
+  const {
+    oura = [], ouraSpark = [],
+    withings = [],
+    running = [], runningSpark = [],
+    clinical = [], clinicalSpark = [],
+    otherData = [], otherDataSpark = [],
+    macros = [], macrosSpark = [],
+  } = healthData || {};
 
   useEffect(() => {
     const hash = location.hash.replace('#', '');
@@ -80,13 +66,24 @@ const HealthDashboard = () => {
   };
 
   if (isLoading) {
-    return <LoadingView />;
+    return <LoadingIndicator message="Loading health data..." />;
   }
 
   const hasData = (arr) => arr && arr.length > 0;
 
-  if (!hasData(oura) && !hasData(withings) && !hasData(running) && !hasData(otherData) && !hasData(macros)) {
-    return <ErrorView message={error || "No relevant health data available to display."} />;
+  if (isError || (!hasData(oura) && !hasData(withings) && !hasData(running) && !hasData(otherData) && !hasData(macros))) {
+    return (
+      <div className="py-10 max-w-xl mx-auto text-center">
+        <Card className="p-6">
+          <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+            Unable to Load Health Data
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300">
+            {error?.message || "An error occurred while loading your health data."}
+          </p>
+        </Card>
+      </div>
+    );
   }
 
   const createMetricProps = (metric, displayMode = 'full') => ({
@@ -154,9 +151,18 @@ const HealthDashboard = () => {
 
   return (
     <div className="pt-2 pb-8">
-      <DataIntroCard title="Health Data" icon={BarChart2}>
-        <p>I publish these to have a home page for myself. I think <a href="https://blog.samrhea.com/post/2024-01-30-health-data" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">a lot</a> about this kind of data. And, if you're like me, you could use this <a href="https://github.com/TownLake/core-health" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">open-sourced dashboard</a> I built, too.</p>
-      </DataIntroCard>
+      {/* Replicating DataIntroCard's structure directly */}
+      <Card className="mb-6 p-6">
+        <div className="flex items-center gap-2 mb-3">
+          <BarChart2 className="w-5 h-5 text-blue-500" />
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Health Data
+          </h2>
+        </div>
+        <div className="text-gray-700 dark:text-gray-300">
+          <p>I publish these to have a home page for myself. I think <a href="https://blog.samrhea.com/post/2024-01-30-health-data" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">a lot</a> about this kind of data. And, if you're like me, you could use this <a href="https://github.com/TownLake/core-health" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">open-sourced dashboard</a> I built, too.</p>
+        </div>
+      </Card>
 
       <div className="space-y-12 mt-8">
         {hasHeartData && (

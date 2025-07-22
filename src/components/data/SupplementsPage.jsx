@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { marked } from 'marked';
 import { Pill } from 'lucide-react';
 import { fetchAndParseSupplements } from '../../services/contentService';
-import DataIntroCard from './DataIntroCard';
 import Card from '../Card';
 import LoadingIndicator from '../LoadingIndicator';
 import StatusMessage from '../StatusMessage';
@@ -45,22 +44,28 @@ const SupplementsPage = () => {
 
     return (
         <div className="py-2">
-            <DataIntroCard title="Supplements" icon={Pill}>
-              <p>More for my own reminders (and to copy-paste the .md to an LLM for periodic review).</p>
-            </DataIntroCard>
+            {/* Replicating DataIntroCard's structure directly */}
+            <Card className="mb-6 p-6">
+                <div className="flex items-center gap-2 mb-3">
+                    <Pill className="w-5 h-5 text-blue-500" />
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Supplements
+                    </h2>
+                </div>
+                <div className="text-gray-700 dark:text-gray-300">
+                    <p>More for my own reminders (and to copy-paste the .md to an LLM for periodic review).</p>
+                </div>
+            </Card>
 
-            {/* NEW: Styled header for the schedule section */}
             {schedule.pageTitle && (
               <div className="my-10 text-center">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {schedule.pageTitle}
                 </h2>
-                {/* A short, decorative horizontal rule to act as a separator */}
                 <hr className="mt-4 w-24 mx-auto border-gray-300 dark:border-gray-600" />
               </div>
             )}
             
-            {/* Dynamic schedule content */}
             <div className="space-y-6">
                 {schedule.sections.map((section, index) => (
                     <Card key={index} className="p-6">

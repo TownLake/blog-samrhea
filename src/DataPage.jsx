@@ -3,13 +3,14 @@ import React, { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
-import { HealthDataProvider } from './store/HealthDataContext';
+// HealthDataProvider is no longer needed here
 import { useSearch } from './hooks/useSearch';
 import Search from './components/Search';
 import LoadingIndicator from './components/LoadingIndicator';
 import StatusMessage from './components/StatusMessage';
 import { DEFAULT_MESSAGES, NAVIGATION_MAP } from './constants';
 
+// Lazily import pages
 const HealthDashboard = React.lazy(() => import('./components/data/health/Dashboard.jsx'));
 const NewsPage = React.lazy(() => import('./components/data/NewsPage'));
 const SupplementsPage = React.lazy(() => import('./components/data/SupplementsPage'));
@@ -25,7 +26,8 @@ const DataPage = () => {
           <Suspense fallback={<LoadingIndicator message={DEFAULT_MESSAGES.LOADING_CONTENT} />}>
             <Routes>
               <Route path="/" element={<Navigate to={NAVIGATION_MAP.data.subnav[0].path} replace />} />
-              <Route path="health" element={<HealthDataProvider><HealthDashboard /></HealthDataProvider>} />
+              {/* HealthDashboard no longer needs a provider, it fetches its own data */}
+              <Route path="health" element={<HealthDashboard />} />
               <Route path="news" element={<NewsPage />} />
               <Route path="supplements" element={<SupplementsPage />} />
               <Route path="digital" element={<DigitalPage />} />

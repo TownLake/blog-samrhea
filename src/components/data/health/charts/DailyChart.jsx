@@ -1,11 +1,10 @@
 // src/components/data/health/charts/DailyChart.jsx
-
 import React, { memo, useMemo } from 'react';
-import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts';
+import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceArea } from 'recharts';
 import { formatSecondsToMMSS } from '../../../../utils/dataUtils';
-import CustomTooltip from '../tooltips/CustomTooltip';
 import { chartMargins, axisConfig, gridConfig } from '../../../../config/chartConfig';
-import { METRIC_RANGES, CATEGORY_COLORS } from '../../../../utils/healthCategories';
+import { METRIC_RANGES, CATEGORY_COLORS, getMetricCategoryInfo } from '../../../../utils/healthCategories';
+import Tooltip from '../../../ui/Tooltip'; // Import the new unified tooltip
 
 const DailyChart = memo(({
   chartData: initialChartData,
@@ -47,6 +46,31 @@ const DailyChart = memo(({
 
   const categoryRanges = METRIC_RANGES[dataKey] || METRIC_RANGES[dataKey.replace('_clinical', '')] || [];
 
+  const renderCustomTooltip = (dataPoint) => {
+    if (!dataPoint) return null;
+
+    const value = dataPoint[actualDataKey] ?? dataPoint[filledDataKey];
+    const isFilled = dataPoint[filledDataKey] != null;
+
+    if (value === null || value === undefined) return null;
+
+    const displayValue = dataKey === 'five_k_seconds' ? formatSecondsToMMSS(value) : value?.toFixed(1) ?? '--';
+    const { label: categoryLabel, textColorClass } = getMetricCategoryInfo(dataKey, value);
+
+    return (
+      <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">
+          {new Date(dataPoint.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+        </p>
+        <p className="text-gray-900 dark:text-white font-semibold">
+          {displayValue}{unit}
+          {isFilled && <span className="text-xs ml-1 text-gray-500 dark:text-gray-400">(est.)</span>}
+        </p>
+        <p className={`text-xs mt-1 ${textColorClass}`}>{categoryLabel}</p>
+      </div>
+    );
+  };
+
   if (!processedChartData || processedChartData.length < 2) {
      return <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">Not enough data for daily view.</div>;
   }
@@ -65,7 +89,6 @@ const DailyChart = memo(({
           </linearGradient>
         </defs>
         
-        {/* Render Category Bands Behind Grid */}
         {showBands && categoryRanges.map(range => {
           if (range.min === Infinity || !range.max) return null;
           return (
@@ -84,11 +107,7 @@ const DailyChart = memo(({
           );
         })}
 
-        <CartesianGrid
-          strokeDasharray="3 3"
-          vertical={false}
-          stroke={gridColors.stroke}
-        />
+        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColors.stroke} />
         <XAxis
           dataKey="date"
           stroke={axisColors.stroke}
@@ -116,34 +135,11 @@ const DailyChart = memo(({
           allowDataOverflow={true}
           width={40}
         />
-        <Tooltip content={<CustomTooltip unit={unit} originalDataKey={dataKey} actualDataKey={actualDataKey} filledDataKey={filledDataKey}/>} />
+        {/* Use the new unified Tooltip component */}
+        <RechartsTooltip content={<Tooltip renderContent={renderCustomTooltip} />} />
         
-        <Area
-          type="monotone"
-          dataKey={filledDataKey}
-          stroke="none"
-          strokeWidth={0}
-          fillOpacity={1}
-          fill={`url(#${filledGradientId})`}
-          dot={false}
-          activeDot={false}
-          name="Filled Data"
-          connectNulls={false}
-          isAnimationActive={false}
-        />
-        <Area
-          type="monotone"
-          dataKey={actualDataKey}
-          stroke={effectiveLineColor}
-          strokeWidth={2}
-          fillOpacity={1}
-          fill={`url(#${gradientId})`}
-          dot={false}
-          activeDot={{ r: 6, stroke: effectiveLineColor, strokeWidth: 2, fill: isDarkMode ? '#1E293B' : '#FFFFFF' }}
-          name="Actual Data"
-          connectNulls={true}
-          isAnimationActive={false}
-        />
+        <Area type="monotone" dataKey={filledDataKey} stroke="none" strokeWidth={0} fillOpacity={1} fill={`url(#${filledGradientId})`} dot={false} activeDot={false} name="Filled Data" connectNulls={false} isAnimationActive={false} />
+        <Area type="monotone" dataKey={actualDataKey} stroke={effectiveLineColor} strokeWidth={2} fillOpacity={1} fill={`url(#${gradientId})`} dot={false} activeDot={{ r: 6, stroke: effectiveLineColor, strokeWidth: 2, fill: isDarkMode ? '#1E293B' : '#FFFFFF' }} name="Actual Data" connectNulls={true} isAnimationActive={false} />
       </AreaChart>
     </ResponsiveContainer>
   );

@@ -1,12 +1,12 @@
 // src/components/data/NewsPage.jsx
 import React, { useState, useMemo } from 'react';
-import { Newspaper, BarChart3, Users, Clock, CalendarDays } from 'lucide-react'; // Added CalendarDays
-import DataIntroCard from './DataIntroCard';
+import { useQuery } from 'react-query';
+import { Newspaper, BarChart3, Users, Clock, CalendarDays } from 'lucide-react';
 import Card from '../Card';
 import LoadingIndicator from '../LoadingIndicator';
 import StatusMessage from '../StatusMessage';
-import useNewsData from '../../hooks/useNewsData';
 import { useTheme } from '../../context/ThemeContext';
+import { fetchNewsData } from '../../services/newsService';
 import SimpleBarChart from '../charts/SimpleBarChart';
 import ChartModal from '../modals/ChartModal';
 import { formatDate } from '../../utils/formatters';
@@ -24,7 +24,7 @@ const formatSourceName = (name, maxLength = 20) => {
   return name.length > maxLength ? `${name.substring(0, maxLength)}...` : name;
 };
 
-const ArticlesBySourceCard = ({ data, isDarkMode, onClick }) => (
+const ArticlesBySourceCard = ({ data, onClick }) => (
   <Card onClick={onClick} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
     <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
       <Users className="w-5 h-5 mr-2" />
@@ -98,11 +98,11 @@ const RecentArticlesTable = ({ data }) => (
     </Card>
   );
 
-
 const NewsPage = () => {
-  const { newsData, isLoading, error } = useNewsData();
   const { darkMode } = useTheme();
   const [modalContent, setModalContent] = useState(null);
+
+  const { data: newsData, isLoading, isError, error } = useQuery('newsData', fetchNewsData);
 
   const openModal = (title, chartType) => {
     setModalContent({ title, chartType });
@@ -112,20 +112,14 @@ const NewsPage = () => {
   };
 
   const dailyAvg = useMemo(() => {
-    if (!newsData.articlesByDay || newsData.articlesByDay.length === 0) return '0.0';
+    if (!newsData?.articlesByDay || newsData.articlesByDay.length === 0) return '0.0';
     const totalArticles = newsData.articlesByDay.reduce((sum, day) => sum + day.count, 0);
-    const numberOfDaysWithData = newsData.articlesByDay.length > 0 ? newsData.articlesByDay.length : 1; // Avoid division by zero if no data for range
+    const numberOfDaysWithData = newsData.articlesByDay.length > 0 ? newsData.articlesByDay.length : 1;
     return (totalArticles / numberOfDaysWithData).toFixed(1);
-  }, [newsData.articlesByDay]);
+  }, [newsData?.articlesByDay]);
 
-  const topSourceData = useMemo(() => {
-    if (!newsData.articlesBySource || newsData.articlesBySource.length === 0) return { name: 'N/A', count: 0 };
-    return { name: newsData.articlesBySource[0].source, count: newsData.articlesBySource[0].count };
-  }, [newsData.articlesBySource]);
-
-  // Prepare full hourly data for chart (all 24 hours)
   const fullHourlyData = useMemo(() => {
-    if (!newsData.articlesByHour) return [];
+    if (!newsData?.articlesByHour) return [];
     return Array.from({ length: 24 }, (_, i) => {
       const hourData = newsData.articlesByHour.find(h => h.hour === i);
       return {
@@ -134,35 +128,34 @@ const NewsPage = () => {
         count: hourData ? hourData.count : 0,
       };
     });
-  }, [newsData.articlesByHour]);
+  }, [newsData?.articlesByHour]);
 
-  const peakHourData = useMemo(() => {
-    if (!fullHourlyData || fullHourlyData.length === 0) return { hourLabel: 'N/A', count: 0 };
-    const peak = fullHourlyData.reduce((max, current) => (current.count > max.count ? current : max), fullHourlyData[0] || { hourLabel: 'N/A', count: 0 });
-    return { hourLabel: peak.hourLabel, count: peak.count };
-  }, [fullHourlyData]);
-
-
-  // NEW: Calculate Busiest Day for summary card
   const busiestDayData = useMemo(() => {
-    if (!newsData.articlesByDayOfWeek || newsData.articlesByDayOfWeek.length === 0) return { name: 'N/A', count: 0 };
-    // API now provides { dayName, count } sorted by dayOfWeekNumeric
+    if (!newsData?.articlesByDayOfWeek || newsData.articlesByDayOfWeek.length === 0) return { name: 'N/A', count: 0 };
     const peak = newsData.articlesByDayOfWeek.reduce((max, current) => (current.count > max.count ? current : max), newsData.articlesByDayOfWeek[0] || { dayName: 'N/A', count: 0});
     return { name: peak.dayName, count: peak.count };
-  }, [newsData.articlesByDayOfWeek]);
+  }, [newsData?.articlesByDayOfWeek]);
 
   return (
     <div className="py-2">
-      <DataIntroCard title="News & Reading Habits" icon={Newspaper}>
-        <p>Built an RSS reader that captures what I'm reading. Does not log everything, just what I select through the reader.</p>
-      </DataIntroCard>
+      {/* Replicating DataIntroCard's structure directly */}
+      <Card className="mb-6 p-6">
+        <div className="flex items-center gap-2 mb-3">
+          <Newspaper className="w-5 h-5 text-blue-500" />
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            News & Reading Habits
+          </h2>
+        </div>
+        <div className="text-gray-700 dark:text-gray-300">
+          <p>Built an RSS reader that captures what I'm reading. Does not log everything, just what I select through the reader.</p>
+        </div>
+      </Card>
 
       {isLoading && <LoadingIndicator message="Loading news data..." />}
-      {error && <StatusMessage type="error" message="Failed to load news data." details={error} />}
+      {isError && <StatusMessage type="error" message="Failed to load news data." details={error.message} />}
 
-      {!isLoading && !error && newsData && (
+      {!isLoading && !isError && newsData && (
         <>
-          {/* UPDATED: Summary Cards Grid to 2x2 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
             <Card onClick={() => openModal('Daily Reading Volume', 'dailyVolume')} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
               <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
@@ -172,20 +165,8 @@ const NewsPage = () => {
               <div className="text-3xl font-semibold text-gray-900 dark:text-white">{dailyAvg}</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Avg articles/day (last 90d)</div>
             </Card>
-
-            <ArticlesBySourceCard 
-              data={newsData.articlesBySource} 
-              isDarkMode={darkMode}
-              onClick={() => openModal('Articles by Source (Top 10)', 'bySource')}
-            />
-            
-            <ArticlesByHourCard 
-              data={fullHourlyData} // Pass full hourly data
-              isDarkMode={darkMode}
-              onClick={() => openModal('Reading Times (by Hour)', 'byHour')}
-            />
-            
-            {/* NEW: Day of the Week Summary Card */}
+            <ArticlesBySourceCard data={newsData.articlesBySource} onClick={() => openModal('Articles by Source (Top 10)', 'bySource')} />
+            <ArticlesByHourCard data={fullHourlyData} onClick={() => openModal('Reading Times (by Hour)', 'byHour')} />
             <Card onClick={() => openModal('Reading by Day of Week', 'byDayOfWeek')} className="p-5 cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
               <div className="flex items-center text-gray-500 dark:text-gray-400 mb-2">
                 <CalendarDays className="w-5 h-5 mr-2" />
@@ -210,7 +191,6 @@ const NewsPage = () => {
               {modalContent.chartType === 'byHour' && (
                 <SimpleBarChart chartData={fullHourlyData} layout="horizontal" xAxisDataKey="hourLabel" barDataKey="count" isDarkMode={darkMode} height={400} unit=" articles" xAxisTickFormatter={(value) => value.substring(0,2)} yAxisTickFormatter={(value) => Math.round(value)} />
               )}
-              {/* NEW: Modal content for Day of Week Chart */}
               {modalContent.chartType === 'byDayOfWeek' && (
                 <SimpleBarChart chartData={newsData.articlesByDayOfWeek} xAxisDataKey="dayName" barDataKey="count" isDarkMode={darkMode} height={400} unit=" articles" yAxisTickFormatter={(value) => Math.round(value)} />
               )}
