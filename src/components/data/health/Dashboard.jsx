@@ -83,6 +83,7 @@ const HealthDashboard = () => {
     return <ErrorView message={error || "No relevant health data available to display."} />;
   }
 
+  // This function adds modal-related props and will be passed to MetricSection
   const createMetricProps = (metric) => ({
     ...metric,
     isOpen: activeModal === metric.dataKey,
@@ -120,7 +121,6 @@ const HealthDashboard = () => {
   if (hasData(running)) fitnessMetrics.push({ title: "5K Time", value: latestRunning.five_k_formatted ?? '--:--', unit: "", ...getMetricCategoryInfo('five_k_seconds', latestRunning.five_k_seconds), sparklineData: createSparklineData(runningSpark, 'five_k_seconds'), icon: Timer, fullData: running, dataKey: "five_k_seconds", layout: 'half' }, { title: "10K Time", value: '--:--', unit: "", ...getMetricCategoryInfo('ten_k_seconds', null), sparklineData: [], icon: Timer, fullData: [], dataKey: "ten_k_seconds", layout: 'half' });
 
   const latestMacros = hasData(macros) ? macros[0] : {};
-  // --- MODIFIED: Reordered metrics and added layout property to create specified pairs ---
   const macroMetrics = hasData(macros) ? [
     { title: "Calories", value: latestMacros.calories_kcal?.toLocaleString() ?? '--', unit: "kcal", ...getMetricCategoryInfo('calories_kcal', latestMacros.calories_kcal), sparklineData: createSparklineData(macrosSpark, 'calories_kcal'), icon: Flame, fullData: macros, dataKey: "calories_kcal", layout: 'full' },
     { title: "Protein", value: latestMacros.protein_g != null ? Math.round(latestMacros.protein_g) : '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestMacros.protein_g), sparklineData: createSparklineData(macrosSpark, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g", layout: 'full' },
@@ -145,20 +145,21 @@ const HealthDashboard = () => {
       </DataIntroCard>
 
       <div className="space-y-12 mt-8">
+        {/* --- MODIFIED: Pass raw metrics and the prop creation function down --- */}
         {heartMetrics.length > 0 && (
-          <MetricSection title="Heart" icon={Heart} metrics={heartMetrics.map(createMetricProps)} />
+          <MetricSection title="Heart" icon={Heart} metrics={heartMetrics} createMetricProps={createMetricProps} />
         )}
         {bodyMetrics.length > 0 && (
-          <MetricSection title="Body" icon={ClipboardCheck} metrics={bodyMetrics.map(createMetricProps)} />
+          <MetricSection title="Body" icon={ClipboardCheck} metrics={bodyMetrics} createMetricProps={createMetricProps} />
         )}
         {sleepMetrics.length > 0 && (
-          <MetricSection title="Sleep" icon={BedDouble} metrics={sleepMetrics.map(createMetricProps)} />
+          <MetricSection title="Sleep" icon={BedDouble} metrics={sleepMetrics} createMetricProps={createMetricProps} />
         )}
         {fitnessMetrics.length > 0 && (
-          <MetricSection title="Fitness" icon={Footprints} metrics={fitnessMetrics.map(createMetricProps)} />
+          <MetricSection title="Fitness" icon={Footprints} metrics={fitnessMetrics} createMetricProps={createMetricProps} />
         )}
         {macroMetrics.length > 0 && (
-          <MetricSection title="Macros" icon={BarChart2} metrics={macroMetrics.map(createMetricProps)} />
+          <MetricSection title="Macros" icon={BarChart2} metrics={macroMetrics} createMetricProps={createMetricProps} />
         )}
       </div>
     </div>

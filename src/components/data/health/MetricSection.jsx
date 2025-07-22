@@ -1,10 +1,15 @@
 // src/components/data/health/MetricSection.jsx
-
 import React from 'react';
 import MetricCard from './MetricCard';
 
-const MetricSection = ({ title, icon: Icon, metrics }) => {
+// --- MODIFIED: Accept createMetricProps function as a prop ---
+const MetricSection = ({ title, icon: Icon, metrics, createMetricProps }) => {
   const sectionId = title.toLowerCase().replace(/\s+/g, '-');
+
+  // --- ADDED: A defensive check to prevent crashes if metrics is not an array ---
+  if (!Array.isArray(metrics) || !createMetricProps) {
+    return null; // Render nothing if the necessary props aren't provided
+  }
 
   return (
     <section id={sectionId} className="scroll-mt-20"> 
@@ -19,14 +24,21 @@ const MetricSection = ({ title, icon: Icon, metrics }) => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{title}</h2>
         </a>
       </div>
-      {/* --- MODIFIED: Reverted to a 2-column layout on medium screens and up --- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> 
-        {metrics.map((metricProps, index) => (
-          <MetricCard 
-            key={`${metricProps.dataKey}-${index}`} 
-            {...metricProps}
-          />
-        ))}
+      <div className="grid grid-cols-2 gap-4"> 
+        {/* --- MODIFIED: Map over raw metrics and call createMetricProps inside --- */}
+        {metrics.map((metric, index) => {
+          const metricProps = createMetricProps(metric);
+          return (
+            <div
+              key={`${metricProps.dataKey}-${index}`}
+              className={metricProps.layout === 'full' ? 'col-span-2 md:col-span-1' : 'col-span-1'}
+            >
+              <MetricCard 
+                {...metricProps}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
