@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun, Search, IdCard, Activity, ScrollText } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { ROUTES, FILTER_OPTIONS } from '../constants'; // *** ADDED FILTER_OPTIONS TO THE IMPORT ***
+import { ROUTES, FILTER_OPTIONS } from '../constants';
 
 const Navbar = ({ toggleSearch }) => {
   const location = useLocation();
@@ -11,6 +11,9 @@ const Navbar = ({ toggleSearch }) => {
   const { darkMode, toggleDarkMode } = useTheme();
 
   const activeClassName = 'text-blue-500 dark:text-blue-400';
+
+  // The Blog icon is active on the home page or any filter pages
+  const isBlogActive = pathname === ROUTES.HOME || FILTER_OPTIONS.some(f => pathname.startsWith(ROUTES.FILTER(f.id)));
 
   return (
     <header className="flex items-center justify-between w-full py-2">
@@ -23,31 +26,21 @@ const Navbar = ({ toggleSearch }) => {
           className="flex items-center justify-center w-10 h-10 hover:text-blue-500 dark:hover:text-blue-400 transition-colors text-sm"
           aria-label="Blog Posts"
         >
-          <ScrollText
-            size={18}
-            // This line now works because FILTER_OPTIONS is imported
-            className={pathname === ROUTES.HOME || FILTER_OPTIONS.some(f => pathname.startsWith(ROUTES.FILTER(f.id))) ? activeClassName : ''}
-          />
+          <ScrollText size={18} className={isBlogActive ? activeClassName : ''} />
         </Link>
         <Link
           to={ROUTES.ABOUT}
           className="flex items-center justify-center w-10 h-10 hover:text-blue-500 dark:hover:text-blue-400 transition-colors text-sm"
            aria-label="About Me"
         >
-          <IdCard
-            size={18}
-            className={pathname.startsWith(ROUTES.ABOUT) ? activeClassName : ''}
-           />
+          <IdCard size={18} className={pathname.startsWith(ROUTES.ABOUT) ? activeClassName : ''} />
         </Link>
         <Link
           to={ROUTES.DATA}
           className="flex items-center justify-center w-10 h-10 hover:text-blue-500 dark:hover:text-blue-400 transition-colors text-sm"
            aria-label="Data Insights"
         >
-          <Activity
-            size={18}
-            className={pathname.startsWith(ROUTES.DATA) ? activeClassName : ''}
-          />
+          <Activity size={18} className={pathname.startsWith(ROUTES.DATA) ? activeClassName : ''} />
         </Link>
         <button
           onClick={toggleDarkMode}

@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Cloudflare",
-    "logo": "https://cf-assets.www.cloudflare.com/slt3lc6tev37/6EYsdkdfBcHtgPmgp3YtkD/0b203affd2053988264b9253b13de6b3/logo-thumbnail.png",
+    "logo": "../public/CF_logomark.svg",
     "period": "2018 - Present",
     "current": true,
     "roles": [

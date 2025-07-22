@@ -1,34 +1,27 @@
 // src/constants/index.js
 // Centralized constants for the application
-// Lucide icons are still used for ABOUT_SECTIONS, so keep those imports if needed,
-// or remove specific ones if they are no longer used anywhere else.
-// For this example, I'm assuming some Lucide icons might still be used elsewhere or in ABOUT_SECTIONS.
-// If not, you can remove them. For now, I'll only remove the ones explicitly replaced.
-// import { Activity, Newspaper, Pill, Laptop } from 'lucide-react'; // REMOVED these as they are replaced by emojis for DATA_SECTIONS
 
 // Pagination
 export const POSTS_PER_PAGE = 12;
 
-// Filter options for main page (blog)
+// Filter options for main page (blog) - UPDATED
 export const FILTER_OPTIONS = [
-  { id: 'Starred', label: 'Hits', icon: '⭐' },
-  { id: 'Reading', label: 'Reading', icon: '📚' },
+  { id: 'Starred', label: 'Starred', icon: '⭐' },
+  { id: 'Reading', label: 'Reading List', icon: '📚' },
   { id: 'Portugal', label: 'Portugal', icon: '🇵🇹' },
   { id: 'Texas', label: 'Texas', icon: '🤠' },
-  { id: 'Cloudflare', label: 'Cloudflare', icon: '⛅' },
+  { id: 'Cloudflare', label: 'At Cloudflare', icon: '⛅' },
 ];
 
 // About page section options
-// Assuming these still use Lucide icons or other non-emoji icons as previously defined
 export const ABOUT_SECTIONS = [
   { id: 'home', label: 'Home', icon: '👋', path: '/about/home' },
   { id: 'work', label: 'Work', icon: '👷', path: '/about/work' },
   { id: 'school', label: 'School', icon: '🎓', path: '/about/school' },
   { id: 'portugal', label: 'Portugal', icon: '🇵🇹', path: '/about/portugal' },
-  { id: 'projects', label: 'Projects', icon: '🚧', path: '/about/projects' },
 ];
 
-// Data page section options (UPDATED with Emojis)
+// Data page section options
 export const DATA_SECTIONS = [
   { id: 'health', label: 'Health', icon: '❤️', path: '/data/health' },
   { id: 'supplements', label: 'Supplements', icon: '💊', path: '/data/supplements' },
