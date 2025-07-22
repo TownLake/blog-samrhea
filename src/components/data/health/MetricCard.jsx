@@ -10,7 +10,6 @@ const MetricCard = memo(({
   title,
   value,
   unit,
-  category = 'default',
   label = null,
   textColorClass = 'text-gray-500 dark:text-gray-400',
   sparklineData,
@@ -21,7 +20,7 @@ const MetricCard = memo(({
   isOpen,
   onOpen,
   onClose,
-  displayMode = 'full', // NEW: 'full' or 'compact'
+  displayMode = 'full',
 }) => {
   const gradientId = useMemo(() => `sparkline-${dataKey}-gradient`, [dataKey]);
   const sparklineColor = hexColor;
@@ -58,7 +57,7 @@ const MetricCard = memo(({
   return (
     <>
       <Card
-        className="p-5 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex flex-col"
+        className="p-5 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex flex-col justify-between"
         onClick={onOpen}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
@@ -85,17 +84,24 @@ const MetricCard = memo(({
           </>
         ) : (
           <>
-            {/* Compact Layout */}
-            <div className="flex justify-between items-center h-full w-full">
-              <div className="flex flex-col justify-center space-y-1">
-                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</span>
-                <div className="text-3xl font-semibold text-gray-900 dark:text-white">
-                  {value}
-                  {unit && <span className="text-gray-400 dark:text-gray-500 text-xl ml-1">{unit}</span>}
-                </div>
-                {label && <div className={`text-xs ${textColorClass}`}>{label}</div>}
+            {/* REVISED Compact Layout: Vertical Stack */}
+            {/* Top: Title */}
+            <div>
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</span>
+            </div>
+
+            {/* Middle: Sparkline */}
+            <div className="w-full h-10 my-2">
+              {renderSparkline()}
+            </div>
+
+            {/* Bottom: Value and Label */}
+            <div>
+              <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+                {value}
+                {unit && <span className="text-gray-400 dark:text-gray-500 text-lg ml-1">{unit}</span>}
               </div>
-              <div className="w-20 h-12 -mr-2">{renderSparkline()}</div>
+              {label && <div className={`text-xs ${textColorClass}`}>{label}</div>}
             </div>
           </>
         )}
