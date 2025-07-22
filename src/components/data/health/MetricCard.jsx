@@ -1,10 +1,29 @@
 // src/components/data/health/MetricCard.jsx
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, useState, useEffect } from 'react';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
 import Card from '../../Card';
 import SparklineTooltip from './tooltips/SparklineTooltip';
 import DetailedChartModal from './DetailedChartModal';
 import { CATEGORY_COLORS } from '../../../utils/healthCategories';
+
+// A simple, self-contained hook to check for a media query match.
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    // Use the modern addEventListener syntax
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
 
 const MetricCard = memo(({
   title,
@@ -24,6 +43,7 @@ const MetricCard = memo(({
 }) => {
   const gradientId = useMemo(() => `sparkline-${dataKey}-gradient`, [dataKey]);
   const sparklineColor = hexColor;
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const renderSparkline = () => (
     sparklineData && sparklineData.length > 0 && (
@@ -54,6 +74,9 @@ const MetricCard = memo(({
     )
   );
 
+  // On desktop, always use the 'full' layout. On mobile, respect the displayMode.
+  const useFullLayout = isDesktop || displayMode === 'full';
+
   return (
     <>
       <Card
@@ -63,14 +86,13 @@ const MetricCard = memo(({
         aria-expanded={isOpen}
         aria-label={`View details for ${title}`}
       >
-        {displayMode === 'full' ? (
+        {useFullLayout ? (
           <>
-            {/* Full Layout: Header */}
+            {/* Full Layout (Desktop or specified) */}
             <div className="flex items-center text-gray-500 dark:text-gray-400 mb-4">
               {Icon && <Icon className="w-5 h-5 mr-2" />}
               <span className="text-sm">{title}</span>
             </div>
-            {/* Full Layout: Body */}
             <div className="flex justify-between items-end">
               <div className="space-y-1">
                 <div className="text-4xl font-semibold text-gray-900 dark:text-white">
@@ -84,18 +106,14 @@ const MetricCard = memo(({
           </>
         ) : (
           <>
-            {/* REVISED Compact Layout: Vertical Stack */}
-            {/* Top: Title */}
-            <div>
+            {/* Compact Layout (Mobile only) */}
+            <div className="flex items-center gap-2">
+              {Icon && <Icon className="w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />}
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</span>
             </div>
-
-            {/* Middle: Sparkline */}
             <div className="w-full h-10 my-2">
               {renderSparkline()}
             </div>
-
-            {/* Bottom: Value and Label */}
             <div>
               <div className="text-2xl font-semibold text-gray-900 dark:text-white">
                 {value}

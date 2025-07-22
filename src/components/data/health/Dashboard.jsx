@@ -97,9 +97,6 @@ const HealthDashboard = () => {
     onClose: handleCloseModal,
   });
 
-  // --- REVISED: Robustly find the latest non-null value for each metric ---
-  // This new approach ensures the dashboard always displays the true "latest"
-  // value, even if it wasn't recorded on the most recent day.
   const findLatestRecord = (data, key) => hasData(data) ? data.find(d => d[key] != null) : {};
   
   const latestHrv = findLatestRecord(oura, 'average_hrv');
@@ -123,11 +120,10 @@ const HealthDashboard = () => {
   const latestFat = findLatestRecord(macros, 'fat_g');
   const latestSatFat = findLatestRecord(macros, 'sat_fat_g');
   const latestSugar = findLatestRecord(macros, 'sugar_g');
-  // --- END OF REVISION ---
 
   const metrics = {
     hrv: { title: "HRV", value: latestHrv?.average_hrv?.toFixed(0) ?? '--', unit: "ms", ...getMetricCategoryInfo('average_hrv', latestHrv?.average_hrv), sparklineData: createSparklineData(ouraSpark, 'average_hrv'), icon: Activity, fullData: oura, dataKey: "average_hrv" },
-    rhr: { title: "Resting Heart Rate", value: latestRhr?.resting_heart_rate?.toFixed(0) ?? '--', unit: "bpm", ...getMetricCategoryInfo('resting_heart_rate', latestRhr?.resting_heart_rate), sparklineData: createSparklineData(ouraSpark, 'resting_heart_rate'), icon: HeartPulse, fullData: oura, dataKey: "resting_heart_rate" },
+    rhr: { title: "RHR", value: latestRhr?.resting_heart_rate?.toFixed(0) ?? '--', unit: "bpm", ...getMetricCategoryInfo('resting_heart_rate', latestRhr?.resting_heart_rate), sparklineData: createSparklineData(ouraSpark, 'resting_heart_rate'), icon: HeartPulse, fullData: oura, dataKey: "resting_heart_rate" },
     weight: { title: "Weight", value: latestWeight?.weight?.toFixed(1) ?? '--', unit: "lbs", ...getMetricCategoryInfo('weight', latestWeight?.weight), sparklineData: createSparklineData(withings, 'weight'), icon: Scale, fullData: withings, dataKey: "weight" },
     bodyFat: { title: "Body Fat", value: latestBodyFat?.fat_ratio?.toFixed(1) ?? '--', unit: "%", ...getMetricCategoryInfo('fat_ratio', latestBodyFat?.fat_ratio), sparklineData: createSparklineData(withings, 'fat_ratio'), icon: Ruler, fullData: withings, dataKey: "fat_ratio" },
     totalSleep: { title: "Total Sleep", value: latestTotalSleep?.total_sleep?.toFixed(1) ?? '--', unit: "h", ...getMetricCategoryInfo('total_sleep', latestTotalSleep?.total_sleep), sparklineData: createSparklineData(ouraSpark, 'total_sleep'), icon: BedDouble, fullData: oura, dataKey: "total_sleep" },
