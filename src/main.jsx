@@ -2,39 +2,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query'; // Import react-query
-import App from './App.jsx';
-import About from './About.jsx';
-import Post from './Post.jsx';
-import DataPage from './DataPage.jsx';
-import ThemeProvider from './context/ThemeProvider.jsx';
-import './index.css';
-import { ROUTES } from './constants';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import ThemeProvider from '/src/context/ThemeProvider.jsx';
+import { ROUTES } from '/src/constants';
+import '/src/index.css';
 
-// Create a client
+// Import page-level components from their new feature directories
+import BlogIndexPage from '/src/features/blog/BlogIndexPage.jsx';
+import PostPage from '/src/features/blog/PostPage.jsx';
+import AboutPage from '/src/features/about/AboutPage.jsx';
+import DataPage from '/src/features/data/DataPage.jsx';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      cacheTime: 1000 * 60 * 60, // 1 hour
+      staleTime: 1000 * 60 * 5,
+      cacheTime: 1000 * 60 * 60,
       retry: 1,
-      refetchOnWindowFocus: false, // Optional: disable refetch on window focus
+      refetchOnWindowFocus: false,
     },
   },
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* Provide the client to your App */}
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <BrowserRouter>
           <Routes>
-            <Route path={ROUTES.HOME} element={<App />} />
-            <Route path="/:filter" element={<App />} />
-            <Route path={`${ROUTES.ABOUT}/*`} element={<About />} />
-            <Route path="/post/:slug" element={<Post />} />
+            {/* Blog Routes */}
+            <Route path={ROUTES.HOME} element={<BlogIndexPage />} />
+            <Route path="/:filter" element={<BlogIndexPage />} /> 
+            <Route path="/post/:slug" element={<PostPage />} />
+            
+            {/* About Route */}
+            <Route path={`${ROUTES.ABOUT}/*`} element={<AboutPage />} />
+            
+            {/* Data Route */}
             <Route path={`${ROUTES.DATA}/*`} element={<DataPage />} />
+
+            {/* Catch-all 404 Page */}
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
                 <div className="text-center p-8">
