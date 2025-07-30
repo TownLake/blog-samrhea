@@ -1,3 +1,5 @@
+// src/services/healthService.js
+import { processAndDeriveHealthMetrics } from '/src/utils/dataUtils.js';
 import { formatSecondsToMMSS } from '../utils/dataUtils';
 
 const handleFetchError = async (response, dataType) => {
@@ -55,8 +57,8 @@ export const fetchHealthData = async () => {
       fetch(`/api/clinical?days=${sparklineDays}`),
       fetch(`/api/otherdata?days=${days}`),
       fetch(`/api/otherdata?days=${sparklineDays}`),
-      fetch(`/api/macros?days=${days}`),       // NEW: Fetch macros
-      fetch(`/api/macros?days=${sparklineDays}`) // NEW: Fetch macros for sparkline
+      fetch(`/api/macros?days=${days}`),
+      fetch(`/api/macros?days=${sparklineDays}`)
     ]);
 
     const processResponse = async (promiseResult, dataType, enricher) => {
@@ -78,7 +80,7 @@ export const fetchHealthData = async () => {
       runningSpark, runningFull,
       clinical, clinicalSpark,
       otherDataFull, otherDataSpark,
-      macrosFull, macrosSpark // NEW
+      macrosFull, macrosSpark
     ] = await Promise.all([
         processResponse(responses[0], 'Oura full'),
         processResponse(responses[1], 'Oura spark'),
@@ -89,17 +91,29 @@ export const fetchHealthData = async () => {
         processResponse(responses[6], 'Clinical spark', enrichNumericData),
         processResponse(responses[7], 'OtherData full', enrichNumericData),
         processResponse(responses[8], 'OtherData spark', enrichNumericData),
-        processResponse(responses[9], 'Macros full', enrichNumericData),  // NEW
-        processResponse(responses[10], 'Macros spark', enrichNumericData) // NEW
+        processResponse(responses[9], 'Macros full', enrichNumericData),
+        processResponse(responses[10], 'Macros spark', enrichNumericData)
     ]);
+    
+    // The new code doesn't merge data, but we can still process it after fetching
+    const rawData = {
+        oura: ouraFull,
+        withings,
+        macros: macrosFull,
+        running: runningFull,
+        clinical,
+        otherData: otherDataFull
+    };
+    
+    const processed = processAndDeriveHealthMetrics(rawData);
 
     return {
-      oura: ouraFull, ouraSpark, withings,
-      running: runningFull, runningSpark,
-      clinical, clinicalSpark,
-      otherData: otherDataFull, otherDataSpark,
-      macros: macrosFull,       // NEW
-      macrosSpark: macrosSpark, // NEW
+      ...processed,
+      ouraSpark,
+      runningSpark,
+      clinicalSpark,
+      otherDataSpark,
+      macrosSpark
     };
 
   } catch (error) {
@@ -107,7 +121,7 @@ export const fetchHealthData = async () => {
     return { // Ensure defaults on critical failure
       oura: [], ouraSpark: [], withings: [], running: [], runningSpark: [],
       clinical: [], clinicalSpark: [], otherData: [], otherDataSpark: [],
-      macros: [], macrosSpark: []
+      macros: [], macrosSpark: [], processedData: [], weightVsDeficitData: []
     };
   }
 };
