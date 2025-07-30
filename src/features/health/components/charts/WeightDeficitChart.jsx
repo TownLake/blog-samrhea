@@ -29,7 +29,7 @@ const WeightDeficitChart = memo(({ data, weightDomain }) => {
       return null;
     }
     const point = payload.payload[0].payload;
-    const date = new Date(point.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    const date = new Date(point.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
 
     return (
       <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
@@ -61,18 +61,19 @@ const WeightDeficitChart = memo(({ data, weightDomain }) => {
         <XAxis
           dataKey="date"
           stroke={axisColors.stroke}
-          tickFormatter={(dateStr) => new Date(dateStr).toLocaleDateString('en-US', { month: 'short' })}
-          tick={{ fill: axisColors.tickFill }}
+          tickFormatter={(dateStr) => new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })}
+          tick={{ fill: axisColors.tickFill, fontSize: 12 }}
           tickLine={{ stroke: axisColors.stroke }}
           axisLine={{ stroke: axisColors.axisLine }}
-          interval="preserveStartEnd"
+          interval={7} // Show a tick roughly every 7 days
+          minTickGap={30}
         />
         <YAxis
           yAxisId="left"
           dataKey="cumulativeDeficit"
           orientation="left"
           stroke={deficitColor}
-          tick={{ fill: deficitColor }}
+          tick={{ fill: deficitColor, fontSize: 12 }}
           tickFormatter={(val) => `${(val / 1000).toFixed(0)}k`}
           width={45}
         />
@@ -81,7 +82,7 @@ const WeightDeficitChart = memo(({ data, weightDomain }) => {
           dataKey="weight"
           orientation="right"
           stroke={weightColor}
-          tick={{ fill: weightColor }}
+          tick={{ fill: weightColor, fontSize: 12 }}
           width={45}
           domain={weightDomain} // Use the new domain prop here
         />
