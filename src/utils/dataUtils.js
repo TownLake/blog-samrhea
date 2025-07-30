@@ -1,4 +1,117 @@
 // src/utils/dataUtils.js
+import { format, subDays, startOfDay } from 'date-fns';
+
+/**
+ * Merges multiple health data sources into a single array, keyed by date.
+ * @param {Object} dataSources - An object with keys as source names and values as data arrays.
+ * @param {number} days - The number of days to generate a complete timeline for.
+ * @returns {Array} A sorted array of objects, each representing a day with all available data.
+ */
+function mergeHealthData(dataSources, days = 365) {
+  const mergedData = new Map();
+  const today = startOfDay(new Date());
+
+  // Initialize map with all dates in the range
+  for (let i = 0; i < days; i++) {
+    const date = format(subDays(today, i), 'yyyy-MM-dd');
+    mergedData.set(date, { date });
+  }
+
+  // Populate the map with data from each source
+  for (const sourceName in dataSources) {
+    const dataArray = dataSources[sourceName];
+    if (Array.isArray(dataArray)) {
+      dataArray.forEach(record => {
+        if (record && record.date) {
+          const date = record.date.split('T')[0]; // Normalize date format
+          if (mergedData.has(date)) {
+            mergedData.set(date, { ...mergedData.get(date), ...record });
+          }
+        }
+      });
+    }
+  }
+
+  return Array.from(mergedData.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
+}
+
+/**
+ * Calculates a rolling sum on a given key in an array of data.
+ * @param {Array} data - The input data array, assumed to be sorted by date.
+ * @param {string} key - The key of the data to sum.
+ * @param {number} windowSize - The size of the rolling window.
+ * @returns {Array} The data array with a new key '{key}_rolling_{windowSize}d' added.
+ */
+function calculateRollingSum(data, key, windowSize) {
+  const result = [];
+  let currentWindow = [];
+
+  for (let i = 0; i < data.length; i++) {
+    const record = { ...data[i] };
+    // Default to null if value is missing so it doesn't skew the sum
+    const value = record[key] === undefined || record[key] === null ? null : record[key];
+
+    // Only add non-null values to the window for summing
+    if (value !== null) {
+      currentWindow.push(value);
+    }
+
+    if (currentWindow.length > windowSize) {
+      currentWindow.shift();
+    }
+
+    // Only calculate sum if the window is full to avoid partial sums at the beginning
+    if (currentWindow.length === windowSize) {
+      const sum = currentWindow.reduce((acc, val) => acc + val, 0);
+      record[`${key}_rolling_${windowSize}d`] = sum;
+    } else {
+      record[`${key}_rolling_${windowSize}d`] = null;
+    }
+    result.push(record);
+  }
+  return result;
+}
+
+/**
+ * Processes raw health data to create derived metrics and datasets for charting.
+ * This is the main orchestrator function.
+ * @param {Object} rawData - The raw data from APIs (oura, withings, macros).
+ * @returns {Object} A structured object containing both raw and processed data.
+ */
+export function processAndDeriveHealthMetrics(rawData) {
+  const { oura, withings, macros, running, clinical, otherData } = rawData;
+
+  // 1. Merge all data sources by date
+  const merged = mergeHealthData({ oura, withings, macros, running, clinical, otherData }, 365);
+
+  // 2. Calculate daily calorie delta
+  const withDelta = merged.map(day => ({
+    ...day,
+    calorie_delta: (day.calories_kcal != null && day.total_calories != null) ? day.calories_kcal - day.total_calories : null,
+  }));
+
+  // 3. Calculate 14-day rolling cumulative deficit
+  const withRollingDeficit = calculateRollingSum(withDelta, 'calorie_delta', 14);
+
+  // 4. Create a clean dataset for the Weight vs. Deficit chart
+  const weightVsDeficitData = withRollingDeficit
+    .filter(d => d.weight != null && d.calorie_delta_rolling_14d != null)
+    .map(d => ({
+      date: d.date,
+      weight: d.weight,
+      cumulativeDeficit: d.calorie_delta_rolling_14d,
+    }));
+
+  // Return a structured object for the UI to consume
+  return {
+    ...rawData, // Keep the original raw data
+    processedData: withRollingDeficit.sort((a, b) => new Date(b.date) - new Date(a.date)), // for MetricCards
+    weightVsDeficitData, // for the new special chart
+  };
+}
+
+
+// --- Your existing functions below ---
 
 /**
  * Formats seconds to a MM:SS format
@@ -38,27 +151,19 @@ export const createSparklineData = (data, key) => {
     return [];
   }
 
-  // Calculate date 45 days ago from now
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const cutoffDate = new Date(today);
   cutoffDate.setDate(today.getDate() - 45);
   
-  // Filter data to only include measurements from last 45 days
   const recentData = data.filter(item => {
     if (!item || !item.date) return false;
     const itemDate = new Date(item.date);
     return !isNaN(itemDate.getTime()) && itemDate >= cutoffDate;
   });
 
-  // Sort by date ascending (oldest first)
-  const sortedData = [...recentData].sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateA - dateB;
-  });
+  const sortedData = [...recentData].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  // Map to the format needed for sparkline
   return sortedData.map(item => ({
     date: item.date,
     value: item[key],
@@ -76,25 +181,18 @@ export const createDetailChartData = (data) => {
     return [];
   }
 
-  // Calculate date 3 months ago from now
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const threeMonthsAgo = new Date(today);
   threeMonthsAgo.setMonth(today.getMonth() - 3);
   
-  // Filter data to only include measurements from last 3 months
   const recentData = data.filter(item => {
     if (!item || !item.date) return false;
     const itemDate = new Date(item.date);
     return !isNaN(itemDate.getTime()) && itemDate >= threeMonthsAgo;
   });
 
-  // Sort by date ascending (oldest first) for chart display
-  return [...recentData].sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateA - dateB;
-  });
+  return [...recentData].sort((a, b) => new Date(a.date) - new Date(b.date));
 };
 
 /**
@@ -108,7 +206,6 @@ export const createMonthlyAverageData = (data, key) => {
     return [];
   }
 
-  // Group by month and year - including all values
   const monthlyGroups = {};
   
   data.forEach(item => {
@@ -118,9 +215,7 @@ export const createMonthlyAverageData = (data, key) => {
     
     try {
       const date = new Date(item.date);
-      if (isNaN(date.getTime())) {
-        return;
-      }
+      if (isNaN(date.getTime())) return;
       
       const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
       const monthName = date.toLocaleString('default', { month: 'short' });
@@ -148,7 +243,6 @@ export const createMonthlyAverageData = (data, key) => {
     }
   });
   
-  // Convert to array with averages
   const result = Object.values(monthlyGroups).map(group => {
     const avg = group.count > 0 ? group.sum / group.count : 0;
     
@@ -165,7 +259,6 @@ export const createMonthlyAverageData = (data, key) => {
     };
   });
   
-  // Sort by date (oldest first)
   return result.sort((a, b) => {
     if (a.year !== b.year) return a.year - b.year;
     return a.monthNum - b.monthNum;

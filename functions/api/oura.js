@@ -1,5 +1,4 @@
 // functions/api/oura.js
-
 const stmts = new Map();
 
 export async function onRequest(context) {
@@ -31,7 +30,8 @@ export async function onRequest(context) {
         total_sleep,
         deep_sleep_minutes,
         efficiency,
-        delay
+        delay,
+        total_calories
       FROM oura_data
       WHERE date >= datetime('now', '-${daysParam} days')
       ORDER BY date DESC
