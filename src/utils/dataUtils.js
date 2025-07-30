@@ -1,5 +1,17 @@
 // src/utils/dataUtils.js
-import { format, subDays, startOfDay } from 'date-fns';
+
+/**
+ * Helper function to format a Date object into 'YYYY-MM-DD' string.
+ * Replaces date-fns.format.
+ * @param {Date} date The date object to format.
+ * @returns {string} The formatted date string.
+ */
+function formatDate(date) {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+}
 
 /**
  * Merges multiple health data sources into a single array, keyed by date.
@@ -9,12 +21,14 @@ import { format, subDays, startOfDay } from 'date-fns';
  */
 function mergeHealthData(dataSources, days = 365) {
   const mergedData = new Map();
-  const today = startOfDay(new Date());
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Replaces date-fns.startOfDay
 
   // Initialize map with all dates in the range
   for (let i = 0; i < days; i++) {
-    const date = format(subDays(today, i), 'yyyy-MM-dd');
-    mergedData.set(date, { date });
+    const date = new Date(today);
+    date.setDate(date.getDate() - i); // Replaces date-fns.subDays
+    mergedData.set(formatDate(date), { date: formatDate(date) });
   }
 
   // Populate the map with data from each source
@@ -23,9 +37,9 @@ function mergeHealthData(dataSources, days = 365) {
     if (Array.isArray(dataArray)) {
       dataArray.forEach(record => {
         if (record && record.date) {
-          const date = record.date.split('T')[0]; // Normalize date format
-          if (mergedData.has(date)) {
-            mergedData.set(date, { ...mergedData.get(date), ...record });
+          const dateKey = record.date.split('T')[0]; // Normalize date format
+          if (mergedData.has(dateKey)) {
+            mergedData.set(dateKey, { ...mergedData.get(dateKey), ...record });
           }
         }
       });
@@ -48,10 +62,8 @@ function calculateRollingSum(data, key, windowSize) {
 
   for (let i = 0; i < data.length; i++) {
     const record = { ...data[i] };
-    // Default to null if value is missing so it doesn't skew the sum
     const value = record[key] === undefined || record[key] === null ? null : record[key];
 
-    // Only add non-null values to the window for summing
     if (value !== null) {
       currentWindow.push(value);
     }
@@ -60,7 +72,6 @@ function calculateRollingSum(data, key, windowSize) {
       currentWindow.shift();
     }
 
-    // Only calculate sum if the window is full to avoid partial sums at the beginning
     if (currentWindow.length === windowSize) {
       const sum = currentWindow.reduce((acc, val) => acc + val, 0);
       record[`${key}_rolling_${windowSize}d`] = sum;
@@ -81,19 +92,15 @@ function calculateRollingSum(data, key, windowSize) {
 export function processAndDeriveHealthMetrics(rawData) {
   const { oura, withings, macros, running, clinical, otherData } = rawData;
 
-  // 1. Merge all data sources by date
   const merged = mergeHealthData({ oura, withings, macros, running, clinical, otherData }, 365);
 
-  // 2. Calculate daily calorie delta
   const withDelta = merged.map(day => ({
     ...day,
     calorie_delta: (day.calories_kcal != null && day.total_calories != null) ? day.calories_kcal - day.total_calories : null,
   }));
 
-  // 3. Calculate 14-day rolling cumulative deficit
   const withRollingDeficit = calculateRollingSum(withDelta, 'calorie_delta', 14);
 
-  // 4. Create a clean dataset for the Weight vs. Deficit chart
   const weightVsDeficitData = withRollingDeficit
     .filter(d => d.weight != null && d.calorie_delta_rolling_14d != null)
     .map(d => ({
@@ -102,11 +109,10 @@ export function processAndDeriveHealthMetrics(rawData) {
       cumulativeDeficit: d.calorie_delta_rolling_14d,
     }));
 
-  // Return a structured object for the UI to consume
   return {
-    ...rawData, // Keep the original raw data
-    processedData: withRollingDeficit.sort((a, b) => new Date(b.date) - new Date(a.date)), // for MetricCards
-    weightVsDeficitData, // for the new special chart
+    ...rawData,
+    processedData: withRollingDeficit.sort((a, b) => new Date(b.date) - new Date(a.date)),
+    weightVsDeficitData,
   };
 }
 
