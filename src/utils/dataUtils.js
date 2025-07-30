@@ -72,6 +72,7 @@ function calculateRollingSum(data, key, windowSize) {
       currentWindow.shift();
     }
 
+    // Only calculate sum if the window is full to avoid partial sums at the beginning
     if (currentWindow.length === windowSize) {
       const sum = currentWindow.reduce((acc, val) => acc + val, 0);
       record[`${key}_rolling_${windowSize}d`] = sum;
@@ -92,15 +93,28 @@ function calculateRollingSum(data, key, windowSize) {
 export function processAndDeriveHealthMetrics(rawData) {
   const { oura, withings, macros, running, clinical, otherData } = rawData;
 
-  const merged = mergeHealthData({ oura, withings, macros, running, clinical, otherData }, 365);
+  const allMerged = mergeHealthData({ oura, withings, macros, running, clinical, otherData }, 365);
 
-  const withDelta = merged.map(day => ({
-    ...day,
-    calorie_delta: (day.calories_kcal != null && day.total_calories != null) ? day.calories_kcal - day.total_calories : null,
-  }));
+  // 1. Filter data to start from the specified date
+  const startDate = new Date('2025-06-13T00:00:00');
+  const merged = allMerged.filter(d => new Date(d.date) >= startDate);
 
+  // 2. Calculate daily calorie delta with default for calories burned
+  const withDelta = merged.map(day => {
+    const caloriesIn = day.calories_kcal;
+    // Use default of 2400 if total_calories is missing, but only if caloriesIn exists to calculate a delta
+    const caloriesOut = (caloriesIn != null && day.total_calories == null) ? 2400 : day.total_calories;
+    
+    return {
+      ...day,
+      calorie_delta: (caloriesIn != null && caloriesOut != null) ? caloriesIn - caloriesOut : null,
+    };
+  });
+
+  // 3. Calculate 14-day rolling cumulative deficit
   const withRollingDeficit = calculateRollingSum(withDelta, 'calorie_delta', 14);
 
+  // 4. Create a clean dataset for the Weight vs. Deficit chart
   const weightVsDeficitData = withRollingDeficit
     .filter(d => d.weight != null && d.calorie_delta_rolling_14d != null)
     .map(d => ({

@@ -16,7 +16,7 @@ import useDarkMode from '/src/hooks/useDarkMode.js';
 import { chartMargins, axisConfig, gridConfig } from '/src/config/chartConfig.js';
 import Tooltip from '/src/components/ui/Tooltip.jsx';
 
-const WeightDeficitChart = memo(({ data }) => {
+const WeightDeficitChart = memo(({ data, weightDomain }) => {
   const [isDarkMode] = useDarkMode();
   const axisColors = isDarkMode ? axisConfig.dark : axisConfig.light;
   const gridColors = isDarkMode ? gridConfig.dark : gridConfig.light;
@@ -73,7 +73,7 @@ const WeightDeficitChart = memo(({ data }) => {
           orientation="left"
           stroke={deficitColor}
           tick={{ fill: deficitColor }}
-          tickFormatter={(val) => `${(val / 1000).toFixed(1)}k`}
+          tickFormatter={(val) => `${(val / 1000).toFixed(0)}k`}
           width={45}
         />
         <YAxis
@@ -83,6 +83,7 @@ const WeightDeficitChart = memo(({ data }) => {
           stroke={weightColor}
           tick={{ fill: weightColor }}
           width={45}
+          domain={weightDomain} // Use the new domain prop here
         />
         <RechartsTooltip content={renderCustomTooltip} />
         <Legend wrapperStyle={{ paddingTop: '20px' }} />
