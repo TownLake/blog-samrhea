@@ -95,12 +95,8 @@ export function processAndDeriveHealthMetrics(rawData) {
 
   const allMerged = mergeHealthData({ oura, withings, macros, running, clinical, otherData }, 365);
 
-  // 1. Filter data to start from the specified date
-  const startDate = new Date('2025-06-13T00:00:00');
-  const merged = allMerged.filter(d => new Date(d.date) >= startDate);
-
-  // 2. Calculate daily calorie delta with default for calories burned
-  const withDelta = merged.map(day => {
+  // 1. Calculate daily calorie delta with default for calories burned
+  const withDelta = allMerged.map(day => {
     const caloriesIn = day.calories_kcal;
     // Use default of 2400 if total_calories is missing, but only if caloriesIn exists to calculate a delta
     const caloriesOut = (caloriesIn != null && day.total_calories == null) ? 2400 : day.total_calories;
@@ -111,10 +107,10 @@ export function processAndDeriveHealthMetrics(rawData) {
     };
   });
 
-  // 3. Calculate 14-day rolling cumulative deficit
+  // 2. Calculate 14-day rolling cumulative deficit
   const withRollingDeficit = calculateRollingSum(withDelta, 'calorie_delta', 14);
 
-  // 4. Create a clean dataset for the Weight vs. Deficit chart
+  // 3. Create a clean dataset for the Weight vs. Deficit chart
   const weightVsDeficitData = withRollingDeficit
     .filter(d => d.weight != null && d.calorie_delta_rolling_14d != null)
     .map(d => ({
