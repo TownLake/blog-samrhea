@@ -15,7 +15,7 @@ const WeightDeficitModal = memo(({ isOpen, onClose, data }) => {
       icon={TrendingDown}
     >
       <div className="h-[350px] sm:h-[400px] w-full">
-        <WeightDeficitChart data={data} weightDomain={[155, 168]} />
+        <WeightDeficitChart data={data} weightDomain={[157, 165]} />
       </div>
     </ChartModal>
   );
