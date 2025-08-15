@@ -1,8 +1,7 @@
-// src/features/health/components/MetricCard.jsx
-import React, { memo, useMemo, useState, useEffect } from 'react';
+import React, { memo, useMemo, useState, useEffect, Suspense } from 'react';
 import { ResponsiveContainer, AreaChart, Area, Tooltip as RechartsTooltip } from 'recharts';
 import Card from '/src/components/ui/Card.jsx';
-import DetailedChartModal from '/src/features/health/components/DetailedChartModal.jsx';
+const DetailedChartModal = React.lazy(() => import('/src/features/health/components/DetailedChartModal.jsx'));
 import Tooltip from '/src/components/ui/Tooltip.jsx';
 import { CATEGORY_COLORS, getMetricCategoryInfo } from '/src/utils/healthCategories.js';
 import { formatSecondsToMMSS } from '/src/utils/dataUtils.js';
@@ -130,7 +129,18 @@ const MetricCard = memo(({
         )}
       </Card>
 
-      <DetailedChartModal isOpen={isOpen} onClose={onClose} title={title} data={fullData} dataKey={dataKey} unit={unit} icon={Icon} lineColor={sparklineColor} />
+      <Suspense fallback={null}>
+        <DetailedChartModal
+          isOpen={isOpen}
+          onClose={onClose}
+          title={title}
+          data={fullData}
+          dataKey={dataKey}
+          unit={unit}
+          icon={Icon}
+          lineColor={sparklineColor}
+        />
+      </Suspense>
     </>
   );
 });

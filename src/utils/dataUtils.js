@@ -1,5 +1,3 @@
-// src/utils/dataUtils.js
-
 /**
  * Helper function to format a Date object into 'YYYY-MM-DD' string.
  * Replaces date-fns.format.
@@ -91,9 +89,38 @@ function calculateRollingSum(data, key, windowSize) {
  * @returns {Object} A structured object containing both raw and processed data.
  */
 export function processAndDeriveHealthMetrics(rawData) {
-  const { oura, withings, macros, running, clinical, otherData } = rawData;
+  const { oura = [], withings = [], macros = [], running = [], clinical = [], otherData = [] } = rawData;
 
-  const allMerged = mergeHealthData({ oura, withings, macros, running, clinical, otherData }, 365);
+  // --- dynamic timeline length based on earliest available date across sources ---
+  const sourceArrays = [oura, withings, macros, running, clinical, otherData].filter(Array.isArray);
+  const toDate = new Date();
+  toDate.setHours(0, 0, 0, 0);
+  const minDate = (() => {
+    let min = null;
+    for (const arr of sourceArrays) {
+      for (const rec of arr) {
+        if (!rec || !rec.date) continue;
+        // normalize: accept ISO or 'YYYY-MM-DD'
+        const dStr = String(rec.date);
+        const d = new Date(dStr.length > 10 ? dStr : `${dStr}T00:00:00.000Z`);
+        if (!isNaN(d.getTime())) {
+          if (min === null || d < min) min = d;
+        }
+      }
+    }
+    return min;
+  })();
+  const timelineDays = (() => {
+    if (!minDate) return 365; // fallback
+    const ms = toDate.getTime() - minDate.getTime();
+    // +1 to include both endpoints; ensure at least 14 days so 14d rolling can exist
+    return Math.max(Math.ceil(ms / (24 * 60 * 60 * 1000)) + 1, 14);
+  })();
+
+  const allMerged = mergeHealthData(
+    { oura, withings, macros, running, clinical, otherData },
+    timelineDays
+  );
 
   // 1. Calculate daily calorie delta with default for calories burned
   const withDelta = allMerged.map(day => {
@@ -110,14 +137,14 @@ export function processAndDeriveHealthMetrics(rawData) {
   // 2. Calculate 14-day rolling cumulative deficit
   const withRollingDeficit = calculateRollingSum(withDelta, 'calorie_delta', 14);
 
-  // 3. Create a clean dataset for the Weight vs. Deficit chart
-  const weightVsDeficitData = withRollingDeficit
-    .filter(d => d.weight != null && d.calorie_delta_rolling_14d != null)
-    .map(d => ({
-      date: d.date,
-      weight: d.weight,
-      cumulativeDeficit: d.calorie_delta_rolling_14d,
-    }));
+  // 3. Unfiltered Weight vs. Deficit dataset (daily bars always; weight line when present)
+  const weightVsDeficitData = withRollingDeficit.map(d => ({
+    date: d.date,
+    cumulativeDeficit: d.calorie_delta_rolling_14d ?? null,
+    weight: d.weight ?? null,
+  }))
+  // chronological order for the composed chart
+  .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return {
     ...rawData,
