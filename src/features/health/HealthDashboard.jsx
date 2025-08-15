@@ -195,4 +195,122 @@ const HealthDashboard = () => {
     tenK: { title: "10K Time", value: '--:--', unit: "", ...getMetricCategoryInfo('ten_k_seconds', null), sparklineData: [], icon: Timer, fullData: [], dataKey: "ten_k_seconds", displayMode: 'compact' },
     caloriesIn: {
       title: "Calories Consumed",
-      value: (lates
+      value: (latestCaloriesIn?.calories_kcal != null)
+        ? Math.round(latestCaloriesIn.calories_kcal).toLocaleString()
+        : '--',
+      unit: "kcal",
+      ...getMetricCategoryInfo('calories_kcal', latestCaloriesIn?.calories_kcal),
+      sparklineData: createSparklineData(macros, 'calories_kcal'),
+      icon: Flame,
+      fullData: macros,
+      dataKey: "calories_kcal",
+      displayMode: 'full'
+    },
+    protein: { title: "Protein", value: latestProtein?.protein_g != null ? Math.round(latestProtein.protein_g) : '--', unit: "g", ...getMetricCategoryInfo('protein_g', latestProtein?.protein_g), sparklineData: createSparklineData(macros, 'protein_g'), icon: Beef, fullData: macros, dataKey: "protein_g", displayMode: 'full' },
+    carbs: { title: "Carbs", value: latestCarbs?.carbs_g != null ? Math.round(latestCarbs.carbs_g) : '--', unit: "g", ...getMetricCategoryInfo('carbs_g', latestCarbs?.carbs_g), sparklineData: createSparklineData(macros, 'carbs_g'), icon: Wheat, fullData: macros, dataKey: "carbs_g", displayMode: 'compact' },
+    fat: { title: "Fat", value: latestFat?.fat_g != null ? Math.round(latestFat.fat_g) : '--', unit: "g", ...getMetricCategoryInfo('fat_g', latestFat?.fat_g), sparklineData: createSparklineData(macros, 'fat_g'), icon: Nut, fullData: macros, dataKey: "fat_g", displayMode: 'compact' },
+    satFat: { title: "Saturated Fat", value: latestSatFat?.sat_fat_g != null ? Math.round(latestSatFat.sat_fat_g) : '--', unit: "g", ...getMetricCategoryInfo('sat_fat_g', latestSatFat?.sat_fat_g), sparklineData: createSparklineData(macros, 'sat_fat_g'), icon: Link2, fullData: macros, dataKey: "sat_fat_g", displayMode: 'compact' },
+    sugar: { title: "Sugar", value: latestSugar?.sugar_g != null ? Math.round(latestSugar.sugar_g) : '--', unit: "g", ...getMetricCategoryInfo('sugar_g', latestSugar?.sugar_g), sparklineData: createSparklineData(macros, 'sugar_g'), icon: Donut, fullData: macros, dataKey: "sugar_g", displayMode: 'compact' },
+  };
+
+  return (
+    <div className="pt-2 pb-8">
+      <Card className="mb-6 p-6">
+        <div className="flex items-center gap-2 mb-3">
+          <BarChart2 className="w-5 h-5 text-blue-500" />
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Health Data
+          </h2>
+        </div>
+        <div className="text-gray-700 dark:text-gray-300">
+          <p>I publish these to have a home page for myself. I think <a href="https://blog.samrhea.com/post/2024-01-30-health-data" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">a lot</a> about this kind of data. And, if you're like me, you could use this <a href="https://github.com/TownLake/core-health" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">open-sourced dashboard</a> I built, too.</p>
+        </div>
+      </Card>
+
+      <div className="space-y-12 mt-8">
+        {hasData(oura) && (
+          <MetricSection title="Heart" icon={Heart}>
+            <PairedMetricContainer>
+              <MetricCard {...createMetricProps(metrics.hrv)} />
+              <MetricCard {...createMetricProps(metrics.rhr)} />
+            </PairedMetricContainer>
+          </MetricSection>
+        )}
+        {hasData(withings) && (
+          <MetricSection title="Body" icon={ClipboardCheck}>
+            <PairedMetricContainer>
+              <MetricCard {...createMetricProps(metrics.weight)} />
+              <MetricCard {...createMetricProps(metrics.bodyFat)} />
+            </PairedMetricContainer>
+             <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.calorieDelta)} />
+                <MetricCard {...createMetricProps(metrics.cumulativeDeficit)} />
+             </PairedMetricContainer>
+          </MetricSection>
+        )}
+        {hasData(oura) && (
+          <MetricSection title="Sleep" icon={BedDouble}>
+            <MetricCard {...createMetricProps(metrics.totalSleep)} />
+            <MetricCard {...createMetricProps(metrics.deepSleep)} />
+            <PairedMetricContainer>
+              <MetricCard {...createMetricProps(metrics.sleepEfficiency)} />
+              <MetricCard {...createMetricProps(metrics.sleepDelay)} />
+            </PairedMetricContainer>
+          </MetricSection>
+        )}
+        {(hasData(running) || hasData(clinical) || hasData(otherData) || hasData(oura)) && (
+          <MetricSection title="Fitness" icon={Footprints}>
+            {latestVo2MaxWatch && latestVo2MaxClinical && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.vo2MaxWatch)} />
+                <MetricCard {...createMetricProps(metrics.vo2MaxClinical)} />
+              </PairedMetricContainer>
+            )}
+            {latestCaloriesOut && latestPeakFlow && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.caloriesOut)} />
+                <MetricCard {...createMetricProps(metrics.peakFlow)} />
+              </PairedMetricContainer>
+            )}
+             {latestLeftGrip && latestRightGrip && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.leftGrip)} />
+                <MetricCard {...createMetricProps(metrics.rightGrip)} />
+              </PairedMetricContainer>
+            )}
+            {latest5k && (
+              <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.fiveK)} />
+                <MetricCard {...createMetricProps(metrics.tenK)} />
+              </PairedMetricContainer>
+            )}
+          </MetricSection>
+        )}
+        {hasData(macros) && (
+           <MetricSection title="Macros" icon={BarChart2}>
+             <MetricCard {...createMetricProps(metrics.caloriesIn)} />
+             <MetricCard {...createMetricProps(metrics.protein)} />
+             <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.fat)} />
+                <MetricCard {...createMetricProps(metrics.satFat)} />
+             </PairedMetricContainer>
+             <PairedMetricContainer>
+                <MetricCard {...createMetricProps(metrics.carbs)} />
+                <MetricCard {...createMetricProps(metrics.sugar)} />
+             </PairedMetricContainer>
+           </MetricSection>
+        )}
+      </div>
+      
+      <Suspense fallback={null}>
+        <WeightDeficitModal 
+          isOpen={isDeficitModalOpen}
+          onClose={handleCloseModal}
+          data={weightVsDeficitData}
+        />
+      </Suspense>
+    </div>
+  );
+};
+
+export default HealthDashboard;
