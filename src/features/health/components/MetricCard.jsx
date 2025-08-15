@@ -1,7 +1,7 @@
-import React, { memo, useMemo, useState, useEffect, Suspense } from 'react';
+import React, { memo, useMemo, useState, useEffect } from 'react';
 import { ResponsiveContainer, AreaChart, Area, Tooltip as RechartsTooltip } from 'recharts';
 import Card from '/src/components/ui/Card.jsx';
-const DetailedChartModal = React.lazy(() => import('./DetailedChartModal.jsx'));
+// dynamic import (no Suspense) for DetailedChartModal
 import Tooltip from '/src/components/ui/Tooltip.jsx';
 import { CATEGORY_COLORS, getMetricCategoryInfo } from '/src/utils/healthCategories.js';
 import { formatSecondsToMMSS } from '/src/utils/dataUtils.js';
@@ -37,6 +37,16 @@ const MetricCard = memo(({
   const gradientId = useMemo(() => `sparkline-${dataKey}-gradient`, [dataKey]);
   const sparklineColor = hexColor;
   const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  // dynamic import DetailedChartModal when needed
+  const [LazyDetailedModal, setLazyDetailedModal] = useState(null);
+  useEffect(() => {
+    if (isOpen && !LazyDetailedModal) {
+      import('/src/features/health/components/DetailedChartModal.jsx')
+        .then(m => setLazyDetailedModal(() => m.default))
+        .catch((e) => console.error('Failed to load DetailedChartModal:', e));
+    }
+  }, [isOpen, LazyDetailedModal]);
 
   const renderSparklineTooltip = (dataPoint) => {
     if (!dataPoint) return null;
@@ -129,8 +139,8 @@ const MetricCard = memo(({
         )}
       </Card>
 
-      <Suspense fallback={null}>
-        <DetailedChartModal
+      {isOpen && LazyDetailedModal && (
+        <LazyDetailedModal
           isOpen={isOpen}
           onClose={onClose}
           title={title}
@@ -140,7 +150,7 @@ const MetricCard = memo(({
           icon={Icon}
           lineColor={sparklineColor}
         />
-      </Suspense>
+      )}
     </>
   );
 });
