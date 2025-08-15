@@ -1,7 +1,7 @@
 import React, { memo, useMemo, useState, useEffect, Suspense } from 'react';
 import { ResponsiveContainer, AreaChart, Area, Tooltip as RechartsTooltip } from 'recharts';
 import Card from '/src/components/ui/Card.jsx';
-const DetailedChartModal = React.lazy(() => import('/src/features/health/components/DetailedChartModal.jsx'));
+const DetailedChartModal = React.lazy(() => import('./DetailedChartModal.jsx'));
 import Tooltip from '/src/components/ui/Tooltip.jsx';
 import { CATEGORY_COLORS, getMetricCategoryInfo } from '/src/utils/healthCategories.js';
 import { formatSecondsToMMSS } from '/src/utils/dataUtils.js';

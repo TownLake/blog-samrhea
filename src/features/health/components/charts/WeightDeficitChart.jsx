@@ -1,39 +1,118 @@
-import React, { memo, useMemo } from 'react';
-import { TrendingDown } from 'lucide-react';
-import ChartModal from '/src/components/ui/ChartModal.jsx';
-import WeightDeficitChart from './charts/WeightDeficitChart.jsx';
+import React, { memo } from 'react';
+import {
+  ResponsiveContainer,
+  ComposedChart,
+  Bar,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  Legend,
+  ReferenceLine
+} from 'recharts';
+import useDarkMode from '/src/hooks/useDarkMode.js';
+import { chartMargins, axisConfig, gridConfig } from '/src/config/chartConfig.js';
+import Tooltip from '/src/components/ui/Tooltip.jsx';
 
-const WeightDeficitModal = memo(({ isOpen, onClose, data, weightDomain }) => {
-  if (!isOpen) return null;
+const WeightDeficitChart = memo(({ data, weightDomain }) => {
+  const [isDarkMode] = useDarkMode();
+  const axisColors = isDarkMode ? axisConfig.dark : axisConfig.light;
+  const gridColors = isDarkMode ? gridConfig.dark : gridConfig.light;
 
-  const computedDomain = useMemo(() => {
-    if (weightDomain && Array.isArray(weightDomain) && weightDomain.length === 2) {
-      return weightDomain;
+  const weightColor = isDarkMode ? '#a78bfa' : '#8b5cf6'; // purple-400/500
+  const deficitColor = isDarkMode ? '#60a5fa' : '#3b82f6'; // blue-400/500
+
+  const renderCustomTooltip = (payload) => {
+    if (!payload || !payload.active || !payload.payload || !payload.payload[0]) {
+      return null;
     }
-    if (!Array.isArray(data) || data.length === 0) return [0, 100];
-    const weights = data
-      .map(d => (d && typeof d.weight === 'number' ? d.weight : null))
-      .filter(v => v != null);
-    if (weights.length < 2) return [0, 100];
-    const min = Math.min(...weights);
-    const max = Math.max(...weights);
-    const pad = Math.max((max - min) * 0.05, 1); // 5% or at least 1 unit
-    return [Math.floor(min - pad), Math.ceil(max + pad)];
-  }, [data, weightDomain]);
+    const point = payload.payload[0].payload;
+    const date = new Date(point.date).toLocaleDateString(undefined, {
+      year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'
+    });
+
+    return (
+      <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">{date}</p>
+        <div className="space-y-1">
+          <p className="font-medium" style={{ color: deficitColor }}>
+            14d Deficit: {point.cumulativeDeficit?.toLocaleString()} kcal
+          </p>
+          <p className="font-medium" style={{ color: weightColor }}>
+            Weight: {typeof point.weight === 'number' ? point.weight.toFixed(1) : '--'} lbs
+          </p>
+        </div>
+      </div>
+    );
+  };
+
+  if (!data || data.length < 2) {
+    return (
+      <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400" style={{height: '350px'}}>
+        Not enough data to show relationship between weight and calorie deficit.
+      </div>
+    );
+  }
 
   return (
-    <ChartModal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="14-Day Cumulative Deficit vs. Weight"
-      icon={TrendingDown}
-    >
-      <div className="h-[350px] sm:h-[400px] w-full">
-        <WeightDeficitChart data={data} weightDomain={computedDomain} />
-      </div>
-    </ChartModal>
+    <ResponsiveContainer width="100%" height={350}>
+      <ComposedChart data={data} margin={chartMargins.daily}>
+        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColors.stroke} />
+        <XAxis
+          dataKey="date"
+          stroke={axisColors.stroke}
+          tickFormatter={(dateStr) =>
+            new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })
+          }
+          tick={{ fill: axisColors.tickFill, fontSize: 12 }}
+          tickLine={{ stroke: axisColors.stroke }}
+          axisLine={{ stroke: axisColors.axisLine }}
+          interval={7}
+          minTickGap={30}
+        />
+        <YAxis
+          yAxisId="left"
+          dataKey="cumulativeDeficit"
+          orientation="left"
+          stroke={deficitColor}
+          tick={{ fill: deficitColor, fontSize: 12 }}
+          tickFormatter={(val) => `${(val / 1000).toFixed(0)}k`}
+          width={45}
+        />
+        <YAxis
+          yAxisId="right"
+          dataKey="weight"
+          orientation="right"
+          stroke={weightColor}
+          tick={{ fill: weightColor, fontSize: 12 }}
+          width={45}
+          domain={weightDomain}
+        />
+        <RechartsTooltip content={<Tooltip renderContent={renderCustomTooltip} />} />
+        <Legend wrapperStyle={{ paddingTop: '20px' }} />
+        <ReferenceLine y={0} yAxisId="left" stroke={axisColors.stroke} strokeDasharray="2 4" />
+        <Bar
+          yAxisId="left"
+          dataKey="cumulativeDeficit"
+          fill={deficitColor}
+          name="14-Day Cumulative Deficit"
+          barSize={20}
+        />
+        <Line
+          yAxisId="right"
+          type="monotone"
+          dataKey="weight"
+          stroke={weightColor}
+          strokeWidth={2}
+          name="Weight"
+          dot={false}
+          connectNulls={false}
+        />
+      </ComposedChart>
+    </ResponsiveContainer>
   );
 });
 
-WeightDeficitModal.displayName = 'WeightDeficitModal';
-export default WeightDeficitModal;
+WeightDeficitChart.displayName = 'WeightDeficitChart';
+export default WeightDeficitChart;
