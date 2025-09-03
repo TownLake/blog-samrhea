@@ -35,7 +35,14 @@ const enrichNumericData = (data) => {
         const enrichedItem = { date: item.date };
         for (const key in item) {
             if (key !== 'date') {
-                enrichedItem[key] = item[key] != null ? Number(item[key]) : null;
+                const value = item[key];
+                // THIS IS THE FIX: Explicitly check for empty strings ('') in addition to null/undefined.
+                // This prevents Number('') from becoming 0.
+                if (value !== null && value !== undefined && value !== '') {
+                    enrichedItem[key] = Number(value);
+                } else {
+                    enrichedItem[key] = null; // Ensure all non-values become null.
+                }
             }
         }
         return enrichedItem;
