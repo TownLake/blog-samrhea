@@ -34,15 +34,22 @@ const enrichNumericData = (data) => {
     return data.map(item => {
         const enrichedItem = { date: item.date };
         for (const key in item) {
-            if (key !== 'date') {
-                const value = item[key];
-                // THIS IS THE FIX: Explicitly check for empty strings ('') in addition to null/undefined.
-                // This prevents Number('') from becoming 0.
-                if (value !== null && value !== undefined && value !== '') {
-                    enrichedItem[key] = Number(value);
-                } else {
-                    enrichedItem[key] = null; // Ensure all non-values become null.
-                }
+            // Skip non-data keys
+            if (key === 'date' || key.startsWith('is_fill_value_')) continue;
+
+            // Check for a corresponding fill flag (e.g., is_fill_value_vo2 for vo2_max)
+            const keyBase = key.split('_')[0];
+            const fillFlagKey = `is_fill_value_${keyBase}`;
+            const isFilled = item[fillFlagKey] === true;
+
+            const value = item[key];
+
+            // If the value is filled OR it's an empty/null value, treat it as null.
+            if (isFilled || value === null || value === undefined || value === '') {
+                enrichedItem[key] = null;
+            } else {
+                // Otherwise, it's a real number.
+                enrichedItem[key] = Number(value);
             }
         }
         return enrichedItem;
