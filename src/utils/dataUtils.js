@@ -225,13 +225,21 @@ export const createMonthlyAverageData = (data, key) => {
   const monthlyGroups = {};
   
   data.forEach(item => {
-    if (item == null || item[key] === null || item[key] === undefined || !item.date) {
-      return;
+    // This is the critical check: ensure the value is not null/undefined before processing.
+    const value = item?.[key];
+    if (value === null || value === undefined) {
+      return; // Skip this day entirely if there's no valid data for the key.
     }
     
     try {
       const date = new Date(item.date);
       if (isNaN(date.getTime())) return;
+      
+      const numericValue = Number(value);
+      // Also ensure the value converts to a valid number (not NaN).
+      if (isNaN(numericValue)) {
+        return;
+      }
       
       const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
       const monthName = date.toLocaleString('default', { month: 'short' });
@@ -248,18 +256,17 @@ export const createMonthlyAverageData = (data, key) => {
         };
       }
       
-      const numericValue = Number(item[key]);
-      if (!isNaN(numericValue)) {
-        monthlyGroups[monthKey].values.push(numericValue);
-        monthlyGroups[monthKey].sum += numericValue;
-        monthlyGroups[monthKey].count += 1;
-      }
+      monthlyGroups[monthKey].values.push(numericValue);
+      monthlyGroups[monthKey].sum += numericValue;
+      monthlyGroups[monthKey].count += 1;
+
     } catch (error) {
       console.error("Error processing item for monthly average:", error);
     }
   });
   
   const result = Object.values(monthlyGroups).map(group => {
+    // This part remains the same, but now it will only receive groups with actual data.
     const avg = group.count > 0 ? group.sum / group.count : 0;
     
     return {
