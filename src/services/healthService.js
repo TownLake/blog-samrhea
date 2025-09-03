@@ -82,6 +82,14 @@ export const fetchHealthData = async () => {
       }
       try {
         const data = await handleFetchError(promiseResult.value, dataType);
+
+        // V-- ADDED FOR DEBUGGING --V
+        // This will log the raw, unprocessed data for the sources we are debugging.
+        if (dataType.includes('Clinical') || dataType.includes('OtherData')) {
+          console.log(`--- Raw Unprocessed Data for ${dataType} ---`, data);
+        }
+        // A-- ADDED FOR DEBUGGING --A
+
         return enricher ? enricher(data) : (Array.isArray(data) ? data : []);
       } catch (err) {
         return [];
