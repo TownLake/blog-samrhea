@@ -138,7 +138,7 @@ const DailyChart = memo(({
         <RechartsTooltip content={<Tooltip renderContent={renderCustomTooltip} />} />
         
         <Area type="monotone" dataKey={filledDataKey} stroke="none" strokeWidth={0} fillOpacity={1} fill={`url(#${filledGradientId})`} dot={false} activeDot={false} name="Filled Data" connectNulls={false} isAnimationActive={false} />
-        <Area type="monotone" dataKey={actualDataKey} stroke={effectiveLineColor} strokeWidth={2} fillOpacity={1} fill={`url(#${gradientId})`} dot={false} activeDot={{ r: 6, stroke: effectiveLineColor, strokeWidth: 2, fill: isDarkMode ? '#1E293B' : '#FFFFFF' }} name="Actual Data" connectNulls={true} isAnimationActive={false} />
+        <Area type="monotone" dataKey={actualDataKey} stroke={effectiveLineColor} strokeWidth={2} fillOpacity={1} fill={`url(#${gradientId})`} dot={false} activeDot={{ r: 6, stroke: effectiveLineColor, strokeWidth: 2, fill: isDarkMode ? '#1E293B' : '#FFFFFF' }} name="Actual Data" connectNulls={false} isAnimationActive={false} />
       </AreaChart>
     </ResponsiveContainer>
   );

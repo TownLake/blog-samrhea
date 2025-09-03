@@ -121,8 +121,6 @@ const HealthDashboard = () => {
   const latestVo2MaxWatch = findLatestRecord(processedData, 'vo2_max');
   const latestVo2MaxClinical = findLatestRecord(processedData, 'vo2_max_clinical');
   const latestPeakFlow = findLatestRecord(processedData, 'peak_flow');
-  const latestLeftGrip = findLatestRecord(processedData, 'weak_grip');
-  const latestRightGrip = findLatestRecord(processedData, 'strong_grip');
   const latest5k = findLatestRecord(processedData, 'five_k_seconds');
   const latestCaloriesIn = findLatestRecord(processedData, 'calories_kcal');
   const latestCaloriesOut = findLatestRecord(processedData, 'total_calories');
@@ -149,8 +147,6 @@ const HealthDashboard = () => {
     vo2MaxWatch: { title: "VO2 Max (Watch)", value: latestVo2MaxWatch?.vo2_max?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max', latestVo2MaxWatch?.vo2_max), sparklineData: createSparklineData(running, 'vo2_max'), icon: Watch, fullData: running, dataKey: "vo2_max", displayMode: 'compact' },
     vo2MaxClinical: { title: "VO2 Max (Clinical)", value: latestVo2MaxClinical?.vo2_max_clinical?.toFixed(1) ?? '--', unit: "", ...getMetricCategoryInfo('vo2_max_clinical', latestVo2MaxClinical?.vo2_max_clinical), sparklineData: createSparklineData(clinical, 'vo2_max_clinical'), icon: Microscope, fullData: clinical, dataKey: "vo2_max_clinical", displayMode: 'compact' },
     peakFlow: { title: "Peak Flow", value: latestPeakFlow?.peak_flow?.toFixed(0) ?? '--', unit: "L/min", ...getMetricCategoryInfo('peak_flow', latestPeakFlow?.peak_flow), sparklineData: createSparklineData(otherData, 'peak_flow'), icon: Wind, fullData: otherData, dataKey: "peak_flow", displayMode: 'compact' },
-    leftGrip: { title: "Left Hand Grip", value: latestLeftGrip?.weak_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('weak_grip', latestLeftGrip?.weak_grip), sparklineData: createSparklineData(otherData, 'weak_grip'), icon: Hand, fullData: otherData, dataKey: "weak_grip", displayMode: 'compact' },
-    rightGrip: { title: "Right Hand Grip", value: latestRightGrip?.strong_grip?.toFixed(1) ?? '--', unit: "kg", ...getMetricCategoryInfo('strong_grip', latestRightGrip?.strong_grip), sparklineData: createSparklineData(otherData, 'strong_grip'), icon: Hand, fullData: otherData, dataKey: "strong_grip", displayMode: 'compact' },
     fiveK: { title: "5K Time", value: latest5k?.five_k_formatted ?? '--:--', unit: "", ...getMetricCategoryInfo('five_k_seconds', latest5k?.five_k_seconds), sparklineData: createSparklineData(running, 'five_k_seconds'), icon: Timer, fullData: running, dataKey: "five_k_seconds", displayMode: 'compact' },
     tenK: { title: "10K Time", value: '--:--', unit: "", ...getMetricCategoryInfo('ten_k_seconds', null), sparklineData: [], icon: Timer, fullData: [], dataKey: "ten_k_seconds", displayMode: 'compact' },
     caloriesIn: { title: "Calories Consumed", value: latestCaloriesIn?.calories_kcal?.toLocaleString() ?? '--', unit: "kcal", ...getMetricCategoryInfo('calories_kcal', latestCaloriesIn?.calories_kcal), sparklineData: createSparklineData(macros, 'calories_kcal'), icon: Flame, fullData: macros, dataKey: "calories_kcal", displayMode: 'full' },
@@ -218,12 +214,6 @@ const HealthDashboard = () => {
               <PairedMetricContainer>
                 <MetricCard {...createMetricProps(metrics.caloriesOut)} />
                 <MetricCard {...createMetricProps(metrics.peakFlow)} />
-              </PairedMetricContainer>
-            )}
-             {latestLeftGrip && latestRightGrip && (
-              <PairedMetricContainer>
-                <MetricCard {...createMetricProps(metrics.leftGrip)} />
-                <MetricCard {...createMetricProps(metrics.rightGrip)} />
               </PairedMetricContainer>
             )}
             {latest5k && (

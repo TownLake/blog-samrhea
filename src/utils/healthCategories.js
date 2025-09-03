@@ -105,18 +105,6 @@ export const METRIC_RANGES = {
     { category: 'fair', min: 500, max: 600 },
     { category: 'poor', min: 0, max: 500 }
   ],
-  'strong_grip': [ // Higher is better
-    { category: 'excellent', min: 58.000001, max: Infinity },
-    { category: 'good', min: 52, max: 58.000001 },
-    { category: 'fair', min: 44, max: 52 },
-    { category: 'poor', min: 0, max: 44 }
-  ],
-  'weak_grip': [ // Higher is better
-    { category: 'excellent', min: 54.000001, max: Infinity },
-    { category: 'good', min: 48, max: 54.000001 },
-    { category: 'fair', min: 40, max: 48 },
-    { category: 'poor', min: 0, max: 40 }
-  ],
   'power_breathe_level': [ // Higher is better
     { category: 'excellent', min: 8, max: Infinity },
     { category: 'good', min: 6, max: 8 },
