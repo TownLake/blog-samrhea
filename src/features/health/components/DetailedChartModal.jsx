@@ -35,6 +35,10 @@ const DetailedChartModal = memo(({
     return createDetailChartData(data);
   }, [data]);
 
+  // V-- ADDED FOR DEBUGGING --V
+  console.log('--- Debugging: Data passed to modal ---', { fullData: data, dataKey });
+  // A-- ADDED FOR DEBUGGING --A
+
   const monthlyData = useMemo(() => {
     if (!data || !Array.isArray(data)) return [];
     return createMonthlyAverageData(data, dataKey);
