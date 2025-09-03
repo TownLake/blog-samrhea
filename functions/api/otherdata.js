@@ -101,40 +101,47 @@ export async function onRequest(context) {
     const { results } = await stmt.all();
     console.log(`OtherData → ${results.length} rows from DB for ${daysParam} days`);
 
-    // Updated two-pass fill logic
-    let lastPeakFlow = null, lastStrongGrip = null, lastWeakGrip = null, lastPowerBreathe = null;
+    let processedResults;
 
-    for (let i = 0; i < results.length; i++) {
-        const r = results[i];
-        if (r.peak_flow != null) lastPeakFlow = lastPeakFlow ?? r.peak_flow;
-        if (r.strong_grip != null) lastStrongGrip = lastStrongGrip ?? r.strong_grip;
-        if (r.weak_grip != null) lastWeakGrip = lastWeakGrip ?? r.weak_grip;
-        if (r.power_breathe_level != null) lastPowerBreathe = lastPowerBreathe ?? r.power_breathe_level;
+    // THIS IS THE FIX: Only apply the forward-fill logic for small date ranges (i.e., sparklines).
+    // For large date ranges, we want to see the actual nulls in the main chart.
+    if (days <= 45) {
+      console.log(`Applying forward-fill for OtherData (${daysParam}d)`);
+      let lastPeakFlow = null, lastStrongGrip = null, lastWeakGrip = null, lastPowerBreathe = null;
+
+      for (let i = 0; i < results.length; i++) {
+          const r = results[i];
+          if (r.peak_flow != null) lastPeakFlow = lastPeakFlow ?? r.peak_flow;
+          if (r.strong_grip != null) lastStrongGrip = lastStrongGrip ?? r.strong_grip;
+          if (r.weak_grip != null) lastWeakGrip = lastWeakGrip ?? r.weak_grip;
+          if (r.power_breathe_level != null) lastPowerBreathe = lastPowerBreathe ?? r.power_breathe_level;
+      }
+      
+      processedResults = results.map(r => {
+          const filledRecord = { ...r };
+          if (r.peak_flow == null && lastPeakFlow != null) {
+              filledRecord.peak_flow = lastPeakFlow;
+              filledRecord.is_fill_value_peakflow = true; // Corrected flag name
+          }
+          if (r.strong_grip == null && lastStrongGrip != null) {
+              filledRecord.strong_grip = lastStrongGrip;
+              filledRecord.is_fill_value_strong = true;
+          }
+          if (r.weak_grip == null && lastWeakGrip != null) {
+              filledRecord.weak_grip = lastWeakGrip;
+              filledRecord.is_fill_value_weak = true;
+          }
+          if (r.power_breathe_level == null && lastPowerBreathe != null) {
+              filledRecord.power_breathe_level = lastPowerBreathe;
+              filledRecord.is_fill_value_powerbreathe = true; // Corrected flag name
+          }
+          return filledRecord;
+      });
+    } else {
+      // For large date ranges, do not fill the data. Send it as-is from the DB.
+      console.log(`Skipping forward-fill for OtherData (${daysParam}d)`);
+      processedResults = results;
     }
-    
-    const processedResults = results.map(r => {
-        const filledRecord = { ...r };
-        if (r.peak_flow == null && lastPeakFlow != null) {
-            filledRecord.peak_flow = lastPeakFlow;
-            filledRecord.is_fill_value_peak = true;
-        }
-        if (r.strong_grip == null && lastStrongGrip != null) {
-            filledRecord.strong_grip = lastStrongGrip;
-            filledRecord.is_fill_value_strong = true;
-        }
-        if (r.weak_grip == null && lastWeakGrip != null) {
-            filledRecord.weak_grip = lastWeakGrip;
-            filledRecord.is_fill_value_weak = true;
-        }
-        // Add fill logic for the new field
-        if (r.power_breathe_level == null && lastPowerBreathe != null) {
-            filledRecord.power_breathe_level = lastPowerBreathe;
-            // The frontend will look for this key based on the dataKey 'power_breathe_level'
-            filledRecord.is_fill_value_power_breathe = true; 
-        }
-        return filledRecord;
-    });
-
 
     const body = JSON.stringify(processedResults);
     const response = new Response(body, { headers });
