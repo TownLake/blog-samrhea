@@ -3,6 +3,7 @@
 const stmts = new Map();
 
 function formatSecondsToMMSS(seconds) {
+  if (seconds === null || seconds === undefined) return null;
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -87,26 +88,36 @@ export async function onRequest(context) {
 
     const { results } = await stmt.all();
 
-    // two‑pass fill and format
-    let last5k = null, lastVo2 = null;
-    for (const r of results) {
-      if (r.five_k_seconds != null) {
-        last5k = last5k ?? r.five_k_seconds;
+    // THIS IS THE FIX: Conditionally apply fill logic based on the requested number of days.
+    if (days <= 45) {
+      // For sparklines, we fill the data to make the small chart look continuous.
+      console.log(`Applying forward-fill for Running (${daysParam}d)`);
+      let last5k = null, lastVo2 = null;
+      for (const r of results) {
+        if (r.five_k_seconds != null) {
+          last5k = last5k ?? r.five_k_seconds;
+        }
+        if (r.vo2_max != null) {
+          lastVo2 = lastVo2 ?? r.vo2_max;
+        }
+      }
+      for (const r of results) {
+        r.five_k_formatted = formatSecondsToMMSS(r.five_k_seconds); // Always format
+        if (r.five_k_seconds == null && last5k != null) {
+          r.five_k_seconds = last5k;
+          r.five_k_formatted = formatSecondsToMMSS(last5k);
+          r.is_fill_value_5k = true;
+        }
+        if (r.vo2_max == null && lastVo2 != null) {
+          r.vo2_max = lastVo2;
+          r.is_fill_value_vo2 = true;
+        }
+      }
+    } else {
+      // For the main chart, we only format the data, we do not fill it.
+      console.log(`Skipping forward-fill for Running (${daysParam}d)`);
+      for (const r of results) {
         r.five_k_formatted = formatSecondsToMMSS(r.five_k_seconds);
-      }
-      if (r.vo2_max != null) {
-        lastVo2 = lastVo2 ?? r.vo2_max;
-      }
-    }
-    for (const r of results) {
-      if (r.five_k_seconds == null && last5k != null) {
-        r.five_k_seconds = last5k;
-        r.five_k_formatted = formatSecondsToMMSS(last5k);
-        r.is_fill_value_5k = true;
-      }
-      if (r.vo2_max == null && lastVo2 != null) {
-        r.vo2_max = lastVo2;
-        r.is_fill_value_vo2 = true;
       }
     }
 
