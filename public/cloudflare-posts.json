@@ -1,5 +1,14 @@
 [
     {
+      "id": "open-source-sponsor",
+      "title": "🟠⛅ Supporting the future of the open web: Cloudflare is sponsoring Ladybird and Omarchy",
+      "date": "2025-09-22",
+      "category": "cloudflare",
+      "description": "Supporting a new generation of open source projects.",
+      "url": "https://blog.cloudflare.com/supporting-the-future-of-the-open-web/",
+      "external": true
+    },
+    {
       "id": "ai-search-crawl-refer-ratio-on-radar",
       "title": "🟠⛅ AI crawling's impact on site traffic",
       "date": "2025-07-01",
