@@ -15,6 +15,13 @@ const Navbar = ({ toggleSearch }) => {
       </Link>
       <nav className="flex items-center space-x-2 sm:space-x-4">
         <Link
+          to={ROUTES.HOME}
+          className="flex items-center justify-center w-10 h-10 text-2xl hover:scale-110 transition-transform"
+          aria-label="Blog Home"
+        >
+          📝
+        </Link>
+        <Link
           to={ROUTES.ABOUT}
           className="flex items-center justify-center w-10 h-10 text-2xl hover:scale-110 transition-transform"
           aria-label="About"
