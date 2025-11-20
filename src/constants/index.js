@@ -9,19 +9,8 @@ export const FILTER_OPTIONS = [
   { id: 'Cloudflare', label: 'At Cloudflare', icon: '⛅' },
 ];
 
-export const ABOUT_SECTIONS = [
-  { id: 'home', label: 'Home', icon: 'ℹ️', path: '/about/home' },
-  { id: 'work', label: 'Work', icon: '👷', path: '/about/work' },
-  { id: 'school', label: 'School', icon: '🎓', path: '/about/school' },
-  { id: 'portugal', label: 'Portugal', icon: '🇵🇹', path: '/about/portugal' },
-];
-
-export const DATA_SECTIONS = [
-  { id: 'health', label: 'Health', icon: '❤️', path: '/data/health' },
-  { id: 'supplements', label: 'Supplements', icon: '💊', path: '/data/supplements' },
-  { id: 'news', label: 'News', icon: '📰', path: '/data/news' },
-  { id: 'digital', label: 'Digital', icon: '💻', path: '/data/digital' },
-];
+// About section is now a single page, no subnav needed
+export const ABOUT_SECTIONS = [];
 
 
 // --- MAIN NAVIGATION MAP (DEPENDS ON THE ABOVE) ---
@@ -36,29 +25,12 @@ export const NAVIGATION_MAP = {
       { id: 'All', label: 'All Posts', icon: '🗂️', path: '/' },
       ...FILTER_OPTIONS.map(opt => ({...opt, path: `/${opt.id.toLowerCase()}`}))
     ]
-  },
-  about: {
-    id: 'about',
-    label: 'About',
-    icon: '👋',
-    path: '/about',
-    contextIcon: '👋',
-    subnav: ABOUT_SECTIONS
-  },
-  data: {
-    id: 'data',
-    label: 'Data',
-    icon: '🔢',
-    path: '/data',
-    contextIcon: '🔢',
-    subnav: DATA_SECTIONS
-  },
+  }
 };
 
+// About is now accessed from the navbar, not the dock
 export const PRIMARY_NAV_SECTIONS = [
-  NAVIGATION_MAP.blog,
-  NAVIGATION_MAP.about,
-  NAVIGATION_MAP.data
+  NAVIGATION_MAP.blog
 ];
 
 
@@ -69,7 +41,6 @@ export const ROUTES = {
   HOME: '/',
   ABOUT: '/about',
   POST: (slug) => `/post/${slug}`,
-  DATA: '/data',
   NOT_FOUND: '/404',
 };
 
