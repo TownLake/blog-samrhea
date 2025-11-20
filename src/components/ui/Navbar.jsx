@@ -14,6 +14,14 @@ const Navbar = ({ toggleSearch }) => {
         Sam Rhea
       </Link>
       <nav className="flex items-center space-x-2 sm:space-x-4">
+        <Link
+          to={ROUTES.ABOUT}
+          className="flex items-center justify-center w-10 h-10 text-2xl hover:scale-110 transition-transform"
+          aria-label="About"
+          title="About"
+        >
+          👋
+        </Link>
         <button
           onClick={toggleDarkMode}
           aria-label="Toggle theme"
