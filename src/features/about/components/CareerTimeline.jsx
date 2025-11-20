@@ -73,18 +73,18 @@ const CareerTimeline = () => {
   const introText = "I work on new ideas at Cloudflare. We aim to ship the future that we think our customers will need months and years from now. I spent the previous six years launching, building, and leading the Cloudflare Zero Trust product line as the VP of Product.";
 
   return (
-    <div className="space-y-8 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-4 text-[var(--text-primary)]" style={{ letterSpacing: '-0.025em' }}>At Work</h1>
-        <p className="text-lg text-[var(--text-secondary)]" style={{ letterSpacing: '-0.01em', lineHeight: '1.75', textWrap: 'pretty' }}>
+    <div className="space-y-10 max-w-4xl mx-auto">
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold mb-5 text-[var(--text-primary)]" style={{ letterSpacing: '-0.025em' }}>At Work</h1>
+        <p className="text-lg text-[var(--text-secondary)] leading-relaxed" style={{ letterSpacing: '-0.01em', lineHeight: '1.8', textWrap: 'pretty' }}>
           {introText}
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
          {companyData.map((company, companyIndex) => (
              <CompanyCard key={company.id} company={company} isLastCompany={companyIndex === companyData.length - 1}>
-                 <div className="mt-4 space-y-4 pl-2">
+                 <div className="mt-4 space-y-5 pl-2">
                  {company.roles.map((role, roleIndex) => (
                      <TimelineRole key={role.id} role={role} companyType={getCompanyType(company.name)} isLastRole={roleIndex === company.roles.length - 1} renderAchievement={renderAchievement}/>
                  ))}
@@ -93,11 +93,11 @@ const CareerTimeline = () => {
          ))}
       </div>
 
-      <div className="space-y-6 mt-12">
-         <h2 className="text-xl font-semibold mb-4 text-[var(--text-primary)] border-b pb-2">Education</h2>
+      <div className="space-y-8 mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+         <h2 className="text-2xl font-bold mb-6 text-[var(--text-primary)]">Education</h2>
          {educationData.map((education) => (
              <CompanyCard key={education.id} company={education} isLastCompany={true}>
-                 <div className="mt-4 space-y-4 pl-2">
+                 <div className="mt-4 space-y-5 pl-2">
                      {education.roles.map((role, roleIndex) => (
                          <TimelineRole key={role.id} role={role} companyType={getCompanyType(education.name)} isLastRole={roleIndex === education.roles.length - 1} renderAchievement={renderAchievement}/>
                      ))}
@@ -110,15 +110,15 @@ const CareerTimeline = () => {
       </div>
 
       {patentsData && patentsData.length > 0 && (
-        <div className="space-y-6 mt-12">
-          <h2 className="text-xl font-semibold mb-4 text-[var(--text-primary)] border-b pb-2">Patents</h2>
+        <div className="space-y-8 mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-bold mb-6 text-[var(--text-primary)]">Patents</h2>
           {patentsData.map((patent) => {
             const themeVariables = getThemeVariables(COMPANY_TYPES.DEFAULT, darkMode);
             return (
               <div key={patent.id} style={themeVariables}>
                 <div
                     className={`
-                        rounded-2xl p-5 relative overflow-hidden backdrop-blur-xl
+                        rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl
                         bg-[var(--card-bg)] border border-[var(--card-border)]
                         transition-all duration-200
                         ${darkMode ? 'hover:ring-1 hover:ring-[var(--card-accent-ring)]' : 'hover:shadow-md'}
@@ -127,10 +127,10 @@ const CareerTimeline = () => {
                     <div className="absolute -inset-0.5 backdrop-blur-md z-0 rounded-2xl bg-gradient-to-tr from-[var(--card-gradient-from)] via-[var(--card-gradient-via)] to-[var(--card-gradient-to)]"></div>
 
                     <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-3">
+                        <div className="flex justify-between items-start mb-4">
                              <div className="flex items-center">
-                                 <div className={`flex-shrink-0 w-10 h-10 mr-3 rounded-lg flex items-center justify-center ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
-                                     <Award size={20} className={`${darkMode ? 'text-blue-300' : 'text-blue-500'}`}/>
+                                 <div className={`flex-shrink-0 w-11 h-11 mr-4 rounded-lg flex items-center justify-center ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
+                                     <Award size={22} className={`${darkMode ? 'text-blue-300' : 'text-blue-500'}`}/>
                                  </div>
                                  <h3 className="font-semibold text-lg text-[var(--text-primary)]">{patent.title}</h3>
                              </div>
@@ -140,7 +140,7 @@ const CareerTimeline = () => {
                                  See Patent <ExternalLink size={14} className="ml-1"/>
                              </a>
                         </div>
-                         <div className="pl-13">
+                         <div className="pl-15">
                             <p className="text-sm text-[var(--text-muted)] mb-3">{patent.patentNumber} &middot; {patent.issueDate}</p>
                             <p className="text-sm text-[var(--text-secondary)] text-wrap-pretty leading-relaxed">
                                 {patent.description}
