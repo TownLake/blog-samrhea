@@ -1,6 +1,6 @@
 ## Teaching
 
-I will be teaching `Intro to Product Management` at [NOVA SBE](https://www.novasbe.unl.pt/en/) this fall. Are you a student interested in the class? Please reach out!
+I teach `Intro to Product Management` at [NOVA SBE](https://www.novasbe.unl.pt/en/). My goal is to help a new generation of Product Managers in Portugal launch products with the phenomenal engineering talent here.
 
 ## Studying
 

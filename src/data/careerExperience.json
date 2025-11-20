@@ -8,7 +8,7 @@
     "roles": [
       {
         "id": "r9",
-        "title": "VP of Product",
+        "title": "VP of Product, Frontiers",
         "period": "Apr 2025 - Present",
         "achievements": [
            "Helping build the future at Cloudflare. Also, Head of the Lisbon Office.",
@@ -23,10 +23,10 @@
       },
       {
         "id": "r1",
-        "title": "VP, Strategic Advisor & CoS - Emerging Technology and Incubation",
+        "title": "VP of Product",
         "period": "Jun 2024 - Apr 2025",
         "achievements": [
-          "Helping build the future in the Emerging Technology and Incubation team at Cloudflare.",
+          "Handed off the keys to Cloudflare Zero Trust to an amazing team I had built and returned to the lab. Helped build the future in the Emerging Technology and Incubation team at Cloudflare.",
           [
             "Launched ",
             {

@@ -11,7 +11,6 @@ import '/src/index.css';
 import BlogIndexPage from '/src/features/blog/BlogIndexPage.jsx';
 import PostPage from '/src/features/blog/PostPage.jsx';
 import AboutPage from '/src/features/about/AboutPage.jsx';
-import DataPage from '/src/features/data/DataPage.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,10 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/post/:slug" element={<PostPage />} />
             
             {/* About Route */}
-            <Route path={`${ROUTES.ABOUT}/*`} element={<AboutPage />} />
-            
-            {/* Data Route */}
-            <Route path={`${ROUTES.DATA}/*`} element={<DataPage />} />
+            <Route path={ROUTES.ABOUT} element={<AboutPage />} />
 
             {/* Catch-all 404 Page */}
             <Route path="*" element={
