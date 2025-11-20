@@ -33,18 +33,19 @@ const TimelineRole = ({
         ></div>
       )}
 
-      <div className="pl-5">
+      <div className="pl-6">
         <h3
             className={`
-                font-semibold text-lg mb-1
+                font-semibold text-lg mb-2
                 text-[var(--timeline-title-color)]
                 transition-colors duration-200
             `}
+            style={{ letterSpacing: '-0.015em' }}
         >
           {role.title}
         </h3>
 
-        <p className="text-sm mb-2 text-[var(--text-muted)] transition-colors duration-200">
+        <p className="text-sm mb-3 text-[var(--text-muted)] transition-colors duration-200">
           {role.period}
         </p>
 

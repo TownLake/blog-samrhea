@@ -1,3 +1,0 @@
-## Austin -> Lisbon
-
-I'm an Austinite, but I left my hometown in 2019 to help open Cloudflare's office in [Lisbon, Portugal](https://blog.samrhea.com/posts/2020/one-year-lisbon). What was supposed to be a one year assignment has evolved into an open-ended tenure for me and my family. We like it here and I think you would too - [we're hiring!](https://www.cloudflare.com/careers/jobs/?location=Lisbon%2C+Portugal)

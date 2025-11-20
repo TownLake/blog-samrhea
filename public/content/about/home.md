@@ -3,3 +3,7 @@
 Hi there. My name is Sam. I am a Texan living in Lisbon. I work at Cloudflare.
 
 I’m probably busy right now building an application for a hobby project that doesn’t need one. Or [walking a dog](https://blog.samrhea.com/posts/2022/a-serra-and-new-friends) we named after the second-worst highway in Austin.
+
+## Work
+
+I work on new ideas at Cloudflare. We aim to ship the future that we think our customers will need months and years from now. I spent the previous six years launching, building, and leading the Cloudflare Zero Trust product line as the VP of Product.

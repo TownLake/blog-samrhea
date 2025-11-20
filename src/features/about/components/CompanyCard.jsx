@@ -29,13 +29,13 @@ const CompanyCard = ({
   const companyType = getCompanyType(company.name);
   const themeVariables = getThemeVariables(companyType, darkMode);
 
-  const imageContainerClasses = `w-12 h-12 mr-3 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center transition-colors duration-200 ${
+  const imageContainerClasses = `w-14 h-14 mr-4 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center transition-all duration-200 ${
     darkMode ? 'bg-gray-900 border border-gray-700' : 'bg-gray-100'
   }`;
-   const iconContainerClasses = `w-8 h-8 transition-colors duration-200 ${
+   const iconContainerClasses = `w-9 h-9 transition-colors duration-200 ${
     darkMode ? 'text-gray-400' : 'text-gray-500'
   }`;
-   const titleClasses = "font-bold text-xl text-[var(--timeline-title-color)] transition-colors duration-200";
+   const titleClasses = "font-bold text-2xl text-[var(--timeline-title-color)] transition-colors duration-200";
 
   return (
     <div className="relative" style={themeVariables}>
@@ -45,7 +45,7 @@ const CompanyCard = ({
             ${darkMode ? 'hover:ring-1 hover:ring-[var(--card-accent-ring)]' : 'hover:shadow-md'}
         `}
       >
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex justify-between items-center mb-4">
           <div className="flex items-center">
             <div className={imageContainerClasses}>
               {company.logo ? (
