@@ -28,7 +28,7 @@ const displayDate = postDate.toLocaleDateString('en-US', {
 <Layout title={post.data.title}>
     <article class="w-full">
         
-        <header class="flex flex-col items-center mb-16">
+        <header class="flex flex-col items-center mb-8">
             
             <nav class="flex items-center gap-2 text-sm text-midnight-400 mb-8 transition-colors">
                 <a href="/" class="hover:text-white transition-colors">← Blog</a>
@@ -42,7 +42,7 @@ const displayDate = postDate.toLocaleDateString('en-US', {
                 )}
             </nav>
 
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tighter text-white text-center leading-[1.1] max-w-3xl mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tighter text-white text-center leading-[1.1] max-w-3xl mb-8">
                 {post.data.title}
             </h1>
 
