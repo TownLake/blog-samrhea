@@ -150,7 +150,7 @@
           [
             "Helped customers deploy Zero Trust networks to replace their ",
             {
-              "text": "legacy corporate networks",
+              "text": "legacy networks",
               "link": "https://blog.cloudflare.com/build-your-own-private-network-on-cloudflare/"
             },
             "."

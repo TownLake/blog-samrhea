@@ -10,17 +10,11 @@
   
   /* Customizing the Prose plugin for Markdown to match the theme */
   .prose-midnight {
-    @apply text-slate-400;
-    @apply headings:text-slate-100 headings:tracking-tight headings:font-semibold;
+    @apply text-midnight-300;
+    @apply headings:text-midnight-100 headings:tracking-tight headings:font-semibold;
     @apply strong:text-white;
-    @apply a:text-[#60a5fa] a:no-underline;
-    @apply blockquote:border-l-slate-700 blockquote:text-slate-500;
-    @apply code:text-pink-400 code:bg-slate-900/50 code:px-1.5 code:py-0.5 code:rounded code:font-mono code:text-[0.875em];
-  }
-  
-  /* Remove backticks from inline code */
-  .prose-midnight code::before,
-  .prose-midnight code::after {
-    content: none;
+    @apply a:text-accent-blue a:no-underline hover:a:text-white a:transition-colors;
+    @apply blockquote:border-l-midnight-800 blockquote:text-midnight-400;
+    /* Code styling is now handled in tailwind.config.mjs to ensure backticks are removed globally */
   }
 }
