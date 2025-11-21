@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    /* Midnight Navy Background */
+    @apply bg-[#02040A]; 
+  }
+  
+  /* Customizing the Prose plugin for Markdown to match the theme */
+  .prose-midnight {
+    @apply text-slate-400;
+    @apply headings:text-slate-100 headings:tracking-tight headings:font-semibold;
+    @apply strong:text-white;
+    @apply a:text-blue-500 a:no-underline;
+    @apply blockquote:border-l-slate-700 blockquote:text-slate-500;
+    @apply code:text-pink-400 code:bg-slate-900/50 code:px-1 code:py-0.5 code:rounded;
+  }
+}

@@ -1,0 +1,91 @@
+---
+import { getEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+const post = await getEntry('posts', slug);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await post.render();
+
+// Date Formatting
+const postDate = new Date(post.data.date);
+const displayDate = postDate.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+});
+---
+
+<Layout title={post.data.title}>
+    <article class="w-full">
+        
+        <header class="flex flex-col items-center mb-16">
+            
+            <nav class="flex items-center gap-2 text-sm text-midnight-400 mb-8 transition-colors">
+                <a href="/" class="hover:text-white transition-colors">← Blog</a>
+                {post.data.category && (
+                    <>
+                        <span class="text-midnight-800">/</span>
+                        <a href={`/?filter=${post.data.category}`} class="capitalize hover:text-white transition-colors">
+                            {post.data.category}
+                        </a>
+                    </>
+                )}
+            </nav>
+
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tighter text-white text-center leading-[1.1] max-w-3xl mb-12">
+                {post.data.title}
+            </h1>
+
+            <div class="w-full border-y border-dashed border-midnight-800 py-4 flex justify-between items-center text-sm text-midnight-400 font-mono">
+                
+                <button id="copy-url-btn" class="flex items-center gap-2 hover:text-accent-blue transition-colors group">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                    <span id="copy-text">Copy URL</span>
+                </button>
+
+                <time datetime={postDate.toISOString()}>
+                    {displayDate}
+                </time>
+            </div>
+
+        </header>
+        
+        <div class="prose prose-invert prose-midnight max-w-none">
+             <Content />
+        </div>
+    </article>
+</Layout>
+
+<script>
+    // Simple script to handle copying the URL
+    const copyBtn = document.getElementById('copy-url-btn');
+    const copyText = document.getElementById('copy-text');
+
+    if (copyBtn && copyText) {
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                // Visual feedback
+                const originalText = copyText.innerText;
+                copyText.innerText = 'Copied!';
+                copyText.classList.add('text-accent-blue');
+                
+                setTimeout(() => {
+                    copyText.innerText = originalText;
+                    copyText.classList.remove('text-accent-blue');
+                }, 2000);
+            });
+        });
+    }
+</script>
