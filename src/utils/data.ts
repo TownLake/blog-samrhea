@@ -16,7 +16,8 @@ export async function getAllContent() {
     description: post.data.description,
     category: post.data.category,
     tags: post.data.tags || [],
-    url: `/posts/${post.slug}`,
+    // Remove 'posts/' prefix if it exists in the slug
+    url: `/posts/${post.slug.replace(/^posts\//, '')}`,
     isExternal: false
   }));
 
