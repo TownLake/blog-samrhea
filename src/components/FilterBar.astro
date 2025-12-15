@@ -1,0 +1,32 @@
+---
+interface Props {
+    activeFilter: string;
+}
+
+const { activeFilter } = Astro.props;
+
+const filters = [
+    { label: 'All', value: 'all' },
+    { label: 'Highlights', value: 'starred' },
+    { label: 'Reading', value: 'reading' },
+    { label: 'Portugal', value: 'portugal' },
+    { label: 'Texas', value: 'texas' },
+    { label: 'Cloudflare', value: 'cloudflare' },
+];
+---
+
+<div class="flex flex-wrap gap-1">
+    {filters.map((f) => (
+        <a 
+            href={`/?filter=${f.value}`}
+            class:list={[
+                "px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-150",
+                activeFilter === f.value 
+                    ? "bg-white text-midnight-950" 
+                    : "text-midnight-500 hover:text-midnight-200 hover:bg-midnight-900/50"
+            ]}
+        >
+            {f.label}
+        </a>
+    ))}
+</div>

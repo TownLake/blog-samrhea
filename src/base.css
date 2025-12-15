@@ -3,18 +3,35 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    /* Midnight Navy Background */
-    @apply bg-[#02040A]; 
+  :root {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
   
-  /* Customizing the Prose plugin for Markdown to match the theme */
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-midnight-950 text-midnight-300;
+  }
+
+  ::selection {
+    @apply bg-accent-blue/20 text-white;
+  }
+}
+
+@layer components {
   .prose-midnight {
     @apply text-midnight-300;
-    @apply headings:text-midnight-100 headings:tracking-tight headings:font-semibold;
-    @apply strong:text-white;
-    @apply a:text-accent-blue a:no-underline hover:a:text-white a:transition-colors;
-    @apply blockquote:border-l-midnight-800 blockquote:text-midnight-400;
-    /* Code styling is now handled in tailwind.config.mjs to ensure backticks are removed globally */
+    @apply prose-headings:text-midnight-100 prose-headings:tracking-tight prose-headings:font-semibold;
+    @apply prose-strong:text-white prose-strong:font-semibold;
+    @apply prose-a:text-accent-blue prose-a:no-underline hover:prose-a:text-white prose-a:transition-colors prose-a:duration-150;
+    @apply prose-blockquote:border-l-midnight-700 prose-blockquote:text-midnight-400 prose-blockquote:not-italic;
+    @apply prose-code:text-pink-400 prose-code:bg-midnight-900 prose-code:rounded prose-code:px-1.5 prose-code:py-0.5;
+    @apply prose-pre:bg-midnight-900 prose-pre:border prose-pre:border-midnight-800;
+    @apply prose-hr:border-midnight-800;
+    @apply prose-img:rounded-lg;
   }
 }

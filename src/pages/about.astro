@@ -4,6 +4,8 @@ import careerData from '../data/career.json';
 import patentsData from '../data/patents.json';
 import educationData from '../data/education.json';
 
+export const prerender = true;
+
 const getBrandColor = (name: string) => {
     if (name.includes('Cloudflare')) return 'text-accent-orange';
     if (name.includes('DevFactory')) return 'text-accent-red';
@@ -20,22 +22,20 @@ const getTimelineColor = (name: string) => {
 };
 ---
 
-<Layout title="Sam Rhea">
-    <div class="space-y-20">
+<Layout title="About — Sam Rhea">
+    <div class="space-y-16">
         
         <section>
-            <div class="prose prose-invert prose-midnight max-w-none text-midnight-100 text-xl leading-relaxed font-light">
-                <p>
-                    Hi there. My name is Sam. I am a Texan living in Lisbon. I work at Cloudflare.
-                </p>
-                <p>
-                    I'm probably busy right now building an application for a hobby project that doesn't need one. Or walking a dog we named after the second-worst highway in Austin.
-                </p>
-            </div>
+            <p class="text-midnight-300 text-lg leading-relaxed">
+                Hi there. My name is Sam. I am a Texan living in Lisbon. I work at Cloudflare.
+            </p>
+            <p class="text-midnight-400 text-base leading-relaxed mt-4">
+                I'm probably busy right now building an application for a hobby project that doesn't need one. Or walking a dog we named after the second-worst highway in Austin.
+            </p>
         </section>
 
         <section>
-            <h2 class="text-sm font-mono text-midnight-400 uppercase tracking-wider mb-12">At Work</h2>
+            <h2 class="text-xs font-mono text-midnight-600 uppercase tracking-widest mb-8">Experience</h2>
             
             <div class="relative">
                 {/* Vertical Timeline Line */}
@@ -62,7 +62,7 @@ const getTimelineColor = (name: string) => {
 
                                 {/* Company Header */}
                                 <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-6 relative z-10">
-                                    <h3 class={`text-xl font-semibold ${getBrandColor(job.name)}`}>{job.name}</h3>
+                                    <h3 class={`text-base font-medium ${getBrandColor(job.name)}`}>{job.name}</h3>
                                     <span class="text-sm font-mono text-midnight-500 tabular-nums">{job.period}</span>
                                 </div>
 
@@ -70,14 +70,14 @@ const getTimelineColor = (name: string) => {
                                     {job.roles.map((role) => (
                                         <div>
                                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-3">
-                                                <h4 class="text-base font-medium text-white">{role.title}</h4>
+                                                <h4 class="text-sm font-medium text-midnight-200">{role.title}</h4>
                                                 {/* Only show role date if there are multiple roles to distinguish timeline */}
                                                 {!isSingleRole && (
                                                     <span class="text-xs text-midnight-500 font-mono tabular-nums">{role.period}</span>
                                                 )}
                                             </div>
                                             
-                                            <div class="text-base text-midnight-200 leading-relaxed">
+                                            <div class="text-sm text-midnight-400 leading-relaxed">
                                                 {role.achievements.map((achievement, index) => {
                                                     // Helper to render content with links
                                                     const content = Array.isArray(achievement) ? (
@@ -117,22 +117,21 @@ const getTimelineColor = (name: string) => {
         </section>
 
         <section>
-            <h2 class="text-sm font-mono text-midnight-400 uppercase tracking-wider mb-8">Patents</h2>
+            <h2 class="text-xs font-mono text-midnight-600 uppercase tracking-widest mb-6">Patents</h2>
             <div class="grid gap-4">
                 {patentsData.map((patent) => (
-                    <a href={patent.link} target="_blank" class="block group p-6 rounded-lg border border-midnight-800 bg-midnight-900/20 hover:border-midnight-600 hover:bg-midnight-900/40 transition-all">
-                        <div class="flex justify-between items-start mb-3">
-                            <h3 class="text-lg text-white font-medium group-hover:text-accent-blue transition-colors">{patent.title}</h3>
-                            <span class="text-xs font-mono text-midnight-500 tabular-nums">{patent.patentNumber}</span>
+                    <a href={patent.link} target="_blank" rel="noopener noreferrer" class="block group py-4 -mx-3 px-3 rounded-lg hover:bg-midnight-900/30 transition-colors duration-150">
+                        <div class="flex justify-between items-baseline gap-4">
+                            <h3 class="text-sm text-midnight-200 font-medium group-hover:text-white transition-colors duration-150">{patent.title}</h3>
+                            <span class="text-xs font-mono text-midnight-600 tabular-nums flex-shrink-0">{patent.patentNumber}</span>
                         </div>
-                        <p class="text-sm text-midnight-300 leading-relaxed line-clamp-2">{patent.description}</p>
                     </a>
                 ))}
             </div>
         </section>
 
         <section>
-            <h2 class="text-sm font-mono text-midnight-400 uppercase tracking-wider mb-8">Education</h2>
+            <h2 class="text-xs font-mono text-midnight-600 uppercase tracking-widest mb-6">Education</h2>
             <div class="space-y-12">
                 {educationData.map((school) => (
                     <div class="flex gap-6 items-start">

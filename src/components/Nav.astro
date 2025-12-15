@@ -1,0 +1,34 @@
+---
+const pathname = Astro.url.pathname;
+
+const isActive = (path: string) => {
+    if (path === '/') return pathname === '/';
+    return pathname.startsWith(path);
+};
+
+const links = [
+    { href: '/', label: 'Writing' },
+    { href: '/about', label: 'About' },
+];
+---
+
+<nav class="w-full max-w-2xl px-6 py-6 flex justify-between items-center">
+    <a href="/" class="text-sm font-medium tracking-tight text-midnight-100 hover:text-white transition-colors duration-150">
+        Sam Rhea
+    </a>
+    <div class="flex gap-8 text-sm">
+        {links.map(({ href, label }) => (
+            <a 
+                href={href} 
+                class:list={[
+                    "transition-colors duration-150",
+                    isActive(href) 
+                        ? "text-white" 
+                        : "text-midnight-500 hover:text-midnight-200"
+                ]}
+            >
+                {label}
+            </a>
+        ))}
+    </div>
+</nav>
