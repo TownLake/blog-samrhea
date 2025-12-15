@@ -1,107 +1,50 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import FilterBar from '../components/FilterBar.astro';
+import PostCard from '../components/PostCard.astro';
+import Pagination from '../components/Pagination.astro';
 import { getAllContent } from '../utils/data';
+
+export const prerender = false;
 
 const allPosts = await getAllContent();
 const filter = Astro.url.searchParams.get('filter') || 'all';
 
-// Filter Logic
 const filteredPosts = allPosts.filter(post => {
     const isReading = post.category === 'reading' || post.tags.includes('reading');
-
-    // 1. If viewing 'all', HIDE reading posts
     if (filter === 'all') return !isReading;
-    
-    // 2. If viewing specific filter
     if (filter === 'starred') return post.tags.includes('hits');
     return post.category === filter || post.tags.includes(filter);
 });
 
-// Pagination Logic
 const pageParam = Astro.url.searchParams.get('page');
 const currentPage = pageParam ? parseInt(pageParam) : 1;
-const postsPerPage = 10;
+const postsPerPage = 15;
 const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 const startIndex = (currentPage - 1) * postsPerPage;
 const paginatedPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage);
-
-const filters = [
-    { label: 'All', value: 'all' },
-    { label: '⭐️', value: 'starred' },
-    { label: '📚', value: 'reading' },
-    { label: '🇵🇹', value: 'portugal' },
-    { label: '🤠', value: 'texas' },
-    { label: 'Cloudflare', value: 'cloudflare' },
-];
-
-// Date Formatter
-const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.toLocaleString('default', { month: 'short' });
-    return `${year}-${month}`;
-};
 ---
 
-<Layout title="Writing">
-    <header class="mb-16">
-        <div class="flex flex-wrap gap-2">
-            {filters.map((f) => (
-                <a href={`/?filter=${f.value}`}
-                   class:list={[
-                        "px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 border",
-                        filter === f.value 
-                            ? "bg-midnight-100 text-midnight-950 border-midnight-100" 
-                            : "bg-midnight-900/50 text-midnight-400 border-midnight-800 hover:border-midnight-600 hover:text-midnight-200"
-                   ]}>
-                    {f.label}
-                </a>
-            ))}
-        </div>
+<Layout title="Writing — Sam Rhea">
+    <header class="mb-8">
+        <FilterBar activeFilter={filter} />
     </header>
 
-    <div class="space-y-10">
+    <section class="divide-y divide-midnight-800/30">
         {paginatedPosts.length === 0 ? (
-            <p class="text-midnight-400 italic">No posts found.</p>
+            <p class="text-midnight-500 py-8">No posts found.</p>
         ) : (
             paginatedPosts.map((post) => (
-                <article class="group relative flex flex-col sm:flex-row gap-2 sm:gap-8 items-baseline">
-                    <div class="w-24 flex-shrink-0 text-xs font-mono text-midnight-500 pt-1 tabular-nums uppercase">
-                        {formatDate(post.date)}
-                    </div>
-                    <div class="flex-grow">
-                        <a href={post.url} 
-                           target={post.isExternal ? "_blank" : "_self"}
-                           rel={post.isExternal ? "noopener noreferrer" : ""}
-                           class="block group-hover:opacity-100 transition-opacity">
-                            <h2 class="text-lg font-medium text-midnight-100 group-hover:text-accent-blue transition-colors items-center flex gap-2">
-                                {post.title}
-                                {post.isExternal && (
-                                    <svg class="w-3 h-3 text-midnight-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                    </svg>
-                                )}
-                            </h2>
-                            {post.description && (
-                                <p class="mt-2 text-sm text-midnight-400 leading-relaxed max-w-prose">
-                                    {post.description}
-                                </p>
-                            )}
-                        </a>
-                    </div>
-                </article>
+                <PostCard 
+                    title={post.title}
+                    date={post.date}
+                    url={post.url}
+                    description={post.description}
+                    isExternal={post.isExternal}
+                />
             ))
         )}
-    </div>
+    </section>
 
-    {totalPages > 1 && (
-        <div class="mt-20 flex justify-between border-t border-midnight-800/50 pt-8">
-            {currentPage > 1 ? (
-                <a href={`/?filter=${filter}&page=${currentPage - 1}`} class="text-sm text-midnight-400 hover:text-white transition-colors">← Newer</a>
-            ) : <div></div>}
-            <span class="text-xs font-mono text-midnight-600 tabular-nums">Page {currentPage} of {totalPages}</span>
-            {currentPage < totalPages ? (
-                <a href={`/?filter=${filter}&page=${currentPage + 1}`} class="text-sm text-midnight-400 hover:text-white transition-colors">Older →</a>
-            ) : <div></div>}
-        </div>
-    )}
+    <Pagination currentPage={currentPage} totalPages={totalPages} filter={filter} />
 </Layout>

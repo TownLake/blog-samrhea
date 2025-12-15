@@ -4,44 +4,69 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'], 
+        sans: ['Inter var', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'SF Mono', 'Consolas', 'monospace'],
       },
       colors: {
         midnight: {
-          950: '#02040A', // Deep background
-          900: '#0B0E14', // Card background
-          800: '#151921', // Borders
-          100: '#E0E6ED', // Primary Text
-          200: '#C1C7D0', // Body text (Slightly dimmer than primary)
-          300: '#A3AAB5', // Muted text
-          400: '#949BA5', // Secondary Text
-          500: '#6E7681', // Tertiary/Meta
+          950: '#0a0a0a',
+          900: '#111111',
+          800: '#1a1a1a',
+          700: '#262626',
+          600: '#737373',
+          500: '#8b8b8b',
+          400: '#a1a1a1',
+          300: '#b8b8b8',
+          200: '#d4d4d4',
+          100: '#ededed',
         },
         accent: {
-          blue: '#3291FF', // Cloudflare-ish blue
-          'blue-muted': '#5A7D9A', // Ginor & Becker blue/grey
+          blue: '#3291FF',
+          'blue-muted': '#5A7D9A',
           cyan: '#50E3C2',
-          orange: '#F38020', // Cloudflare orange
-          red: '#C41E3A', // Softer DevFactory red
+          orange: '#F38020',
+          red: '#C41E3A',
         }
       },
-      // Typography customization to fix backticks and style code
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            'code::before': {
-              content: '""',
-            },
-            'code::after': {
-              content: '""',
-            },
+            '--tw-prose-body': theme('colors.midnight.300'),
+            '--tw-prose-headings': theme('colors.midnight.100'),
+            '--tw-prose-links': theme('colors.accent.blue'),
+            '--tw-prose-bold': theme('colors.midnight.100'),
+            '--tw-prose-counters': theme('colors.midnight.500'),
+            '--tw-prose-bullets': theme('colors.midnight.600'),
+            '--tw-prose-hr': theme('colors.midnight.800'),
+            '--tw-prose-quotes': theme('colors.midnight.300'),
+            '--tw-prose-quote-borders': theme('colors.midnight.700'),
+            '--tw-prose-captions': theme('colors.midnight.500'),
+            '--tw-prose-code': theme('colors.midnight.200'),
+            '--tw-prose-pre-code': theme('colors.midnight.200'),
+            '--tw-prose-pre-bg': theme('colors.midnight.900'),
+            '--tw-prose-th-borders': theme('colors.midnight.700'),
+            '--tw-prose-td-borders': theme('colors.midnight.800'),
+            'code::before': { content: '""' },
+            'code::after': { content: '""' },
             code: {
               color: theme('colors.pink.400'),
               backgroundColor: theme('colors.midnight.900'),
               borderRadius: '0.25rem',
-              padding: '0.125rem 0.25rem',
+              padding: '0.125rem 0.375rem',
               fontWeight: '400',
+              fontSize: '0.875em',
             },
+            a: {
+              textDecoration: 'none',
+              '&:hover': {
+                color: theme('colors.white'),
+              },
+            },
+            h1: { fontWeight: '600', letterSpacing: '-0.025em' },
+            h2: { fontWeight: '600', letterSpacing: '-0.025em' },
+            h3: { fontWeight: '600' },
+            p: { lineHeight: '1.75' },
+            li: { marginTop: '0.25em', marginBottom: '0.25em' },
           },
         },
       }),

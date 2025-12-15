@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = true;
+---
+
+<Layout title="Not Found — Sam Rhea">
+    <div class="flex flex-col items-center justify-center py-24 text-center">
+        <span class="text-6xl font-mono text-midnight-700 mb-4">404</span>
+        <h1 class="text-xl font-medium text-midnight-200 mb-2">Page not found</h1>
+        <p class="text-sm text-midnight-500 mb-8">The page you're looking for doesn't exist.</p>
+        <a 
+            href="/" 
+            class="text-sm text-midnight-400 hover:text-white transition-colors duration-150 inline-flex items-center gap-1"
+        >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+            Back to writing
+        </a>
+    </div>
+</Layout>

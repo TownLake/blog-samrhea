@@ -1,0 +1,45 @@
+---
+interface Props {
+    currentPage: number;
+    totalPages: number;
+    filter: string;
+}
+
+const { currentPage, totalPages, filter } = Astro.props;
+---
+
+{totalPages > 1 && (
+    <nav class="mt-16 pt-6 border-t border-midnight-800/40 flex items-center justify-between">
+        <div>
+            {currentPage > 1 ? (
+                <a 
+                    href={`/?filter=${filter}&page=${currentPage - 1}`} 
+                    class="text-sm text-midnight-500 hover:text-white transition-colors duration-150 flex items-center gap-1"
+                >
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                    Newer
+                </a>
+            ) : <span />}
+        </div>
+        
+        <span class="text-xs font-mono text-midnight-700 tabular-nums">
+            {currentPage}/{totalPages}
+        </span>
+        
+        <div>
+            {currentPage < totalPages ? (
+                <a 
+                    href={`/?filter=${filter}&page=${currentPage + 1}`} 
+                    class="text-sm text-midnight-500 hover:text-white transition-colors duration-150 flex items-center gap-1"
+                >
+                    Older
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </a>
+            ) : <span />}
+        </div>
+    </nav>
+)}

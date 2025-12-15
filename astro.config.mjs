@@ -3,9 +3,22 @@ import tailwind from '@astrojs/tailwind';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  output: 'server', // Required for Workers to handle dynamic filtering
+  output: 'server',
   adapter: cloudflare({
-    mode: 'directory', // Deploys as a Worker
+    mode: 'directory',
   }),
   integrations: [tailwind()],
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  vite: {
+    build: {
+      cssMinify: true,
+      minify: 'esbuild',
+    },
+  },
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
 });

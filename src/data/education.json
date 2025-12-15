@@ -1,5 +1,27 @@
 [
     {
+      "id": 6,
+      "name": "NOVA School of Business and Economics",
+      "logo": "https://www.novasbe.unl.pt/Portals/_default/skins/novasbe/assets/images/novasbe.svg",
+      "period": "Aug 2025 - Present",
+      "roles": [
+        {
+          "id": "nova1",
+          "title": "Adjunct Associate Professor",
+          "period": "Aug 2025 - Present",
+          "achievements": []
+        }
+      ],
+      "sections": [
+        {
+          "title": "Classes",
+          "items": [
+            "Product Management in Technology (Fall 2025)"
+          ]
+        }
+      ]
+    },
+    {
       "id": 5,
       "name": "The University of Texas at Austin",
       "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/University_of_Texas_at_Austin_seal.svg/1920px-University_of_Texas_at_Austin_seal.svg.png",
