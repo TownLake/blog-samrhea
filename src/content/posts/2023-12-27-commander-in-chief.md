@@ -3,7 +3,7 @@ title: "📚🛥️ Commander in Chief by Mark Greaney"
 date: "2023-12-27"
 template: "post"
 draft: false
-slug: "/posts/2023/commander-in-chief"
+slug: "2023/commander-in-chief"
 category: "reading"
 tags:
   - "reading"

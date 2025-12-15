@@ -3,7 +3,7 @@ title: "🎧🚣‍♂️ Empires of the Sea by Roger Crowley"
 date: "2023-10-08"
 template: "post"
 draft: false
-slug: "/posts/2023/empires-of-the-sea"
+slug: "2023/empires-of-the-sea"
 category: "reading"
 tags:
   - "reading"

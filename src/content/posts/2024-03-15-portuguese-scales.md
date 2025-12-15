@@ -3,7 +3,7 @@ title: "🇵🇹⚖️ Portuguese Scales"
 date: "2024-03-15"
 template: "post"
 draft: false
-slug: "/posts/2024/portuguese-scales"
+slug: "2024/portuguese-scales"
 category: "portugal"
 tags:
   - "portugal"

@@ -3,7 +3,7 @@ title: "🚀🔥 The Consuming Fire by John Scalzi"
 date: "2025-02-23"
 template: "post"
 draft: false
-slug: "/posts/2025/consuming-fire"
+slug: "2025/consuming-fire"
 category: "reading"
 tags:
   - "reading"

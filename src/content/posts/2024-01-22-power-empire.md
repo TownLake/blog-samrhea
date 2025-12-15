@@ -3,7 +3,7 @@ title: "📚🪫 Power and Empire by Marc Cameron"
 date: "2024-01-22"
 template: "post"
 draft: false
-slug: "/posts/2024/power-empire"
+slug: "2024/power-empire"
 category: "reading"
 tags:
   - "reading"

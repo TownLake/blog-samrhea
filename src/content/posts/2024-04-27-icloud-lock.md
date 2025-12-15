@@ -3,7 +3,7 @@ title: "🍎🔐 What happens if you find yourself locked out?"
 date: "2024-04-27"
 template: "post"
 draft: false
-slug: "/posts/2024/icloud-lock"
+slug: "2024/icloud-lock"
 category: "technology"
 tags:
   - "technology"

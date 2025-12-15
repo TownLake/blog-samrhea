@@ -3,7 +3,7 @@ title: 🇵🇹🚗 Trading a Foreign License to Drive in Portugal
 date: "2021-12-28"
 template: "post"
 draft: false
-slug: "/posts/2021/foreign-license-exchange"
+slug: "2021/foreign-license-exchange"
 category: "walkthrough"
 tags:
   - "Portugal"

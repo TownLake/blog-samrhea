@@ -3,7 +3,7 @@ title: 🤦‍♂️📝 Mistakes I try to never make again
 date: "2020-05-15"
 template: "post"
 draft: false
-slug: "/posts/2020/mistakes-i-try-to-never-make-again"
+slug: "2020/mistakes-i-try-to-never-make-again"
 category: "Work"
 tags:
   - "Work"

@@ -3,7 +3,7 @@ title: "🕌🇪🇸 A History of Islamic Spain by W. Montgomery Watt and Pierre
 date: "2024-04-28"
 template: "post"
 draft: false
-slug: "/posts/2024/islamic-spain"
+slug: "2024/islamic-spain"
 category: "reading"
 tags:
   - "reading"

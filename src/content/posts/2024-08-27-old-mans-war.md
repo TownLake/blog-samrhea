@@ -3,7 +3,7 @@ title: "👽🪖 Old Man's War by John Scalzi"
 date: "2024-08-27"
 template: "post"
 draft: false
-slug: "/posts/2024/old-mans-war"
+slug: "2024/old-mans-war"
 category: "reading"
 tags:
   - "reading"

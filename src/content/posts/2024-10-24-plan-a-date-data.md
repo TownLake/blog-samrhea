@@ -3,7 +3,7 @@ title: "💘📊 Reviewing Plan-a-Date Data"
 date: "2024-10-24"
 template: "post"
 draft: false
-slug: "/posts/2024/plan-a-date-data"
+slug: "2024/plan-a-date-data"
 category: "walkthrough"
 tags:
   - "walkthrough"

@@ -3,7 +3,7 @@ title: "🎙️🛡️ Hey Siri, we're under attack"
 date: "2023-02-19"
 template: "post"
 draft: false
-slug: "/posts/2023/siri-dns-filtering"
+slug: "2023/siri-dns-filtering"
 category: "walkthrough"
 tags:
   - "Zero Trust"

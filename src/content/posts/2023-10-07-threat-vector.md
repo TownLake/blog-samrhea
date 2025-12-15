@@ -3,7 +3,7 @@ title: "📚💻 Treat Vector by Tom Clancy and Mark Greaney"
 date: "2023-10-07"
 template: "post"
 draft: false
-slug: "/posts/2023/threat-vector"
+slug: "2023/threat-vector"
 category: "reading"
 tags:
   - "reading"

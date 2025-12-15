@@ -3,7 +3,7 @@ title: "👶😴 Newborn Sleep Data"
 date: "2024-05-04"
 template: "post"
 draft: false
-slug: "/posts/2024/newborn-sleep"
+slug: "2024/newborn-sleep"
 category: "parenting"
 tags:
   - "parenting"

@@ -4,7 +4,7 @@ date: "2020-01-18"
 author: "Sam Rhea"
 template: "post"
 draft: false
-slug: "/posts/2020/ios-photo-sharing"
+slug: "2020/ios-photo-sharing"
 category: "walkthrough"
 tags:
   - "iOS"

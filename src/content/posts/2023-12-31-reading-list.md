@@ -3,7 +3,7 @@ title: "2️⃣3️⃣📖 2023 Reading List"
 date: "2023-12-31"
 template: "post"
 draft: false
-slug: "/posts/2023/reading-list"
+slug: "2023/reading-list"
 category: "reading-list"
 tags:
   - "reading-list"

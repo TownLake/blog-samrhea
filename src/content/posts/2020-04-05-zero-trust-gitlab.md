@@ -3,7 +3,7 @@ title: 🦊🔐 zero-trust CI/CD with GitLab and Cloudflare Access
 date: "2020-04-05"
 template: "post"
 draft: false
-slug: "/posts/2020/zero-trust-gitlab"
+slug: "2020/zero-trust-gitlab"
 category: "walkthrough"
 tags:
   - "Cloudflare"

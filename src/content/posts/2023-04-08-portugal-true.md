@@ -3,7 +3,7 @@ title: "🇵🇹🤝 Telling the Truth in Portuguese"
 date: "2023-04-08"
 template: "post"
 draft: false
-slug: "/posts/2023/portugal-true"
+slug: "2023/portugal-true"
 category: "portugal"
 tags:
   - "portugal"

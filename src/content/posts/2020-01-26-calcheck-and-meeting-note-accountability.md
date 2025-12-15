@@ -3,7 +3,7 @@ title: 📅✅ CalCheck and meeting note accountability
 date: "2020-01-26"
 template: "post"
 draft: false
-slug: "/posts/2020/calcheck-and-meeting-note-accountability"
+slug: "2020/calcheck-and-meeting-note-accountability"
 category: "productivity"
 tags:
   - "productivity"

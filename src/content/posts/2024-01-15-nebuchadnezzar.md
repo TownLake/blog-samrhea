@@ -3,7 +3,7 @@ title: "🥩🍷 Nebuchadnezzar Diets"
 date: "2024-01-15"
 template: "post"
 draft: false
-slug: "/posts/2024/nebuchadnezzar"
+slug: "2024/nebuchadnezzar"
 category: "habits"
 tags:
   - "habits"

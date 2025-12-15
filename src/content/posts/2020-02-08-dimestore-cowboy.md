@@ -3,7 +3,7 @@ title: 🤠🐎 horses can see your soul and they don't like me
 date: "2020-02-08"
 template: "post"
 draft: false
-slug: "/posts/2020/dimestore-cowboy"
+slug: "2020/dimestore-cowboy"
 category: "texas"
 tags:
   - "texas"

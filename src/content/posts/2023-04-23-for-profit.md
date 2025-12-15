@@ -3,7 +3,7 @@ title: "📚💵 For Profit by William Magnuson"
 date: "2023-04-23"
 template: "post"
 draft: false
-slug: "/posts/2023/for-profit"
+slug: "2023/for-profit"
 category: "reading"
 tags:
   - "reading"

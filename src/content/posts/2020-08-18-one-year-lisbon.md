@@ -3,7 +3,7 @@ title: 🇵🇹🗓️ one year in Lisbon
 date: "2020-08-18"
 template: "post"
 draft: false
-slug: "/posts/2020/one-year-lisbon"
+slug: "2020/one-year-lisbon"
 category: "portugal"
 tags:
   - "Cloudflare"

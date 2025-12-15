@@ -3,7 +3,7 @@ title: "📴⏱️ Can I use my phone for less than an hour?"
 date: "2024-04-14"
 template: "post"
 draft: false
-slug: "/posts/2024/phone-hour"
+slug: "2024/phone-hour"
 category: "technology"
 tags:
   - "technology"

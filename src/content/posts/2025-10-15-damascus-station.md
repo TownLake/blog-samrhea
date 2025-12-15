@@ -3,7 +3,7 @@ title: "📍🇸🇾 Damascus Station by David McCloskey"
 date: "2025-10-15"
 template: "post"
 draft: false
-slug: "/posts/2025/damascus-station"
+slug: "2025/damascus-station"
 category: "reading"
 tags:
   - "reading"

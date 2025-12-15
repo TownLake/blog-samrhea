@@ -3,7 +3,7 @@ title: 🚇🖥️ share real demos in 5 minutes
 date: "2020-03-21"
 template: "post"
 draft: false
-slug: "/posts/2020/share-demos"
+slug: "2020/share-demos"
 category: "walkthrough"
 tags:
   - "walkthrough"

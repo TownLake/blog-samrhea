@@ -3,7 +3,7 @@ title: "🔴🛩️ Red Winter by Marc Cameron"
 date: "2024-11-25"
 template: "post"
 draft: false
-slug: "/posts/2024/red-winter"
+slug: "2024/red-winter"
 category: "reading"
 tags:
   - "reading"

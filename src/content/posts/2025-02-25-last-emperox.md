@@ -3,7 +3,7 @@ title: "👑💻 The Last Emperox by John Scalzi"
 date: "2025-02-25"
 template: "post"
 draft: false
-slug: "/posts/2025/last-emperox"
+slug: "2025/last-emperox"
 category: "reading"
 tags:
   - "reading"

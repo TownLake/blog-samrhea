@@ -3,7 +3,7 @@ title: 🇵🇹🐻 inadvertently adopting a symbol of national pride
 date: "2022-03-20"
 template: "post"
 draft: false
-slug: "/posts/2022/a-serra-and-new-friends"
+slug: "2022/a-serra-and-new-friends"
 category: "portugal"
 tags:
   - "portugal"

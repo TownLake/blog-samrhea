@@ -3,7 +3,7 @@ title: "⚙️🙂 Netflix AI Cast Toggles"
 date: "2024-04-10"
 template: "post"
 draft: false
-slug: "/posts/2024/netflix-ai-toggles"
+slug: "2024/netflix-ai-toggles"
 category: "technology"
 tags:
   - "technology"

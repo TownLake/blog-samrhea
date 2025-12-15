@@ -3,7 +3,7 @@ title: "🤖🏥 Paging Dr. GPT"
 date: "2023-11-04"
 template: "post"
 draft: false
-slug: "/posts/2023/doctor-gpt"
+slug: "2023/doctor-gpt"
 category: "walkthrough"
 tags:
   - "walkthrough"

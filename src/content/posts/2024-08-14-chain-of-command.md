@@ -3,7 +3,7 @@ title: "💊💰 Chain of Command by Marc Cameron"
 date: "2024-08-14"
 template: "post"
 draft: false
-slug: "/posts/2024/chain-of-command"
+slug: "2024/chain-of-command"
 category: "reading"
 tags:
   - "reading"

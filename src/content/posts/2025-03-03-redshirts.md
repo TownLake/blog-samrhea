@@ -3,7 +3,7 @@ title: "🧣👕 Redshirts by John Scalzi"
 date: "2025-03-03"
 template: "post"
 draft: false
-slug: "/posts/2025/redshirts"
+slug: "2025/redshirts"
 category: "reading"
 tags:
   - "reading"

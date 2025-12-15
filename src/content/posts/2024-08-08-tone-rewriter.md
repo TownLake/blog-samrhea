@@ -3,7 +3,7 @@ title: "🤖🖋️ AI Tone Rewriter"
 date: "2024-08-08"
 template: "post"
 draft: false
-slug: "/posts/2024/tone-rewriter"
+slug: "2024/tone-rewriter"
 category: "technology"
 tags:
   - "technology"

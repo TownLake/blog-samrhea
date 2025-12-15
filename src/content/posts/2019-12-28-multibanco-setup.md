@@ -3,7 +3,7 @@ title: ⛔💳 ditching my wallet for MB Way
 date: "2019-12-28"
 template: "post"
 draft: false
-slug: "/posts/2019/multibanco-setup"
+slug: "2019/multibanco-setup"
 category: "walkthrough"
 tags:
   - "walkthrough"

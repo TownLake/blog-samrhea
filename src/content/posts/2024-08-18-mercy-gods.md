@@ -3,7 +3,7 @@ title: "👽🧫 The Mercy of Gods by James S.A. Corey"
 date: "2024-08-18"
 template: "post"
 draft: false
-slug: "/posts/2024/mercy-gods"
+slug: "2024/mercy-gods"
 category: "reading"
 tags:
   - "reading"

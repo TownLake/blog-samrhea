@@ -3,7 +3,7 @@ title: 📱🌍 on switching phone numbers
 date: "2019-09-02"
 template: "post"
 draft: false
-slug: "/posts/2019/switching-country-phones"
+slug: "2019/switching-country-phones"
 category: "walkthrough"
 tags:
   - "walkthrough"

@@ -3,7 +3,7 @@ title: 🎙️🖋️ Siri and the keyboard
 date: "2020-02-01"
 template: "post"
 draft: false
-slug: "/posts/2020/siri-keyboard"
+slug: "2020/siri-keyboard"
 category: "productivity"
 tags:
   - "productivity"

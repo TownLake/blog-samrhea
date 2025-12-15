@@ -3,7 +3,7 @@ title: "💒👶 Altar to Cradle (Invites)"
 date: "2024-02-22"
 template: "post"
 draft: false
-slug: "/posts/2024/altar-to-cradle"
+slug: "2024/altar-to-cradle"
 category: "texas"
 tags:
   - "texas"

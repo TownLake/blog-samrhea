@@ -3,7 +3,7 @@ title: 🐦👔 One week of Twitter vs LinkedIn engagement
 date: "2022-12-26"
 template: "post"
 draft: false
-slug: "/posts/2022/twitter-vs-linkedin"
+slug: "2022/twitter-vs-linkedin"
 category: "productivity"
 tags:
   - "walkthrough"

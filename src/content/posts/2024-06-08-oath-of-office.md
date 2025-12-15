@@ -3,7 +3,7 @@ title: "🚀🛰️ Oath of Office by Marc Cameron"
 date: "2024-06-08"
 template: "post"
 draft: false
-slug: "/posts/2024/oath-of-office"
+slug: "2024/oath-of-office"
 category: "reading"
 tags:
   - "reading"

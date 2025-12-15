@@ -3,7 +3,7 @@ title: 🤠🦀 porting my WordPress blog to Cloudflare Workers Sites
 date: "2019-10-01"
 template: "post"
 draft: false
-slug: "/posts/2019/porting-blog-to-workers-sites"
+slug: "2019/porting-blog-to-workers-sites"
 category: "walkthrough"
 tags:
   - "walkthrough"

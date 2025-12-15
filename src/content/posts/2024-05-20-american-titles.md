@@ -3,7 +3,7 @@ title: "👑🏢 American Titles"
 date: "2024-05-20"
 template: "post"
 draft: false
-slug: "/posts/2024/american-titles"
+slug: "2024/american-titles"
 category: "work"
 tags:
   - "work"

@@ -3,7 +3,7 @@ title: "🚢💻 2034: A Novel of the Next World War by Elliot Ackerman"
 date: "2025-03-13"
 template: "post"
 draft: false
-slug: "/posts/2025/2034-a-novel-of-the-next-world-war"
+slug: "2025/2034-a-novel-of-the-next-world-war"
 category: "reading"
 tags:
   - "reading"

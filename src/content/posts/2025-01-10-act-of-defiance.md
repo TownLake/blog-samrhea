@@ -3,7 +3,7 @@ title: "🤿🚀 Act of Defiance by Brian Andrews and Jeffrey Wilson"
 date: "2025-01-10"
 template: "post"
 draft: false
-slug: "/posts/2025/act-of-defiance"
+slug: "2025/act-of-defiance"
 category: "reading"
 tags:
   - "reading"

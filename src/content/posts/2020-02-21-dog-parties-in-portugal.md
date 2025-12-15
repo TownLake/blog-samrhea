@@ -3,7 +3,7 @@ title: 🐶🥳 dog parties in Portugal
 date: "2020-02-21"
 template: "post"
 draft: false
-slug: "/posts/2020/dog-parties-in-portugal"
+slug: "2020/dog-parties-in-portugal"
 category: "portugal"
 tags:
   - "portugal"

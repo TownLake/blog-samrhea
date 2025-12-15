@@ -3,7 +3,7 @@ title: "🛥️🏝️ Defense Protocol by Brian Andrews and Jeffrey Wilson"
 date: "2025-01-27"
 template: "post"
 draft: false
-slug: "/posts/2025/defense-protocol"
+slug: "2025/defense-protocol"
 category: "reading"
 tags:
   - "reading"

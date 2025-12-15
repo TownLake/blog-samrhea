@@ -3,7 +3,7 @@ title: 🤖🎛️ dynamic config-as-code for Cloudflare's API with GitHub Actio
 date: "2020-06-21"
 template: "post"
 draft: false
-slug: "/posts/2020/cloudflare-api-github-actions-config"
+slug: "2020/cloudflare-api-github-actions-config"
 category: "walkthrough"
 tags:
   - "Cloudflare"

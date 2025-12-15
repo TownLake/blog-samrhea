@@ -3,7 +3,7 @@ title: "🇵🇹🧪 Portuguese Potency Exams"
 date: "2024-06-01"
 template: "post"
 draft: false
-slug: "/posts/2024/portuguese-healthcare"
+slug: "2024/portuguese-healthcare"
 category: "portugal"
 tags:
   - "portugal"

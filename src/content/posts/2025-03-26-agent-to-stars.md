@@ -3,7 +3,7 @@ title: "👽🎬 Agent to the Stars by John Scalzi"
 date: "2025-03-25"
 template: "post"
 draft: false
-slug: "/posts/2025/agent-to-the-stars"
+slug: "2025/agent-to-the-stars"
 category: "reading"
 tags:
   - "reading"

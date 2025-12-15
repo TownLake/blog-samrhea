@@ -3,7 +3,7 @@ title: "🪢🎭 Sell Us the Rope by Stephen May"
 date: "2025-06-17"
 template: "post"
 draft: false
-slug: "/posts/2025/sell-us-the-rope"
+slug: "2025/sell-us-the-rope"
 category: "reading"
 tags:
   - "reading"

@@ -4,7 +4,7 @@ date: "2019-07-20"
 author: "Sam Rhea"
 template: "post"
 draft: false
-slug: "/posts/2019/sidecar-cloudflared"
+slug: "2019/sidecar-cloudflared"
 category: "walkthrough"
 tags:
   - "walkthrough"

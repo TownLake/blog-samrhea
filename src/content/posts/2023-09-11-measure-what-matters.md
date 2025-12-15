@@ -3,7 +3,7 @@ title: "📚📊 Measure What Matters by John Doerr"
 date: "2023-09-11"
 template: "post"
 draft: false
-slug: "/posts/2023/measure-what-matters"
+slug: "2023/measure-what-matters"
 category: "reading"
 tags:
   - "reading"

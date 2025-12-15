@@ -3,7 +3,7 @@ title: 🔎📺 a guide to overanalyzing your media habits
 date: "2019-04-07"
 template: "post"
 draft: false
-slug: "/posts/2019/analyze-media-habits"
+slug: "2019/analyze-media-habits"
 category: "walkthrough"
 tags:
   - "walkthrough"

@@ -3,7 +3,7 @@ title: "🚣🍂 The Collapsing Empire by John Scalzi"
 date: "2025-02-10"
 template: "post"
 draft: false
-slug: "/posts/2025/collapsing-empire"
+slug: "2025/collapsing-empire"
 category: "reading"
 tags:
   - "reading"

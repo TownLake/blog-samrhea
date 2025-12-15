@@ -3,7 +3,7 @@ title: "🇵🇹⚓ Conquerers by Roger Crowley"
 date: "2024-04-16"
 template: "post"
 draft: false
-slug: "/posts/2024/conquerers"
+slug: "2024/conquerers"
 category: "reading"
 tags:
   - "reading"

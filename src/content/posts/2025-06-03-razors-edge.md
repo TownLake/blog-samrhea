@@ -3,7 +3,7 @@ title: "🏴‍☠️🚀 Razor's Edge by Martha Wells"
 date: "2025-06-03"
 template: "post"
 draft: false
-slug: "/posts/2025/razors-edge"
+slug: "2025/razors-edge"
 category: "reading"
 tags:
   - "reading"

@@ -3,7 +3,7 @@ title: 🏭🚢 Cloudflare Workers Sites and GitHub Actions
 date: "2019-12-14"
 template: "post"
 draft: false
-slug: "/posts/2019/workers-github-deploy"
+slug: "2019/workers-github-deploy"
 category: "walkthrough"
 tags:
   - "Cloudflare"

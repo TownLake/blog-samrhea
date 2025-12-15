@@ -3,7 +3,7 @@ title: "🇵🇦🚢 Command and Control by Marc Cameron"
 date: "2024-12-15"
 template: "post"
 draft: false
-slug: "/posts/2024/command-and-control"
+slug: "2024/command-and-control"
 category: "reading"
 tags:
   - "reading"

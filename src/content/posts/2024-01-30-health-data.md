@@ -3,7 +3,7 @@ title: "🩺📊 What's all the data for?"
 date: "2024-01-30"
 template: "post"
 draft: false
-slug: "/posts/2025/health-data"
+slug: "2025/health-data"
 category: "habits"
 tags:
   - "habits"

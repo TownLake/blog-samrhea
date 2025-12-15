@@ -3,7 +3,7 @@ title: 📽️🔑 ad-free private screening with Cloudflare Access and Stream
 date: "2020-03-01"
 template: "post"
 draft: false
-slug: "/posts/2020/adfree-video-archive"
+slug: "2020/adfree-video-archive"
 category: "walkthrough"
 tags:
   - "Cloudflare"

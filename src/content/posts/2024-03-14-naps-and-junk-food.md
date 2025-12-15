@@ -3,7 +3,7 @@ title: "👶🍬 Newborn Naps and Junk Food"
 date: "2024-03-14"
 template: "post"
 draft: false
-slug: "/posts/2024/naps-and-junk-food"
+slug: "2024/naps-and-junk-food"
 category: "parenting"
 tags:
   - "parenting"

@@ -3,7 +3,7 @@ title: "📚🇺🇸 True Faith and Allegiance by Mark Greaney"
 date: "2024-01-05"
 template: "post"
 draft: false
-slug: "/posts/2024/true-faith"
+slug: "2024/true-faith"
 category: "reading"
 tags:
   - "reading"

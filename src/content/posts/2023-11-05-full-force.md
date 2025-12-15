@@ -3,7 +3,7 @@ title: "📚⛏️ Full Force and Effect by Mark Greaney"
 date: "2023-11-05"
 template: "post"
 draft: false
-slug: "/posts/2023/full-force"
+slug: "2023/full-force"
 category: "reading"
 tags:
   - "reading"

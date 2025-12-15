@@ -3,7 +3,7 @@ title: "🛠️👶 Become a Parent, Do More"
 date: "2024-10-26"
 template: "post"
 draft: false
-slug: "/posts/2024/nap-writing"
+slug: "2024/nap-writing"
 category: "parenting"
 tags:
   - "parenting"

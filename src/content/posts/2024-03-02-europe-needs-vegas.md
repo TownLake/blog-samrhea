@@ -3,7 +3,7 @@ title: "🇪🇺🎰 Europe Needs a Vegas"
 date: "2024-03-02"
 template: "post"
 draft: false
-slug: "/posts/2024/europe-needs-vegas"
+slug: "2024/europe-needs-vegas"
 category: "portugal"
 tags:
   - "portugal"

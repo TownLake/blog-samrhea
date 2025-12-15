@@ -3,7 +3,7 @@ title: "🇪🇺🤠 So You're Going to Texas"
 date: "2024-07-15"
 template: "post"
 draft: false
-slug: "/posts/2024/texas-visit"
+slug: "2024/texas-visit"
 category: "texas"
 tags:
   - "texas"

@@ -3,7 +3,7 @@ title: "⌛🔬 How much of Sam’s attention do I have? A guide"
 date: "2023-10-23"
 template: "post"
 draft: false
-slug: "/posts/2023/attention"
+slug: "2023/attention"
 category: "Productivity"
 tags:
   - "Productivity"

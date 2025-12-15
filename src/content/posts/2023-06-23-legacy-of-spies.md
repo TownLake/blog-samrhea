@@ -3,7 +3,7 @@ title: "📚🌷 A Legacy of Spies by John le Carré"
 date: "2023-06-23"
 template: "post"
 draft: false
-slug: "/posts/2023/legacy-of-spies"
+slug: "2023/legacy-of-spies"
 category: "reading"
 tags:
   - "reading"

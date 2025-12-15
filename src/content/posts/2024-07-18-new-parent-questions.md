@@ -3,7 +3,7 @@ title: "❔👶 Questions to Ask a New Parent"
 date: "2024-07-18"
 template: "post"
 draft: false
-slug: "/posts/2024/new-parent-questions"
+slug: "2024/new-parent-questions"
 category: "parenting"
 tags:
   - "parenting"

@@ -3,7 +3,7 @@ title: 📂📰 open sourcing rough drafts
 date: "2019-12-01"
 template: "post"
 draft: false
-slug: "/posts/2019/serverless-cms"
+slug: "2019/serverless-cms"
 category: "walkthrough"
 tags:
   - "walkthrough"

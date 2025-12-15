@@ -3,7 +3,7 @@ title: 🇫🇷🌐 Fixing a small part of the French Internet to watch Texas lo
 date: "2022-10-15"
 template: "post"
 draft: false
-slug: "/posts/2022/fixing-the-french-internet"
+slug: "2022/fixing-the-french-internet"
 category: "texas"
 tags:
   - "Texas"

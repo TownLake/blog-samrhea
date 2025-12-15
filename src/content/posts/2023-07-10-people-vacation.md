@@ -3,7 +3,7 @@ title: "🎧🌴 People We Meet on Vacation by Emily Henry"
 date: "2023-07-10"
 template: "post"
 draft: false
-slug: "/posts/2023/people-vacation"
+slug: "2023/people-vacation"
 category: "reading"
 tags:
   - "reading"

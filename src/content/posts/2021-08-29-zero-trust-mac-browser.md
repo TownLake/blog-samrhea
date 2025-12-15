@@ -3,7 +3,7 @@ title: 🍎🔐 Launch your Mac from a browser with Cloudflare
 date: "2021-08-29"
 template: "post"
 draft: false
-slug: "/posts/2021/zero-trust-mac-browser"
+slug: "2021/zero-trust-mac-browser"
 category: "walkthrough"
 tags:
   - "Cloudflare"

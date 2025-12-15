@@ -3,7 +3,7 @@ title: 🚚🔐 a deploy pipeline for Cloudflare Workers Sites
 date: "2019-10-08"
 template: "post"
 draft: false
-slug: "/posts/2019/workers-deploy-pipeline"
+slug: "2019/workers-deploy-pipeline"
 category: "walkthorugh"
 tags:
   - "walkthrough"

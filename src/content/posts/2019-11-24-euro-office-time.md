@@ -3,7 +3,7 @@ title: 🇪🇺🕰️ EOT, European Office Time
 date: "2019-11-24"
 template: "post"
 draft: false
-slug: "/posts/2019/euro-office-time"
+slug: "2019/euro-office-time"
 category: "portugal"
 tags:
   - "productivity"

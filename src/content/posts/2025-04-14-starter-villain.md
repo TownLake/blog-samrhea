@@ -3,7 +3,7 @@ title: "🐈💣 Starter Villain by John Scalzi"
 date: "2025-04-14"
 template: "post"
 draft: false
-slug: "/posts/2025/starter-villain"
+slug: "2025/starter-villain"
 category: "reading"
 tags:
   - "reading"

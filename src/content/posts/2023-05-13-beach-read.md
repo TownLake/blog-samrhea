@@ -3,7 +3,7 @@ title: "📚🏖️ Beach Read by Emily Henry"
 date: "2023-05-13"
 template: "post"
 draft: false
-slug: "/posts/2023/beach-read"
+slug: "2023/beach-read"
 category: "reading"
 tags:
   - "reading"

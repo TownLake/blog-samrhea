@@ -3,7 +3,7 @@ title: "🧠👨‍⚕️ Gray Matters: A Biography of Brain Surgery"
 date: "2025-01-14"
 template: "post"
 draft: false
-slug: "/posts/2025/gray-matters"
+slug: "2025/gray-matters"
 category: "reading"
 tags:
   - "reading"

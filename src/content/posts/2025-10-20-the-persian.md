@@ -3,7 +3,7 @@ title: "🇮🇷📚 The Persian by David McCloskey"
 date: "2025-10-20"
 template: "post"
 draft: false
-slug: "/posts/2025/the-persian"
+slug: "2025/the-persian"
 category: "reading"
 tags:
   - "reading"

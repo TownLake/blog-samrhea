@@ -3,7 +3,7 @@ title: "🐀🪤 Surprise Rat Poison Day"
 date: "2025-04-08"
 template: "post"
 draft: false
-slug: "/posts/2025/surprise-rat-poison"
+slug: "2025/surprise-rat-poison"
 category: "portugal"
 tags:
   - "portugal"

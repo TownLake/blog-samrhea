@@ -3,7 +3,7 @@ title: "⚖️📖 Who Owns This Sentence? by David Bellos and Alexandre Montagu
 date: "2024-04-22"
 template: "post"
 draft: false
-slug: "/posts/2024/copyright"
+slug: "2024/copyright"
 category: "reading"
 tags:
   - "reading"

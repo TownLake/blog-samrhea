@@ -3,7 +3,7 @@ title: "👻🪖 The Ghost Brigades by John Scalzi"
 date: "2024-10-03"
 template: "post"
 draft: false
-slug: "/posts/2024/ghost-brigades"
+slug: "2024/ghost-brigades"
 category: "reading"
 tags:
   - "reading"

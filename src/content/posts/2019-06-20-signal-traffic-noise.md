@@ -3,7 +3,7 @@ title: 🕵️🚦 signal in traffic signal noise
 date: "2019-06-20"
 template: "post"
 draft: false
-slug: "/posts/2019/signal-traffic-noise"
+slug: "2019/signal-traffic-noise"
 category: "walkthrough"
 tags:
   - "walkthrough"

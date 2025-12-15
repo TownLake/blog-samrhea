@@ -3,7 +3,7 @@ title: 🤖🖋️ Launching a 5 minute site with Cloudflare Workers and OpenAI 
 date: "2022-12-17"
 template: "post"
 draft: false
-slug: "/posts/2022/five-minute-ai-site"
+slug: "2022/five-minute-ai-site"
 category: "walkthrough"
 tags:
   - "walkthrough"

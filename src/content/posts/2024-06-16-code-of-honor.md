@@ -3,7 +3,7 @@ title: "💾🌊 Code of Honor by Marc Cameron"
 date: "2024-06-16"
 template: "post"
 draft: false
-slug: "/posts/2024/code-of-honor"
+slug: "2024/code-of-honor"
 category: "reading"
 tags:
   - "reading"

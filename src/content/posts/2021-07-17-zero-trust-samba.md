@@ -3,7 +3,7 @@ title: 🗄️🔐 Zero Trust Samba with Cloudflare Private Routing
 date: "2021-07-17"
 template: "post"
 draft: false
-slug: "/posts/2021/zero-trust-samba"
+slug: "2021/zero-trust-samba"
 category: "walkthrough"
 tags:
   - "Cloudflare"

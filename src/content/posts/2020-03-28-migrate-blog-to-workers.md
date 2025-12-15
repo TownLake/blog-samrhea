@@ -3,7 +3,7 @@ title: 🚀📰 a complete guide to migrating your blog to Cloudflare Workers
 date: "2020-03-28"
 template: "post"
 draft: false
-slug: "/posts/2020/migrate-blog-to-workers"
+slug: "2020/migrate-blog-to-workers"
 category: "walkthrough"
 tags:
   - "walkthrough"

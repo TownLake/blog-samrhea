@@ -3,7 +3,7 @@ title: 📱🔑 when an iPhone is the key to your budget
 date: "2020-02-16"
 template: "post"
 draft: false
-slug: "/posts/2020/iphone-mtls-key"
+slug: "2020/iphone-mtls-key"
 category: "walkthrough"
 tags:
   - "Cloudflare"

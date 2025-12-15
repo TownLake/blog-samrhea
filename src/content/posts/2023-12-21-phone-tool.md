@@ -3,7 +3,7 @@ title: "📱🎪 My iPhone is more cicus than tool"
 date: "2023-12-21"
 template: "post"
 draft: false
-slug: "/posts/2023/phone-tool"
+slug: "2023/phone-tool"
 category: "Productivity"
 tags:
   - "Productivity"

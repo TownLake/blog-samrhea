@@ -3,7 +3,7 @@ title: "🕰️⌚ Ugh the Apple Watch is perfect"
 date: "2024-04-12"
 template: "post"
 draft: false
-slug: "/posts/2024/apple-mechanical-watch"
+slug: "2024/apple-mechanical-watch"
 category: "technology"
 tags:
   - "technology"

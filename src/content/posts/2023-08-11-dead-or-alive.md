@@ -3,7 +3,7 @@ title: "📚🛬 Dead or Alive by Tom Clancy and Grant Blackwood"
 date: "2023-08-11"
 template: "post"
 draft: false
-slug: "/posts/2023/dead-or-alive"
+slug: "2023/dead-or-alive"
 category: "reading"
 tags:
   - "reading"

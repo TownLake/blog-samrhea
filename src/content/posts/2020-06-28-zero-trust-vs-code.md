@@ -3,7 +3,7 @@ title: 🔐🌩️ run your own zero-trust browser-based VS Code
 date: "2020-06-28"
 template: "post"
 draft: false
-slug: "/posts/2020/zero-trust-vs-code"
+slug: "2020/zero-trust-vs-code"
 category: "walkthrough"
 tags:
   - "Cloudflare"

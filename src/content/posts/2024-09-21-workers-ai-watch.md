@@ -3,7 +3,7 @@ title: "🤖⌚ Cloudflare Workers AI on the Apple Watch"
 date: "2024-09-21"
 template: "post"
 draft: false
-slug: "/posts/2024/workers-ai-watch"
+slug: "2024/workers-ai-watch"
 category: "walkthrough"
 tags:
   - "walkthrough"

@@ -3,7 +3,7 @@ title: "🇵🇹🏎️ Lisbon Street Races"
 date: "2024-12-07"
 template: "post"
 draft: false
-slug: "/posts/2024/lisbon-races"
+slug: "2024/lisbon-races"
 category: "portugal"
 tags:
   - "portugal"

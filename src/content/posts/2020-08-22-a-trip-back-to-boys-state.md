@@ -3,7 +3,7 @@ title: 🤠🏛️ a trip back to Boys State
 date: "2020-08-22"
 template: "post"
 draft: false
-slug: "/posts/2020/a-trip-back-to-boys-state"
+slug: "2020/a-trip-back-to-boys-state"
 category: "texas"
 tags:
   - "texas"

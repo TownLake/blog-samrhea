@@ -3,7 +3,7 @@ title: "🇫🇷☕ Handing your child to French strangers"
 date: "2025-01-14"
 template: "post"
 draft: false
-slug: "/posts/2025/lisbon-coffee"
+slug: "2025/lisbon-coffee"
 category: "portugal"
 tags:
   - "portugal"

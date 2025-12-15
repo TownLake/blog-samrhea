@@ -3,7 +3,7 @@ title: "📚❤ Book Lovers by Emily Henry"
 date: "2023-03-28"
 template: "post"
 draft: false
-slug: "/posts/2023/book-lovers"
+slug: "2023/book-lovers"
 category: "reading"
 tags:
   - "reading"

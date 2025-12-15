@@ -3,7 +3,7 @@ title: "🧀🌕 When the Moon Hits Your Eye by John Scalzi"
 date: "2025-04-11"
 template: "post"
 draft: false
-slug: "/posts/2025/when-the-moon-hits-your-eye"
+slug: "2025/when-the-moon-hits-your-eye"
 category: "reading"
 tags:
   - "reading"

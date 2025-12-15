@@ -3,7 +3,7 @@ title: "🇵🇹👶 Applying to Portuguese Daycares"
 date: "2024-08-01"
 template: "post"
 draft: false
-slug: "/posts/2024/pt-daycares"
+slug: "2024/pt-daycares"
 category: "portugal"
 tags:
   - "portugal"
