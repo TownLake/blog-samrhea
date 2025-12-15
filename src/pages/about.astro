@@ -11,6 +11,7 @@ const getBrandColor = (name: string) => {
     if (name.includes('DevFactory')) return 'text-accent-red';
     if (name.includes('Ginor') || name.includes('Becker')) return 'text-accent-blue-muted';
     if (name.includes('University of Texas')) return 'text-[#BF5700]';
+    if (name.includes('NOVA')) return 'text-[#00A5E0]';
     return 'text-white';
 };
 
@@ -25,31 +26,32 @@ const getTimelineColor = (name: string) => {
 <Layout title="About — Sam Rhea">
     <div class="space-y-16">
         
-        <section>
-            <p class="text-midnight-300 text-lg leading-relaxed">
+        <section class="space-y-4">
+            <p class="text-base text-midnight-200 leading-relaxed">
                 Hi there. My name is Sam. I am a Texan living in Lisbon. I work at Cloudflare.
             </p>
-            <p class="text-midnight-400 text-base leading-relaxed mt-4">
+            <p class="text-base text-midnight-200 leading-relaxed">
                 I'm probably busy right now building an application for a hobby project that doesn't need one. Or walking a dog we named after the second-worst highway in Austin.
             </p>
         </section>
 
         <section>
-            <h2 class="text-xs font-mono text-midnight-600 uppercase tracking-widest mb-8">Experience</h2>
+            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-8">At Work</h2>
             
             <div class="relative">
                 {/* Vertical Timeline Line */}
-                <div class="absolute left-[11px] top-2 bottom-0 w-px bg-midnight-800"></div>
+                <div class="absolute left-[11px] top-0 bottom-0 w-px bg-midnight-800"></div>
 
-                <div class="space-y-16"> 
-                    {careerData.map((job) => {
+                <div class="space-y-12"> 
+                    {careerData.map((job, jobIndex) => {
                         const isSingleRole = job.roles.length === 1;
                         const timelineColor = getTimelineColor(job.name);
+                        const isLast = jobIndex === careerData.length - 1;
                         
                         return (
                             <div class="relative pl-12">
                                 {/* Company-specific timeline segment */}
-                                <div class={`absolute left-[11px] top-2 bottom-4 w-px ${timelineColor} opacity-50`}></div>
+                                <div class={`absolute left-[11px] top-0 ${isLast ? 'bottom-0' : 'bottom-0'} w-px ${timelineColor} opacity-60`}></div>
 
                                 {/* Timeline Dot/Logo */}
                                 <div class="absolute left-0 top-0 bg-midnight-950 pb-4">
@@ -86,7 +88,8 @@ const getTimelineColor = (name: string) => {
                                                                 typeof part === 'string' ? part : 
                                                                 <a href={part.link} 
                                                                    target="_blank" 
-                                                                   class="text-accent-blue font-medium hover:text-white transition-colors no-underline">
+                                                                   rel="noopener noreferrer"
+                                                                   class="text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150">
                                                                    {part.text}
                                                                 </a>
                                                             )}
@@ -117,56 +120,112 @@ const getTimelineColor = (name: string) => {
         </section>
 
         <section>
-            <h2 class="text-xs font-mono text-midnight-600 uppercase tracking-widest mb-6">Patents</h2>
-            <div class="grid gap-4">
+            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-6">Patents</h2>
+            <div class="space-y-4">
                 {patentsData.map((patent) => (
-                    <a href={patent.link} target="_blank" rel="noopener noreferrer" class="block group py-4 -mx-3 px-3 rounded-lg hover:bg-midnight-900/30 transition-colors duration-150">
-                        <div class="flex justify-between items-baseline gap-4">
+                    <a href={patent.link} target="_blank" rel="noopener noreferrer" class="block group">
+                        <div class="flex items-baseline justify-between gap-4 mb-1">
                             <h3 class="text-sm text-midnight-200 font-medium group-hover:text-white transition-colors duration-150">{patent.title}</h3>
                             <span class="text-xs font-mono text-midnight-600 tabular-nums flex-shrink-0">{patent.patentNumber}</span>
                         </div>
+                        <p class="text-sm text-midnight-400">{patent.description}</p>
                     </a>
                 ))}
             </div>
         </section>
 
         <section>
-            <h2 class="text-xs font-mono text-midnight-600 uppercase tracking-widest mb-6">Education</h2>
-            <div class="space-y-12">
-                {educationData.map((school) => (
-                    <div class="flex gap-6 items-start">
-                        <div class="w-12 h-12 flex-shrink-0 bg-white/5 rounded p-2 border border-midnight-800">
-                             <img src={school.logo} class="w-full h-full object-contain opacity-90" />
-                        </div>
-                        <div class="flex-grow">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                                <h3 class={`text-lg font-medium ${getBrandColor(school.name)}`}>{school.name}</h3>
-                                <p class="text-sm font-mono text-midnight-500 tabular-nums">{school.period}</p>
+            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-6">Teaching</h2>
+            <div class="space-y-10">
+                {educationData.filter(school => school.name.includes('NOVA')).map((school) => (
+                    <div class="group">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-10 h-10 flex-shrink-0 bg-midnight-900 rounded-lg p-1.5 border border-midnight-800">
+                                <img src={school.logo} alt={school.name} class="w-full h-full object-contain" />
                             </div>
-                            
-                            {school.roles.map(degree => (
-                                <div class="mb-6">
-                                    <p class="text-base text-white font-medium">{degree.title}</p>
-                                    <p class="text-sm text-midnight-300 mt-1">{degree.achievements[0]}</p>
+                            <div class="flex-grow min-w-0">
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+                                    <h3 class={`text-base font-medium ${getBrandColor(school.name)}`}>{school.name}</h3>
+                                    <span class="text-xs font-mono text-midnight-500 tabular-nums">{school.period}</span>
                                 </div>
-                            ))}
-
-                            <div class="grid sm:grid-cols-2 gap-y-6 gap-x-8">
-                                {school.sections && school.sections.map(sec => (
-                                    <div>
-                                        <span class="block text-[10px] font-bold text-midnight-500 uppercase tracking-widest mb-2">{sec.title}</span>
-                                        <div class="text-sm text-midnight-300 leading-relaxed">
-                                            {sec.items.map((item, i) => (
-                                                <span class="inline-block">
-                                                    {typeof item === 'string' ? item : <a href={item.link} class="text-accent-blue hover:text-white transition-colors">{item.text}</a>}
-                                                    {i < sec.items.length - 1 && <span class="mr-1">,</span>}
-                                                </span>
-                                            ))}
-                                        </div>
+                                {school.roles.map(role => (
+                                    <div class="mt-1">
+                                        <p class="text-sm text-midnight-200">{role.title}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
+                        
+                        {school.sections && school.sections.length > 0 && (
+                            <div class="ml-14 space-y-4">
+                                {school.sections.map(sec => (
+                                    <div>
+                                        <h4 class="text-[10px] font-medium text-midnight-600 uppercase tracking-widest mb-2">{sec.title}</h4>
+                                        <ul class="space-y-1">
+                                            {sec.items.map((item) => (
+                                                <li class="text-sm text-midnight-400 flex items-baseline gap-2">
+                                                    <span class="text-midnight-700 select-none">·</span>
+                                                    {typeof item === 'string' 
+                                                        ? <span>{item}</span>
+                                                        : <a href={item.link} target="_blank" rel="noopener noreferrer" class="text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150">{item.text}</a>
+                                                    }
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-6">Studying</h2>
+            <div class="space-y-10">
+                {educationData.filter(school => !school.name.includes('NOVA')).map((school) => (
+                    <div class="group">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-10 h-10 flex-shrink-0 bg-midnight-900 rounded-lg p-1.5 border border-midnight-800">
+                                <img src={school.logo} alt={school.name} class="w-full h-full object-contain" />
+                            </div>
+                            <div class="flex-grow min-w-0">
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+                                    <h3 class={`text-base font-medium ${getBrandColor(school.name)}`}>{school.name}</h3>
+                                    <span class="text-xs font-mono text-midnight-500 tabular-nums">{school.period}</span>
+                                </div>
+                                {school.roles.map(role => (
+                                    <div class="mt-1">
+                                        <p class="text-sm text-midnight-200">{role.title}</p>
+                                        {role.achievements[0] && (
+                                            <p class="text-sm text-midnight-500 mt-0.5">{role.achievements[0]}</p>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        
+                        {school.sections && school.sections.length > 0 && (
+                            <div class="ml-14 space-y-4">
+                                {school.sections.map(sec => (
+                                    <div>
+                                        <h4 class="text-[10px] font-medium text-midnight-600 uppercase tracking-widest mb-2">{sec.title}</h4>
+                                        <ul class="space-y-1">
+                                            {sec.items.map((item) => (
+                                                <li class="text-sm text-midnight-400 flex items-baseline gap-2">
+                                                    <span class="text-midnight-700 select-none">·</span>
+                                                    {typeof item === 'string' 
+                                                        ? <span>{item}</span>
+                                                        : <a href={item.link} target="_blank" rel="noopener noreferrer" class="text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150">{item.text}</a>
+                                                    }
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

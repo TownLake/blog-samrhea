@@ -27,7 +27,7 @@
     @apply text-midnight-300;
     @apply prose-headings:text-midnight-100 prose-headings:tracking-tight prose-headings:font-semibold;
     @apply prose-strong:text-white prose-strong:font-semibold;
-    @apply prose-a:text-accent-blue prose-a:no-underline hover:prose-a:text-white prose-a:transition-colors prose-a:duration-150;
+    @apply prose-a:text-accent-blue prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-white prose-a:transition-colors prose-a:duration-150;
     @apply prose-blockquote:border-l-midnight-700 prose-blockquote:text-midnight-400 prose-blockquote:not-italic;
     @apply prose-code:text-pink-400 prose-code:bg-midnight-900 prose-code:rounded prose-code:px-1.5 prose-code:py-0.5;
     @apply prose-pre:bg-midnight-900 prose-pre:border prose-pre:border-midnight-800;
