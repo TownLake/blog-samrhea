@@ -49,7 +49,6 @@ Taking readers from Langley to Moscow to Paris and beyond, The Seventh Floor exp
 |---|---|
 |**Date Started**|October 21, 2025|
 |**Date Finished**|December 15, 2025|
-
 |**Places Read**|Lisbon, Sintra|
 
 ## Notes – No Spoilers
