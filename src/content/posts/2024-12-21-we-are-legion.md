@@ -1,6 +1,6 @@
 ---
 title: "🤖👨 We Are Legion (We Are Bob) by Dennis E. Taylor"
-date: "2024-12-21"
+date: "2025-12-21"
 template: "post"
 draft: false
 slug: "2024/we-are-legion"
@@ -16,8 +16,8 @@ Year Published: "2016"
 Format: "Kindle"
 Pages: 383
 ASIN: "B01LWAESYQ"
-DateStart: "December 16, 2024"
-DateFinish: "December 21, 2024"
+DateStart: "December 16, 2025"
+DateFinish: "December 21, 2025"
 ---
 
 > ## Not a Book Report
@@ -45,8 +45,8 @@ The stakes are high: no less than the first claim to entire worlds. If he declin
 ## How did I read it?
 |Category|Value|
 |---|---|
-|**Date Started**|December 16, 2024|
-|**Date Finished**|December 21, 2024|
+|**Date Started**|December 16, 2025|
+|**Date Finished**|December 21, 2025|
 |**Places Read**|Lisbon<br>UA 943|
 
 ## Notes - No Spoilers
