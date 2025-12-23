@@ -8,7 +8,7 @@ category: "reading"
 tags:
   - "reading"
   - "books"
-description: "A delightful dive back into sci-fi with replicating space probes."
+description: "Back to sci-fi."
 
 book: "We Are Legion (We Are Bob)"
 Author: "Dennis E. Taylor"
