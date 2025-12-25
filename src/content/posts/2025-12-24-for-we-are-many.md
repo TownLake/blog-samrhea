@@ -1,6 +1,6 @@
 ---
-title: "🤖👨👨👨 For We Are Many by Dennis E. Taylor"
-date: "2025-12-23"
+title: "👨👨 For We Are Many by Dennis E. Taylor"
+date: "2025-12-24"
 template: "post"
 draft: false
 slug: "2024/for-we-are-many"
@@ -8,23 +8,23 @@ category: "reading"
 tags:
   - "reading"
   - "books"
-description: "The Bobs keep multiplying."
+description: "More Bobs."
 
 book: "For We Are Many"
 Author: "Dennis E. Taylor"
 Year Published: "2017"
 Format: "Kindle"
-Pages: 358
+Pages: 321
 ASIN: "B01MZI77C0"
 DateStart: "December 21, 2025"
-DateFinish: "December 23, 2025"
+DateFinish: "December 24, 2025"
 ---
 
 > ## Not a Book Report
 > I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
-I finished the first book in the series and immediately dove into this one. I couldn't wait to see what happened next with all the Bobs scattered across the galaxy.
+I finished the first book in the series and immediately ordered the next book.
 
 ## What is it?
 |Category|Value|
@@ -33,7 +33,7 @@ I finished the first book in the series and immediately dove into this one. I co
 |**Author**|Dennis E. Taylor|
 |**Year Published**|2017|
 |**Format**|Kindle|
-|**Pages**|358|
+|**Pages**|321|
 |**ASIN**|B01MZI77C0|
 
 ### Publisher Summary
@@ -47,12 +47,9 @@ Back on Earth, the Brazilian space force is up to something. And the Chinese spa
 |---|---|
 |**Date Started**|December 21, 2025|
 |**Date Finished**|December 23, 2025|
-|**Places Read**|Lisbon|
+|**Places Read**|Austin|
 
 ## Notes - No Spoilers
-* Even better than the first! The expanding cast of Bobs with their distinct personalities is fantastic.
-* Love how each Bob develops their own interests and projects across different star systems.
-* The stakes feel higher with multiple civilizations facing extinction events.
-* The Earth politics subplot adds good tension, though the space adventures are the real draw.
-* The humor remains sharp - the Bobs' banter and pop culture references never get old.
-* Can't wait to start the third book!
+* Had a blast! Again!
+* Enjoyed the introduction of The Others, the use of the colonists to give us more non-Bob characters.
+* Really really need a map of the Bobs combined with a family tree.
