@@ -3,7 +3,7 @@ title: "👨👨 For We Are Many by Dennis E. Taylor"
 date: "2025-12-24"
 template: "post"
 draft: false
-slug: "2024/for-we-are-many"
+slug: "2025/for-we-are-many"
 category: "reading"
 tags:
   - "reading"
