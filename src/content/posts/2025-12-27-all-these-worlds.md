@@ -3,7 +3,7 @@ title: "👨👨👨 All These Worlds by Dennis E. Taylor"
 date: "2025-12-27"
 template: "post"
 draft: false
-slug: "2025/all-these-worlds"
+slug: "2024/all-these-worlds"
 category: "reading"
 tags:
   - "reading"
