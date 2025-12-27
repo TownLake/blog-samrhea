@@ -3,7 +3,7 @@ title: "🤖👨 We Are Legion (We Are Bob) by Dennis E. Taylor"
 date: "2025-12-21"
 template: "post"
 draft: false
-slug: "2024/we-are-legion"
+slug: "2025/we-are-legion"
 category: "reading"
 tags:
   - "reading"
