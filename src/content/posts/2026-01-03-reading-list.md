@@ -11,7 +11,7 @@ tags:
 description: "The year of Scalzi and spies."
 ---
 
-You [keep a log](https://blog.samrhea.com/category/reading/) of the books you read as part of this blog. Like the previous years, Claude is going to handle the analysis for you. You have a large block of semi-structured data. You want some analysis. And that analysis is better done externally since you are biased.
+I [keep a log](https://blog.samrhea.com/category/reading/) of the books I read as part of this blog. Last year I let OpenAI handle the analysis for me. This year I'm going to let Claude do it. Same kind of perfect use case for AI. I have a large block of semi-structured data. I want some analysis. And I think that analysis is better done externally since I am biased.
 
 ---
 
