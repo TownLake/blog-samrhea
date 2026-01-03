@@ -122,17 +122,29 @@ const getTimelineColor = (name: string) => {
         <section>
             <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-6">Patents</h2>
             {patentsData.map((patent) => (
-                <a href={patent.link} target="_blank" rel="noopener noreferrer"
-                   class="block group -mx-4 px-4 py-3 rounded-lg hover:bg-midnight-900/40 transition-colors duration-150">
-                    <div class="flex items-center gap-2 mb-1.5">
-                        <h3 class="text-sm text-midnight-200 font-medium group-hover:text-white transition-colors duration-150">{patent.title}</h3>
-                        <svg class="w-3.5 h-3.5 text-midnight-600 group-hover:text-midnight-400 flex-shrink-0 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                    </div>
-                    <p class="text-xs font-mono text-midnight-600 mb-2">{patent.patentNumber}</p>
-                    <p class="text-sm text-midnight-500 leading-relaxed">{patent.description}</p>
-                </a>
+                <div class="-mx-4 px-4 py-3 rounded-lg hover:bg-midnight-900/40 transition-colors duration-150">
+                    <a href={patent.link} target="_blank" rel="noopener noreferrer" class="group">
+                        <div class="flex items-center gap-2 mb-1.5">
+                            <h3 class="text-sm text-midnight-200 font-medium group-hover:text-white transition-colors duration-150">{patent.title}</h3>
+                            <svg class="w-3.5 h-3.5 text-midnight-600 group-hover:text-midnight-400 flex-shrink-0 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-mono text-midnight-600 mb-2">
+                            <span>{patent.patentNumber}</span>
+                            <span class="text-midnight-700">·</span>
+                            <span>{patent.issueDate}</span>
+                        </div>
+                    </a>
+                    <p class="text-sm text-midnight-400 leading-relaxed mb-2">{patent.summary}</p>
+                    <details class="group/details">
+                        <summary class="text-xs text-midnight-600 hover:text-midnight-400 cursor-pointer transition-colors duration-150 select-none">
+                            <span class="group-open/details:hidden">Show full abstract</span>
+                            <span class="hidden group-open/details:inline">Hide abstract</span>
+                        </summary>
+                        <p class="text-sm text-midnight-500 leading-relaxed mt-2">{patent.description}</p>
+                    </details>
+                </div>
             ))}
         </section>
 
