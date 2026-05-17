@@ -8,7 +8,7 @@ category: "reading"
 tags:
   - "reading"
   - "books"
-description: "Bleak first half, sprint to the finish."
+description: "Bleak first half, fun closer."
 
 book: "The Faith of Beasts"
 Author: "James S.A. Corey"
@@ -24,7 +24,7 @@ DateFinish: "May 10, 2026"
 > I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
-The second full novel in _The Captive's War_ series by James S.A. Corey. I read the first book, [_The Mercy of Gods_](https://blog.samrhea.com/posts/2024/mercy-gods), back in 2024 and the [_Livesuit_](https://blog.samrhea.com/posts/2025/livesuit) novella last year. I've been waiting for this one to land.
+The second full novel in _The Captive's War_ series by James S.A. Corey. I read the first book, [_The Mercy of Gods_](https://blog.samrhea.com/posts/2024/mercy-gods), back in 2024 and the [_Livesuit_](https://blog.samrhea.com/posts/2025/livesuit) novella last year. Both were pretty grim but I'm invested now.
 
 ## What is it?
 |Category|Value|
@@ -53,5 +53,4 @@ The Swarm, an agent of the Carryx's deathless enemy, has been smuggled into the 
 
 ## Notes - No Spoilers
 * First 50% was somewhat rough sledding again - bleak and dismal in the way _The Mercy of Gods_ was bleak and dismal. The Carryx world-palace is not a fun place to spend time.
-* Then of course once we introduced humans on the outside and zoomed out to the wider war, I speed ran the last 50%.
-* Generally enjoyed it. Bought in for book three.
+* Enjoyed where we went in the secon dhalf of it though. Wound up speed running that after dragging my feet on the first half.
