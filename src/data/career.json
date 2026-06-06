@@ -7,24 +7,17 @@
     "current": true,
     "roles": [
       {
-        "id": "r9",
-        "title": "VP of Product, Frontiers",
-        "period": "Apr 2025 - Present",
+        "id": "r10",
+        "title": "CIO",
+        "period": "May 2026 - Present",
         "achievements": [
-           "Helping build the future at Cloudflare. Also, Head of the Lisbon Office.",
-           "Cloudflare Research: our frontier technology group.",
-           "Cloudflare Privacy: making the Internet more private for anyone, anywhere.",
-           "Cloudflare Radar: our view into the Internet.",
-           "Cloudflare Blog: telling our story to a technical audience.",
-           "Cloudflare Documentation: our product content team that helps users understand our products.",
-           "Cloudflare Content Engineering: our team responsible for building the tools users need to learn how to best use Cloudflare.",
-           "Internal AI Czar: I get to experiment with how we use AI to build better products at Cloudflare."
+          "Equip the builders."
         ]
       },
       {
         "id": "r1",
         "title": "VP of Product",
-        "period": "Jun 2024 - Apr 2025",
+        "period": "Jun 2024 - May 2026",
         "achievements": [
           "Handed off the keys to Cloudflare Zero Trust to an amazing team I had built and returned to the lab. Helped build the future in the Emerging Technology and Incubation team at Cloudflare.",
           [
@@ -34,7 +27,15 @@
               "link": "https://blog.cloudflare.com/cloudflare-ai-audit-control-ai-content-crawlers/"
             },
             " to give publishers control of their content from AI bots."
-          ]
+          ],
+          "Helping build the future at Cloudflare. Also, Head of the Lisbon Office.",
+          "Cloudflare Research: our frontier technology group.",
+          "Cloudflare Privacy: making the Internet more private for anyone, anywhere.",
+          "Cloudflare Radar: our view into the Internet.",
+          "Cloudflare Blog: telling our story to a technical audience.",
+          "Cloudflare Documentation: our product content team that helps users understand our products.",
+          "Cloudflare Content Engineering: our team responsible for building the tools users need to learn how to best use Cloudflare.",
+          "Internal AI Czar: I get to experiment with how we use AI to build better products at Cloudflare."
         ]
       },
       {
