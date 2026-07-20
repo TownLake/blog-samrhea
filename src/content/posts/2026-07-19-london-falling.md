@@ -24,7 +24,9 @@ DateFinish: "July 19, 2026"
 > I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
-[Notes to come]
+I had read magazine articles from Patrick Radden Keefe, including articles about him. Yale Law? Investigative journalist? Famous author? Banana Republic model? All true things. And bonus points that his writing is amazing.
+
+I was in Paris this past weekend where the English language bookstores are much better than Lisbon. I walked over to one of them and began browsing. I saw this book, recognized the author, and added it to a small stack that I purchased.
 
 ## What is it?
 |Category|Value|
@@ -50,4 +52,6 @@ Patrick Radden Keefe follows Zac's parents on a dark journey to find out what br
 |**Places Read**|Paris|
 
 ## Notes - No Spoilers
-* [Notes to come]
+* Holy smoke.
+* I loved it. I couldn't stop reading it. I asked my wife if we could bring books to dinner so that I could keep reading it.
+* I think I said "no effing way" out loud a dozen times.
