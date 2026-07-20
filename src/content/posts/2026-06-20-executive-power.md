@@ -24,7 +24,7 @@ DateFinish: "June 20, 2026"
 > I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
-[Notes to come]
+I continue burning down the list of Tom Clancy books, long after they stopped being novel, because I am the father of a toddler and have a hard job and at the end of the day sometimes it is nice to read on my Kindle for 20 minutes before I fall asleep.
 
 ## What is it?
 |Category|Value|
@@ -59,4 +59,6 @@ One thing's for sure, Kyle and his fellow hostages sit at the center of the bull
 |**Places Read**|Lisbon<br>Flights to Amsterdam and London|
 
 ## Notes - No Spoilers
-* [Notes to come]
+* More focus on more of the children after Jack Jr got his own spinoff series, I suppose.
+* Took place in Luanda, where they speak Portuguese.
+* That's all I have to say about this. I will forget the plot other than "Angola" by next week. And that is fine.
