@@ -1,0 +1,23 @@
+src/content/posts/2026-09-26-earthside.md
+  s_72d1583c21f58f::t_7f25a116a1f281 1-58
+src/content/posts/2026-09-10-rules-of-engagement.md
+  s_72d1583c21f58f::t_f95e9cbba680e5 1-58
+src/content/posts/2026-09-25-outland.md
+  s_72d1583c21f58f::t_e04253304c2bd7 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "29fc5a4db83e8e9bc508fe631194d09f5e17db92",
+  "prompts": {},
+  "sessions": {
+    "s_72d1583c21f58f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "27c18e40-0423-471a-8f55-b5de277d2070",
+        "model": "unknown"
+      },
+      "human_author": "Sam Rhea <srhea@cloudflare.com>"
+    }
+  }
+}
