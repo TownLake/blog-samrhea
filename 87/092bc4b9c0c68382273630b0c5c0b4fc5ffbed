@@ -1,0 +1,35 @@
+agents.md
+  s_07db378b98f472::t_1611bdd0d38c6c 19,32,38,174-177,188
+astro.config.mjs
+  s_07db378b98f472::t_c4d018e5296d23 7,16
+package.json
+  s_07db378b98f472::t_344b96cf40203a 8
+public/favicon.svg
+  s_07db378b98f472::t_8c04dbdd0cfb70 1
+src/content/posts/2021-08-29-zero-trust-mac-browser.md
+  s_07db378b98f472::t_ab2a05038b560c 175
+src/content/posts/2023-03-29-peril.md
+  s_07db378b98f472::t_90480a20b9b76b 18
+src/data/image-sizes.json
+  s_07db378b98f472::t_5c32d85f0aa627 1-1046
+src/markdown/images.ts
+  s_07db378b98f472::t_651450e4b06f40 2,4-21,27-42
+scripts/image-sizes.mjs
+  s_07db378b98f472::t_477b6a2e34de8a 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "87092bc4b9c0c68382273630b0c5c0b4fc5ffbed",
+  "prompts": {},
+  "sessions": {
+    "s_07db378b98f472": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d660a534-506f-46c5-afb6-460a04d30823",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Sam Rhea <srhea@cloudflare.com>"
+    }
+  }
+}
