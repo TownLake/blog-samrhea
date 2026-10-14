@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && node scripts/check-links.mjs",
+    "build": "node scripts/image-sizes.mjs && astro check && astro build && node scripts/check-links.mjs",
     "preview": "astro build && wrangler dev",
     "deploy": "wrangler deploy"
   },

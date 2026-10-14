@@ -16,6 +16,7 @@ Personal blog for Sam Rhea, built with Astro as a fully static site and served b
 astro.config.mjs        # Site URL, Markdown plugins, fonts, sitemap
 wrangler.jsonc          # Static assets config (404 page handling)
 scripts/check-links.mjs # Fails the build on broken internal links
+scripts/image-sizes.mjs # Measures new Cloudflare Images photos into src/data/image-sizes.json
 public/
 ├── _redirects          # Old URLs (/category/, /tag/, /pages/, /post/) → current pages
 ├── _headers            # Long-lived caching for fingerprinted /_astro/ files
@@ -28,12 +29,13 @@ src/
 │   ├── cloudflare.json # Posts on the Cloudflare blog, listed alongside local posts
 │   ├── career.json     # About page: jobs (brand `color`, `logo`)
 │   ├── education.json  # About page: schools (`teaching: true` for Teaching section)
+│   ├── image-sizes.json # Display size of each post image, kept current by the build
 │   └── patents.json
 ├── lib/content.ts      # getEntries(), homepage FILTERS, formatDate()
 ├── markdown/
 │   ├── book-details.ts # Generates the reading-post intro and tables from `book` frontmatter
 │   ├── dashes.ts       # `--` → em dash, `. . .` → ellipsis (the blog's historical punctuation)
-│   └── lazy-images.ts  # loading="lazy" decoding="async" on post images
+│   └── images.ts       # Post images: lazy loading, width/height, srcset of smaller sizes
 ├── components/         # Nav, Footer, FilterBar, PostCard, Pagination, TimelineItem
 ├── layouts/Layout.astro
 └── pages/
@@ -169,6 +171,10 @@ For the Bobiverse series specifically, use robot + person emojis:
 - `2025-12-24-for-we-are-many.md` - Second in series
 - `2025-12-27-all-these-worlds.md` - Third in series
 
+## Images
+
+Post images are hosted on Cloudflare Images (`imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/<id>/public`). Write them as normal Markdown images with the `public` variant. The build adds `width`/`height` from `src/data/image-sizes.json` and a `srcset` of smaller flexible-variant sizes (`w=640`, `w=1280`). Flexible variants are enabled on the account. Commit `image-sizes.json` when a build adds new entries.
+
 ## Styling
 
 - Dark theme with a `midnight` gray palette, defined as `@theme` colors in `src/styles/global.css`
@@ -179,7 +185,7 @@ For the Bobiverse series specifically, use robot + person emojis:
 
 ```bash
 npm run dev      # Start dev server
-npm run build    # astro check, build to dist/, check internal links
+npm run build    # measure new images, astro check, build to dist/, check internal links
 npm run preview  # Build, then serve dist/ with wrangler (same redirects, headers and 404 handling as production)
 ```
 

@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { bookDetails } from './src/markdown/book-details.ts';
 import { dashes } from './src/markdown/dashes.ts';
-import { lazyImages } from './src/markdown/lazy-images.ts';
+import { images } from './src/markdown/images.ts';
 
 export default defineConfig({
   site: 'https://blog.samrhea.com',
@@ -13,7 +13,7 @@ export default defineConfig({
     processor: satteri({
       features: { smartPunctuation: { dashes: false } },
       mdastPlugins: [dashes, bookDetails],
-      hastPlugins: [lazyImages],
+      hastPlugins: [images],
     }),
   },
   fonts: [
