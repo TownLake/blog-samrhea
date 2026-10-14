@@ -22,6 +22,12 @@ book:
   places:
     - "Lisbon"
     - "Flights to Amsterdam and London"
+
+art:
+  place: desert
+  time: dusk
+  props:
+    - { model: helicopter, variant: "#2a2f38" }
 ---
 
 ## Why did I read it?

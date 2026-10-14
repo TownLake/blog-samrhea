@@ -22,6 +22,11 @@ book:
   finished: "March 25, 2025"
   places:
     - "Lisbon"
+
+art:
+  place: hills
+  time: night
+  props: [ufo]
 ---
 
 ## Why did I read it?

@@ -24,6 +24,10 @@ book:
     - "Madrid"
     - "Austin"
     - "London"
+
+art:
+  place: grid
+  props: [laptop]
 ---
 
 ## Why did I read it?

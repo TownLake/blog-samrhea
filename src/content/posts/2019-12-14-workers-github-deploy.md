@@ -11,6 +11,10 @@ tags:
   - "serverless"
   - "config"
 description: "Automating this blog's deployment."
+art:
+  place: city
+  time: golden
+  props: [factory]
 ---
 
 A couple months ago, I [migrated](https://blog.samrhea.com/post/wrangler-sites/) this blog from WordPress and GCP to Cloudflare Workers. The blog itself is a Hugo static site, published with Wrangler, and I store the content in a [now public](https://blog.samrhea.com/post/serverless-cms/) GitHub repository.

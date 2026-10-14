@@ -23,6 +23,11 @@ book:
     - "Lisbon"
     - "Sintra"
     - "Honest Greens"
+
+art:
+  place: desert
+  time: night
+  props: [beetle]
 ---
 
 ## Why did I read it?

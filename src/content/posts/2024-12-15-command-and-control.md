@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: sea
+  props: [cargoship]
 ---
 
 ## Why did I read it?

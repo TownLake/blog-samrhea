@@ -10,6 +10,9 @@ tags:
   - "hits"
 description: "Do it. Accept the invite."
 
+art:
+  place: indoors
+  props: [rat]
 ---
 
 Seven years ago I was sitting in my boss’s living room on New Year’s Eve while we crawled the error logs of our [new domain registrar product](https://blog.cloudflare.com/using-cloudflare-registrar/). Without looking away from his laptop screen, and without any context, he told me “we’re opening an office in Lisbon. You should do it. Want to?”

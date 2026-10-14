@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: city
+  props: [briefcase]
 ---
 
 ## Why did I read it?

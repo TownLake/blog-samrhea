@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Sintra"
     - "TAP flights to and from London"
+
+art:
+  place: sea
+  props: [floppy]
 ---
 
 ## Why did I read it?

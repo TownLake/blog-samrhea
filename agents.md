@@ -31,6 +31,7 @@ src/
 │   ├── education.json  # About page: schools (`teaching: true` for Teaching section)
 │   ├── image-sizes.json # Display size of each post image, kept current by the build
 │   └── patents.json
+├── art/                # N64-style post icons, rendered at build time (see Post Icons)
 ├── lib/content.ts      # getEntries(), homepage FILTERS, formatDate()
 ├── markdown/
 │   ├── book-details.ts # Generates the reading-post intro and tables from `book` frontmatter
@@ -41,6 +42,7 @@ src/
 └── pages/
     ├── [...path].astro       # Every listing page (see below)
     ├── posts/[...slug].astro # Post pages
+    ├── art/[...slug].png.ts  # Each post's icon, from the `art` in its frontmatter
     ├── about.astro, 404.astro
     └── rss.xml.ts            # RSS feed of everything (local + Cloudflare blog posts)
 ```
@@ -71,6 +73,7 @@ Categories and tags are lowercased by the schema, so `Portugal` and `portugal` a
   tags: string[],
   draft: boolean,        // drafts are not built
   book?: Book,           // reading posts only, see below
+  art?: Art,             // the post's icon, see Post Icons
 }
 ```
 
@@ -110,6 +113,10 @@ book:
   places:
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: space               # see Post Icons
+  props: [spaceship]
 ---
 
 ## Why did I read it?
@@ -157,6 +164,8 @@ For the Bobiverse series specifically, use robot + person emojis:
 
 **Notes:** Bullet points only, NO SPOILERS. Personal reactions and observations; writing style, pacing and characters are fine without plot details.
 
+Pick the icon from the book's subject (a ship for naval history, an alien for first contact), not just its emoji. See Post Icons.
+
 ### 6. Verification
 
 1. Filename uses the finish date: `YYYY-MM-DD-slug.md`
@@ -171,6 +180,24 @@ For the Bobiverse series specifically, use robot + person emojis:
 - `2025-12-24-for-we-are-many.md` - Second in series
 - `2025-12-27-all-these-worlds.md` - Third in series
 
+## Post Icons
+
+Every post's icon is a little N64-style 3D render: one object, framed close, over a plain sky and ground. `src/art/` holds a small software renderer that draws like the N64 (Gouraud shading, fog, blurry textures, a dithered 16-bit look), and `src/pages/art/[...slug].png.ts` renders each post's 64×64 PNG at build time from its frontmatter:
+
+```yaml
+art:
+  place: hills        # backdrop: hills, lisbon, sea, space, grid, indoors, clouds, desert, snow, beach, city
+  time: dusk          # optional: day, golden, dusk, night, dawn, lamplight, space (each place has a default)
+  props: [horse]      # one model from src/art/models/, optionally a smaller second one
+```
+
+A prop can be an object instead of a name: `{ model: car, variant: "#2f6fd8" }`. `variant` is a color for most models, or a named option (`flag` takes a country, `dog` takes `serra`, `moon` takes `cheese`). `turn`, `scale`, `at` and `lift` adjust placement.
+
+- Pick the one object that best stands for the whole post. It has to read at 48px on a phone, so prefer a clear single object over a scene.
+- New models go in the matching group file in `src/art/models/` (vehicles, creatures, objects, landmarks, symbols, things). Keep them chunky and few-parted; anything thinner than a few percent of the object disappears at 64px.
+- Posts on the Cloudflare blog share one icon, `CLOUDFLARE_ART` in `src/art/index.ts`.
+- A post without `art` falls back to its emoji tile.
+
 ## Images
 
 Post images are hosted on Cloudflare Images (`imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/<id>/public`). Write them as normal Markdown images with the `public` variant. The build adds `width`/`height` from `src/data/image-sizes.json` and a `srcset` of smaller flexible-variant sizes (`w=640`, `w=1280`). Flexible variants are enabled on the account. Commit `image-sizes.json` when a build adds new entries.
@@ -179,7 +206,7 @@ Post images are hosted on Cloudflare Images (`imagedelivery.net/BO71HffCLgVKrpfg
 
 - Colors are semantic `@theme` tokens in `src/styles/global.css` (`canvas`, `raised`, `elevated`, `line`, `fg`, `fg-2`, `fg-3`, `accent`, plus topic tints). Use them instead of raw colors; light mode only swaps their values.
 - The site follows the system color scheme: dark is gold on ink, light is cobalt on warm white.
-- Every post title starts with emoji. `splitTitle()` in `src/lib/content.ts` separates them, and `EmojiTile` shows them as the post's icon, tinted by topic (`tintFor()`). The tile shares a view transition name between the list and the post page, so it morphs between them.
+- Every post title starts with emoji. `splitTitle()` in `src/lib/content.ts` separates them. `EmojiTile` shows the post's rendered icon (see Post Icons), or the emoji tinted by topic (`tintFor()`) when there's no art. The tile shares a view transition name between the list and the post page, so it morphs between them.
 - Shared classes in `global.css`: `.eyebrow` (small labels), `.link`, `.glass` (the nav material), `.tile`, `.scroll-edge` (softens content as it scrolls under the nav).
 - Listing pages have no titles: the topic picker is the header, and it sits in the same place on every page.
 - Post bodies use Tailwind Typography (`prose`), mapped onto the tokens once on `.prose` in `global.css`. Code blocks use Shiki's `vitesse-light`/`vitesse-dark` themes, picked by color scheme.

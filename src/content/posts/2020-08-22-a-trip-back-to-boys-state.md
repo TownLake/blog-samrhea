@@ -9,6 +9,10 @@ tags:
   - "texas"
   - hits
 description: "A week spent in an alternate universe run by teenage boys."
+art:
+  place: hills
+  time: day
+  props: [capitol]
 ---
 
 About 2 hours into Boys State, we were standing in line in Jester Dormitory when one of the boys in my city grunted. Boys State gathers “boys from every part of Texas” and this one was from East Texas.

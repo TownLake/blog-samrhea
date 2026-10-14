@@ -9,6 +9,9 @@ tags:
   - "productivity"
   - "walkthrough"
 description: "A calendar notification approach to getting things done."
+art:
+  place: grid
+  props: [calendar]
 ---
 
 I rely on a feature in my calendar to manage recurring chores in my email inbox. I schedule those types of tasks, like paying certain bills, in a dedicated calendar. This method, which I call `CalCheck`, then sends me an email on the day I need to complete that item.

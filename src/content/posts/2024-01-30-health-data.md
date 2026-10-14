@@ -9,6 +9,9 @@ tags:
   - "habits"
 description: "Is there an outcome?"
 
+art:
+  place: clouds
+  props: [heart]
 ---
 
 ## All Day Solution without an All Day Problem

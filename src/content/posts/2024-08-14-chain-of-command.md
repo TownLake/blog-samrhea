@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Sintra"
     - "TAP flights to and from Paris"
+
+art:
+  place: grid
+  props: [pill]
 ---
 
 ## Why did I read it?

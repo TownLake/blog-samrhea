@@ -23,6 +23,11 @@ book:
     - "Lisbon"
     - "Sintra"
     - "Stockholm"
+
+art:
+  place: city
+  time: night
+  props: [ghost]
 ---
 
 ## Why did I read it?

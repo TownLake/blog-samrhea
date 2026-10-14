@@ -23,6 +23,10 @@ book:
     - "In bed with the flu"
     - "Stockholm"
     - "Flights between Lisbon and Stockholm"
+
+art:
+  place: hills
+  props: [barn]
 ---
 
 ## Why did I read it?

@@ -11,6 +11,9 @@ tags:
   - "auth"
   - "Zero Trust"
 description: "Using Cloudflare Access and cfssl for seamless client auth."
+art:
+  place: grid
+  props: [key]
 ---
 
 I keep a very detailed budget. I have for the last 7 years. I manually input every expense into a spreadsheet app (right now Google Sheets) and use a combination of `sumifs` functions to track spending.

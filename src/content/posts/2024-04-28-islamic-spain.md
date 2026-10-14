@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: desert
+  props: [mosque]
 ---
 
 ## Why did I read it?

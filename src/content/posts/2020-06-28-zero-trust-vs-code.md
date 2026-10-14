@@ -10,6 +10,10 @@ tags:
   - "walkthrough"
   - "Zero Trust"
 description: "An IDE in the browser, secured by Cloudflare Access."
+art:
+  place: clouds
+  time: dusk
+  props: [stormcloud]
 ---
 
 Last month, GitHub [announced](https://github.blog/2020-05-06-new-from-satellite-2020-github-codespaces-github-discussions-securing-code-in-private-repositories-and-more/) Codespaces, a really slick browser-based Visual Studio IDE. Users will be able to launch a full-featured implementation of VS Code from a repository in GitHub, all without leaving the browser.

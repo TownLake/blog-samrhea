@@ -9,6 +9,9 @@ tags:
   - "Cloudflare"
   - "walkthrough"
 description: "Stop sending your family ads."
+art:
+  place: indoors
+  props: [projector]
 ---
 
 I live in Portugal, but I grew up in Texas. More specifically, I spent the first three decades of my life within 5 miles of where I was born in Austin, Texas. All of my friends and family are back there.

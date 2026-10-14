@@ -21,6 +21,11 @@ book:
   finished: "July 19, 2026"
   places:
     - "Paris"
+
+art:
+  place: city
+  time: dusk
+  props: [clocktower]
 ---
 
 ## Why did I read it?

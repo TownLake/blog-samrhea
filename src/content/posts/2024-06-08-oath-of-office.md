@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Sintra"
     - "Praia Grande"
+
+art:
+  place: space
+  props: [satellite]
 ---
 
 ## Why did I read it?

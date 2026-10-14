@@ -24,6 +24,12 @@ book:
     - "Emirates flights"
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: city
+  time: golden
+  props:
+    - { model: book, variant: "#c8233f" }
 ---
 
 ## Why did I read it?

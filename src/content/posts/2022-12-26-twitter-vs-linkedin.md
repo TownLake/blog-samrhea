@@ -10,6 +10,10 @@ tags:
   - "productivity"
   - "Cloudflare"
 description: "So, where should we hang out now?"
+art:
+  place: hills
+  time: day
+  props: [bird]
 ---
 
 Last week I wrote a midly technical and somewhat corporate [tutorial about ChatGPT](https://blog.samrhea.com/posts/2022/five-minute-ai-site), a technology that I cannot stop thinking about. I shared the blog post on three social networks: LinkedIn, Twitter, and Instagram. I normally only share blog posts on Twitter, but that place has a real “*The Purge* meets the last day of summer camp” flavor these days. Accounts and friends I follow continue to claim that they are leaving for greener pastures.

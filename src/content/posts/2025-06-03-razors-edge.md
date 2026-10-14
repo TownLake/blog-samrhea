@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Sintra"
     - "Austin"
+
+art:
+  place: space
+  props: [asteroid]
 ---
 
 ## Why did I read it?

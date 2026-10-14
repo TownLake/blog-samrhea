@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Madrid"
     - "Sintra"
+
+art:
+  place: snow
+  props: [tank]
 ---
 
 ## Why did I read it?

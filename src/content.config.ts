@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { MODEL_NAMES, PLACE_NAMES, TIME_NAMES } from './art/compose.ts';
 
 const text = z.coerce.string();
 const tag = z.string().trim().toLowerCase();
@@ -22,6 +23,28 @@ const book = z.object({
   places: z.array(text).default([]),
 });
 
+/** Art direction for the post's N64-style icon, rendered by src/art/: a subject and an optional accent. */
+const art = z.object({
+  place: z.enum(PLACE_NAMES),
+  time: z.enum(TIME_NAMES).optional(),
+  props: z
+    .array(
+      z.union([
+        z.enum(MODEL_NAMES),
+        z.object({
+          model: z.enum(MODEL_NAMES),
+          variant: z.string().optional(),
+          at: z.tuple([z.number(), z.number()]).optional(),
+          turn: z.number().optional(),
+          scale: z.number().optional(),
+          lift: z.number().optional(),
+        }),
+      ]),
+    )
+    .min(1)
+    .max(2),
+});
+
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
@@ -32,6 +55,7 @@ const posts = defineCollection({
     tags: z.array(tag).default([]),
     draft: z.boolean().default(false),
     book: book.optional(),
+    art: art.optional(),
   }),
 });
 

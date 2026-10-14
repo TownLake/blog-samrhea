@@ -22,6 +22,12 @@ book:
   places:
     - "Dolomites"
     - "Lisbon"
+
+art:
+  place: clouds
+  time: dusk
+  props:
+    - { model: airliner, variant: "#c8231f" }
 ---
 
 ## Why did I read it?

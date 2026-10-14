@@ -8,6 +8,9 @@ category: "Work"
 tags:
   - "Work"
 description: "A checklist manifesto of things to avoid."
+art:
+  place: indoors
+  props: [clipboard]
 ---
 
 Unforced errors make me sick to my stomach.

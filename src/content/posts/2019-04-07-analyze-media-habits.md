@@ -9,6 +9,9 @@ tags:
   - "walkthrough"
   - "auth"
 description: "My own Soderbergh media diet."
+art:
+  place: indoors
+  props: [tv]
 ---
 
 Steven Soderbergh publishes an [annual list](http://extension765.com/soderblogh/33-seen-read-2018) of all media he watches or reads each year. I keep a list too, but I’m not brave enough to share it with the internet yet.

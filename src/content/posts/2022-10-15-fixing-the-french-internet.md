@@ -9,6 +9,10 @@ tags:
   - "Texas"
   - hits
 description: "Solving minor Internet problems in a foreign land with a new friend."
+art:
+  place: hills
+  time: night
+  props: [football]
 ---
 
 ## The Stranger

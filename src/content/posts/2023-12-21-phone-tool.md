@@ -8,6 +8,9 @@ category: "Productivity"
 tags:
   - "Productivity"
 description: "Or how I'm trying to not use this thing."
+art:
+  place: hills
+  props: [tent]
 ---
 
 Smoking is [more common](https://worldpopulationreview.com/country-rankings/smoking-rates-by-country) in Portugal than in the United States. If I attend a large dinner with friends in Lisbon I expect that about a third of the table will step outside between dessert and coffee.

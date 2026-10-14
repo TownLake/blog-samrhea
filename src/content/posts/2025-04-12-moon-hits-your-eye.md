@@ -23,6 +23,12 @@ book:
   places:
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: hills
+  time: night
+  props:
+    - { model: moon, variant: "cheese" }
 ---
 
 ## Why did I read it?

@@ -22,6 +22,11 @@ book:
   places:
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: space
+  props:
+    - { model: planet, variant: "#7a5ac8" }
 ---
 
 ## Why did I read it?

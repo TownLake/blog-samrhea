@@ -9,6 +9,11 @@ tags:
   - "portugal"
   - hits
 description: "Homesick for not Austin."
+art:
+  place: lisbon
+  props:
+    - dog
+    - { model: partyhat, at: [0.57, 0.1], lift: 1.02, scale: 0.42 }
 ---
 
 > I spent the last week back in the US and, for the first time in my life, became homesick for a place that wasn't Austin, Texas.

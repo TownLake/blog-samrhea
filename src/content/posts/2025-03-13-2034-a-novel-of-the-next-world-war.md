@@ -23,6 +23,11 @@ book:
   places:
     - "Sintra"
     - "Lisbon"
+
+art:
+  place: sea
+  time: night
+  props: [warship]
 ---
 
 ## Why did I read it?

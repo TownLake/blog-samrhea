@@ -9,6 +9,10 @@ tags:
   - "reading-list"
   - "books"
 description: "The year of Scalzi and spies."
+art:
+  place: indoors
+  props:
+    - { model: books, variant: "#2e8a62" }
 ---
 
 I [keep a log](https://blog.samrhea.com/?filter=reading) of the books I read as part of this blog. [Last year](https://blog.samrhea.com/posts/2024/reading-list/) I let OpenAI handle the analysis for me. [The year before](https://blog.samrhea.com/posts/2023/reading-list/) I did it manually. This year I'm going to let Claude do it. Same kind of perfect use case for AI. I have a large block of semi-structured data. I want some analysis. And I think that analysis is better done externally since I am biased.

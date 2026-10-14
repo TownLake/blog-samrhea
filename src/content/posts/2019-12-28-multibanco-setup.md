@@ -9,6 +9,9 @@ tags:
   - "walkthrough"
   - "Portugal"
 description: "A bizarre, Portuguese version of retail finance solved my fear of loss."
+art:
+  place: lisbon
+  props: [creditcard]
 ---
 
 I do not think that I'm more prone to losing objects than the average person. It just bothers me more than it probably should. Careless mistakes, like misplacing keys or a wallet, are unforced errors - the worst kind of error. Not tragedies, but painfully unnecessary.

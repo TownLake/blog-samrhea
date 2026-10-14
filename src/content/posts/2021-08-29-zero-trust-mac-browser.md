@@ -9,6 +9,9 @@ tags:
   - "Cloudflare"
   - "walkthrough"
 description: "Connect to your Mac in any browser with Zero Trust security"
+art:
+  place: grid
+  props: [padlock]
 ---
 
 I don't think I have taken my personal MacBook Air outside of my home in over two years. My iPhone handles most of what I need and I do real work on my work laptop. However, I do sometimes find a reason to need to grab my personal MacBook. Maybe I left a [file locally on it](https://blog.samrhea.com/posts/2021/zero-trust-samba) that I need, I'm using an iPad and I need the desktop version of a site, or I just want to write a longer response to an iMessage thread and prefer a keyboard.

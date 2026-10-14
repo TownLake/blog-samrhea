@@ -9,6 +9,10 @@ tags:
   - "texas"
   - hits
 description: "How I answer questions about Texas in Portugal."
+art:
+  place: hills
+  time: dusk
+  props: [horse]
 ---
 
 Wednesday marks the six month anniversary of my move to Portugal. Unlike my wife, my spoken Portuguese is still terrible. She basically chaperones me in a foreign country. Sometimes she translates the punchline in billboard ads for me and it makes me smile.

@@ -11,6 +11,9 @@ tags:
   - "networking"
   - "Cloudflare"
 description: "Running Argo Tunnel alongside Kubernetes."
+art:
+  place: grid
+  props: [tram]
 ---
 
 I have a bad habit of nodding along when someone brings up a topic where I only have a rough idea of the concept. I’ve done that for a couple years whenever someone mentions Kubernetes. I understood some of the detail, but if someone asked me to teach them k8s, well, all I would have for them is a nod.

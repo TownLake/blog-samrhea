@@ -6,7 +6,7 @@ interface Props {
     entry: Entry;
 }
 
-const { name, emoji, tint, date, url, description, external } = Astro.props.entry;
+const { name, emoji, art, tint, date, url, description, external } = Astro.props.entry;
 ---
 
 <article>
@@ -17,7 +17,7 @@ const { name, emoji, tint, date, url, description, external } = Astro.props.entr
         data-astro-prefetch={external ? undefined : true}
         class="group flex items-start gap-4 rounded-2xl px-3 py-3 transition-colors duration-150 hover:bg-raised"
     >
-        <EmojiTile emoji={emoji} tint={tint} transition={external ? undefined : tileTransition(url)} />
+        <EmojiTile emoji={emoji} art={art} tint={tint} transition={external ? undefined : tileTransition(url)} />
         <div class="grow min-w-0 pt-0.5">
             <h3 class="text-base/snug font-medium tracking-[-0.01em] text-fg text-pretty">
                 {name}

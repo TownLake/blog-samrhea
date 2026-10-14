@@ -25,6 +25,10 @@ book:
     - "Sintra"
     - "London"
     - "Manchester"
+
+art:
+  place: desert
+  props: [pin]
 ---
 
 ## Why did I read it?

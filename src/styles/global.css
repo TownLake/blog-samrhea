@@ -192,6 +192,31 @@ body {
       translate: -50% 0;
     }
 
+    /* A rendered icon fills the tile, like a little window onto a game. */
+    &[data-art] {
+      overflow: hidden;
+      background: var(--color-raised);
+
+      /* Scaled up with hard pixel edges, so it reads as low-res on purpose rather than blurry. */
+      & > img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        image-rendering: pixelated;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow:
+          inset 0 0 0 1px color-mix(in oklab, var(--color-fg) 12%, transparent),
+          inset 0 1px 0 rgb(255 255 255 / 0.12);
+      }
+    }
+
     &[data-tint='portugal'] {
       --tint: var(--color-portugal);
     }

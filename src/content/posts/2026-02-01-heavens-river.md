@@ -23,6 +23,10 @@ book:
     - "Austin"
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: hills
+  props: [beaver]
 ---
 
 ## Why did I read it?

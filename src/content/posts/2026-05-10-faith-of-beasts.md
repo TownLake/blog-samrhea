@@ -21,6 +21,11 @@ book:
   finished: "May 10, 2026"
   places:
     - "Lisbon"
+
+art:
+  place: snow
+  time: night
+  props: [wolf]
 ---
 
 ## Why did I read it?

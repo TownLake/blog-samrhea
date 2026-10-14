@@ -10,6 +10,9 @@ tags:
   - "serverless"
   - "Cloudflare"
 description: "What if a public blog was also weirdly transparent?"
+art:
+  place: grid
+  props: [folder]
 ---
 
 Earlier this winter, I published two posts documenting the [migration](https://blog.samrhea.com/post/wrangler-sites/) of my personal blog to Cloudflare Workers Sites and my initial [deployment pipeline](https://blog.samrhea.com/post/deploy-pipeline/) in that new framework.

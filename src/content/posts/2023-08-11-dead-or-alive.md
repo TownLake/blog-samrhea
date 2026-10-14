@@ -21,6 +21,10 @@ book:
   finished: "August 11, 2023"
   places:
     - "Sintra"
+
+art:
+  place: desert
+  props: [target]
 ---
 
 ## Why did I read it?

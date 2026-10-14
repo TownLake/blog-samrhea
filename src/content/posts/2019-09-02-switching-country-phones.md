@@ -10,6 +10,9 @@ tags:
   - "portugal"
   - "expat"
 description: "A guide to Portuguese phone plans."
+art:
+  place: lisbon
+  props: [phone]
 ---
 
 I spent the first three decades of my life entirely within the same area code. I had the same phone number for more than 16 years. I kept paying a bill that included talk, text, and data, but I assumed that the actual number was becoming less important over time.

@@ -22,6 +22,11 @@ book:
   places:
     - "Lisbon"
     - "Portugal & Utah, USA"
+
+art:
+  place: sea
+  time: night
+  props: [submarine]
 ---
 
 ## Why did I read it?

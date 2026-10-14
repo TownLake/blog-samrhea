@@ -10,6 +10,9 @@ tags:
   - "hits"
 description: "Or how I became a dad."
 
+art:
+  place: indoors
+  props: [flask]
 ---
 
 My wife and I own a weekend home in the Colares river valley in the region of Sintra. The valley sits just north of the Sintra mountain range and runs perpendicular into the Atlantic ocean close to the westernmost point in Europe. It is my favorite place in the world. On some Saturdays we lace up our Nikes and run the 6 mile round trip from our house to the beach at Azenhas do Mar and back.

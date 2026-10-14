@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Friday Harbor"
     - "Flights from Seattle to Europe"
+
+art:
+  place: indoors
+  props: [masks]
 ---
 
 ## Why did I read it?

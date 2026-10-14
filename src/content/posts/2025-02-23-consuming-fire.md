@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Sintra"
     - "Comporta"
+
+art:
+  place: space
+  props: [flame]
 ---
 
 ## Why did I read it?

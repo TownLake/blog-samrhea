@@ -9,6 +9,11 @@ tags:
   - "Portugal"
   - "walkthrough"
 description: "0 to 60 in 93 days."
+art:
+  place: lisbon
+  time: day
+  props:
+    - { model: car, variant: "#2f6fd8" }
 ---
 
 The automobile is the default mode of transportation in Texas. Public transport is sadly lacking (and will probably continue to be for the next few years or decades).

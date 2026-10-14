@@ -10,6 +10,9 @@ tags:
   - "portugal"
   - "hits"
 description: "Balancing work across time zones."
+art:
+  place: lisbon
+  props: [clock]
 ---
 
 European Office Time (EOT) is a unique time zone available to people who work in the European office of an American company. It is also a superpower.

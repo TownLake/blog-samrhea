@@ -22,6 +22,12 @@ book:
   places:
     - "Lisbon"
     - "Comporta"
+
+art:
+  place: city
+  time: day
+  props:
+    - { model: book, variant: "#2a6fd8" }
 ---
 
 ## Why did I read it?

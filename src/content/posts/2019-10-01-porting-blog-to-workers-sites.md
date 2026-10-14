@@ -10,6 +10,9 @@ tags:
   - "serverless"
   - "Cloudflare"
 description: "Getting rid of server bills."
+art:
+  place: beach
+  props: [crab]
 ---
 
 When I launched this blog, I started by paying Google Cloud Platform (GCP) to run a virtual server. I used GCP's prebuilt VM image for WordPress and the WordPress admin panel to write and post content. I then had to SSH into the machine to configure some details before setting its DNS, tinkering with the firewall, and then finally using the application's admin panel to start. It was cumbersome and, once running, maintenance became an ongoing chore.

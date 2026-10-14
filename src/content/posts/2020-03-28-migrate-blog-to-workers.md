@@ -11,6 +11,9 @@ tags:
   - "Workers"
   - "serverless"
 description: "A weekend project for a better, faster blog."
+art:
+  place: space
+  props: [rocket]
 ---
 
 Last fall, I migrated my WordPress blog to Cloudflare Workers. I wrote a series of posts documenting the process start-to-finish. These walk throughs cover everything from the lift-and-shift of a WP blog to a serverless platform to automated deployments with GitHub.

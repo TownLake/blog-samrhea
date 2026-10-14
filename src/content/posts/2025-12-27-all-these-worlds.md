@@ -21,6 +21,11 @@ book:
   finished: "December 27, 2025"
   places:
     - "Austin"
+
+art:
+  place: space
+  props:
+    - { model: planet, variant: "#4aa0b8" }
 ---
 
 ## Why did I read it?

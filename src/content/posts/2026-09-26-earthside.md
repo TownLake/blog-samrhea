@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "while fighting viral bronchitis"
+
+art:
+  place: space
+  props: [globe]
 ---
 
 ## Why did I read it?

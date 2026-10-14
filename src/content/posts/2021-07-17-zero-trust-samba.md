@@ -9,6 +9,9 @@ tags:
   - "Cloudflare"
   - "walkthrough"
 description: "Connecting through Cloudflare to my own Samba server from any location."
+art:
+  place: indoors
+  props: [filecabinet]
 ---
 
 The Portuguese immigration process loves paperwork. I purchased a printer for the first time in years when I moved here and, now that I have been here for a while, the scanner function does a lot of work converting stamped papers back to digital copies. That's fine and sometimes my brain prefers knowing that I can physically hold the original copies of my documents.

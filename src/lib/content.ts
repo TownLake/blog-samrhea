@@ -7,6 +7,8 @@ export interface Entry {
   name: string;
   /** The emoji every title starts with, shown as the post's tile. */
   emoji: string[];
+  /** The post's N64-style icon, which replaces the emoji in its tile. */
+  art?: string;
   tint: Tint;
   date: Date;
   description?: string;
@@ -27,6 +29,7 @@ export async function getEntries(): Promise<Entry[]> {
       return {
         ...splitTitle(data.title),
         title: data.title,
+        art: artUrl(id, data.art),
         tint: tintFor(topics),
         date: data.date,
         description: data.description,
@@ -38,6 +41,7 @@ export async function getEntries(): Promise<Entry[]> {
     ...external.map(({ data }) => ({
       ...splitTitle(data.title),
       title: data.title,
+      art: '/art/cloudflare.png',
       tint: 'cloudflare' as const,
       date: data.date,
       description: data.description,
@@ -62,6 +66,9 @@ export function splitTitle(title: string) {
   }
   return { emoji, name: title.slice(rest).trim() };
 }
+
+/** Where a post's icon is rendered (by src/pages/art/), if it has art direction. */
+export const artUrl = (id: string, art: unknown) => (art ? `/art/${id}.png` : undefined);
 
 /** The color of a post's tile, from the first topic group it belongs to. */
 export type Tint = 'reading' | 'portugal' | 'texas' | 'cloudflare' | 'tech' | 'neutral';

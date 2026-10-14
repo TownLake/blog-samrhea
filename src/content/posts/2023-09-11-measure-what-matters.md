@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "United 65"
+
+art:
+  place: grid
+  props: [barchart]
 ---
 
 ## Why did I read it?

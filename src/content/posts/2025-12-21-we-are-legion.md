@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "UA 943"
+
+art:
+  place: space
+  props: [probe]
 ---
 
 ## Why did I read it?

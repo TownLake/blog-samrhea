@@ -21,6 +21,10 @@ book:
   finished: "January 21, 2024"
   places:
     - "Lisbon"
+
+art:
+  place: grid
+  props: [battery]
 ---
 
 ## Why did I read it?

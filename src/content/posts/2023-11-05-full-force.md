@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "San Francisco"
     - "Sintra"
+
+art:
+  place: desert
+  props: [pickaxe]
 ---
 
 ## Why did I read it?

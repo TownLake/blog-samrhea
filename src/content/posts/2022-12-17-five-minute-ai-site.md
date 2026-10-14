@@ -11,6 +11,9 @@ tags:
   - "Cloudflare"
   - "AI"
 description: "Building a Lisbon recommendation webpage without doing any real work."
+art:
+  place: lisbon
+  props: [typewriter]
 ---
 
 I like to learn how to do things and write [painfully detailed tutorials](https://blog.samrhea.com/category/walkthrough/). Something happened about three weeks ago that made me wonder if that matters anymore.

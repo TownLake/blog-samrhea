@@ -9,6 +9,10 @@ tags:
   - "habits"
 description: "How hard should we try?"
 
+art:
+  place: lisbon
+  time: dusk
+  props: [wineglass]
 ---
 
 Even if we could live forever I’m not sure that we should. Stories need endings and jokes need punchlines. Bryan Johnson [disagrees](https://protocol.bryanjohnson.com/). He’s part of a pantheon of Tech Bro Health Influencers currently popular on a podcast near you. Their gospel extols the virtues of sleep, vegetables, sobriety, and very cold water.

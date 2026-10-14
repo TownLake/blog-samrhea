@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "London"
+
+art:
+  place: space
+  props: [planet]
 ---
 
 ## Why did I read it?

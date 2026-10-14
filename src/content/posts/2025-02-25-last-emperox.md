@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "Comporta"
+
+art:
+  place: space
+  props: [crown]
 ---
 
 ## Why did I read it?

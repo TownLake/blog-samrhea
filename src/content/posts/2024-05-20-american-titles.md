@@ -9,6 +9,10 @@ tags:
   - "work"
 description: "Just find people you like and do hard things with them."
 
+art:
+  place: city
+  time: day
+  props: [crown]
 ---
 
 **⚠️ WARNING**

@@ -10,6 +10,9 @@ tags:
   - "hits"
 description: "Or my son's recent property crime spree."
 
+art:
+  place: lisbon
+  props: [coffeecup]
 ---
 
 We live in one of those walkable neighborhoods that American Twitter dreams about. A community where you have multiple French cheese mongers within a ten minute walk. And your choice of mom-and-pop Italian restaurants. The kind of place where local grandmothers take the time to be sweet to the kids they see walking on the sidewalks. Even the redhead kids like mine.

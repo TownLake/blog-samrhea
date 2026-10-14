@@ -21,6 +21,11 @@ book:
   finished: "February 21, 2026"
   places:
     - "Lisbon"
+
+art:
+  place: space
+  props:
+    - { model: probe, variant: "#d04a5a" }
 ---
 
 ## Why did I read it?

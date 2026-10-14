@@ -24,6 +24,11 @@ book:
     - "Sintra"
     - "Berlin"
     - "Brussels"
+
+art:
+  place: desert
+  time: night
+  props: [stealthjet]
 ---
 
 ## Why did I read it?

@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import EmojiTile from '../../components/EmojiTile.astro';
 import Layout from '../../layouts/Layout.astro';
-import { formatDate, getEntries, splitTitle, tileTransition, tintFor, topicUrl, type Entry } from '../../lib/content';
+import { artUrl, formatDate, getEntries, splitTitle, tileTransition, tintFor, topicUrl, type Entry } from '../../lib/content';
 
 export const getStaticPaths = (async () => {
     const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -31,7 +31,7 @@ interface Props {
 
 const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
-const { title, description, date, category, tags } = post.data;
+const { title, description, date, category, tags, art } = post.data;
 const { emoji, name } = splitTitle(title);
 const topics = [...new Set([category, ...tags].filter((t) => t !== undefined))];
 const reading = topics.includes('reading');
@@ -57,7 +57,7 @@ const pill =
             </a>
 
             <div class="mt-8 mb-6">
-                <EmojiTile emoji={emoji} tint={tintFor(topics)} size={76} transition={tileTransition(`/posts/${post.id}/`)} />
+                <EmojiTile emoji={emoji} art={artUrl(post.id, art)} tint={tintFor(topics)} size={76} transition={tileTransition(`/posts/${post.id}/`)} />
             </div>
 
             <h1 class="font-display text-[2.375rem] sm:text-[3.25rem] leading-[1.05] tracking-[-0.025em] font-[450] text-fg text-balance">
@@ -112,7 +112,7 @@ const pill =
                                     align,
                                 ]}
                             >
-                                <EmojiTile emoji={entry.emoji} tint={entry.tint} size={44} transition={tileTransition(entry.url)} />
+                                <EmojiTile emoji={entry.emoji} art={entry.art} tint={entry.tint} size={44} transition={tileTransition(entry.url)} />
                                 <div class="min-w-0">
                                     <p class="eyebrow">{label}</p>
                                     <p class="mt-1 text-[15px]/snug font-medium text-fg line-clamp-2">{entry.name}</p>

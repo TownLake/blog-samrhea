@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "The Algarve"
+
+art:
+  place: indoors
+  props: [tooth]
 ---
 
 ## Why did I read it?

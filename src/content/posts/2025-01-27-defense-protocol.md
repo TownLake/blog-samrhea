@@ -23,6 +23,10 @@ book:
     - "Lisbon"
     - "Sintra"
     - "the flu"
+
+art:
+  place: sea
+  props: [speedboat]
 ---
 
 ## Why did I read it?

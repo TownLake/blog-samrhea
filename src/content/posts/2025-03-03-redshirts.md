@@ -22,6 +22,10 @@ book:
   places:
     - "Lisbon"
     - "Tel Aviv"
+
+art:
+  place: space
+  props: [tshirt]
 ---
 
 ## Why did I read it?

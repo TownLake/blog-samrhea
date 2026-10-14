@@ -21,6 +21,11 @@ book:
   finished: "August 27, 2024"
   places:
     - "Lisbon"
+
+art:
+  place: hills
+  time: night
+  props: [alien]
 ---
 
 ## Why did I read it?

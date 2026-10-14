@@ -9,6 +9,9 @@ tags:
   - "Cloudflare"
   - "Portugal"
 description: "One year in a new home."
+art:
+  place: lisbon
+  props: [tram]
 ---
 
 ## Writing this post

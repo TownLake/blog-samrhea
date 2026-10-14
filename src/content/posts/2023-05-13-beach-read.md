@@ -22,6 +22,10 @@ book:
   places:
     - "Sintra"
     - "Lisbon"
+
+art:
+  place: beach
+  props: [umbrella]
 ---
 
 ## Why did I read it?

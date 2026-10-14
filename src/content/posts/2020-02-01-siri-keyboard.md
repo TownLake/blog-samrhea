@@ -9,6 +9,9 @@ tags:
   - "productivity"
   - "iOS"
 description: "How the iPhone+AirPods leapfrog the iPad."
+art:
+  place: indoors
+  props: [microphone]
 ---
 
 The iPad just turned [ten](https://www.theverge.com/2020/1/27/21083369/apple-ipad-10-years-launch-steve-jobs-tablet-market). And the birthday cards are pretty sad. In the last week, everyone from Ben Thompson in [Stratechery](https://stratechery.com/2020/the-ipad-at-10-the-ipad-disappointment-ipads-missing-ecosystem/) to Dieter Bohn in [The Verge](https://www.theverge.com/tech/2020/1/28/21110994/ipad-limitations-user-interface-10-years) to John Gruber in [Daring Fireball](https://daringfireball.net/2020/01/the_ipad_awkwardly_turns_10) celebrated the iPad's first decade by mostly lamenting its failure to find a market-defining fit.

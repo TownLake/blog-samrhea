@@ -22,6 +22,11 @@ book:
   places:
     - "Lisbon"
     - "Sintra"
+
+art:
+  place: hills
+  props:
+    - { model: flag, variant: "us" }
 ---
 
 ## Why did I read it?

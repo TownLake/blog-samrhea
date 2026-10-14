@@ -10,6 +10,9 @@ tags:
   - "iOS"
   - "walkthrough"
 description: "Let's all agree on a new standard."
+art:
+  place: beach
+  props: [camera]
 ---
 
 The photos that we take on our phones are one of the few things that we'll probably "own" for our entire lives. I put `own` in quotes because we can keep photos indefinitely because we rely on someone else to worry about storing them.

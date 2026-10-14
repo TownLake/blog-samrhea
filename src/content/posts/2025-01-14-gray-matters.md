@@ -23,6 +23,10 @@ book:
     - "Gyms in Lisbon"
     - "walks to the Lisbon office"
     - "gyms in Utah"
+
+art:
+  place: indoors
+  props: [brain]
 ---
 
 ## Why did I read it?

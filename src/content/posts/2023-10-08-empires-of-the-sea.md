@@ -24,6 +24,10 @@ book:
   places:
     - "Half Marathon Training"
     - "Lisbon Half Marathon"
+
+art:
+  place: sea
+  props: [anchor]
 ---
 
 ## Why did I read it?

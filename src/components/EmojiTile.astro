@@ -1,8 +1,11 @@
 ---
+import { ART_SIZE } from '../art/index.ts';
 import type { Tint } from '../lib/content';
 
 interface Props {
     emoji: string[];
+    /** The post's rendered icon. Without one, the tile shows the emoji. */
+    art?: string;
     tint: Tint;
     /** Edge length in pixels. */
     size?: number;
@@ -10,15 +13,20 @@ interface Props {
     transition?: string;
 }
 
-const { emoji, tint, size = 48, transition } = Astro.props;
+const { emoji, art, tint, size = 48, transition } = Astro.props;
 ---
 
 <span
     class="tile"
     data-tint={tint}
-    data-n={Math.min(emoji.length, 3)}
+    data-n={art ? undefined : Math.min(emoji.length, 3)}
+    data-art={art ? '' : undefined}
     style={{ '--s': `${size}px`, viewTransitionName: transition }}
     aria-hidden="true"
 >
-    {emoji.slice(0, 3).map((e) => <span>{e}</span>)}
+    {art ? (
+        <img src={art} alt="" width={ART_SIZE} height={ART_SIZE} loading="lazy" decoding="async" />
+    ) : (
+        emoji.slice(0, 3).map((e) => <span>{e}</span>)
+    )}
 </span>

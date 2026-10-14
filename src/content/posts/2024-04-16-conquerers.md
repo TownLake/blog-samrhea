@@ -21,6 +21,10 @@ book:
   finished: "April 15, 2024"
   places:
     - "Gyms and runs all over Lisbon"
+
+art:
+  place: sea
+  props: [caravel]
 ---
 
 ## Why did I read it?

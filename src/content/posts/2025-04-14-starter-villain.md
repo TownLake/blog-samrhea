@@ -24,6 +24,10 @@ book:
     - "Lisbon"
     - "Bangalore"
     - "Abu Dhabi"
+
+art:
+  place: grid
+  props: [bomb]
 ---
 
 ## Why did I read it?

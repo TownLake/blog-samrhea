@@ -9,6 +9,11 @@ tags:
   - "portugal"
   - hits
 description: "Welcoming a Serra da Estrela and new friends."
+art:
+  place: lisbon
+  time: day
+  props:
+    - { model: dog, variant: "serra" }
 ---
 
 When we moved to Lisbon nearly three years ago, we settled in Campo de Ourique, a neighborhood northwest of the city center home to Portuguese families and French expats. The neighborhood sits on top of one of the city’s tallest hills, lacks a metro station, and lacks must-see attractions. Tourists, especially Americans, are rare.

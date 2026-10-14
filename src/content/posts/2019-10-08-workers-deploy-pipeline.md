@@ -9,6 +9,10 @@ tags:
   - "walkthrough"
   - "Cloudflare"
 description: "Setting up a simple workflow with GitHub and Cloudflare Workers for this blog."
+art:
+  place: city
+  time: day
+  props: [truck]
 ---
 
 I converted this blog to [Workers Sites](https://workers.cloudflare.com/sites/) a couple weeks ago and wrote about it [here](https://blog.samrhea.com/posts/2019/porting-blog-to-workers-sites). The initial setup was pretty bare bones. I saved the repository locally without any version control and deployed directly to production. No one gets paged if I break this blog, so that was fine.

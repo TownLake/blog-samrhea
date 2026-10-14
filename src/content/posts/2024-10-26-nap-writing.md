@@ -8,6 +8,9 @@ category: "parenting"
 tags:
   - "parenting"
 description: "Or how I learned to love a 90-minute alarm"
+art:
+  place: grid
+  props: [hammer]
 ---
 
 A good way to ship more weekend projects is to become a parent. Specifically the parent of a child between 6 and 18 months.

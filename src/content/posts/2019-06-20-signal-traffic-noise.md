@@ -9,6 +9,10 @@ tags:
   - "walkthrough"
   - "Texas"
 description: "Data-backed analysis of Austin traffic signals."
+art:
+  place: city
+  time: dusk
+  props: [trafficlight]
 ---
 
 Every Wednesday in the Cloudflare Austin office a team member delivers a talk on a subject they want to share with the group. These discussions range from introductions to new programming languages to deep dives into video encoding. This week, I gave a presentation about how the City of Austin plans and finances roads and general transportation.

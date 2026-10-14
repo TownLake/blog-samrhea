@@ -9,6 +9,9 @@ tags:
   - "Cloudflare"
   - "walkthrough"
 description: "What if our self-managed apps felt like SaaS tools?"
+art:
+  place: hills
+  props: [fox]
 ---
 
 SaaS applications make things easy. I am not responsible for server maintenance, scaling, or uptime. I just sign-up and go.

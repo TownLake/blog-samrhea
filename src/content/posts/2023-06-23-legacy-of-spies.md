@@ -22,6 +22,11 @@ book:
   places:
     - "Sintra"
     - "Lisbon"
+
+art:
+  place: city
+  time: night
+  props: [fedora]
 ---
 
 ## Why did I read it?

@@ -10,6 +10,10 @@ tags:
   - "hits"
 description: "A cultural primer for the traveling European."
 
+art:
+  place: hills
+  time: dusk
+  props: [cowboyhat]
 ---
 
 ![Texas Visit](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/15c89d52-c07b-4e7a-8b69-b405b69e2000/public)

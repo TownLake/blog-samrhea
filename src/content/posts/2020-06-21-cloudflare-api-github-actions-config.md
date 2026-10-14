@@ -10,6 +10,9 @@ tags:
   - "walkthrough"
   - "config"
 description: "Deploy to Cloudflare without a UI or CLI."
+art:
+  place: grid
+  props: [gear]
 ---
 
 Last October, I [began deploying](https://blog.samrhea.com/post/deploy-pipeline/) this blog by using GitHub Actions to build the site and publish its contents to Cloudflare Workers using [Wrangler](https://github.com/cloudflare/wrangler). Since then, I have not had to touch the command line for any updates to this blog. When I merge a post, even from my iPad with Working Copy, the GitHub Action takes care of pushing the content to Cloudflare's edge.

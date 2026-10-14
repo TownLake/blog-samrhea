@@ -23,6 +23,10 @@ book:
   finished: "July 10, 2023"
   places:
     - "Road trips all across Portugal"
+
+art:
+  place: beach
+  props: [suitcase]
 ---
 
 ## Why did I read it?
