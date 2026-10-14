@@ -1,0 +1,49 @@
+agents.md
+  s_fe66a54c1a7182::t_f839445c307c9b 10,39,180-186
+astro.config.mjs
+  s_fe66a54c1a7182::t_8394206c85f130 15-16,31-39
+src/components/Nav.astro
+  s_fe66a54c1a7182::t_3895533e5a7c18 12-39
+src/components/TimelineItem.astro
+  s_fe66a54c1a7182::t_6dadd503b8678f 5,16,18-28,31-33
+src/layouts/Layout.astro
+  s_fe66a54c1a7182::t_2c557c28286ef0 26,30-32,41,52-53,55
+src/lib/content.ts
+  s_fe66a54c1a7182::t_d5cfb7a40a1909 4,6-10,25-37,39,41,51-91,96-131,144-146
+src/markdown/book-details.ts
+  s_fe66a54c1a7182::t_d7b459cbbebc4a 23,27-29,33-34
+src/pages/404.astro
+  s_fe66a54c1a7182::t_0ae218d75278eb 8-17,19-20
+src/pages/[...path].astro
+  s_fe66a54c1a7182::t_48719c5844142a 7,38,57-58,61,78,80-110
+src/pages/about.astro
+  s_fe66a54c1a7182::t_487cfdb3d9738f 8-27,36,38-43,45-62,68-69,76,78,81,99,117,120-122,125,131,133,137,147-148,153,155,164-165,167
+src/pages/posts/[...slug].astro
+  s_fe66a54c1a7182::t_4293334f30c273 4,6,10-23,28-29,32,34-38,42-43,48-61,63-64,67-73,75-79,89-125
+src/styles/global.css
+  s_fe66a54c1a7182::t_bef2f87d6b2b44 6,9-12,16-73,76,81-260,262-281,284-290,292-293,296-303,306,308,311-317,320-323,326,332-408
+src/components/EmojiTile.astro
+  s_fe66a54c1a7182::t_1018b619a2f8a8 1-24
+src/components/Pagination.astro
+  s_fe66a54c1a7182::t_960afeae24a18c 11-12,16-17,19-21,28-29,32,34,36-37
+src/components/PostCard.astro
+  s_fe66a54c1a7182::t_3d36926d8eb868 2-3,9,12,18,20-23,25-26,30-31,33-35
+src/components/FilterBar.astro
+  s_fe66a54c1a7182::t_d21255e83a12cc 12-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d678f58af8a58b7be5c3315fcaf65f607fb4c697",
+  "prompts": {},
+  "sessions": {
+    "s_fe66a54c1a7182": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "123c0016-31c3-41e3-ae96-1f8bbf100782",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Sam Rhea <srhea@cloudflare.com>"
+    }
+  }
+}
