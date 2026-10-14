@@ -4,7 +4,7 @@ date: "2019-10-08"
 template: "post"
 draft: false
 slug: "2019/workers-deploy-pipeline"
-category: "walkthorugh"
+category: "walkthrough"
 tags:
   - "walkthrough"
   - "Cloudflare"

@@ -9,23 +9,24 @@ tags:
   - "reading"
   - "books"
 description: "Jack Ryan Book 25 - so we're just redoing Red October v3 now?"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Defense Protocol"
+  author: "Brian Andrews and Jeffrey Wilson"
+  published: "2024"
+  format: "Kindle"
+  pages: "506"
+  asin: "B0CW1PT7DC"
+  started: "January 10, 2025"
+  finished: "January 27, 2025"
+  places:
+    - "Lisbon"
+    - "Sintra"
+    - "the flu"
+---
 
 ## Why did I read it?
 I am continuing with my quest to read nearly everything in the Tom Clancy Jack Ryan universe. This is the latest. And I am tired. I am not up for something more lofty. Just give me this.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Defense Protocol*|
-|**Author**|Brian Andrews and Jeffrey Wilson|
-|**Year Published**|2024|
-|**Format**|Kindle|
-|**Pages**|506|
-|**ASIN**|B0CW1PT7DC|
 
 ### Publisher Summary
 
@@ -36,13 +37,6 @@ For decades, Taiwan has been a thorn in the side of the Chinese government. An i
 To get Qin out, John Clark creates an international task force reminiscent of Rainbow Six and goes undercover in mainland China. Meanwhile, Lt. Commander Katie Ryan is deployed to the tip of the spear on the destroyer USS Jason Dunham to defend Taiwan. Threatened by an encircling Chinese armada, she’s under pressure to find a flaw in the invaders’ plan for her father to exploit.
  
 For his part, President Jack Ryan may have the power of the entire US military at his disposal, but what he really needs are Li’s secret plans from Defense Minister Qin so he can stave off a war. Because America’s Defense Protocol could lead to a game of mutual destruction that could cost the lives of thousands of young soldiers, sailors, special operators as well as his daughter.
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|January 10, 2025|
-|**Date Finished**|January 27, 2025|
-|**Places Read**|Lisbon, Sintra, the flu|
 
 ## Notes - No Spoilers
 * I, uh, I don't know what to say. I made some jokes about Book 24 and the new authors and how openly they cribbed _Red October_. And they acknowledged it in the book too! But this feels excessive. This is not quite "rogue Russian sub" territory, but again we have a staredown between two vessels (ships in this case) and a Ryan onboard the American one trying to deter WWIII.

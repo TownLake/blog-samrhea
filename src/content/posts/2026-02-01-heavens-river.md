@@ -10,31 +10,23 @@ tags:
   - "books"
 description: "We spent a whole lotta time on Quin."
 
-book: "Heaven's River"
-Author: "Dennis E. Taylor"
-Year Published: "2021"
-Format: "Kindle"
-Pages: 530
-ASIN: "B08P3NTSSR"
-DateStart: "December 28, 2025"
-DateFinish: "February 1, 2026"
+book:
+  title: "Heaven's River"
+  author: "Dennis E. Taylor"
+  published: "2021"
+  format: "Kindle"
+  pages: "530"
+  asin: "B08P3NTSSR"
+  started: "December 28, 2025"
+  finished: "February 1, 2026"
+  places:
+    - "Austin"
+    - "Lisbon"
+    - "Sintra"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I finished the third book in the series and immediately started the fourth book.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Heaven's River*|
-|**Author**|Dennis E. Taylor|
-|**Year Published**|2021|
-|**Format**|Kindle|
-|**Pages**|530|
-|**ASIN**|B08P3NTSSR|
 
 ### Publisher Summary
 
@@ -45,13 +37,6 @@ More than a hundred years ago, Bender set out for the stars and was never heard 
 But nothing is ever simple in the Bobiverse. Bob’s descendants are out to the 24th generation now, and replicative drift has produced individuals who can barely be considered Bobs anymore. Some of them oppose Bob’s plan; others have plans of their own. The out-of-control moots are the least of the Bobiverse’s problems.
 
 Undaunted, Bob and his allies follow Bender’s trail. But what they discover out in deep space is so unexpected and so complex that it could either save the universe—or pose an existential threat the likes of which the Bobiverse has never faced.
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|December 28, 2025|
-|**Date Finished**|February 1, 2026|
-|**Places Read**|Austin, Lisbon, Sintra|
 
 ## Notes - No Spoilers
 * Alright, this was a slog. We went from intersteller Factorio with planet terraforming to just meandering, a lot, around a Beaver megastructure.

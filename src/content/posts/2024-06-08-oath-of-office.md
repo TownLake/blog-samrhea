@@ -10,31 +10,23 @@ tags:
   - "books"
 description: "John Ryan Book 18 - I'm back..."
 
-book: "Oath of Office"
-Author: "Marc Cameron"
-Year Published: "2018"
-Format: "Kindle"
-Pages: 528
-ASIN: "B07BJM9FW4"
-DateStart: "May 20, 2024"
-DateFinish: "June 8, 2024"
+book:
+  title: "Oath of Office"
+  author: "Marc Cameron"
+  published: "2018"
+  format: "Kindle"
+  pages: "528"
+  asin: "B07BJM9FW4"
+  started: "May 20, 2024"
+  finished: "June 8, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
+    - "Praia Grande"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I picked up a Tom Clancy book in the Stockholm Central train station a couple months ago and it made me remember how fun these can be. So I rewound in the series by about a decade and picked up at Book 10 in the run. I have been spending a lot of time wading through some complex, but interesting, challenges at the office - all good problems, but the kinds of things that leave me beat at the end of the day and ready to jump into a novel about spies and special forces for 30 minutes before I fall asleep.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Oath of Office*|
-|**Author**|Marc Cameron|
-|**Year Published**|2018|
-|**Format**|Kindle|
-|**Pages**|528|
-|**ASIN**|B07BJM9FW4|
 
 ### Publisher Summary
 
@@ -45,13 +37,6 @@ Meanwhile, he has plenty to handle at home. A deadly strain of flu is ravaging t
 But the scariest story is the most closely guarded one. Two Russian nuclear missiles have been hijacked. The Campus gets their first break when Jack Junior connects with a rogue Russian intelligence officer in Afghanistan--only to be abducted soon after arriving. John Clark and the rest of the Campus team race to track the missiles and rescue their colleague.
 
 As sensationalized stories spin out of control and the stolen missiles remain out of reach, President Ryan's toughest challenge emerges: How do you meet an enemy head on, when he won't even show you his face?
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|May 20, 2024|
-|**Date Finished**|June 8, 2024|
-|**Places Read**|Lisbon, Sintra, Praia Grande|
 
 ## Notes - No Spoilers
 * This is the second novel from Marc Cameron after Mark Greaney left for his own, *Grey Man* series. I really, really hated the first Cameron novel and swore I was done with the series.

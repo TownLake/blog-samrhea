@@ -9,27 +9,26 @@ tags:
   - "reading"
   - "books"
 description: "A real lull, again."
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Honor Among Thieves"
+  author: "James S.A. Corey"
+  published: "2014"
+  format: "Kindle"
+  pages: "386"
+  isbn: "978-0345546869"
+  started: "June 4, 2025"
+  finished: "August 22, 2025"
+  places:
+    - "Lisbon"
+    - "London"
+---
 
 ## Why did I read it?
 
 I have spent most of 2025 in a SciFi era and have enjoyed reading books by the writing team James S.A. Corey, especially their newest series The Mercy of the Gods. I was digging through their back catalog while waiting on the next novel and noticed they wrote a Star Wars story years ago. And it was the second of a two-novel series with the first written by Martha Wells, another Hugo Award winner.
 
 While these are no longer canon (following the great Disney Legends purge) I still love Star Wars and I love James S.A. Corey so I figured I'd pick this up. Bonus points that the first novel in the series was written by Wells. It felt like the OKC Thunder in 2011 - a team of people early in their careers really going places.
-
-## What is it?
-
-|Category|Value|
-|---|---|
-|**Title**|*Honor Among Thieves*|
-|**Author**|James S.A. Corey|
-|**Year Published**|2014|
-|**Format**|Kindle|
-|**Pages**|386|
-|**ISBN**|978-0345546869|
 
 ### Publisher Summary
 
@@ -40,14 +39,6 @@ When the mission is to extract a high-level rebel spy from the very heart of the
 But when Han locates the brash rebel agent, Scarlet Hark, she’s determined to stay behind enemy lines. A pirate plans to sell a cache of stolen secrets that the Empire would destroy entire worlds to protect—including the planet where Leia is currently meeting with rebel sympathizers. Scarlet wants to track down the thief and steal the bounty herself, and Han has no choice but to go along if he’s to keep everyone involved from getting themselves killed. From teeming city streets to a lethal jungle to a trap-filled alien temple, Han, Chewbacca, Leia, and their daring new comrade confront one ambush, double cross, and firestorm after another as they try to keep crucial intel out of Imperial hands.
  
 But even with the crack support of Luke Skywalker’s x-wing squadron, the Alliance heroes may be hopelessly outgunned in their final battle for the highest of stakes: the power to liberate the galaxy from tyranny or ensure the Empire’s reign of darkness forever.
-
-## How did I read it?
-
-|Category|Value|
-|---|---|
-|**Date Started**|June 4, 2025|
-|**Date Finished**|August 22, 2025|
-|**Places Read**|Lisbon, London|
 
 ## Notes - No Spoilers
 

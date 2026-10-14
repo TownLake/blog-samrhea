@@ -10,31 +10,23 @@ tags:
   - "books"
 description: "Whew, bleak, but I'm intrigued."
 
-book: "The Mercy of Gods"
-Author: "James S.A. Corey"
-Year Published: "2024"
-Format: "Kindle"
-Pages: 423
-ASIN: "B0CN6NCV7P"
-DateStart: "August 16, 2024"
-DateFinish: "August 18, 2024"
+book:
+  title: "The Mercy of Gods"
+  author: "James S.A. Corey"
+  published: "2024"
+  format: "Kindle"
+  pages: "423"
+  asin: "B0CN6NCV7P"
+  started: "August 16, 2024"
+  finished: "August 18, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
+    - "Honest Greens"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I loved _The Expanse_ television series but still have not picked up the books. I saw an article in a website I visit more or less daily, [The Ringer](https://theringer.com), about a new book from the same two authors who write under the James S.A. Corey pseudonym. The first of a new planned series, this book trades the gritty, Solar System realism for new galaxies and a Noah's Ark worth of alien species. After dipping my toe into science fiction more recently with [Project Hail Mary](https://blog.samrhea.com/posts/2024/hail-mary), I decided to take a break from my Tom Clancy marathon to pick this up.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*The Mercy of Gods*|
-|**Author**|James S.A. Corey|
-|**Year Published**|2024|
-|**Format**|Kindle|
-|**Pages**|423|
-|**ASIN**|B0CN6NCV7P|
 
 ### Publisher Summary
 
@@ -51,13 +43,6 @@ With a noble but suicidal human rebellion on one hand and strange and murderous 
 Dafyd Alkhor is a simple man swept up in events that are beyond his control and more vast than his imagination.  He will become the champion of humanity and its betrayer, the most hated man in history and the guardian of his people.
 
 This is where his story begins.
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|August 16, 2024|
-|**Date Finished**|August 18, 2024|
-|**Places Read**|Lisbon, Sintra, Honest Greens|
 
 ## Notes - No Spoilers
 * Alright, here's the deal - I liked it. I'm absolutely going to read the next books in the series. I am bought in and intrigued. That said, whew, this thing was bleak. You have some promise of hope in the foreshadowing but this novel was dark, tragic, and not exactly hopeful.

@@ -9,10 +9,21 @@ tags:
   - "reading"
   - "books"
 description: "Alright, now this is fun."
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "The Consuming Fire"
+  author: "John Scalzi"
+  published: "2018"
+  format: "Kindle"
+  pages: "304"
+  asin: "B078X255Y1"
+  started: "February 10, 2025"
+  finished: "February 22, 2025"
+  places:
+    - "Lisbon"
+    - "Sintra"
+    - "Comporta"
+---
 
 ## Why did I read it?
 After a couple of years of effort, I finally caught up to the current state of Jack Ryan novels. I had previously read Scalzi books that I enjoyed quite a bit, so I decided to check out the rest of his catalog in the interest of picking more SciFi back up.
@@ -20,16 +31,6 @@ After a couple of years of effort, I finally caught up to the current state of J
 Like the Ryan novels, the real goal here is to have something fun to read for 20 minutes before I fall asleep. And this met that goal.
 
 I finished the first book in this series and loved it. I immediately dove into this one.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*The Consuming Fire*|
-|**Author**|John Scalzi|
-|**Year Published**|2018|
-|**Format**|Kindle|
-|**Pages**|304|
-|**ASIN**|B078X255Y1|
 
 ### Publisher Summary
 
@@ -42,13 +43,6 @@ Emperox Grayland II of the Interdependency is ready to take desperate measures t
 While Grayland prepares for disaster, others are prepare for a civil war. A war that will take place in the halls of power, the markets of business and the altars of worship as much as it will between spaceships and battlefields.
 
 The Emperox and her allies are smart and resourceful, as are her enemies. Nothing about this will be easy... and all of humanity will be caught in its consuming fire.
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|February 10, 2025|
-|**Date Finished**|February 22, 2025|
-|**Places Read**|Lisbon, Sintra, Comporta|
 
 ## Notes - No Spoilers
 * The characters stayed great! Authentic, reasonable, entertaiing.

@@ -172,7 +172,7 @@ Alternatively, I can go to my [App Launcher](https://blog.cloudflare.com/announc
 
 Either way, when I connect to the application I'll be prompted to input the VNC password I created previously.
 
-![VNC Password](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/a8796128-1a2a-4cba-b0aa-96d0e3845c00/publicg)
+![VNC Password](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/a8796128-1a2a-4cba-b0aa-96d0e3845c00/public)
 
 And, once I've input my password, I can remotely access my Mac in Chrome on a different device.
 

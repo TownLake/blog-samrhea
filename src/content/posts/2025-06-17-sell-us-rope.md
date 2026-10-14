@@ -9,10 +9,21 @@ tags:
   - "reading"
   - "books"
 description: "Fun if dark resort town read."
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Sell Us the Rope"
+  author: "Stephen May"
+  published: "2023"
+  format: "Paperback"
+  pages: "240"
+  isbn: "1639731431"
+  started: "June 14, 2025"
+  finished: "June 17, 2025"
+  places:
+    - "Lisbon"
+    - "Friday Harbor"
+    - "Flights from Seattle to Europe"
+---
 
 ## Why did I read it?
 
@@ -22,30 +33,11 @@ So we went. And I forgot how much I loved being in an English-language bookstore
 
 So I found something that felt like the right size (200-300 pages), a topic I find interesting (European revolutions), and something that felt "fun" enough for a vacation read.
 
-## What is it?
-
-|Category|Value|
-|---|---|
-|**Title**|*Sell Us the Rope*|
-|**Author**|Stephen May|
-|**Year Published**|2023|
-|**Format**|Paperback|
-|**Pages**|240|
-|**ISBN**|1639731431|
-
 ### Publisher Summary
 
 In London in 1907, a decade before the revolution, young Stalin has yet to achieve the power, nor acted on the ruthlessness, that will define his legacy. Instead Koba, as he is known, arrives in London for the 5th Congress of the Russian Communist Part where he-and many of his fellow Bolsheviks-are only allowed to remain as a nonvoting witness. But his inability to vote does not limit his ability to act, and Stalin quickly begins forging alliances with the likes of Lenin, Trotsky, Rosa Luxemburg-and a vivacious Finnish activist named Elli Vuokko.
 
 As the Congress progresses, Koba begins to take daring risks-with the young Finnish idealist, with his past relationships to the Russian government, and with his future in the party. But as he manipulates those loyal to him and seeks to discover who he will remain loyal to in return, we see a great political mind in the works, and witness the development of a dictator.
-
-## How did I read it?
-
-|Category|Value|
-|---|---|
-|**Date Started**|June 14, 2025|
-|**Date Finished**|June 17, 2025|
-|**Places Read**|Lisbon, Friday Harbor, Flights from Seattle to Europe|
 
 ## Notes - No Spoilers
 

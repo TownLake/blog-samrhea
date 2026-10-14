@@ -7,7 +7,7 @@ slug: "2019/switching-country-phones"
 category: "walkthrough"
 tags:
   - "walkthrough"
-  - "Porgual"
+  - "portugal"
   - "expat"
 description: "A guide to Portuguese phone plans."
 ---

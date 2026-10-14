@@ -1,0 +1,32 @@
+# URLs from earlier versions of the blog. First match wins.
+
+# Category and tag pages: the ones with a homepage tab go there, the rest to /tag/.
+/category/reading      /reading/      301
+/category/reading/     /reading/      301
+/category/portugal     /portugal/     301
+/category/portugal/    /portugal/     301
+/category/texas        /texas/        301
+/category/texas/       /texas/        301
+/category/:name        /tag/:name/    301
+/category/:name/       /tag/:name/    301
+/tag/reading           /reading/      301
+/tag/reading/          /reading/      301
+/tag/portugal          /portugal/     301
+/tag/portugal/         /portugal/     301
+/tag/texas             /texas/        301
+/tag/texas/            /texas/        301
+/tag/hits              /highlights/   301
+/tag/hits/             /highlights/   301
+
+# Old standalone pages
+/pages/at-cloudflare   /cloudflare/   301
+/pages/at-cloudflare/  /cloudflare/   301
+/pages/projects        /about/        301
+/pages/projects/       /about/        301
+
+# Old /post/ URLs
+/post/deploy-pipeline/   /posts/2019/workers-deploy-pipeline/              301
+/post/serverless-cms/    /posts/2019/serverless-cms/                       301
+/post/wrangler-sites/    /posts/2019/porting-blog-to-workers-sites/        301
+/post/github-actions/    /posts/2020/cloudflare-api-github-actions-config/ 301
+/post/gitlab-auth/       /posts/2020/zero-trust-gitlab/                    301

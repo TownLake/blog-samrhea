@@ -1,0 +1,88 @@
+---
+import type { GetStaticPaths } from 'astro';
+import FilterBar from '../components/FilterBar.astro';
+import Pagination from '../components/Pagination.astro';
+import PostCard from '../components/PostCard.astro';
+import Layout from '../layouts/Layout.astro';
+import { FILTERS, PAGE_SIZE, TOPICS_WITH_TABS, getEntries, topicSlug, type Entry } from '../lib/content';
+
+// Every listing page: the homepage tabs (/, /reading/, ...) and a page per topic (/tag/habits/, ...),
+// each split into pages of PAGE_SIZE (/reading/2/, ...).
+export const getStaticPaths = (async () => {
+    const entries = await getEntries();
+
+    const listings: Listing[] = FILTERS.map((filter) => ({
+        base: filter.slug ? `/${filter.slug}/` : '/',
+        name: filter.slug ? filter.label : 'Writing',
+        filter: filter.slug,
+        entries: entries.filter(filter.match),
+    }));
+
+    const topics = [...new Set(entries.flatMap((e) => e.topics))].filter((t) => !(t in TOPICS_WITH_TABS));
+    for (const topic of topics) {
+        listings.push({
+            base: `/tag/${topicSlug(topic)}/`,
+            name: `Tagged “${topic}”`,
+            topic,
+            entries: entries.filter((e) => e.topics.includes(topic)),
+        });
+    }
+
+    return listings.flatMap(({ entries, ...listing }) => {
+        const totalPages = Math.max(1, Math.ceil(entries.length / PAGE_SIZE));
+        return Array.from({ length: totalPages }, (_, i) => {
+            const page = i + 1;
+            const path = `${listing.base}${page > 1 ? `${page}/` : ''}`.replace(/^\/|\/$/g, '');
+            return {
+                params: { path: path || undefined },
+                props: { ...listing, page, totalPages, entries: entries.slice(i * PAGE_SIZE, page * PAGE_SIZE) },
+            };
+        });
+    });
+}) satisfies GetStaticPaths;
+
+interface Listing {
+    /** URL of the first page. */
+    base: string;
+    name: string;
+    /** The homepage tab this listing belongs to, if any. */
+    filter?: string;
+    topic?: string;
+    entries: Entry[];
+}
+
+interface Props extends Listing {
+    page: number;
+    totalPages: number;
+}
+
+const { base, name, filter, topic, page, totalPages, entries } = Astro.props;
+const legacyFilters = Object.fromEntries(FILTERS.map((f) => [f.legacy, f.slug]));
+---
+
+<Layout title={`${name}${page > 1 ? `, page ${page}` : ''} — Sam Rhea`}>
+    {base === '/' && page === 1 && (
+        <script is:inline define:vars={{ legacyFilters }}>
+            // The homepage used to filter client-side with ?filter=…&page=…; send those links to the static pages.
+            const params = new URLSearchParams(location.search);
+            const slug = legacyFilters[params.get('filter')];
+            if (slug !== undefined) {
+                const page = Number(params.get('page'));
+                location.replace(`/${slug ? `${slug}/` : ''}${page > 1 ? `${page}/` : ''}`);
+            }
+        </script>
+    )}
+
+    <header class="mb-8">
+        <FilterBar active={filter} />
+        {topic && (
+            <h1 class="mt-6 text-xs font-mono text-midnight-500 uppercase tracking-widest">Tagged “{topic}”</h1>
+        )}
+    </header>
+
+    <section class="divide-y divide-midnight-800/30">
+        {entries.map((entry) => <PostCard entry={entry} />)}
+    </section>
+
+    <Pagination page={page} totalPages={totalPages} base={base} />
+</Layout>

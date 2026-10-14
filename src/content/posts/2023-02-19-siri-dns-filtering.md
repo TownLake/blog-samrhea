@@ -124,7 +124,7 @@ jobs:
 
 ## Configure iOS Shortcuts
 
-[Just like last month](https://blog.samrhea.com/posts/2022/hey-siri-purge#create-siri-shortcut), I'm going to use the iOS Shortcuts app to take Siri input and trigger this workflow file in GitHub. Please feel free to follow the steps in that post if you need a reminder on how to create an API key or more detail on setting up the Siri Shortcut. The steps are mostly identical.
+[Just like last month](https://blog.samrhea.com/posts/2023/hey-siri-purge#create-siri-shortcut), I'm going to use the iOS Shortcuts app to take Siri input and trigger this workflow file in GitHub. Please feel free to follow the steps in that post if you need a reminder on how to create an API key or more detail on setting up the Siri Shortcut. The steps are mostly identical.
 
 ![Shortcut Configuration](https://imagedelivery.net/BO71HffCLgVKrpfgjL7r7Q/97bdf2b5-1952-4432-2225-f0779e0f5200/public)
 

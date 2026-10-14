@@ -9,26 +9,25 @@ tags:
   - "reading"
   - "books"
 description: "Gloomier Tom Clancy?"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "2034: A Novel of the Next World War"
+  author: "Elliot Ackerman"
+  published: "2021"
+  format: "Kindle"
+  pages: "313 pages"
+  amazon: "https://www.amazon.com/dp/B08BKSH9TF/"
+  asin: "B08BKSH9TF"
+  started: "March 5, 2025"
+  finished: "March 13, 2025"
+  places:
+    - "Sintra"
+    - "Lisbon"
+---
 
 ## Why did I read it?
 
 Strange pathway here. I finished Scalzi's Interdependency trilogy and then _Redshirts_, so I was looking for something new. I had added this to a list after an odd Wikipedia rabbit hole. I had read a Wikipedia page about the Special Activities Division, which had a list of notable members, and I found Elliot Ackerman. Saw he wrote a book. Figured I would read it. 
-
-## What is it?
-
-|Category|Value|
-|---|---|
-|**Title**|*2034: A Novel of the Next World War*|
-|**Author**|Elliot Ackerman|
-|**Year Published**|2021|
-|**Format**|Kindle|
-|**Pages**|313 pages|
-|**Amazon**|[Link](https://www.amazon.com/dp/B08BKSH9TF/)|
-|**ASIN**|B08BKSH9TF|
 
 ### Publisher Summary
 
@@ -37,14 +36,6 @@ An instant New York Times Bestseller!“Consider this another vaccine against di
 From two former military officers and award-winning authors, a chillingly authentic geopolitical thriller that imagines a naval clash between the US and China in the South China Sea in 2034—and the path from there to a nightmarish global conflagration.On March 12, 2034, US Navy Commodore Sarah Hunt is on the bridge of her flagship, the guided missile destroyer USS John Paul Jones, conducting a routine freedom of navigation patrol in the South China Sea when her ship detects an unflagged trawler in clear distress, smoke billowing from its bridge. On that same day, US Marine aviator Major Chris "Wedge" Mitchell is flying an F35E Lightning over the Strait of Hormuz, testing a new stealth technology as he flirts with Iranian airspace. By the end of that day, Wedge will be an Iranian prisoner, and Sarah Hunt's destroyer will lie at the bottom of the sea, sunk by the Chinese Navy. Iran and China have clearly coordinated their moves, which involve the use of powerful new forms of cyber weaponry that render US ships and planes defenseless. In a single day, America's faith in its military's strategic pre-eminence is in tatters.
 
 A new, terrifying era is at hand.So begins a disturbingly plausible work of speculative fiction, co-authored by an award-winning novelist and decorated Marine veteran and the former commander of NATO, a legendary admiral who has spent much of his career strategically outmaneuvering America's most tenacious adversaries. Written with a powerful blend of geopolitical sophistication and human empathy, 2034 takes us inside the minds of a global cast of characters--Americans, Chinese, Iranians, Russians, Indians--as a series of arrogant miscalculations on all sides leads the world into an intensifying international storm. In the end, China and the United States will have paid a staggering cost, one that forever alters the global balance of power. Everything in 2034 is an imaginative extrapolation from present-day facts on the ground combined with the authors' years working at the highest and most classified levels of national security. Sometimes it takes a brilliant work of fiction to illuminate the most dire of warnings: 2034 is all too close at hand, and this cautionary tale presents the reader a dark yet possible future that we must do all we can to avoid.
-
-## How did I read it?
-
-|Category|Value|
-|---|---|
-|**Date Started**|March 5, 2025|
-|**Date Finished**|March 13, 2025|
-|**Places Read**|Sintra, Lisbon|
 
 ## Notes - No Spoilers
 

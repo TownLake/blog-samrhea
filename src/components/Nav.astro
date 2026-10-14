@@ -1,14 +1,11 @@
 ---
-const pathname = Astro.url.pathname;
-
-const isActive = (path: string) => {
-    if (path === '/') return pathname === '/';
-    return pathname.startsWith(path);
-};
+const { pathname } = Astro.url;
+const onAbout = pathname.startsWith('/about');
+const onListing = !onAbout && !pathname.startsWith('/posts/') && !pathname.startsWith('/404');
 
 const links = [
-    { href: '/', label: 'Writing' },
-    { href: '/about', label: 'About' },
+    { href: '/', label: 'Writing', active: onListing },
+    { href: '/about/', label: 'About', active: onAbout },
 ];
 ---
 
@@ -17,14 +14,13 @@ const links = [
         Sam Rhea
     </a>
     <div class="flex gap-8 text-sm">
-        {links.map(({ href, label }) => (
-            <a 
-                href={href} 
+        {links.map(({ href, label, active }) => (
+            <a
+                href={href}
+                aria-current={active ? 'page' : undefined}
                 class:list={[
-                    "transition-colors duration-150",
-                    isActive(href) 
-                        ? "text-white" 
-                        : "text-midnight-500 hover:text-midnight-200"
+                    'transition-colors duration-150',
+                    active ? 'text-white' : 'text-midnight-500 hover:text-midnight-200',
                 ]}
             >
                 {label}

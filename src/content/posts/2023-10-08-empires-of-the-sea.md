@@ -10,18 +10,21 @@ tags:
   - "books"
   - "audiobooks"
 description: "I'm in my books-about-boats phase."
-book: "Empires of the Sea"
-Author: "Roger Crowley"
-Year Published: "2008"
-Format: "Audiobook (Audible)"
-Pages:
-ASIN: "B001DIH1XW"
-DateStart: "September 25, 2023"
-DateFinish: "October 8, 2023"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Empires of the Sea"
+  author: "Roger Crowley"
+  narrator: "John Lee"
+  published: "2008"
+  format: "Audiobook (Audible)"
+  length: "11 Hours 18 Minutes"
+  asin: "B001DIH1XW"
+  started: "September 25, 2023"
+  finished: "October 8, 2023"
+  places:
+    - "Half Marathon Training"
+    - "Lisbon Half Marathon"
+---
 
 ## Why did I read it?
 I live in Portugal, a country obsessed with its own naval heritage. I recently ran the city's half marathon. While training for it, I passed the monument to the explorers and the maritime defense tower. The race started on the Vasco de Gama bridge. When I walked to the doctor a few weeks ago, I passed a mural that connects the country's sailing age to its modern navy as a recruitment tool. This place loves boats.
@@ -29,24 +32,6 @@ I live in Portugal, a country obsessed with its own naval heritage. I recently r
 I had an earlier naval history phase. When I was at The University of Texas I briefly worked as the research assistant for Professor Lance Bertelsen, who covers 18th Century British literature in addition to other fields and I spent some time working through British ship logs from that time period. The work focused much more on the voyages of James Cook.
 
 What I lacked was any understanding about how Portuguese naval history connects to the story of the country, and region, today. So I went out and found some material.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Empires of the Sea*|
-|**Author**|Roger Crowley|
-|**Narrator**|John Lee|
-|**Year Published**|2008|
-|**Format**|Audiobook (Audible)|
-|**Length**|11 Hours 18 Minutes|
-|**ASIN**|B001DIH1XW|
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|September 25, 2023|
-|**Date Finished**|October 8, 2023|
-|**Places Read**|Half Marathon Training, Lisbon Half Marathon|
 
 ## Notes - No Spoilers
 * Maybe this is different for Europeans, but I don't think Americans have any concept of how advanced and powerful the Ottoman Empire was.

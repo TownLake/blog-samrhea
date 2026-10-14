@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+@theme {
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --color-midnight-950: #0a0a0a;
+  --color-midnight-900: #111111;
+  --color-midnight-800: #1a1a1a;
+  --color-midnight-700: #262626;
+  --color-midnight-500: #8b8b8b;
+  --color-midnight-400: #a1a1a1;
+  --color-midnight-300: #b8b8b8;
+  --color-midnight-200: #d4d4d4;
+  --color-midnight-100: #ededed;
+
+  --color-accent-blue: #3291ff;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+/* Post bodies: Tailwind Typography on a dark background, with inline code and links tuned. */
+.prose {
+  --tw-prose-body: #d1d5db;
+  --tw-prose-headings: #fff;
+  --tw-prose-lead: #9ca3af;
+  --tw-prose-links: #fff;
+  --tw-prose-bold: #fff;
+  --tw-prose-counters: #9ca3af;
+  --tw-prose-bullets: #4b5563;
+  --tw-prose-hr: #374151;
+  --tw-prose-quotes: #f3f4f6;
+  --tw-prose-quote-borders: #374151;
+  --tw-prose-captions: #9ca3af;
+  --tw-prose-kbd: #fff;
+  --tw-prose-code: #fff;
+  --tw-prose-pre-code: #d1d5db;
+  --tw-prose-pre-bg: rgb(0 0 0 / 50%);
+  --tw-prose-th-borders: #4b5563;
+  --tw-prose-td-borders: #374151;
+
+  :where(a) {
+    text-decoration: none;
+    &:hover {
+      color: #fff;
+    }
+  }
+  :where(h1, h2) {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+  :where(h3) {
+    font-weight: 600;
+  }
+  :where(p) {
+    line-height: 1.75;
+  }
+  :where(li) {
+    margin-block: 0.25em;
+  }
+  :where(:not(pre) > code) {
+    color: #f472b6;
+    background-color: var(--color-midnight-900);
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.375rem;
+    font-weight: 400;
+    font-size: 0.875em;
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
+}

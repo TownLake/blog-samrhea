@@ -10,31 +10,22 @@ tags:
   - "books"
 description: "Jack Ryan Book 26."
 
-book: "Tom Clancy Executive Power"
-Author: "Brian Andrews and Jeffrey Wilson"
-Year Published: "2025"
-Format: "Kindle"
-Pages: 461
-ASIN: "B0DYPL4MSY"
-DateStart: "May 10, 2026"
-DateFinish: "June 20, 2026"
+book:
+  title: "Tom Clancy Executive Power"
+  author: "Brian Andrews and Jeffrey Wilson"
+  published: "2025"
+  format: "Kindle"
+  pages: "461"
+  asin: "B0DYPL4MSY"
+  started: "May 10, 2026"
+  finished: "June 20, 2026"
+  places:
+    - "Lisbon"
+    - "Flights to Amsterdam and London"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I continue burning down the list of Tom Clancy books, long after they stopped being novel, because I am the father of a toddler and have a hard job and at the end of the day sometimes it is nice to read on my Kindle for 20 minutes before I fall asleep.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Tom Clancy Executive Power*|
-|**Author**|Brian Andrews and Jeffrey Wilson|
-|**Year Published**|2025|
-|**Format**|Kindle|
-|**Pages**|461|
-|**ASIN**|B0DYPL4MSY|
 
 ### Publisher Summary
 
@@ -50,13 +41,6 @@ As US forces fight insurgents street by street in the African capital city, Lieu
 In the White House Situation Room, President Jack Ryan and his National Intelligence Team anxiously await the answers. He may have a full Marine Expeditionary Unit at his command, but the full executive power of the presidency is useless if they can't find the target.
 
 One thing's for sure, Kyle and his fellow hostages sit at the center of the bullseye—human shields to deflect an American response. Jack Ryan has faced many challenges as President, but solving this problem is no one-man job. It's going to take all three of them to get through this.
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|May 10, 2026|
-|**Date Finished**|June 20, 2026|
-|**Places Read**|Lisbon<br>Flights to Amsterdam and London|
 
 ## Notes - No Spoilers
 * More focus on more of the children after Jack Jr got his own spinoff series, I suppose.

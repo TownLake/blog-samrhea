@@ -10,31 +10,23 @@ tags:
   - "books"
 description: "John Ryan Book 19 - okay fine..."
 
-book: "Code of Honor"
-Author: "Marc Cameron"
-Year Published: "2019"
-Format: "Kindle"
-Pages: 511
-ASIN: "B07PKJRKV7"
-DateStart: "June 10, 2024"
-DateFinish: "June 16, 2024"
+book:
+  title: "Code of Honor"
+  author: "Marc Cameron"
+  published: "2019"
+  format: "Kindle"
+  pages: "511"
+  asin: "B07PKJRKV7"
+  started: "June 10, 2024"
+  finished: "June 16, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
+    - "TAP flights to and from London"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I picked up a Tom Clancy book in the Stockholm Central train station a couple months ago and it made me remember how fun these can be. So I rewound in the series by about a decade and picked up at Book 10 in the run. I have been spending a lot of time wading through some complex, but interesting, challenges at the office - all good problems, but the kinds of things that leave me beat at the end of the day and ready to jump into a novel about spies and special forces for 30 minutes before I fall asleep.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Code of Honor*|
-|**Author**|Marc Cameron|
-|**Year Published**|2019|
-|**Format**|Kindle|
-|**Pages**|511|
-|**ASIN**|B07PKJRKV7|
 
 ### Publisher Summary
 
@@ -43,13 +35,6 @@ Father Pat West, S.J. was a buddy of the young Jack Ryan when they were both und
 President Ryan is desperate to rescue his old friend, but he can't move officially against the Indonesians. Instead he relies on the Campus team to find out who is framing the priest.
 
 There's one other twist to the story. President Ryan discovers a text on his private cell phone from the priest warning about a coming attack against America...
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|June 10, 2024|
-|**Date Finished**|June 16, 2024|
-|**Places Read**|Lisbon, Sintra, TAP flights to and from London|
 
 ## Notes - No Spoilers
 * I continue to be disappointed in the Cameron entries into the Tom Clancy universe.

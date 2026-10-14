@@ -10,31 +10,24 @@ tags:
   - "books"
 description: "Jack Ryan Book 22 - origin stories!"
 
-book: "Red Winter"
-Author: "Marc Cameron"
-Year Published: "2022"
-Format: "Kindle"
-Pages: 430
-ASIN: "B09TNPLSV6"
-DateStart: "October 4, 2024"
-DateFinish: "November 25, 2024"
+book:
+  title: "Red Winter"
+  author: "Marc Cameron"
+  published: "2022"
+  format: "Kindle"
+  pages: "430"
+  asin: "B09TNPLSV6"
+  started: "October 4, 2024"
+  finished: "November 25, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
+    - "Berlin"
+    - "Brussels"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I am continuing with my quest to read nearly everything in the Tom Clancy Jack Ryan universe. This is the latest. And I am tired. I am not up for something more lofty. Just give me this.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Red Winter*|
-|**Author**|Marc Cameron|
-|**Year Published**|2022|
-|**Format**|Kindle|
-|**Pages**|430|
-|**ASIN**|B09TNPLSV6|
 
 ### Publisher Summary
 
@@ -47,13 +40,6 @@ In East Berlin, a mysterious figure contacts the CIA with an incredible offer—
 It’s an offer they can’t pass up…if it’s genuine, but the risks are too great to blindly stumble into a deal. With the East German secret police closing in, someone will have to go to behind the Berlin Wall to investigate the potential defector. It’s a job Deputy Director James Greer can only trust to one man--Jack Ryan.
 
 Ryan is a former Marine and a brilliant CIA analyst who’s been the architect of some of the CIA’s biggest coups but this time he’s in enemy territory with a professional assassin on his tail. Can he get the right answers before the Cold War turns into a Red Winter?
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|October 4, 2024|
-|**Date Finished**|November 25, 2024|
-|**Places Read**|Lisbon, Sintra, Berlin, Brussels|
 
 ## Notes - No Spoilers
 * Honestly super fun to see the beginnings of relationships between some of the key characters in the Jack Ryan universe. I loved it. I (obviously) have spent a lot of time with these characters over the last couple of years and it was delightful to follow those stories. I get it - this is a sentimental flashback - but I loved it.

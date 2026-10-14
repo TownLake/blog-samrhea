@@ -10,31 +10,23 @@ tags:
   - "books"
 description: "Less aliens, more dilemmas."
 
-book: "The Ghost Brigades"
-Author: "John Scalzi"
-Year Published: "2007"
-Format: "Kindle"
-Pages: 353
-ASIN: "B001QS9TSE"
-DateStart: "August 28, 2024"
-DateFinish: "October 3, 2024"
+book:
+  title: "The Ghost Brigades"
+  author: "John Scalzi"
+  published: "2007"
+  format: "Kindle"
+  pages: "321"
+  asin: "B001QS9TSE"
+  started: "August 28, 2024"
+  finished: "October 3, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
+    - "Stockholm"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I enjoyed reading John Scalzi's first novel in this series, [_Old Man's War_](https://blog.samrhea.com/posts/2024/old-mans-war/) and wanted to keep exploring this universe.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*The Ghost Brigades*|
-|**Author**|John Scalzi|
-|**Year Published**|2007|
-|**Format**|Kindle|
-|**Pages**|321|
-|**ASIN**|B001QS9TSE|
 
 ### Publisher Summary
 
@@ -45,13 +37,6 @@ The universe is a dangerous place for humanity—and it's about to become far mo
 Jared Dirac is the only human who can provide answers -- a superhuman hybrid, created from Boutin's DNA, Jared's brain should be able to access Boutin's electronic memories. But when the memory transplant appears to fail, Jared is given to the Ghost Brigades.
 
 At first, Jared is a perfect soldier, but as Boutin's memories slowly surface, Jared begins to intuit the reason's for Boutin's betrayal. As Jared desperately hunts for his "father," he must also come to grips with his own choices. Time is running out: The alliance is preparing its offensive, and some of them plan worse things than humanity's mere military defeat…
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|August 28, 2024|
-|**Date Finished**|October 3, 2024|
-|**Places Read**|Lisbon, Sintra, Stockholm|
 
 ## Notes - No Spoilers
 * I appreciate that we "leveled up" in the universe a bit and now have access to things like conversations between senior military officers and context behind some of the feuds in the galaxy.
