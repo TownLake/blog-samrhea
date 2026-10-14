@@ -12,6 +12,8 @@ export default defineConfig({
   markdown: {
     processor: satteri({
       features: { smartPunctuation: { dashes: false } },
+      // Both themes are emitted as CSS variables; global.css picks one by color scheme.
+      shikiConfig: { themes: { light: 'vitesse-light', dark: 'vitesse-dark' }, defaultColor: false },
       mdastPlugins: [dashes, bookDetails],
       hastPlugins: [images],
     }),
@@ -25,6 +27,15 @@ export default defineConfig({
       styles: ['normal', 'italic'],
       subsets: ['latin', 'latin-ext'],
       fallbacks: ['system-ui', '-apple-system', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Newsreader',
+      cssVariable: '--font-newsreader',
+      weights: ['200 800'],
+      styles: ['normal', 'italic'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['Georgia', 'serif'],
     },
   ],
   prefetch: {

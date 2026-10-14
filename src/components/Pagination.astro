@@ -8,41 +8,33 @@ interface Props {
 
 const { page, totalPages, base } = Astro.props;
 const href = (n: number) => (n === 1 ? base : `${base}${n}/`);
+const button =
+    'inline-flex items-center gap-1.5 rounded-full bg-raised px-4 py-2 text-sm font-medium text-fg-2 shadow-[inset_0_0_0_1px_var(--color-line)] transition-colors duration-150 hover:text-fg hover:bg-elevated';
 ---
 
 {totalPages > 1 && (
-    <nav aria-label="Pagination" class="mt-16 pt-6 border-t border-midnight-800/40 flex items-center justify-between">
-        <div>
+    <nav aria-label="Pagination" class="mt-14 flex items-center justify-between">
+        <div class="w-28">
             {page > 1 && (
-                <a
-                    href={href(page - 1)}
-                    rel="prev"
-                    data-astro-prefetch
-                    class="text-sm text-midnight-500 hover:text-white transition-colors duration-150 flex items-center gap-1"
-                >
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                <a href={href(page - 1)} rel="prev" data-astro-prefetch class={button}>
+                    <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
                     </svg>
                     Newer
                 </a>
             )}
         </div>
 
-        <span class="text-xs font-mono text-midnight-500 tabular-nums">
-            {page}/{totalPages}
+        <span class="text-[13px] text-fg-3 tabular-nums">
+            Page {page} of {totalPages}
         </span>
 
-        <div>
+        <div class="w-28 flex justify-end">
             {page < totalPages && (
-                <a
-                    href={href(page + 1)}
-                    rel="next"
-                    data-astro-prefetch
-                    class="text-sm text-midnight-500 hover:text-white transition-colors duration-150 flex items-center gap-1"
-                >
+                <a href={href(page + 1)} rel="next" data-astro-prefetch class={button}>
                     Older
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
                     </svg>
                 </a>
             )}

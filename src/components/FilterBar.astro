@@ -9,20 +9,48 @@ interface Props {
 const { active } = Astro.props;
 ---
 
-<div class="flex flex-wrap gap-1">
-    {FILTERS.map((f) => (
-        <a
-            href={f.slug ? `/${f.slug}/` : '/'}
-            data-astro-prefetch
-            aria-current={active === f.slug ? 'page' : undefined}
-            class:list={[
-                'px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-150',
-                active === f.slug
-                    ? 'bg-white text-midnight-950'
-                    : 'text-midnight-500 hover:text-midnight-200 hover:bg-midnight-900/50',
-            ]}
-        >
-            {f.label}
-        </a>
-    ))}
-</div>
+<nav aria-label="Topics" class="filter -mx-6 px-6 overflow-x-auto [scrollbar-width:none] sm:mx-0 sm:px-0 sm:overflow-visible">
+    <div class="inline-flex sm:grid sm:w-full sm:grid-cols-6 gap-0.5 rounded-full bg-raised p-1 shadow-[inset_0_0_0_1px_var(--color-line)]">
+        {FILTERS.map((f) => (
+            <a
+                href={f.slug ? `/${f.slug}/` : '/'}
+                data-astro-prefetch
+                aria-current={active === f.slug ? 'page' : undefined}
+                class:list={[
+                    'relative whitespace-nowrap rounded-full px-3.5 py-1.5 text-center text-[13px] font-medium transition-colors duration-150',
+                    active === f.slug ? 'text-fg' : 'text-fg-2 hover:text-fg',
+                ]}
+            >
+                {/*
+                  * Between pages only the highlight slides; each label has its own transition name and sits
+                  * above it, so labels stay put instead of riding along with the highlight.
+                  */}
+                {active === f.slug && (
+                    <span class="absolute inset-0 rounded-full bg-elevated shadow-sm" style="view-transition-name: filter-pill" aria-hidden="true"></span>
+                )}
+                <span class="relative z-[1]" style={`view-transition-name: filter-${f.slug || 'all'}`}>{f.label}</span>
+            </a>
+        ))}
+    </div>
+</nav>
+
+<script is:inline>
+    // On phones the segments scroll; bring the active one into view before the page is shown.
+    (() => {
+        const bar = document.querySelector('nav[aria-label="Topics"]');
+        const current = bar?.querySelector('[aria-current="page"]');
+        if (current && bar.scrollWidth > bar.clientWidth) {
+            const offset = current.getBoundingClientRect().left - bar.getBoundingClientRect().left;
+            bar.scrollLeft = offset - (bar.clientWidth - current.offsetWidth) / 2;
+        }
+    })();
+</script>
+
+<style>
+    /* On phones the segments scroll sideways; fade them out at the edges rather than clipping. */
+    @media (max-width: 39.99rem) {
+        .filter {
+            mask-image: linear-gradient(to right, transparent, #000 1.25rem, #000 calc(100% - 1.5rem), transparent);
+        }
+    }
+</style>

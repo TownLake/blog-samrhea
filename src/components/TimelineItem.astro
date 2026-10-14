@@ -2,7 +2,7 @@
 interface Props {
     name: string;
     period: string;
-    /** Brand color for the name and this item's stretch of the timeline. */
+    /** Brand color for the logo's ring and this item's stretch of the timeline. */
     color: string;
     logo?: string;
     /** Extra space under the header, for items with longer bodies. */
@@ -13,19 +13,24 @@ const { name, period, color, logo, spacious = false } = Astro.props;
 ---
 
 <div class="relative pl-12">
-    <div class="absolute left-[11px] top-0 bottom-0 w-px opacity-60" style={{ backgroundColor: color }}></div>
+    <div class="absolute left-[15px] top-2 bottom-0 w-px opacity-50" style={{ backgroundColor: color }}></div>
 
-    <div class="absolute left-0 top-0 bg-midnight-950 pb-4">
-        {logo ? (
-            <img src={logo} alt={name} width="24" height="24" class="w-6 h-6 object-contain rounded-sm bg-midnight-900/50" />
-        ) : (
-            <div class="w-6 h-6 bg-midnight-800 rounded-sm"></div>
-        )}
+    <div class="absolute left-0 top-0 bg-canvas pb-3">
+        <div
+            class="grid size-8 place-items-center rounded-[10px] bg-raised"
+            style={{ boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${color} 45%, transparent)` }}
+        >
+            {logo ? (
+                <img src={logo} alt="" width="20" height="20" class="size-5 object-contain" />
+            ) : (
+                <span class="size-2 rounded-full" style={{ backgroundColor: color }}></span>
+            )}
+        </div>
     </div>
 
-    <div class:list={['relative z-10 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2', spacious ? 'mb-6' : 'mb-4']}>
-        <h3 class="text-base font-medium" style={{ color }}>{name}</h3>
-        <span class="text-sm font-mono text-midnight-500 tabular-nums">{period}</span>
+    <div class:list={['relative z-10 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 pt-1', spacious ? 'mb-6' : 'mb-4']}>
+        <h3 class="font-display text-[1.375rem]/tight tracking-[-0.01em] text-fg">{name}</h3>
+        <span class="text-[13px] text-fg-3 tabular-nums">{period}</span>
     </div>
 
     <slot />

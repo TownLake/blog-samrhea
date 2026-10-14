@@ -1,0 +1,24 @@
+---
+import type { Tint } from '../lib/content';
+
+interface Props {
+    emoji: string[];
+    tint: Tint;
+    /** Edge length in pixels. */
+    size?: number;
+    /** Shared with the same post's tile on other pages, so it morphs between them. */
+    transition?: string;
+}
+
+const { emoji, tint, size = 48, transition } = Astro.props;
+---
+
+<span
+    class="tile"
+    data-tint={tint}
+    data-n={Math.min(emoji.length, 3)}
+    style={{ '--s': `${size}px`, viewTransitionName: transition }}
+    aria-hidden="true"
+>
+    {emoji.slice(0, 3).map((e) => <span>{e}</span>)}
+</span>

@@ -9,22 +9,31 @@ const links = [
 ];
 ---
 
-<nav class="w-full max-w-2xl px-6 py-6 flex justify-between items-center">
-    <a href="/" class="text-sm font-medium tracking-tight text-midnight-100 hover:text-white transition-colors duration-150">
-        Sam Rhea
-    </a>
-    <div class="flex gap-8 text-sm">
-        {links.map(({ href, label, active }) => (
-            <a
-                href={href}
-                aria-current={active ? 'page' : undefined}
-                class:list={[
-                    'transition-colors duration-150',
-                    active ? 'text-white' : 'text-midnight-500 hover:text-midnight-200',
-                ]}
-            >
-                {label}
-            </a>
-        ))}
-    </div>
-</nav>
+<header class="sticky top-3 z-50 w-full max-w-2xl px-6" style="view-transition-name: nav">
+    <nav class="glass flex items-center justify-between rounded-full p-1.5">
+        <a href="/" class="group flex items-center gap-2.5 rounded-full pr-3 text-[15px] font-semibold tracking-tight text-fg">
+            <img
+                src="/favicon.svg"
+                alt=""
+                width="30"
+                height="30"
+                class="size-[30px] rounded-[9px] transition-transform duration-500 ease-spring group-hover:rotate-90"
+            />
+            Sam Rhea
+        </a>
+        <div class="flex gap-1 pr-1.5 text-sm font-medium">
+            {links.map(({ href, label, active }) => (
+                <a
+                    href={href}
+                    aria-current={active ? 'page' : undefined}
+                    class:list={[
+                        'rounded-full px-3 py-1.5 transition-colors duration-150',
+                        active ? 'text-fg' : 'text-fg-3 hover:text-fg',
+                    ]}
+                >
+                    {label}
+                </a>
+            ))}
+        </div>
+    </nav>
+</header>

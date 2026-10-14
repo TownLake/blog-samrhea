@@ -7,7 +7,7 @@ Personal blog for Sam Rhea, built with Astro as a fully static site and served b
 - **Framework**: Astro 7 (static output, no adapter, no server code)
 - **Markdown**: Sätteri (Astro's default processor) with small plugins in `src/markdown/`
 - **Styling**: Tailwind CSS 4 (CSS-first config in `src/styles/global.css`) with the typography plugin
-- **Font**: Inter, self-hosted through Astro's fonts API (`fonts` in `astro.config.mjs`)
+- **Fonts**: Inter for text and UI, Newsreader for display headings, both self-hosted through Astro's fonts API (`fonts` in `astro.config.mjs`)
 - **Hosting**: Cloudflare Worker `blog` with static assets only (`wrangler.jsonc`), deployed by Workers Builds
 
 ## Project Structure
@@ -36,7 +36,7 @@ src/
 │   ├── book-details.ts # Generates the reading-post intro and tables from `book` frontmatter
 │   ├── dashes.ts       # `--` → em dash, `. . .` → ellipsis (the blog's historical punctuation)
 │   └── images.ts       # Post images: lazy loading, width/height, srcset of smaller sizes
-├── components/         # Nav, Footer, FilterBar, PostCard, Pagination, TimelineItem
+├── components/         # Nav, FilterBar, PostCard, EmojiTile, Pagination, TimelineItem
 ├── layouts/Layout.astro
 └── pages/
     ├── [...path].astro       # Every listing page (see below)
@@ -177,9 +177,13 @@ Post images are hosted on Cloudflare Images (`imagedelivery.net/BO71HffCLgVKrpfg
 
 ## Styling
 
-- Dark theme with a `midnight` gray palette, defined as `@theme` colors in `src/styles/global.css`
-- Post bodies use Tailwind Typography (`prose`); its colors and the inline code and link tweaks are set once on `.prose` in `global.css`
-- Monospace text uses the system UI monospace font
+- Colors are semantic `@theme` tokens in `src/styles/global.css` (`canvas`, `raised`, `elevated`, `line`, `fg`, `fg-2`, `fg-3`, `accent`, plus topic tints). Use them instead of raw colors; light mode only swaps their values.
+- The site follows the system color scheme: dark is gold on ink, light is cobalt on warm white.
+- Every post title starts with emoji. `splitTitle()` in `src/lib/content.ts` separates them, and `EmojiTile` shows them as the post's icon, tinted by topic (`tintFor()`). The tile shares a view transition name between the list and the post page, so it morphs between them.
+- Shared classes in `global.css`: `.eyebrow` (small labels), `.link`, `.glass` (the nav material), `.tile`, `.scroll-edge` (softens content as it scrolls under the nav).
+- Listing pages have no titles: the topic picker is the header, and it sits in the same place on every page.
+- Post bodies use Tailwind Typography (`prose`), mapped onto the tokens once on `.prose` in `global.css`. Code blocks use Shiki's `vitesse-light`/`vitesse-dark` themes, picked by color scheme.
+- Monospace text uses the system UI monospace font and appears only in code.
 
 ## Commands
 

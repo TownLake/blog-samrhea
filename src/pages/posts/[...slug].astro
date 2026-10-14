@@ -1,53 +1,82 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import EmojiTile from '../../components/EmojiTile.astro';
 import Layout from '../../layouts/Layout.astro';
-import { formatDate } from '../../lib/content';
+import { formatDate, getEntries, splitTitle, tileTransition, tintFor, topicUrl, type Entry } from '../../lib/content';
 
 export const getStaticPaths = (async () => {
     const posts = await getCollection('posts', ({ data }) => !data.draft);
-    return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+    const entries = (await getEntries()).filter((e) => !e.external);
+
+    return posts.map((post) => {
+        // Neighbors come from the same stream: reading posts link to reading posts, everything else to everything else.
+        const url = `/posts/${post.id}/`;
+        const reading = (e: Entry) => e.topics.includes('reading');
+        const index = entries.findIndex((e) => e.url === url);
+        const stream = entries.filter((e) => reading(e) === reading(entries[index]));
+        const position = stream.indexOf(entries[index]);
+        return {
+            params: { slug: post.id },
+            props: { post, newer: stream[position - 1], older: stream[position + 1] },
+        };
+    });
 }) satisfies GetStaticPaths;
 
 interface Props {
     post: CollectionEntry<'posts'>;
+    newer?: Entry;
+    older?: Entry;
 }
 
-const { post } = Astro.props;
+const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
-const { title, description, date } = post.data;
+const { title, description, date, category, tags } = post.data;
+const { emoji, name } = splitTitle(title);
+const topics = [...new Set([category, ...tags].filter((t) => t !== undefined))];
+const reading = topics.includes('reading');
+const minutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).length / 230));
 
 // The first image in the post doubles as its link-preview image.
 const image = post.body?.match(/!\[[^\]]*\]\((https:\/\/[^)\s]+)/)?.[1];
+const pill =
+    'inline-flex items-center gap-1.5 rounded-full bg-raised px-3 py-1 text-[13px] text-fg-2 shadow-[inset_0_0_0_1px_var(--color-line)] transition-colors duration-150 hover:text-fg hover:bg-elevated';
 ---
 
 <Layout title={`${title} — Sam Rhea`} description={description} image={image} published={date}>
     <article class="w-full">
-        <header class="mb-10">
-            <nav class="mb-8">
-                <a href="/" class="text-sm text-midnight-500 hover:text-midnight-200 transition-colors duration-150 inline-flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                    Writing
-                </a>
-            </nav>
+        <header class="mb-12">
+            <a
+                href={reading ? '/reading/' : '/'}
+                class="inline-flex items-center gap-1 text-sm font-medium text-fg-3 hover:text-fg transition-colors duration-150"
+            >
+                <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
+                </svg>
+                {reading ? 'Reading' : 'Writing'}
+            </a>
 
-            <h1 class="text-2xl/tight md:text-3xl font-semibold tracking-tight text-white mb-4">
-                {title}
+            <div class="mt-8 mb-6">
+                <EmojiTile emoji={emoji} tint={tintFor(topics)} size={76} transition={tileTransition(`/posts/${post.id}/`)} />
+            </div>
+
+            <h1 class="font-display text-[2.375rem] sm:text-[3.25rem] leading-[1.05] tracking-[-0.025em] font-[450] text-fg text-balance">
+                {name}
             </h1>
 
-            <div class="flex items-center gap-4 text-sm text-midnight-500">
-                <time datetime={date.toISOString().slice(0, 10)} class="font-mono text-xs">
-                    {formatDate(date, { year: 'numeric', month: 'short', day: 'numeric' })}
+            {description && (
+                <p class="mt-4 font-display italic text-xl sm:text-[1.375rem]/snug text-fg-2 text-pretty">{description}</p>
+            )}
+
+            <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] text-fg-3">
+                <time datetime={date.toISOString().slice(0, 10)} class="tabular-nums">
+                    {formatDate(date, { year: 'numeric', month: 'long', day: 'numeric' })}
                 </time>
-                <button
-                    type="button"
-                    id="copy-url-btn"
-                    class="font-mono text-xs hover:text-midnight-300 transition-colors duration-150 flex items-center gap-1.5 cursor-pointer"
-                >
-                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                <span aria-hidden="true">·</span>
+                <span>{minutes} min read</span>
+                <button type="button" id="copy-url-btn" class:list={[pill, 'ml-auto cursor-pointer']}>
+                    <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" />
                     </svg>
                     <span id="copy-text">Copy link</span>
                 </button>
@@ -57,6 +86,43 @@ const image = post.body?.match(/!\[[^\]]*\]\((https:\/\/[^)\s]+)/)?.[1];
         <div class="prose max-w-none">
             <Content />
         </div>
+
+        <footer class="mt-16 space-y-10">
+            {topics.length > 0 && (
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="eyebrow mr-2">Filed under</span>
+                    {topics.map((topic) => (
+                        <a href={topicUrl(topic)} class={pill}>{topic}</a>
+                    ))}
+                </div>
+            )}
+
+            {(newer || older) && (
+                <nav aria-label="More posts" class="grid gap-3 sm:grid-cols-2">
+                    {[
+                        { entry: older, label: 'Older', align: '' },
+                        { entry: newer, label: 'Newer', align: 'sm:col-start-2' },
+                    ].map(({ entry, label, align }) =>
+                        entry && (
+                            <a
+                                href={entry.url}
+                                data-astro-prefetch
+                                class:list={[
+                                    'group flex items-center gap-4 rounded-2xl bg-raised p-4 shadow-[inset_0_0_0_1px_var(--color-line)] transition-colors duration-150 hover:bg-elevated',
+                                    align,
+                                ]}
+                            >
+                                <EmojiTile emoji={entry.emoji} tint={entry.tint} size={44} transition={tileTransition(entry.url)} />
+                                <div class="min-w-0">
+                                    <p class="eyebrow">{label}</p>
+                                    <p class="mt-1 text-[15px]/snug font-medium text-fg line-clamp-2">{entry.name}</p>
+                                </div>
+                            </a>
+                        ),
+                    )}
+                </nav>
+            )}
+        </footer>
     </article>
 </Layout>
 

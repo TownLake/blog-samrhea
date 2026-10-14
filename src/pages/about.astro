@@ -5,8 +5,26 @@ import career from '../data/career.json';
 import education from '../data/education.json';
 import patents from '../data/patents.json';
 
-const linkClass = 'text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150';
-const sectionHeading = 'text-xs font-mono text-midnight-500 uppercase tracking-widest';
+const socialLinks = [
+    {
+        href: '/rss.xml',
+        label: 'RSS feed',
+        icon: 'M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z',
+    },
+    {
+        href: 'https://x.com/LakeAustinBlvd',
+        label: 'X',
+        icon: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z',
+    },
+    {
+        href: 'https://www.linkedin.com/in/samrhea/',
+        label: 'LinkedIn',
+        icon: 'M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z',
+    },
+];
+
+const linkClass = 'link';
+const sectionHeading = 'eyebrow';
 
 const schools = [
     { heading: 'Teaching', entries: education.filter((s) => s.teaching) },
@@ -15,34 +33,52 @@ const schools = [
 ---
 
 <Layout title="About — Sam Rhea">
-    <div class="space-y-16">
+    <div class="space-y-20">
 
-        <section class="space-y-4">
-            <p class="text-base text-midnight-200 leading-relaxed">
-                Hi there. My name is Sam. I am a Texan living in Lisbon. I work at Cloudflare.
+        <section>
+            <h1 class="font-display text-[2.75rem] sm:text-[3.75rem] leading-[1.02] tracking-[-0.025em] font-[450] text-fg text-balance">
+                Hi there. My name is Sam.
+            </h1>
+            <p class="mt-6 text-lg/relaxed text-fg-2 text-pretty">
+                I am a Texan living in Lisbon. I work at Cloudflare. I'm probably busy right now building an application for a hobby project that doesn't need one. Or walking a dog we named after the second-worst highway in Austin.
             </p>
-            <p class="text-base text-midnight-200 leading-relaxed">
-                I'm probably busy right now building an application for a hobby project that doesn't need one. Or walking a dog we named after the second-worst highway in Austin.
-            </p>
+            <div class="mt-6 flex flex-wrap gap-2">
+                {socialLinks.map(({ href, label, icon }) => {
+                    const external = href.startsWith('http');
+                    return (
+                        <a
+                            href={href}
+                            target={external ? '_blank' : undefined}
+                            rel={external ? 'noopener noreferrer' : undefined}
+                            class="inline-flex items-center gap-2 rounded-full bg-raised px-3.5 py-1.5 text-[13px] font-medium text-fg-2 shadow-[inset_0_0_0_1px_var(--color-line)] transition-colors duration-150 hover:text-fg hover:bg-elevated"
+                        >
+                            <svg class="size-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d={icon} />
+                            </svg>
+                            {label}
+                        </a>
+                    );
+                })}
+            </div>
         </section>
 
         <section>
             <h2 class:list={[sectionHeading, 'mb-8']}>At Work</h2>
             <div class="relative">
-                <div class="absolute left-[11px] top-0 bottom-0 w-px bg-midnight-800"></div>
-                <div class="space-y-12">
+                <div class="absolute left-[15px] top-0 bottom-0 w-px bg-line"></div>
+                <div class="space-y-14">
                     {career.map((job) => (
                         <TimelineItem name={job.name} period={job.period} color={job.color} logo={job.logo} spacious>
                             <div class="space-y-10 relative z-10">
                                 {job.roles.map((role) => (
                                     <div>
                                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-3">
-                                            <h4 class="text-sm font-medium text-midnight-200">{role.title}</h4>
+                                            <h4 class="text-[15px] font-semibold text-fg">{role.title}</h4>
                                             {job.roles.length > 1 && (
-                                                <span class="text-xs text-midnight-500 font-mono tabular-nums">{role.period}</span>
+                                                <span class="text-[13px] text-fg-3 tabular-nums">{role.period}</span>
                                             )}
                                         </div>
-                                        <div class="text-sm text-midnight-400 leading-relaxed">
+                                        <div class="text-[15px] text-fg-2 leading-relaxed">
                                             {role.achievements.map((achievement, index) => {
                                                 // An achievement is plain text or a list of text and link parts.
                                                 const content = Array.isArray(achievement) ? (
@@ -60,7 +96,7 @@ const schools = [
                                                     <div class="mb-3">{content}</div>
                                                 ) : (
                                                     <div class="flex gap-3 items-baseline mb-2">
-                                                        <span class="shrink-0 text-midnight-500 select-none">–</span>
+                                                        <span class="shrink-0 size-1 translate-y-[-0.2em] rounded-full bg-accent/70" aria-hidden="true"></span>
                                                         <span>{content}</span>
                                                     </div>
                                                 );
@@ -78,27 +114,27 @@ const schools = [
         <section>
             <h2 class:list={[sectionHeading, 'mb-6']}>Patents</h2>
             {patents.map((patent) => (
-                <div class="-mx-4 px-4 py-3 rounded-lg hover:bg-midnight-900/40 transition-colors duration-150">
+                <div class="-mx-4 px-4 py-4 rounded-2xl hover:bg-raised transition-colors duration-150">
                     <a href={patent.link} target="_blank" rel="noopener noreferrer" class="group">
                         <div class="flex items-center gap-2 mb-1.5">
-                            <h3 class="text-sm text-midnight-200 font-medium group-hover:text-white transition-colors duration-150">{patent.title}</h3>
-                            <svg class="w-3.5 h-3.5 text-midnight-500 group-hover:text-midnight-300 shrink-0 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            <h3 class="text-[15px] text-fg font-semibold group-hover:text-accent transition-colors duration-150">{patent.title}</h3>
+                            <svg class="size-3.5 text-fg-3 group-hover:text-accent shrink-0 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9" />
                             </svg>
                         </div>
-                        <div class="flex items-center gap-2 text-xs font-mono text-midnight-500 mb-2">
+                        <div class="flex items-center gap-2 text-[13px] text-fg-3 tabular-nums mb-2">
                             <span>{patent.patentNumber}</span>
                             <span aria-hidden="true">·</span>
                             <span>{patent.issueDate}</span>
                         </div>
                     </a>
-                    <p class="text-sm text-midnight-400 leading-relaxed mb-2">{patent.summary}</p>
+                    <p class="text-[15px] text-fg-2 leading-relaxed mb-2">{patent.summary}</p>
                     <details class="group/details">
-                        <summary class="text-xs text-midnight-500 hover:text-midnight-300 cursor-pointer transition-colors duration-150 select-none">
+                        <summary class="text-[13px] font-medium text-fg-3 hover:text-fg cursor-pointer transition-colors duration-150 select-none">
                             <span class="group-open/details:hidden">Show full abstract</span>
                             <span class="hidden group-open/details:inline">Hide abstract</span>
                         </summary>
-                        <p class="text-sm text-midnight-500 leading-relaxed mt-2">{patent.description}</p>
+                        <p class="text-sm text-fg-3 leading-relaxed mt-2">{patent.description}</p>
                     </details>
                 </div>
             ))}
@@ -108,15 +144,15 @@ const schools = [
             <section>
                 <h2 class:list={[sectionHeading, 'mb-8']}>{heading}</h2>
                 <div class="relative">
-                    <div class="absolute left-[11px] top-0 bottom-0 w-px bg-midnight-800"></div>
-                    <div class="space-y-10">
+                    <div class="absolute left-[15px] top-0 bottom-0 w-px bg-line"></div>
+                    <div class="space-y-12">
                         {entries.map((school) => (
                             <TimelineItem name={school.name} period={school.period} color={school.color} logo={school.logo}>
                                 {school.roles.map((role) => (
                                     <div class="mb-4">
-                                        <p class="text-sm text-midnight-200">{role.title}</p>
+                                        <p class="text-[15px] font-semibold text-fg">{role.title}</p>
                                         {role.achievements[0] && (
-                                            <p class="text-sm text-midnight-500 mt-0.5">{role.achievements[0]}</p>
+                                            <p class="text-[15px] text-fg-2 mt-0.5">{role.achievements[0]}</p>
                                         )}
                                     </div>
                                 ))}
@@ -125,10 +161,10 @@ const schools = [
                                     <div class="space-y-5">
                                         {school.sections.map((section) => (
                                             <div>
-                                                <h4 class="text-xs font-medium text-midnight-400 uppercase tracking-wider mb-2 border-l-2 border-midnight-700 pl-3">{section.title}</h4>
-                                                <ul class="space-y-1.5 pl-3">
+                                                <h4 class="eyebrow mb-2">{section.title}</h4>
+                                                <ul class="space-y-1.5">
                                                     {section.items.map((item) => (
-                                                        <li class="text-sm text-midnight-400">
+                                                        <li class="text-[15px] text-fg-2">
                                                             {typeof item === 'string' ? (
                                                                 <span>{item}</span>
                                                             ) : (

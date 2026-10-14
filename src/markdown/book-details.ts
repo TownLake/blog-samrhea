@@ -20,12 +20,18 @@ interface Book {
 const INTRO = `> ## Not a Book Report
 > I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/reading/) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.`;
 
+// The wrapper lets global.css set these as label/value lists without the header row.
 const table = (heading: string, rows: [string, unknown][]) =>
   [
     `## ${heading}`,
+    '',
+    '<div class="book-facts">',
+    '',
     '|Category|Value|',
     '|---|---|',
     ...rows.filter(([, value]) => value !== undefined && value !== '').map(([label, value]) => `|**${label}**|${value}|`),
+    '',
+    '</div>',
   ].join('\n');
 
 const whatIsIt = (book: Book) =>

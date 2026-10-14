@@ -3,77 +3,407 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
+  --font-display: var(--font-newsreader);
 }
 
+/*
+ * Colors are named for their job, not their value, so light and dark mode only swap values.
+ * Dark is gold on ink; light is cobalt on warm white.
+ */
 @theme {
   --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-  --color-midnight-950: #0a0a0a;
-  --color-midnight-900: #111111;
-  --color-midnight-800: #1a1a1a;
-  --color-midnight-700: #262626;
-  --color-midnight-500: #8b8b8b;
-  --color-midnight-400: #a1a1a1;
-  --color-midnight-300: #b8b8b8;
-  --color-midnight-200: #d4d4d4;
-  --color-midnight-100: #ededed;
+  --color-canvas: #0a0b0e;
+  --color-raised: #121419;
+  --color-elevated: #23262e;
+  --color-line: #22252c;
+  --color-line-strong: #30343d;
+  --color-fg: #f3f1ec;
+  --color-prose: #d6d8dd;
+  --color-fg-2: #aeb2bc;
+  --color-fg-3: #7f8490;
+  --color-accent: #e3b868;
+  --color-on-accent: #1d1608;
 
-  --color-accent-blue: #3291ff;
+  /* Topic tints for emoji tiles. */
+  --color-portugal: #4f7fec;
+  --color-texas: #d9772b;
+  --color-reading: #5bb28d;
+  --color-cloudflare: #f6821f;
+  --color-tech: #9a86f2;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017 19.4%, 1.067, 1.099 24.3%, 1.108 26%, 1.103 27.9%, 1.085 30.4%, 1.012 38.6%, 0.988 42.9%, 0.98 47.4%, 0.987 55.3%, 1.002 67.5%, 1);
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-canvas: #fbfaf7;
+    --color-raised: #f2f0eb;
+    --color-elevated: #ffffff;
+    --color-line: #e5e2da;
+    --color-line-strong: #d4d0c6;
+    --color-fg: #14161b;
+    --color-prose: #2b2f37;
+    --color-fg-2: #4f545e;
+    --color-fg-3: #6b707b;
+    --color-accent: #1f48b5;
+    --color-on-accent: #ffffff;
+
+    --color-portugal: #1f48b5;
+    --color-texas: #bf5700;
+    --color-reading: #2e8a62;
+    --color-cloudflare: #e06d0b;
+    --color-tech: #6a55d8;
+  }
+}
+
+:root {
+  color-scheme: dark light;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Cross-document view transitions: the emoji tile flies from the list into the post. */
 @view-transition {
   navigation: auto;
 }
 
-/* Post bodies: Tailwind Typography on a dark background, with inline code and links tuned. */
-.prose {
-  --tw-prose-body: #d1d5db;
-  --tw-prose-headings: #fff;
-  --tw-prose-lead: #9ca3af;
-  --tw-prose-links: #fff;
-  --tw-prose-bold: #fff;
-  --tw-prose-counters: #9ca3af;
-  --tw-prose-bullets: #4b5563;
-  --tw-prose-hr: #374151;
-  --tw-prose-quotes: #f3f4f6;
-  --tw-prose-quote-borders: #374151;
-  --tw-prose-captions: #9ca3af;
-  --tw-prose-kbd: #fff;
-  --tw-prose-code: #fff;
-  --tw-prose-pre-code: #d1d5db;
-  --tw-prose-pre-bg: rgb(0 0 0 / 50%);
-  --tw-prose-th-borders: #4b5563;
-  --tw-prose-td-borders: #374151;
+::view-transition-group(*) {
+  animation-duration: 450ms;
+  animation-timing-function: var(--ease-out);
+}
 
-  :where(a) {
-    text-decoration: none;
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+@layer components {
+  /* Small, quiet labels for sections and metadata. */
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-fg-3);
+  }
+
+  /* Text links: an accent underline that fills in on hover. */
+  .link {
+    color: var(--color-fg);
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in oklab, var(--color-accent) 55%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.2em;
+    transition:
+      color 150ms,
+      text-decoration-color 150ms;
+
     &:hover {
-      color: #fff;
+      color: var(--color-accent);
+      text-decoration-color: var(--color-accent);
     }
   }
-  :where(h1, h2) {
-    font-weight: 600;
-    letter-spacing: -0.025em;
+
+  /* Translucent material for floating chrome. */
+  .glass {
+    background: color-mix(in oklab, var(--color-canvas) 72%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    box-shadow:
+      inset 0 0 0 1px var(--color-line),
+      inset 0 1px 0 rgb(255 255 255 / 0.05),
+      0 12px 32px -16px rgb(0 0 0 / 0.5);
+  }
+
+  /*
+   * A post's leading emoji, set in a tile tinted by topic. `--s` is the tile size;
+   * the emoji are sized in em so they scale with it.
+   */
+  .tile {
+    --tint: var(--color-fg-3);
+    position: relative;
+    display: block;
+    flex: none;
+    width: var(--s);
+    height: var(--s);
+    font-size: var(--s);
+    border-radius: 28%;
+    background: color-mix(in oklab, var(--tint) 15%, var(--color-raised));
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--tint) 30%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 0.07);
+    transition: transform 600ms var(--ease-spring);
+
+    & > span {
+      position: absolute;
+      line-height: 1;
+      transition: transform 600ms var(--ease-spring);
+    }
+
+    &[data-n='1'] > span {
+      font-size: 0.6em;
+      left: 50%;
+      top: 50%;
+      translate: -50% -50%;
+    }
+
+    /* Two emoji overlap like stickers; three sit in a triangle. */
+    &[data-n='2'] > span:nth-child(1) {
+      font-size: 0.5em;
+      left: 0.1em;
+      top: 0.09em;
+    }
+    &[data-n='2'] > span:nth-child(2) {
+      font-size: 0.42em;
+      right: 0.08em;
+      bottom: 0.08em;
+      filter: drop-shadow(0 0.02em 0.04em rgb(0 0 0 / 0.35));
+    }
+    &[data-n='3'] > span {
+      font-size: 0.36em;
+    }
+    &[data-n='3'] > span:nth-child(1) {
+      left: 0.1em;
+      top: 0.1em;
+    }
+    &[data-n='3'] > span:nth-child(2) {
+      right: 0.1em;
+      top: 0.1em;
+    }
+    &[data-n='3'] > span:nth-child(3) {
+      left: 50%;
+      bottom: 0.08em;
+      translate: -50% 0;
+    }
+
+    &[data-tint='portugal'] {
+      --tint: var(--color-portugal);
+    }
+    &[data-tint='texas'] {
+      --tint: var(--color-texas);
+    }
+    &[data-tint='reading'] {
+      --tint: var(--color-reading);
+    }
+    &[data-tint='cloudflare'] {
+      --tint: var(--color-cloudflare);
+    }
+    &[data-tint='tech'] {
+      --tint: var(--color-tech);
+    }
+  }
+
+  /* A little wiggle when the row it belongs to is hovered. */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .group:hover .tile {
+      transform: rotate(-6deg) scale(1.06);
+
+      & > span:nth-child(2) {
+        transform: translate(0.03em, 0.02em) rotate(10deg);
+      }
+    }
+  }
+
+  /* An empty tile slot, for the 404 page. */
+  .tile-empty {
+    background: transparent;
+    box-shadow: none;
+    outline: 1.5px dashed var(--color-line-strong);
+    outline-offset: -1.5px;
+  }
+
+  /*
+   * Apple's scroll edge effect: content softens as it scrolls under the floating nav,
+   * instead of the nav sitting on a solid bar.
+   */
+  .scroll-edge {
+    position: fixed;
+    inset: 0 0 auto;
+    height: 5rem;
+    z-index: 40;
+    pointer-events: none;
+    background: linear-gradient(var(--color-canvas) 20%, transparent);
+    backdrop-filter: blur(6px);
+    mask-image: linear-gradient(#000 45%, transparent);
+  }
+}
+
+/* Code blocks follow the color scheme: Shiki emits both themes as variables. */
+.shiki,
+.shiki span {
+  color: var(--shiki-dark);
+}
+
+@media (prefers-color-scheme: light) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-light);
+  }
+}
+
+/* Post bodies: Tailwind Typography, mapped onto the color tokens. */
+.prose {
+  --tw-prose-body: var(--color-prose);
+  --tw-prose-headings: var(--color-fg);
+  --tw-prose-lead: var(--color-fg-2);
+  --tw-prose-links: var(--color-fg);
+  --tw-prose-bold: var(--color-fg);
+  --tw-prose-counters: var(--color-fg-3);
+  --tw-prose-bullets: color-mix(in oklab, var(--color-accent) 70%, transparent);
+  --tw-prose-hr: var(--color-line);
+  --tw-prose-quotes: var(--color-fg-2);
+  --tw-prose-quote-borders: var(--color-line);
+  --tw-prose-captions: var(--color-fg-3);
+  --tw-prose-kbd: var(--color-fg);
+  --tw-prose-code: var(--color-fg);
+  --tw-prose-pre-code: var(--color-prose);
+  --tw-prose-pre-bg: var(--color-raised);
+  --tw-prose-th-borders: var(--color-line-strong);
+  --tw-prose-td-borders: var(--color-line);
+
+  font-size: 1.0625rem;
+  line-height: 1.75;
+
+  :where(a) {
+    font-weight: inherit;
+    text-decoration-color: color-mix(in oklab, var(--color-accent) 55%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.2em;
+    transition:
+      color 150ms,
+      text-decoration-color 150ms;
+    &:hover {
+      color: var(--color-accent);
+      text-decoration-color: var(--color-accent);
+    }
+  }
+  :where(h2) {
+    font-family: var(--font-display);
+    font-size: 1.75em;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
   }
   :where(h3) {
+    font-size: 1.125em;
     font-weight: 600;
-  }
-  :where(p) {
-    line-height: 1.75;
+    letter-spacing: -0.01em;
   }
   :where(li) {
-    margin-block: 0.25em;
+    margin-block: 0.35em;
+  }
+  :where(img) {
+    border-radius: 1rem;
+  }
+  :where(hr) {
+    margin-block: 3em;
   }
   :where(:not(pre) > code) {
-    color: #f472b6;
-    background-color: var(--color-midnight-900);
-    border-radius: 0.25rem;
+    color: var(--color-accent);
+    background-color: var(--color-raised);
+    box-shadow: inset 0 0 0 1px var(--color-line);
+    border-radius: 0.375rem;
     padding: 0.125rem 0.375rem;
     font-weight: 400;
-    font-size: 0.875em;
+    font-size: 0.85em;
     &::before,
     &::after {
       content: none;
+    }
+  }
+  :where(pre) {
+    border-radius: 1rem;
+    box-shadow: inset 0 0 0 1px var(--color-line);
+    font-size: 0.85em;
+  }
+
+  /* Quotes are set as soft cards rather than ruled and italicized. */
+  :where(blockquote) {
+    border: none;
+    border-radius: 1rem;
+    background: var(--color-raised);
+    padding: 1.25rem 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    box-shadow: inset 0 0 0 1px var(--color-line);
+
+    :where(p:first-of-type)::before,
+    :where(p:last-of-type)::after {
+      content: none;
+    }
+    :where(h2) {
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: var(--color-accent);
+      margin: 0 0 0.5rem;
+    }
+    :where(p) {
+      margin-block: 0;
+    }
+  }
+
+  /* Tables are set as rounded, grouped lists. */
+  :where(table) {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 1rem;
+    box-shadow: inset 0 0 0 1px var(--color-line);
+    overflow: hidden;
+    font-size: 0.9375em;
+  }
+  :where(thead th) {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-fg-3);
+    background: var(--color-raised);
+    border-bottom: 1px solid var(--color-line);
+  }
+  :where(th, td) {
+    padding: 0.7rem 1rem !important;
+  }
+  :where(tbody tr) {
+    border-bottom: none;
+  }
+  :where(tbody tr + tr td) {
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* The generated book tables: label and value rows, with no header. */
+  :where(.book-facts) {
+    :where(thead) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    :where(td:first-child) {
+      width: 40%;
+      color: var(--color-fg-3);
+    }
+    :where(td:first-child strong) {
+      font-weight: 500;
+      color: inherit;
     }
   }
 }

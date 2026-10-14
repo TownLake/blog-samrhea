@@ -1,6 +1,5 @@
 ---
 import { Font } from 'astro:assets';
-import Footer from '../components/Footer.astro';
 import Nav from '../components/Nav.astro';
 import '../styles/global.css';
 
@@ -24,10 +23,13 @@ const canonical = notFound ? undefined : new URL(Astro.url.pathname, Astro.site)
 ---
 
 <!doctype html>
-<html lang="en" class="bg-midnight-950 text-midnight-100 antialiased">
+<html lang="en" class="bg-canvas text-fg antialiased">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#0a0b0e" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		{canonical ? <link rel="canonical" href={canonical} /> : <meta name="robots" content="noindex" />}
@@ -36,6 +38,7 @@ const canonical = notFound ? undefined : new URL(Astro.url.pathname, Astro.site)
 		<link rel="alternate" type="application/rss+xml" title="Sam Rhea" href="/rss.xml" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<Font cssVariable="--font-inter" preload={[{ subset: 'latin', style: 'normal' }]} />
+		<Font cssVariable="--font-newsreader" preload={[{ subset: 'latin', style: 'normal' }]} />
 
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
@@ -46,11 +49,11 @@ const canonical = notFound ? undefined : new URL(Astro.url.pathname, Astro.site)
 		{image && <meta property="og:image" content={image} />}
 		<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
 	</head>
-	<body class="min-h-screen flex flex-col items-center selection:bg-accent-blue/20 selection:text-white">
+	<body class="min-h-screen flex flex-col items-center selection:bg-accent/25">
+		<div class="scroll-edge" aria-hidden="true"></div>
 		<Nav />
-		<main class="w-full max-w-2xl px-6 py-8 grow">
+		<main class="w-full max-w-2xl px-6 pt-12 sm:pt-14 pb-24 grow">
 			<slot />
 		</main>
-		<Footer />
 	</body>
 </html>
