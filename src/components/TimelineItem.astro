@@ -1,0 +1,32 @@
+---
+interface Props {
+    name: string;
+    period: string;
+    /** Brand color for the name and this item's stretch of the timeline. */
+    color: string;
+    logo?: string;
+    /** Extra space under the header, for items with longer bodies. */
+    spacious?: boolean;
+}
+
+const { name, period, color, logo, spacious = false } = Astro.props;
+---
+
+<div class="relative pl-12">
+    <div class="absolute left-[11px] top-0 bottom-0 w-px opacity-60" style={{ backgroundColor: color }}></div>
+
+    <div class="absolute left-0 top-0 bg-midnight-950 pb-4">
+        {logo ? (
+            <img src={logo} alt={name} width="24" height="24" class="w-6 h-6 object-contain rounded-sm bg-midnight-900/50" />
+        ) : (
+            <div class="w-6 h-6 bg-midnight-800 rounded-sm"></div>
+        )}
+    </div>
+
+    <div class:list={['relative z-10 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2', spacious ? 'mb-6' : 'mb-4']}>
+        <h3 class="text-base font-medium" style={{ color }}>{name}</h3>
+        <span class="text-sm font-mono text-midnight-500 tabular-nums">{period}</span>
+    </div>
+
+    <slot />
+</div>

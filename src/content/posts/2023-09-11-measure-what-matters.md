@@ -9,18 +9,20 @@ tags:
   - "reading"
   - "books"
 description: "Revisiting objectives and key results."
-book: "Measure What Matters"
-Author: "John Doerr"
-Year Published: "2017"
-Format: "Kindle"
-Pages: 320
-ISBN: "0525536221"
-DateStart: "September 10, 2023"
-DateFinish: "September 11, 2023"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Measure What Matters"
+  author: "John Doerr"
+  published: "2017"
+  format: "Kindle"
+  pages: "320"
+  isbn: "0525536221"
+  started: "September 10, 2023"
+  finished: "September 11, 2023"
+  places:
+    - "Lisbon"
+    - "United 65"
+---
 
 ## Why did I read it?
 Years ago, I spent about five years working for various groups within Joe Liemandt's ESW Capital and Trilogy Software organization - a kind of private equity firm [obsessed](https://www.forbes.com/sites/nathanvardi/2021/04/27/inside-a-remote-work-billionaires-new-plan-to-turn-his-white-collar-workers-into-algorithms/) with making software companies more efficient. We sought inspiration from manufacturing and assembly lines for managing traditionally "services" work - something Andy Grove at Intel thrived doing.
@@ -28,23 +30,6 @@ Years ago, I spent about five years working for various groups within Joe Lieman
 I first picked up Doerr's book, *Measure What Matters*, back then. His treatise on "objectives and key results" captured a focus we had at the time around measuring ourselves. We adopted the principles - down to the SaaS applications we deployed that would manage OKRs (until we eventually built some of the functionality into our own productivity software).
 
 I'm headed back to Austin this week for 2024 planning in my current role. An SVP suggested the crew read it prior to the meeting and I used it as a chance to revisit the book. What started as an 18 hour LIS->EWR->AUS agenda became a 24 hour nightmare of LIS->EWR->DEN->AUS, giving me a lot of time to somewhat leisurely reread the thing.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Measure What Matters*|
-|**Author**|John Doerr|
-|**Year Published**|2017|
-|**Format**|Kindle|
-|**Pages**|320|
-|**ISBN**|0525536221|
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|September 10, 2023|
-|**Date Finished**|September 11, 2023|
-|**Places Read**|Lisbon, United 65|
 
 ## Notes - No Spoilers
 * Doerr calls out Grove's interest in Henry Ford's manufacturing, something we shared at my old firm to the point that I once visited the original Ford plant in Michigan on a personal trip in Detroit.

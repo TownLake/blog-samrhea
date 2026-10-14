@@ -9,38 +9,23 @@ tags:
   - "reading"
   - "books"
 description: "Goods as advertised."
-book: "For Profit"
-Author: "William Magnuson"
-Year Published: "2022"
-Format: "Hardcover"
-Pages: 325
-ISBN: "9781541601567"
-DateStart: "February 10, 2023"
-DateFinish: "April 23, 2023"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "For Profit"
+  author: "William Magnuson"
+  published: "2022"
+  format: "Hardcover"
+  pages: "325"
+  isbn: "9481541601567"
+  started: "February 10, 2023"
+  finished: "April 23, 2023"
+  places:
+    - "Sintra"
+    - "Lisbon"
+---
 
 ## Why did I read it?
 My wife's family draws names for Christmas presents each year; my name was selected and I asked for physical books. I put together a list of a couple books that I had wanted to read and had seen this on the NY Times list and found it interesting. I work in a corporation, I have for most of my adult life, and I spend the vast majority of my waking time operating within one. However, I know very little about the history of the concept.
-
-## What is it?
-|Category|Value|
-|---|---|
-|Title|*For Profit*|
-|Author|William Magnuson|
-|Year Published|2022|
-|Format|Hardcover|
-|Pages|325|
-|ISBN|9481541601567|
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|Date Started|February 10, 2023|
-|Date Finished|April 23, 2023|
-|Places Read|Sintra<br>Lisbon|
 
 ## Notes - No Spoilers
 * I enjoyed the section on Roman history the most. The entire chapter was mostly new to me. I found it interesting that you could see the beginnings of the "military industrial complex" in the suppl of Scipio's army.

@@ -10,31 +10,22 @@ tags:
   - "books"
 description: "Jack Ryan Book 24 - so we're just redoing Red October now?"
 
-book: "Red Winter"
-Author: "Marc Cameron"
-Year Published: "2024"
-Format: "Kindle"
-Pages: 559
-ASIN: "B0CG85G8R1"
-DateStart: "December 16, 2024"
-DateFinish: "January 9, 2025"
+book:
+  title: "Act of Defiance"
+  author: "Brian Andrews and Jeffrey Wilson"
+  published: "2024"
+  format: "Kindle"
+  pages: "559"
+  asin: "B0CG85G8R1"
+  started: "December 16, 2024"
+  finished: "January 9, 2025"
+  places:
+    - "Lisbon"
+    - "Portugal & Utah, USA"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I am continuing with my quest to read nearly everything in the Tom Clancy Jack Ryan universe. This is the latest. And I am tired. I am not up for something more lofty. Just give me this.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Act of Defiance*|
-|**Author**|Brian Andrews and Jeffrey Wilson|
-|**Year Published**|2024|
-|**Format**|Kindle|
-|**Pages**|559|
-|**ASIN**|B0CG85G8R1|
 
 ### Publisher Summary
 
@@ -47,13 +38,6 @@ It's been four decades since a similar incident with the Soviet sub, Red October
 Now, President Jack Ryan finds himself with fleets of ships, squadrons of jets, and teams of SEALs at his command, but what he doesn’t have is insight into the plans of the Belgorod’s commander. It falls to a younger generation of Ryans to do the dangerous work that will reveal that information.
 
 But there’s always a price to be paid. When the final moments tick away, will Jack Ryan have to choose between the safety of his country and the safety of his child?
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|December 16, 2024|
-|**Date Finished**|January 9, 2025|
-|**Places Read**|Lisbon, Portugal & Utah, USA|
 
 ## Notes - No Spoilers
 * New author crew in this one - this time joint authors. One of them literally was a submarine officer and it shows (and I mean that in a good way).

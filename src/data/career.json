@@ -2,7 +2,8 @@
   {
     "id": 1,
     "name": "Cloudflare",
-    "logo": "/CF_logomark.svg",
+    "color": "#F38020",
+    "logo": "/logos/cloudflare.svg",
     "period": "2018 - Present",
     "current": true,
     "roles": [
@@ -99,7 +100,7 @@
         "title": "Director of Product",
         "period": "Jul 2020 - Apr 2022",
         "achievements": [
-            "Led the Cloudflare Zero Trust product line.",
+          "Led the Cloudflare Zero Trust product line.",
           [
             "Acquired ",
             {
@@ -263,7 +264,8 @@
   {
     "id": 2,
     "name": "DevFactory",
-    "logo": "https://devfactory.com/wp-content/uploads/2020/03/logo.png",
+    "color": "#C41E3A",
+    "logo": "/logos/devfactory.png",
     "period": "2013 - 2018",
     "current": false,
     "roles": [
@@ -280,7 +282,7 @@
   {
     "id": 3,
     "name": "Ginor & Associates",
-    "logo": null,
+    "color": "#5A7D9A",
     "period": "2012 - 2013",
     "current": false,
     "roles": [
@@ -295,7 +297,7 @@
   {
     "id": 4,
     "name": "Becker Venture Services Group",
-    "logo": null,
+    "color": "#5A7D9A",
     "period": "2011 - 2012",
     "current": false,
     "roles": [

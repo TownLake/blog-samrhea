@@ -9,26 +9,24 @@ tags:
   - "reading"
   - "books"
 description: "Almost finish line Le Carré."
----
 
-> ## Not a Book Report  
->  
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "The Persian"
+  author: "David McCloskey"
+  published: "2025"
+  format: "Kindle"
+  pages: "398"
+  isbn: "978-1324123200"
+  started: "October 16, 2025"
+  finished: "October 20, 2025"
+  places:
+    - "Lisbon"
+    - "The Algarve"
+---
 
 ## Why did I read it?
 
-I [finished and liked](https://blog.samrhea.com/post/2025-09-15-moscow-x) _Moscow X_, and then I [finished and liked](https://blog.samrhea.com/post/2025-10-15-damascus-station) _Damascus Station_, so I figured it was time to follow my usual routine and read everything the author has ever published.
-
-## What is it?
-
-|Category|Value|
-|---|---|
-|**Title**|_The Persian_|
-|**Author**|David McCloskey|
-|**Year Published**|2025|
-|**Format**|Kindle|
-|**Pages**|398|
-|**ISBN**|978-1324123200|
+I [finished and liked](https://blog.samrhea.com/posts/2025/moscow-x/) _Moscow X_, and then I [finished and liked](https://blog.samrhea.com/posts/2025/damascus-station/) _Damascus Station_, so I figured it was time to follow my usual routine and read everything the author has ever published.
 
 ### Publisher Summary
 
@@ -37,14 +35,6 @@ Kamran Esfahani, a dentist living out a dreary existence in Stockholm, agrees to
 And now, after enduring three years of torture in captivity, Kamran Esfahani sits in an interrogation room across from the General, preparing to write his final confession.
 
 Kam knows it is too late to save himself. But he has managed to keep one secret―only one―and he just might be able to save that. In this haunting thriller, careening between Tehran and Tel Aviv, Istanbul and Stockholm, David McCloskey delivers an intricate story of vengeance, deceit, and the power of love and forgiveness in a world of lies.
-
-## How did I read it?
-
-|Category|Value|
-|---|---|
-|**Date Started**|October 16, 2025|
-|**Date Finished**|October 20, 2025|
-|**Places Read**|Lisbon, The Algarve|
 
 ## Notes – No Spoilers
 

@@ -10,31 +10,22 @@ tags:
   - "books"
 description: "John Ryan Book 16 - back in the USA."
 
-book: "True Faith and Allegiance"
-Author: "Mark Greaney"
-Year Published: "2016"
-Format: "Kindle"
-Pages: 750
-ASIN: "B01CZCW4XG"
-DateStart: "December 28, 2023"
-DateFinish: "January 5, 2024"
+book:
+  title: "True Faith and Allegiance"
+  author: "Mark Greaney"
+  published: "2016"
+  format: "Kindle"
+  pages: "750"
+  asin: "B01CZCW4XG"
+  started: "December 28, 2023"
+  finished: "January 5, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I picked up a Tom Clancy book in the Stockholm Central train station a couple months ago and it made me remember how fun these can be. So I rewound in the series by about a decade and picked up at Book 10 in the run. I have been spending a lot of time wading through some complex, but interesting, challenges at the office - all good problems, but the kinds of things that leave me beat at the end of the day and ready to jump into a novel about spies and special forces for 30 minutes before I fall asleep.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*True Faith and Allegiance*|
-|**Author**|Mark Greaney|
-|**Year Published**|2016|
-|**Format**|Kindle|
-|**Pages**|750|
-|**ASIN**|B01CZCW4XG|
 
 ### Publisher Summary
 
@@ -47,13 +38,6 @@ In the international arrivals section of Tehran’s Imam Khomeini airport, a Can
 As more deadly events involving American military and intelligence personnel follow, all over the globe, it becomes clear that there has been some kind of massive information breach and that a wide array of America’s most dangerous enemies have made a weapon of the stolen data. With U.S. intelligence agencies potentially compromised, it’s up to John Clark and the rest of The Campus to track the leak to its source.
 
 Their investigation uncovers an unholy threat that has wormed its way into the heart of our nation. A danger that has set a clock ticking and can be stopped by only one man...President Jack Ryan.
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|December 28, 2023|
-|**Date Finished**|January 5, 2024|
-|**Places Read**|Lisbon, Sintra|
 
 ## Notes - No Spoilers
 * I always appreciate Easter eggs in the Tom Clancy universe - this month's book saw a call out to Olivia/Sally and the Irish Republican terrorism events.

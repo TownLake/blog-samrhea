@@ -9,38 +9,23 @@ tags:
   - "reading"
   - "books"
 description: "A slower burn, oddly heavier, rom com book."
-book: "Beach Read"
-Author: "Emily Henry"
-Year Published: "2017"
-Format: "Paperback"
-Pages: 368
-ISBN: "978-0-241-98952-4"
-DateStart: "April 24, 2023"
-DateFinish: "May 13, 2023"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Beach Read"
+  author: "Emily Henry"
+  published: "2017"
+  format: "Paperback"
+  pages: "368"
+  isbn: "978-0-241-98952-4"
+  started: "April 24, 2023"
+  finished: "May 13, 2023"
+  places:
+    - "Sintra"
+    - "Lisbon"
+---
 
 ## Why did I read it?
 At my wife's suggestion, I read the Emily Henry novel *Book Lovers* [last month](https://blog.samrhea.com/posts/2023/book-lovers). I loved it. I sincerely enjoy rom com films and, like [my recent audiobook tour](https://blog.samrhea.com/posts/2023/thrawn) back through *Thrawn*, I forgot how much I enjoy reading fiction after spending the last few years consuming exclusively business books or historical non-fiction because I thought that was what I was supposed to be doing at this stage in my life. Glad I was wrong.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Beach Read*|
-|**Author**|Emily Henry|
-|**Year Published**|2017|
-|**Format**|Paperback|
-|**Pages**|368|
-|**ISBN**|978-0-241-98952-4|
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|April 24, 2023|
-|**Date Finished**|May 13, 2023|
-|**Places Read**|Sintra<br>Lisbon|
 
 ## Notes - No Spoilers
 * This was a lot darker than *Book Lovers* - *Book Lovers* felt like a sophisticated take on a Hallmark movie that avoided some of the saccharine trappings, played with the cliches, and still kept the heart and positivity. The cults, affairs, and gloominess felt jarring. I have now read two Emily Henry novels, so I can't say which feels more normal. I enjoyed *Book Lovers* more.

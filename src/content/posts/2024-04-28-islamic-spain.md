@@ -10,36 +10,25 @@ tags:
   - "books"
 description: "We don't appreciate how grand this was."
 
-book: "A History of Islamic Spain"
-Author: "W. Montgomery Watt and Pierre Cachia"
-Year Published: "2017"
-Format: "Kindle"
-Pages: 183
-ASIN: "B074VCQ3WK"
-DateStart: "April 23, 2024"
-DateFinish: "April 28, 2024"
+book:
+  title: "A History of Islamic Spain"
+  author: "W. Montgomery Watt and Pierre Cachia"
+  published: "2017"
+  format: "Kindle"
+  pages: "183"
+  asin: "B074VCQ3WK"
+  started: "April 23, 2024"
+  finished: "April 28, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
 ---
-
-> ## Not a Book Report
-
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 
 I live surrounded by Catholic churches on the Iberian Peninsula about a ten minute walk from a neighborhood with an Arabic name. Lisbon was part of an Islamic empire and then kingdom for centuries. The narrative here tends to treat that like a brief setback - a time when the Portuguese lost what was theirs and then took it back.
 
 If you read anything about the time period you'll appreciate that this story is not accurate. The communities here mingled, exchanged, and converted (first one direction, then another, and sometimes back again). I saw a tweet by Paul Graham that he was reading this book and I picked it up given my interest in the history of where I live.
-
-## What is it?
-
-|Category|Value|
-|---|---|
-|**Title**|*A History of Islamic Spain*|
-|**Author**|W. Montgomery Watt and Pierre Cachia|
-|**Year Published**|2017|
-|**Format**|Kindle|
-|**Pages**|183|
-|**ASIN**|B074VCQ3WK|
 
 ### Publisher Summary
 
@@ -48,14 +37,6 @@ The period of Muslim occupation in Spain represents the only significant contact
 Medieval Christianity, Watt points out, found models of scholarship in the Islamic philosophers and adapted the idea of holy war to its own purposes while the final reunification of Spain under the aegis of the Reconquista played a significant role in bringing Europe out of the Middle Ages. A survey essential to anyone seeking a more complete knowledge of European or Islamic history, the volume also includes sections on literature and philology by Pierre Cachia. This series of Islamic surveys is designed to give the educated reader something more than can be found in the usual popular books.
 
 Each work undertakes to survey a special part of the field, and to show the present stage of scholarship here. Where there is a clear picture this will be given; but where there are gaps, obscurities and differences of opinion, these will also be indicated. Full and annotated bibliographies will afford guidance to those who want to pursue their studies further. There will also be some account of the nature and extent of the source material. The series is addressed in the first place to the educated reader, with little or no previous knowledge of the subject; its character is such that it should be of value also to
-
-## How did I read it?
-
-|Category|Value|
-|---|---|
-|**Date Started**|April 23, 2024|
-|**Date Finished**|April 28, 2024|
-|**Places Read**|Lisbon, Sintra|
 
 ## Notes - No Spoilers
 

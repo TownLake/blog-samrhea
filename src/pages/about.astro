@@ -1,31 +1,22 @@
 ---
+import TimelineItem from '../components/TimelineItem.astro';
 import Layout from '../layouts/Layout.astro';
-import careerData from '../data/career.json';
-import patentsData from '../data/patents.json';
-import educationData from '../data/education.json';
+import career from '../data/career.json';
+import education from '../data/education.json';
+import patents from '../data/patents.json';
 
-export const prerender = true;
+const linkClass = 'text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150';
+const sectionHeading = 'text-xs font-mono text-midnight-500 uppercase tracking-widest';
 
-const getBrandColor = (name: string) => {
-    if (name.includes('Cloudflare')) return 'text-accent-orange';
-    if (name.includes('DevFactory')) return 'text-accent-red';
-    if (name.includes('Ginor') || name.includes('Becker')) return 'text-accent-blue-muted';
-    if (name.includes('University of Texas')) return 'text-[#BF5700]';
-    if (name.includes('NOVA')) return 'text-[#00A5E0]';
-    return 'text-white';
-};
-
-const getTimelineColor = (name: string) => {
-    if (name.includes('Cloudflare')) return 'bg-accent-orange';
-    if (name.includes('DevFactory')) return 'bg-accent-red';
-    if (name.includes('Ginor') || name.includes('Becker')) return 'bg-accent-blue-muted';
-    return 'bg-midnight-800';
-};
+const schools = [
+    { heading: 'Teaching', entries: education.filter((s) => s.teaching) },
+    { heading: 'Studying', entries: education.filter((s) => !s.teaching) },
+];
 ---
 
 <Layout title="About — Sam Rhea">
     <div class="space-y-16">
-        
+
         <section class="space-y-4">
             <p class="text-base text-midnight-200 leading-relaxed">
                 Hi there. My name is Sam. I am a Texan living in Lisbon. I work at Cloudflare.
@@ -36,109 +27,74 @@ const getTimelineColor = (name: string) => {
         </section>
 
         <section>
-            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-8">At Work</h2>
-            
+            <h2 class:list={[sectionHeading, 'mb-8']}>At Work</h2>
             <div class="relative">
-                {/* Vertical Timeline Line */}
                 <div class="absolute left-[11px] top-0 bottom-0 w-px bg-midnight-800"></div>
-
-                <div class="space-y-12"> 
-                    {careerData.map((job, jobIndex) => {
-                        const isSingleRole = job.roles.length === 1;
-                        const timelineColor = getTimelineColor(job.name);
-                        const isLast = jobIndex === careerData.length - 1;
-                        
-                        return (
-                            <div class="relative pl-12">
-                                {/* Company-specific timeline segment */}
-                                <div class={`absolute left-[11px] top-0 ${isLast ? 'bottom-0' : 'bottom-0'} w-px ${timelineColor} opacity-60`}></div>
-
-                                {/* Timeline Dot/Logo */}
-                                <div class="absolute left-0 top-0 bg-midnight-950 pb-4">
-                                    {job.logo ? (
-                                        <img src={job.logo} alt={job.name} class="w-6 h-6 object-contain rounded-sm bg-midnight-900/50" />
-                                    ) : (
-                                        <div class="w-6 h-6 bg-midnight-800 rounded-sm"></div>
-                                    )}
-                                </div>
-
-                                {/* Company Header */}
-                                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-6 relative z-10">
-                                    <h3 class={`text-base font-medium ${getBrandColor(job.name)}`}>{job.name}</h3>
-                                    <span class="text-sm font-mono text-midnight-500 tabular-nums">{job.period}</span>
-                                </div>
-
-                                <div class="space-y-10 relative z-10">
-                                    {job.roles.map((role) => (
-                                        <div>
-                                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-3">
-                                                <h4 class="text-sm font-medium text-midnight-200">{role.title}</h4>
-                                                {/* Only show role date if there are multiple roles to distinguish timeline */}
-                                                {!isSingleRole && (
-                                                    <span class="text-xs text-midnight-500 font-mono tabular-nums">{role.period}</span>
-                                                )}
-                                            </div>
-                                            
-                                            <div class="text-sm text-midnight-400 leading-relaxed">
-                                                {role.achievements.map((achievement, index) => {
-                                                    // Helper to render content with links
-                                                    const content = Array.isArray(achievement) ? (
-                                                        <span>
-                                                            {achievement.map(part => 
-                                                                typeof part === 'string' ? part : 
-                                                                <a href={part.link} 
-                                                                   target="_blank" 
-                                                                   rel="noopener noreferrer"
-                                                                   class="text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150">
-                                                                   {part.text}
-                                                                </a>
-                                                            )}
-                                                        </span>
-                                                    ) : achievement;
-
-                                                    // First item is a paragraph (no dash), others are list items (with dash)
-                                                    if (index === 0) {
-                                                        return <div class="mb-3">{content}</div>;
-                                                    }
-
-                                                    return (
-                                                        <div class="flex gap-3 items-baseline mb-2">
-                                                            <span class="flex-shrink-0 text-midnight-500 select-none">–</span>
-                                                            <span>{content}</span>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
+                <div class="space-y-12">
+                    {career.map((job) => (
+                        <TimelineItem name={job.name} period={job.period} color={job.color} logo={job.logo} spacious>
+                            <div class="space-y-10 relative z-10">
+                                {job.roles.map((role) => (
+                                    <div>
+                                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-3">
+                                            <h4 class="text-sm font-medium text-midnight-200">{role.title}</h4>
+                                            {job.roles.length > 1 && (
+                                                <span class="text-xs text-midnight-500 font-mono tabular-nums">{role.period}</span>
+                                            )}
                                         </div>
-                                    ))}
-                                </div>
+                                        <div class="text-sm text-midnight-400 leading-relaxed">
+                                            {role.achievements.map((achievement, index) => {
+                                                // An achievement is plain text or a list of text and link parts.
+                                                const content = Array.isArray(achievement) ? (
+                                                    <span>
+                                                        {achievement.map((part) =>
+                                                            typeof part === 'string' ? part : (
+                                                                <a href={part.link} target="_blank" rel="noopener noreferrer" class={linkClass}>{part.text}</a>
+                                                            ),
+                                                        )}
+                                                    </span>
+                                                ) : achievement;
+
+                                                // The first achievement is a summary; the rest are a dashed list.
+                                                return index === 0 ? (
+                                                    <div class="mb-3">{content}</div>
+                                                ) : (
+                                                    <div class="flex gap-3 items-baseline mb-2">
+                                                        <span class="shrink-0 text-midnight-500 select-none">–</span>
+                                                        <span>{content}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        );
-                    })}
+                        </TimelineItem>
+                    ))}
                 </div>
             </div>
         </section>
 
         <section>
-            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-6">Patents</h2>
-            {patentsData.map((patent) => (
+            <h2 class:list={[sectionHeading, 'mb-6']}>Patents</h2>
+            {patents.map((patent) => (
                 <div class="-mx-4 px-4 py-3 rounded-lg hover:bg-midnight-900/40 transition-colors duration-150">
                     <a href={patent.link} target="_blank" rel="noopener noreferrer" class="group">
                         <div class="flex items-center gap-2 mb-1.5">
                             <h3 class="text-sm text-midnight-200 font-medium group-hover:text-white transition-colors duration-150">{patent.title}</h3>
-                            <svg class="w-3.5 h-3.5 text-midnight-600 group-hover:text-midnight-400 flex-shrink-0 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-3.5 h-3.5 text-midnight-500 group-hover:text-midnight-300 shrink-0 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                         </div>
-                        <div class="flex items-center gap-2 text-xs font-mono text-midnight-600 mb-2">
+                        <div class="flex items-center gap-2 text-xs font-mono text-midnight-500 mb-2">
                             <span>{patent.patentNumber}</span>
-                            <span class="text-midnight-700">·</span>
+                            <span aria-hidden="true">·</span>
                             <span>{patent.issueDate}</span>
                         </div>
                     </a>
                     <p class="text-sm text-midnight-400 leading-relaxed mb-2">{patent.summary}</p>
                     <details class="group/details">
-                        <summary class="text-xs text-midnight-600 hover:text-midnight-400 cursor-pointer transition-colors duration-150 select-none">
+                        <summary class="text-xs text-midnight-500 hover:text-midnight-300 cursor-pointer transition-colors duration-150 select-none">
                             <span class="group-open/details:hidden">Show full abstract</span>
                             <span class="hidden group-open/details:inline">Hide abstract</span>
                         </summary>
@@ -148,113 +104,48 @@ const getTimelineColor = (name: string) => {
             ))}
         </section>
 
-        <section>
-            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-8">Teaching</h2>
-            <div class="relative">
-                {/* Vertical Timeline Line */}
-                <div class="absolute left-[11px] top-0 bottom-0 w-px bg-midnight-800"></div>
+        {schools.map(({ heading, entries }) => (
+            <section>
+                <h2 class:list={[sectionHeading, 'mb-8']}>{heading}</h2>
+                <div class="relative">
+                    <div class="absolute left-[11px] top-0 bottom-0 w-px bg-midnight-800"></div>
+                    <div class="space-y-10">
+                        {entries.map((school) => (
+                            <TimelineItem name={school.name} period={school.period} color={school.color} logo={school.logo}>
+                                {school.roles.map((role) => (
+                                    <div class="mb-4">
+                                        <p class="text-sm text-midnight-200">{role.title}</p>
+                                        {role.achievements[0] && (
+                                            <p class="text-sm text-midnight-500 mt-0.5">{role.achievements[0]}</p>
+                                        )}
+                                    </div>
+                                ))}
 
-                <div class="space-y-10">
-                    {educationData.filter(school => school.name.includes('NOVA')).map((school) => (
-                        <div class="relative pl-12">
-                            {/* Timeline accent */}
-                            <div class="absolute left-[11px] top-0 bottom-0 w-px bg-[#00A5E0] opacity-60"></div>
-
-                            {/* Timeline Logo */}
-                            <div class="absolute left-0 top-0 bg-midnight-950 pb-4">
-                                <img src={school.logo} alt={school.name} class="w-6 h-6 object-contain rounded-sm bg-midnight-900/50" />
-                            </div>
-
-                            {/* School Header */}
-                            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
-                                <h3 class={`text-base font-medium ${getBrandColor(school.name)}`}>{school.name}</h3>
-                                <span class="text-sm font-mono text-midnight-500 tabular-nums">{school.period}</span>
-                            </div>
-
-                            {school.roles.map(role => (
-                                <p class="text-sm text-midnight-200 mb-4">{role.title}</p>
-                            ))}
-
-                            {school.sections && school.sections.length > 0 && (
-                                <div class="space-y-5">
-                                    {school.sections.map(sec => (
-                                        <div>
-                                            <h4 class="text-xs font-medium text-midnight-400 uppercase tracking-wider mb-2 border-l-2 border-midnight-700 pl-3">{sec.title}</h4>
-                                            <ul class="space-y-1.5 pl-3">
-                                                {sec.items.map((item) => (
-                                                    <li class="text-sm text-midnight-400">
-                                                        {typeof item === 'string'
-                                                            ? <span>{item}</span>
-                                                            : <a href={item.link} target="_blank" rel="noopener noreferrer" class="text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150">{item.text}</a>
-                                                        }
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                                {school.sections.length > 0 && (
+                                    <div class="space-y-5">
+                                        {school.sections.map((section) => (
+                                            <div>
+                                                <h4 class="text-xs font-medium text-midnight-400 uppercase tracking-wider mb-2 border-l-2 border-midnight-700 pl-3">{section.title}</h4>
+                                                <ul class="space-y-1.5 pl-3">
+                                                    {section.items.map((item) => (
+                                                        <li class="text-sm text-midnight-400">
+                                                            {typeof item === 'string' ? (
+                                                                <span>{item}</span>
+                                                            ) : (
+                                                                <a href={item.link} target="_blank" rel="noopener noreferrer" class={linkClass}>{item.text}</a>
+                                                            )}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </TimelineItem>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-xs font-mono text-midnight-500 uppercase tracking-widest mb-8">Studying</h2>
-            <div class="relative">
-                {/* Vertical Timeline Line */}
-                <div class="absolute left-[11px] top-0 bottom-0 w-px bg-midnight-800"></div>
-
-                <div class="space-y-10">
-                    {educationData.filter(school => !school.name.includes('NOVA')).map((school) => (
-                        <div class="relative pl-12">
-                            {/* Timeline accent - UT burnt orange */}
-                            <div class="absolute left-[11px] top-0 bottom-0 w-px bg-[#BF5700] opacity-60"></div>
-
-                            {/* Timeline Logo */}
-                            <div class="absolute left-0 top-0 bg-midnight-950 pb-4">
-                                <img src={school.logo} alt={school.name} class="w-6 h-6 object-contain rounded-sm bg-midnight-900/50" />
-                            </div>
-
-                            {/* School Header */}
-                            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
-                                <h3 class={`text-base font-medium ${getBrandColor(school.name)}`}>{school.name}</h3>
-                                <span class="text-sm font-mono text-midnight-500 tabular-nums">{school.period}</span>
-                            </div>
-
-                            {school.roles.map(role => (
-                                <div class="mb-4">
-                                    <p class="text-sm text-midnight-200">{role.title}</p>
-                                    {role.achievements[0] && (
-                                        <p class="text-sm text-midnight-500 mt-0.5">{role.achievements[0]}</p>
-                                    )}
-                                </div>
-                            ))}
-
-                            {school.sections && school.sections.length > 0 && (
-                                <div class="space-y-5">
-                                    {school.sections.map(sec => (
-                                        <div>
-                                            <h4 class="text-xs font-medium text-midnight-400 uppercase tracking-wider mb-2 border-l-2 border-midnight-700 pl-3">{sec.title}</h4>
-                                            <ul class="space-y-1.5 pl-3">
-                                                {sec.items.map((item) => (
-                                                    <li class="text-sm text-midnight-400">
-                                                        {typeof item === 'string'
-                                                            ? <span>{item}</span>
-                                                            : <a href={item.link} target="_blank" rel="noopener noreferrer" class="text-accent-blue underline underline-offset-2 hover:text-white transition-colors duration-150">{item.text}</a>
-                                                        }
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
+            </section>
+        ))}
     </div>
 </Layout>

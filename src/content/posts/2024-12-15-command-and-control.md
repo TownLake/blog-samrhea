@@ -10,31 +10,22 @@ tags:
   - "books"
 description: "Jack Ryan Book 23 - not to be confused with Chain of Command"
 
-book: "Command and Control"
-Author: "Marc Cameron"
-Year Published: "2022"
-Format: "Kindle"
-Pages: 430
-ASIN: "B09TNPLSV6"
-DateStart: "November 26, 2024"
-DateFinish: "December 15, 2024"
+book:
+  title: "Command and Control"
+  author: "Marc Cameron"
+  published: "2023"
+  format: "Kindle"
+  pages: "462"
+  asin: "B0BVTRPBHB"
+  started: "November 26, 2024"
+  finished: "December 15, 2024"
+  places:
+    - "Lisbon"
+    - "Sintra"
 ---
-
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
 
 ## Why did I read it?
 I am continuing with my quest to read nearly everything in the Tom Clancy Jack Ryan universe. This is the latest. And I am tired. I am not up for something more lofty. Just give me this.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Command and Control*|
-|**Author**|Marc Cameron|
-|**Year Published**|2023|
-|**Format**|Kindle|
-|**Pages**|462|
-|**ASIN**|B0BVTRPBHB|
 
 ### Publisher Summary
 
@@ -47,13 +38,6 @@ So when Panamanian President Rafael Botero asks for a show of support against th
 President Ryan and his Secret Service team are cut off and out of communication. In Washington, the Vice President is coordinating a military response, but there's still one more obstacle.
 
 One of the main forces behind the coup is the ruthless criminal organization known as the Camarilla. They’ve had their tentacles deep inside the plot to overthrow the government. All of their hard work has just presented them with an unexpected opportunity they can’t resist—the chance to kill President Jack Ryan.
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|November 26, 2024|
-|**Date Finished**|December 15, 2024|
-|**Places Read**|Lisbon, Sintra|
 
 ## Notes - No Spoilers
 * Always happy to have an Adam Yao sighting even when it makes no sense. Like this. The CIA agent who speaks Chines, who operated without a cover in Hong Kong, who helped track down submarine technology in China - is now leading hit squads in Latin America? Okay sure.

@@ -9,38 +9,25 @@ tags:
   - "reading"
   - "books"
 description: "A return to falling in love in book stores."
-book: Book Lovers
-Author: Emily Henry
-Year Published: 2022
-Format: Paperback
-Pages: 373
-ISBN: 978-0-241-99534-1
-DateStart: March 14, 2023
-DateFinish: March 27, 2023
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Book Lovers"
+  author: "Emily Henry"
+  published: "2022"
+  format: "Paperback"
+  pages: "373"
+  isbn: "978-0-241-99534-1"
+  started: "March 14, 2023"
+  finished: "March 27, 2023"
+  places:
+    - "Sydney"
+    - "Emirates flights"
+    - "Lisbon"
+    - "Sintra"
+---
 
 ## Why did I read it?
 My wife has been speed-reading Emily Henry books in the last few weeks and she let me steal this one. I get it - these books are a blast and they play with some tropes of the genre while still being flirty. Helps that our first date was in a book store and that I adore rom-coms.
-
-## What is it?
-|Category|Value|
-|---|---|
-|Title|*Book Lovers*|
-|Author|Emily Henry|
-|Year Published|2022|
-|Format|Paperback|
-|Pages|373|
-|ISBN|978-0-241-99534-1|
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|Date Started|March 14, 2023|
-|Date Finished|March 27, 2023|
-|Places Read|Sydney<br>Emirates flights<br>Lisbon<br>Sintra|
 
 ## Notes - No Spoilers
 * The mental image of Charlie Lastra that I carried in my head was the character Trent Crimm from *Ted Lasso*, British accent and all. I don't know why.

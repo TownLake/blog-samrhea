@@ -9,38 +9,22 @@ tags:
   - "reading"
   - "books"
 description: "More Clancy, more cool missions."
-book: "Dead or Alive"
-Author: "Tom Clancy and Grant Blackwood"
-Year Published: "2011"
-Format: "Kindle"
-Pages: 701
-ISBN: "0425263533"
-DateStart: "July 10, 2023"
-DateFinish: "August 11, 2023"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "Dead or Alive"
+  author: "Tom Clancy and Grant Blackwood"
+  published: "2011"
+  format: "Kindle"
+  pages: "701"
+  isbn: "0425263533"
+  started: "July 10, 2023"
+  finished: "August 11, 2023"
+  places:
+    - "Sintra"
+---
 
 ## Why did I read it?
 I picked up a Tom Clancy book in the Stockholm Central train station a couple months ago and it made me remember how fun these can be. So I rewound in the series by about a decade and picked up at Book 10 in the run. I have been spending a lot of time wading through some complex, but interesting, challenges at the office - all good problems, but the kinds of things that leave me beat at the end of the day and ready to jump into a novel about spies and special forces for 30 minutes before I fall asleep.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*Dead or Alive*|
-|**Author**|Tom Clancy and Grant Blackwood|
-|**Year Published**|2011|
-|**Format**|Kindle|
-|**Pages**|701|
-|**ISBN**|0425263533|
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|July 10, 2023|
-|**Date Finished**|August 11, 2023|
-|**Places Read**|Sintra|
 
 ## Notes - No Spoilers
 * This thing is a real product of the Obama era - and not in the best way. The thinly veiled criticisms of the in-universe President who replaced Jack Ryan Sr, specifically the complaints from the intelligence community, feel forced in an otherwise fun read.

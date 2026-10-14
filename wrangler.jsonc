@@ -1,16 +1,10 @@
 {
+	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "blog",
-  "compatibility_date": "2025-11-21",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
-	"main": "dist/_worker.js/index.js",
+	"compatibility_date": "2026-10-01",
+	// A fully static site: no Worker code runs, Cloudflare serves the built files directly.
 	"assets": {
 		"directory": "./dist",
-		"binding": "ASSETS"
-	},
-	"observability": {
-    "enabled": true
-  }
+		"not_found_handling": "404-page"
+	}
 }

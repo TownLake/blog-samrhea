@@ -9,18 +9,20 @@ tags:
   - "reading"
   - "books"
 description: "The prequel and the sequel to my first spy novel."
-book: "A Legacy of Spies"
-Author: "John le Carré"
-Year Published: "2017"
-Format: "Paperback"
-Pages: 353
-ISBN: "978-0-241-98161-0"
-DateStart: "April 24, 2023"
-DateFinish: "June 23, 2023"
----
 
-> ## Not a Book Report
-> I enjoy [reflecting](https://blog.samrhea.com/posts/2019/analyze-media-habits) on the movies, TV, books and other media that I consume. I'm notoriously sentimental. This [series](https://blog.samrhea.com/category/reading) documents the books that I read. These aren't reviews or recommendations. Just a list. For me. Mostly so that I can page through what I read, where I was, and when.
+book:
+  title: "The Spy Who Came in from the Cold"
+  author: "John le Carré"
+  published: "2017"
+  format: "Paperback"
+  pages: "353"
+  isbn: "978-0-241-98161-0"
+  started: "June 10, 2023"
+  finished: "June 24, 2023"
+  places:
+    - "Sintra"
+    - "Lisbon"
+---
 
 ## Why did I read it?
 Austin, Texas is home to an independent bookstore, Book People, that sits near downtown next to a former Whole Foods location back when that Amazon-owned grocery chain was just a local grocery store. Growing up, at all ages, I would drop in to visit to find my next book before online reviews or Amazon became popular.
@@ -30,23 +32,6 @@ The spy thriller section lived next to a small cafe on the first floor. When I w
 Moving to Portugal shifted my book buying habits back to that browsing experience, except now it is something of a treasure hunt. Online delivery here is stuck in the 90s and anything you want to buy is most likely going to arrive in 2-3 weeks from German Amazon with some surprise fees. Instead, I try to find English-language books in the "International" section of FNAC.
 
 A couple of weeks ago I was shopping at the FNAC inside of Cascais Shopping and found *A Legacy of Spies*, the prequel **and** sequel to *The Spy Who Came in from the Cold*. It took two Saturdays to read.
-
-## What is it?
-|Category|Value|
-|---|---|
-|**Title**|*The Spy Who Came in from the Cold*|
-|**Author**|John le Carré|
-|**Year Published**|2017|
-|**Format**|Paperback|
-|**Pages**|353|
-|**ISBN**|978-0-241-98161-0|
-
-## How did I read it?
-|Category|Value|
-|---|---|
-|**Date Started**|June 10, 2023|
-|**Date Finished**|June 24, 2023|
-|**Places Read**|Sintra<br>Lisbon|
 
 ## Notes - No Spoilers
 * I forgot that I was once in love with Liz Gold.
