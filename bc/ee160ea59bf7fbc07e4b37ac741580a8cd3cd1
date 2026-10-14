@@ -1,0 +1,349 @@
+agents.md
+  s_9a258af2b46fb1::t_0b058d1d49dce4 34,45,76,116-119,167-168,183-200,209
+src/art/compose.ts
+  s_9a258af2b46fb1::t_fe072b5f73f777 1-287
+src/art/mesh.ts
+  s_9a258af2b46fb1::t_cb2b66ad9c796a 1-331
+src/art/models/creatures.ts
+  s_9a258af2b46fb1::t_b89c6ea2b7d722 1-429
+src/art/models/index.ts
+  s_9a258af2b46fb1::t_c238232bc41f70 1-25
+src/art/models/landmarks.ts
+  s_9a258af2b46fb1::t_7aa1fda54b678c 1-470
+src/art/models/objects.ts
+  s_9a258af2b46fb1::t_9f2760a197c347 1-491
+src/art/models/symbols.ts
+  s_9a258af2b46fb1::t_b735b7bf6a67a5 1-429
+src/art/models/things.ts
+  s_9a258af2b46fb1::t_3033ed66dbcdbe 1-347
+src/art/models/vehicles.ts
+  s_9a258af2b46fb1::t_bdc08c86ecddd2 1-442
+src/art/render.ts
+  s_9a258af2b46fb1::t_6d249a33f42e5c 1-284
+src/components/PostCard.astro
+  s_9a258af2b46fb1::t_82ecc925a37f6f 9,20
+src/content.config.ts
+  s_9a258af2b46fb1::t_9e7767c189d552 4,26-47,58
+src/content/posts/2019-04-07-analyze-media-habits.md
+  s_9a258af2b46fb1::t_5c7fc666b846ed 12-14
+src/content/posts/2019-06-20-signal-traffic-noise.md
+  s_9a258af2b46fb1::t_f6fd72a36cc0f1 12-15
+src/content/posts/2019-07-20-sidecar-cloudflared.md
+  s_9a258af2b46fb1::t_1bf4054d33b1ae 14-16
+src/content/posts/2019-09-02-switching-country-phones.md
+  s_9a258af2b46fb1::t_b1bca3aaa937f0 13-15
+src/content/posts/2019-10-01-porting-blog-to-workers-sites.md
+  s_9a258af2b46fb1::t_6f5f4a384d31dc 13-15
+src/content/posts/2019-10-08-workers-deploy-pipeline.md
+  s_9a258af2b46fb1::t_feb76b209508ad 12-15
+src/content/posts/2019-11-24-euro-office-time.md
+  s_9a258af2b46fb1::t_8ad280a12b15ca 13-15
+src/content/posts/2019-12-01-serverless-cms.md
+  s_9a258af2b46fb1::t_c75b9a4968cf2b 13-15
+src/content/posts/2019-12-14-workers-github-deploy.md
+  s_9a258af2b46fb1::t_79bdd171016aa5 14-17
+src/content/posts/2019-12-28-multibanco-setup.md
+  s_9a258af2b46fb1::t_5953c902261a69 12-14
+src/content/posts/2020-01-18-ios-photo-sharing.md
+  s_9a258af2b46fb1::t_36621b291b6aed 13-15
+src/content/posts/2020-01-26-calcheck-and-meeting-note-accountability.md
+  s_9a258af2b46fb1::t_866d692a467ba1 12-14
+src/content/posts/2020-02-01-siri-keyboard.md
+  s_9a258af2b46fb1::t_b360a8822fa0b8 12-14
+src/content/posts/2020-02-08-dimestore-cowboy.md
+  s_9a258af2b46fb1::t_6a205669cd2c5f 12-15
+src/content/posts/2020-02-16-iphone-mtls-key.md
+  s_9a258af2b46fb1::t_11f8ae79404a5c 14-16
+src/content/posts/2020-02-21-dog-parties-in-portugal.md
+  s_9a258af2b46fb1::t_c66d67d1af5c69 12-16
+src/content/posts/2020-03-01-adfree-video-archive.md
+  s_9a258af2b46fb1::t_500ea9bf0cb3d1 12-14
+src/content/posts/2020-03-21-share-demos.md
+  s_9a258af2b46fb1::t_ed913cc390d5a9 13-15
+src/content/posts/2020-03-28-migrate-blog-to-workers.md
+  s_9a258af2b46fb1::t_09e32ac9928a5f 14-16
+src/content/posts/2020-04-05-zero-trust-gitlab.md
+  s_9a258af2b46fb1::t_ae9d694996a416 12-14
+src/content/posts/2020-05-15-mistakes-i-try-to-never-make-again.md
+  s_9a258af2b46fb1::t_6c2bfbf5327177 11-13
+src/content/posts/2020-06-21-cloudflare-api-github-actions-config.md
+  s_9a258af2b46fb1::t_1adddc8aa42721 13-15
+src/content/posts/2020-06-28-zero-trust-vs-code.md
+  s_9a258af2b46fb1::t_7acab0c79b92bb 13-16
+src/content/posts/2020-08-18-one-year-lisbon.md
+  s_9a258af2b46fb1::t_446532fdbd9a70 12-14
+src/content/posts/2020-08-22-a-trip-back-to-boys-state.md
+  s_9a258af2b46fb1::t_6182896952b1d8 12-15
+src/content/posts/2021-07-17-zero-trust-samba.md
+  s_9a258af2b46fb1::t_15b098c12e4da1 12-14
+src/content/posts/2021-08-29-zero-trust-mac-browser.md
+  s_9a258af2b46fb1::t_14be8661ecb55c 12-14
+src/content/posts/2021-12-28-foreign-license-exchange.md
+  s_9a258af2b46fb1::t_dee498cff44cda 12-16
+src/content/posts/2022-03-20-a-serra-and-new-friends.md
+  s_9a258af2b46fb1::t_d7b399eff30ee2 12-16
+src/content/posts/2022-10-15-fixing-the-french-internet.md
+  s_9a258af2b46fb1::t_4217a223fb04b3 12-15
+src/content/posts/2022-12-17-five-minute-ai-site.md
+  s_9a258af2b46fb1::t_f05486f0176fd5 14-16
+src/content/posts/2022-12-26-twitter-vs-linkedin.md
+  s_9a258af2b46fb1::t_c0b937910796bb 13-16
+src/content/posts/2023-01-02-hey-siri-purge.md
+  s_9a258af2b46fb1::t_dee22539806c1a 15-17
+src/content/posts/2023-02-19-siri-dns-filtering.md
+  s_9a258af2b46fb1::t_58227e82dfbc4c 12-14
+src/content/posts/2023-03-28-book-lovers.md
+  s_9a258af2b46fb1::t_30b67cb86e1566 27-32
+src/content/posts/2023-03-29-peril.md
+  s_9a258af2b46fb1::t_ebbb5cd05900c4 27-31
+src/content/posts/2023-04-02-habits-q1.md
+  s_9a258af2b46fb1::t_344f524b971c9c 12-14
+src/content/posts/2023-04-08-portugal-true.md
+  s_9a258af2b46fb1::t_3851f7e6400590 11-13
+src/content/posts/2023-04-23-for-profit.md
+  s_9a258af2b46fb1::t_3a29e271ccb9ce 25-29
+src/content/posts/2023-04-27-thrawn.md
+  s_9a258af2b46fb1::t_db94919624f371 27-30
+src/content/posts/2023-05-13-beach-read.md
+  s_9a258af2b46fb1::t_5d84b7d67a78b5 25-28
+src/content/posts/2023-06-23-legacy-of-spies.md
+  s_9a258af2b46fb1::t_71f6d2e287701a 25-29
+src/content/posts/2023-07-05-habits-q2.md
+  s_9a258af2b46fb1::t_8d68a2dff3a21f 12-16
+src/content/posts/2023-07-08-zero-hour.md
+  s_9a258af2b46fb1::t_32a43661c11353 26-30
+src/content/posts/2023-07-10-people-vacation.md
+  s_9a258af2b46fb1::t_2e763a199f7325 26-29
+src/content/posts/2023-07-21-kindle.md
+  s_9a258af2b46fb1::t_06a32ddef42b2e 11-13
+src/content/posts/2023-08-11-dead-or-alive.md
+  s_9a258af2b46fb1::t_2ecedf598e89cf 24-27
+src/content/posts/2023-08-26-benfica.md
+  s_9a258af2b46fb1::t_0f8f1f65c63224 12-14
+src/content/posts/2023-09-10-locked-on.md
+  s_9a258af2b46fb1::t_6df9934429d4d6 28-32
+src/content/posts/2023-09-11-measure-what-matters.md
+  s_9a258af2b46fb1::t_95cc462f3934de 25-28
+src/content/posts/2023-10-07-threat-vector.md
+  s_9a258af2b46fb1::t_97145762717979 27-30
+src/content/posts/2023-10-08-empires-of-the-sea.md
+  s_9a258af2b46fb1::t_c2b9022349ac08 27-30
+src/content/posts/2023-10-20-pt-verbs.md
+  s_9a258af2b46fb1::t_c6a351f73dc94b 12-14
+src/content/posts/2023-10-23-attention.md
+  s_9a258af2b46fb1::t_74a3ef10b63b7f 11-13
+src/content/posts/2023-11-04-doctor-gpt.md
+  s_9a258af2b46fb1::t_a3685e103edb7e 12-15
+src/content/posts/2023-11-05-full-force.md
+  s_9a258af2b46fb1::t_d2fa05a3b20845 26-29
+src/content/posts/2023-12-11-habits-q3.md
+  s_9a258af2b46fb1::t_61a7884e5d9dec 12-16
+src/content/posts/2023-12-21-phone-tool.md
+  s_9a258af2b46fb1::t_6f5915651f8c96 11-13
+src/content/posts/2023-12-27-commander-in-chief.md
+  s_9a258af2b46fb1::t_549a6059c5e69a 26-29
+src/content/posts/2023-12-31-reading-list.md
+  s_9a258af2b46fb1::t_5112bcd2386c1f 12-15
+src/content/posts/2024-01-03-habits-q4.md
+  s_9a258af2b46fb1::t_dd897d57b175f5 13-17
+src/content/posts/2024-01-04-alda-bot.md
+  s_9a258af2b46fb1::t_3418fa424ab02e 14-17
+src/content/posts/2024-01-05-true-faith.md
+  s_9a258af2b46fb1::t_dc6abb20fda7ff 25-29
+src/content/posts/2024-01-15-nebuchadnezzar.md
+  s_9a258af2b46fb1::t_7749e0410b369f 12-15
+src/content/posts/2024-01-22-power-empire.md
+  s_9a258af2b46fb1::t_19c20b55907ec5 24-27
+src/content/posts/2024-01-30-health-data.md
+  s_9a258af2b46fb1::t_f49202bf509529 12-14
+src/content/posts/2024-02-22-altar-to-cradle.md
+  s_9a258af2b46fb1::t_9755df4920ba51 14-16
+src/content/posts/2024-03-02-europe-needs-vegas.md
+  s_9a258af2b46fb1::t_673fae66551028 12-15
+src/content/posts/2024-03-14-naps-and-junk-food.md
+  s_9a258af2b46fb1::t_25b6f8292f76b2 12-14
+src/content/posts/2024-03-15-portuguese-scales.md
+  s_9a258af2b46fb1::t_eb2991113e5cde 12-14
+src/content/posts/2024-04-01-habits-q1.md
+  s_9a258af2b46fb1::t_a2cad01b266c82 13-17
+src/content/posts/2024-04-06-lawrence.md
+  s_9a258af2b46fb1::t_6533de7abf548f 25-28
+src/content/posts/2024-04-08-troubled.md
+  s_9a258af2b46fb1::t_cbfba03fba7323 24-27
+src/content/posts/2024-04-10-netflix-ai-toggles.md
+  s_9a258af2b46fb1::t_1c0dd1465baa5a 12-14
+src/content/posts/2024-04-12-apple-mechanical-watch.md
+  s_9a258af2b46fb1::t_3cd64c0463193c 12-14
+src/content/posts/2024-04-14-phone-hour.md
+  s_9a258af2b46fb1::t_f1df049dc61501 13-15
+src/content/posts/2024-04-16-conquerers.md
+  s_9a258af2b46fb1::t_4c5742d46446d3 24-27
+src/content/posts/2024-04-22-acores.md
+  s_9a258af2b46fb1::t_7c608fa7556027 12-14
+src/content/posts/2024-04-22-copyright.md
+  s_9a258af2b46fb1::t_682580bfe3bca4 25-30
+src/content/posts/2024-04-27-icloud-lock.md
+  s_9a258af2b46fb1::t_b33229297be137 12-14
+src/content/posts/2024-04-28-islamic-spain.md
+  s_9a258af2b46fb1::t_2e18e25a78fc7e 25-28
+src/content/posts/2024-05-04-newborn-sleep.md
+  s_9a258af2b46fb1::t_b14599971089f2 12-15
+src/content/posts/2024-05-20-american-titles.md
+  s_9a258af2b46fb1::t_146bed1bee2cec 12-15
+src/content/posts/2024-06-01-portuguese-healthcare.md
+  s_9a258af2b46fb1::t_44e8f4bbbf656f 13-15
+src/content/posts/2024-06-08-oath-of-office.md
+  s_9a258af2b46fb1::t_f558f5b2b38124 26-29
+src/content/posts/2024-06-09-hail-mary.md
+  s_9a258af2b46fb1::t_13cd1ed6f9e635 24-27
+src/content/posts/2024-06-11-eot-dst.md
+  s_9a258af2b46fb1::t_4d4496b636474e 14-17
+src/content/posts/2024-06-16-code-of-honor.md
+  s_9a258af2b46fb1::t_512b0a20ffc291 26-29
+src/content/posts/2024-06-18-1453.md
+  s_9a258af2b46fb1::t_7fe81c21e6ceec 24-28
+src/content/posts/2024-07-01-habits-q2.md
+  s_9a258af2b46fb1::t_b7360fb78e087c 13-17
+src/content/posts/2024-07-15-texas-visit.md
+  s_9a258af2b46fb1::t_f1ee570c3eee1d 13-16
+src/content/posts/2024-07-18-new-parent-questions.md
+  s_9a258af2b46fb1::t_f9218fa3763002 12-14
+src/content/posts/2024-08-01-pt-daycares.md
+  s_9a258af2b46fb1::t_608b32cba24392 12-14
+src/content/posts/2024-08-08-tone-rewriter.md
+  s_9a258af2b46fb1::t_64c695fa6740ce 12-14
+src/content/posts/2024-08-14-chain-of-command.md
+  s_9a258af2b46fb1::t_c191d51fe49c2f 26-29
+src/content/posts/2024-08-18-mercy-gods.md
+  s_9a258af2b46fb1::t_53669631818e35 26-30
+src/content/posts/2024-08-27-old-mans-war.md
+  s_9a258af2b46fb1::t_28ff48e2e92f89 24-28
+src/content/posts/2024-09-21-workers-ai-watch.md
+  s_9a258af2b46fb1::t_5ff279e5dafd89 15-17
+src/content/posts/2024-10-01-habits-q3.md
+  s_9a258af2b46fb1::t_b69fab06199029 13-17
+src/content/posts/2024-10-03-ghost-brigades.md
+  s_9a258af2b46fb1::t_3e536e797f795a 26-30
+src/content/posts/2024-10-06-plan-a-date.md
+  s_9a258af2b46fb1::t_1c7456bcfa925f 15-18
+src/content/posts/2024-10-24-plan-a-date-data.md
+  s_9a258af2b46fb1::t_ac7108a0078a6c 15-18
+src/content/posts/2024-10-26-nap-writing.md
+  s_9a258af2b46fb1::t_beab92496d5997 11-13
+src/content/posts/2024-11-25-red-winter.md
+  s_9a258af2b46fb1::t_05e8dc3d91fc0a 27-31
+src/content/posts/2024-12-07-lisbon-races.md
+  s_9a258af2b46fb1::t_48744e3d0801dc 12-16
+src/content/posts/2024-12-15-command-and-control.md
+  s_9a258af2b46fb1::t_c52d1bdf145353 25-28
+src/content/posts/2025-01-02-reading-list.md
+  s_9a258af2b46fb1::t_efeeb58cbb78a9 13-16
+src/content/posts/2025-01-10-act-of-defiance.md
+  s_9a258af2b46fb1::t_02516885d4c9dd 25-29
+src/content/posts/2025-01-14-gray-matters.md
+  s_9a258af2b46fb1::t_92dc75f795b715 26-29
+src/content/posts/2025-01-14-lisbon-coffee.md
+  s_9a258af2b46fb1::t_965044d89fbfbe 13-15
+src/content/posts/2025-01-27-defense-protocol.md
+  s_9a258af2b46fb1::t_0f3b354a0c851c 26-29
+src/content/posts/2025-02-10-collapsing-empire.md
+  s_9a258af2b46fb1::t_42f734675f06f8 25-29
+src/content/posts/2025-02-23-ai-search.md
+  s_9a258af2b46fb1::t_42cfb062c3bd1c 14-16
+src/content/posts/2025-02-23-consuming-fire.md
+  s_9a258af2b46fb1::t_0471b35a8dd83c 26-29
+src/content/posts/2025-02-25-last-emperox.md
+  s_9a258af2b46fb1::t_3cb01bf25b1b92 25-28
+src/content/posts/2025-03-03-redshirts.md
+  s_9a258af2b46fb1::t_7b3e5baa9a82e8 25-28
+src/content/posts/2025-03-13-2034-a-novel-of-the-next-world-war.md
+  s_9a258af2b46fb1::t_1b815c3c61fe22 26-30
+src/content/posts/2025-03-26-agent-to-stars.md
+  s_9a258af2b46fb1::t_cdb3e77065fe56 25-29
+src/content/posts/2025-04-08-surprise-rat-poison.md
+  s_9a258af2b46fb1::t_36edfc8e65f96a 13-15
+src/content/posts/2025-04-12-moon-hits-your-eye.md
+  s_9a258af2b46fb1::t_3c4830d27985b1 26-31
+src/content/posts/2025-04-14-starter-villain.md
+  s_9a258af2b46fb1::t_9f149207b65ef8 27-30
+src/content/posts/2025-04-18-kaiju.md
+  s_9a258af2b46fb1::t_5eb75c64e07ccd 25-28
+src/content/posts/2025-04-27-livesuit.md
+  s_9a258af2b46fb1::t_88c87e19f6e54a 26-31
+src/content/posts/2025-06-03-razors-edge.md
+  s_9a258af2b46fb1::t_7a926499e897d4 26-29
+src/content/posts/2025-06-17-sell-us-rope.md
+  s_9a258af2b46fb1::t_6aa7741492a36d 26-29
+src/content/posts/2025-08-22-honor-thieves.md
+  s_9a258af2b46fb1::t_fe35aba72e8030 25-28
+src/content/posts/2025-09-09-sheepdog.md
+  s_9a258af2b46fb1::t_2aca71f7645e57 25-28
+src/content/posts/2025-09-15-moscow-x.md
+  s_9a258af2b46fb1::t_87bbd4c03ee3b0 28-31
+src/content/posts/2025-10-08-rounds.md
+  s_9a258af2b46fb1::t_8ff0e2e936a7ed 12-14
+src/content/posts/2025-10-15-damascus-station.md
+  s_9a258af2b46fb1::t_a82d3944331478 28-31
+src/content/posts/2025-10-20-the-persian.md
+  s_9a258af2b46fb1::t_684a8dd1301ece 25-28
+src/content/posts/2025-12-14-the-seventh-floor.md
+  s_9a258af2b46fb1::t_bc18c9d50c8cd7 25-28
+src/content/posts/2025-12-21-we-are-legion.md
+  s_9a258af2b46fb1::t_4cd51ca85a6f3c 25-28
+src/content/posts/2025-12-24-for-we-are-many.md
+  s_9a258af2b46fb1::t_c991505ccb57b4 24-28
+src/content/posts/2025-12-27-all-these-worlds.md
+  s_9a258af2b46fb1::t_a000978aebe640 24-28
+src/content/posts/2026-01-03-reading-list.md
+  s_9a258af2b46fb1::t_3b608bcd2d06ab 12-15
+src/content/posts/2026-02-01-heavens-river.md
+  s_9a258af2b46fb1::t_58f009429a3d29 26-29
+src/content/posts/2026-02-21-not-till-we-are-lost.md
+  s_9a258af2b46fb1::t_1e31141e233dfa 24-28
+src/content/posts/2026-05-10-faith-of-beasts.md
+  s_9a258af2b46fb1::t_9c545d417d827a 24-28
+src/content/posts/2026-06-20-executive-power.md
+  s_9a258af2b46fb1::t_fbaf8384cb582e 25-30
+src/content/posts/2026-07-19-london-falling.md
+  s_9a258af2b46fb1::t_8006800a4fb390 24-28
+src/content/posts/2026-09-10-rules-of-engagement.md
+  s_9a258af2b46fb1::t_a17488a9fb0dc6 25-30
+src/content/posts/2026-09-25-outland.md
+  s_9a258af2b46fb1::t_f7004baba53938 25-29
+src/content/posts/2026-09-26-earthside.md
+  s_9a258af2b46fb1::t_dff82593c30149 25-28
+src/content/posts/2026-10-06-last-colony.md
+  s_9a258af2b46fb1::t_7c601eaddeb606 26-29
+src/content/posts/2026-10-08-zoes-tale.md
+  s_9a258af2b46fb1::t_30b0da8be0f246 25-29
+src/lib/content.ts
+  s_9a258af2b46fb1::t_fb28915ecc6d24 10-11,32,44,70-72
+src/pages/posts/[...slug].astro
+  s_9a258af2b46fb1::t_0920be61ebe442 6,34,60,115
+src/styles/global.css
+  s_9a258af2b46fb1::t_66d6e1a906638e 195-219
+src/art/index.ts
+  s_9a258af2b46fb1::t_0345266210bf68 1-16
+src/art/png.ts
+  s_9a258af2b46fb1::t_3661e5a821acc0 1-41
+src/components/EmojiTile.astro
+  s_9a258af2b46fb1::t_f42b962a64736c 2,7-8,16,22-23,27-31
+src/pages/art/[...slug].png.ts
+  s_9a258af2b46fb1::t_84047257f0a783 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "bcee160ea59bf7fbc07e4b37ac741580a8cd3cd1",
+  "prompts": {},
+  "sessions": {
+    "s_9a258af2b46fb1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4d4d165f-b685-4f52-87fb-ea7b25c3e54c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Sam Rhea <srhea@cloudflare.com>"
+    }
+  }
+}
